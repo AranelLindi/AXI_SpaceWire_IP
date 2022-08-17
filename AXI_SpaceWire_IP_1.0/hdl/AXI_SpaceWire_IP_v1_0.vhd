@@ -2,6 +2,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+use work.spwpkg.all;
+
 entity AXI_SpaceWire_IP_v1_0 is
 	generic (
 		-- Users to add parameters here
@@ -163,6 +165,56 @@ entity AXI_SpaceWire_IP_v1_0 is
 end AXI_SpaceWire_IP_v1_0;
 
 architecture arch_imp of AXI_SpaceWire_IP_v1_0 is
+    -- SpaceWire Light IP declaration
+    component spwstream is
+        generic (
+        sysfreq:        real;
+        txclkfreq:      real := 0.0;
+        rximpl:         spw_implementation_type := impl_generic;
+        rxchunk:        integer range 1 to 4 := 1;
+        tximpl:         spw_implementation_type := impl_generic;
+        rxfifosize_bits: integer range 6 to 14 := 11;
+        txfifosize_bits: integer range 2 to 14 := 11
+        );
+        port (
+        clk:        in  std_logic;
+        rxclk:      in  std_logic;
+        txclk:      in  std_logic;
+        rst:        in  std_logic;
+        autostart:  in  std_logic;
+        linkstart:  in  std_logic;
+        linkdis:    in  std_logic;
+        txdivcnt:   in  std_logic_vector(7 downto 0);
+        tick_in:    in  std_logic;
+        ctrl_in:    in  std_logic_vector(1 downto 0);
+        time_in:    in  std_logic_vector(5 downto 0);
+        txwrite:    in  std_logic;
+        txflag:     in  std_logic;
+        txdata:     in  std_logic_vector(7 downto 0);
+        txrdy:      out std_logic;
+        txhalff:    out std_logic;
+        tick_out:   out std_logic;
+        ctrl_out:   out std_logic_vector(1 downto 0);
+        time_out:   out std_logic_vector(5 downto 0);
+        rxvalid:    out std_logic;
+        rxhalff:    out std_logic;
+        rxflag:     out std_logic;
+        rxdata:     out std_logic_vector(7 downto 0);
+        rxread:     in  std_logic;
+        started:    out std_logic;
+        connecting: out std_logic;
+        running:    out std_logic;
+        errdisc:    out std_logic;
+        errpar:     out std_logic;
+        erresc:     out std_logic;
+        errcred:    out std_logic;
+        spw_di:     in  std_logic;
+        spw_si:     in  std_logic;
+        spw_do:     out std_logic;
+        spw_so:     out std_logic
+        );
+    end component;
+
 
 	-- component declaration
 	component AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
@@ -472,6 +524,56 @@ AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst : AXI_SpaceWire_IP_v1_0_S02_AXI_REG
 	);
 
 	-- Add user logic here
+
+
+    spwstream_inst : spwstream
+        generic map (
+            sysfreq => sysfreq,
+            txclkfreq => txclkfreq,
+            rximpl => rximpl,
+            rxchunk => rxchunk,
+            tximpl => tximpl,
+            rxfifosize_bits => rxfifosize_bits,
+            txfifosize_bits => txfifosize_bits
+        )
+        port map (
+            clk => clk, -- Top Level IO
+            rxclk => rxclk, -- Top Level IO
+            txclk => txclk, -- Top Level IO
+            rst => rst, -- Top Level IO
+            autostart => s_autostart, -- Register
+            linkstart => s_linkstart, -- Register
+            linkdis => s_linkdis, -- Register
+            txdivcnt => s_txdivcnt, -- Register
+            tick_in => s_tick_in, -- GPIO ?
+            ctrl_in => s_ctrl_in, -- Register
+            time_in => s_time_in, -- Register
+            txwrite => s_txwrite, -- internal
+            txflag => s_txflag, -- internal
+            txdata => s_txdata, -- internal
+            txrdy => s_txrdy, -- internal
+            txhalff => s_txhalff, -- Register
+            tick_out => s_tick_out, -- Interrupt
+            ctrl_out => s_ctrl_out, -- Register
+            time_out => s_time_out, -- Register
+            rxvalid => s_rxvalid, -- internal
+            rxhalff => s_rxhalff, -- Register
+            rxflag => s_rxflag, -- internal
+            rxdata => s_rxdata, -- internal
+            rxread => s_rxread, -- internal
+            started => s_started, -- Register
+            connecting => s_connecting, -- Register
+            running => s_running, -- Register
+            errdisc => s_errdisc, -- Register
+            errpar => s_errpar, -- Register
+            erresc => s_erresc, -- Register
+            errcred => s_errcred, -- Register
+            spw_di => spw_di, -- Top Level IO
+            spw_si => spw_si, -- Top Level IO
+            spw_do => spw_do, -- Top Level IO
+            spw_so => spw_so -- Top Level IO
+        );
+
 
 	-- User logic ends
 

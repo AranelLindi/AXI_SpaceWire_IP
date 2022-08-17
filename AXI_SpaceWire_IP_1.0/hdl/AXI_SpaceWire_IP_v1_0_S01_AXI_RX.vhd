@@ -247,12 +247,9 @@ begin
 	aw_wrap_en <= '1' when (((axi_awaddr AND std_logic_vector(to_unsigned(aw_wrap_size,C_S_AXI_ADDR_WIDTH))) XOR std_logic_vector(to_unsigned(aw_wrap_size,C_S_AXI_ADDR_WIDTH))) = low) else '0';
 	ar_wrap_en <= '1' when (((axi_araddr AND std_logic_vector(to_unsigned(ar_wrap_size,C_S_AXI_ADDR_WIDTH))) XOR std_logic_vector(to_unsigned(ar_wrap_size,C_S_AXI_ADDR_WIDTH))) = low) else '0';
 
+
 	-- Implement axi_awready generation
-
-	-- axi_awready is asserted for one S_AXI_ACLK clock cycle when both
-	-- S_AXI_AWVALID and S_AXI_WVALID are asserted. axi_awready is
-	-- de-asserted when reset is low.
-
+	-- axi_awready is asserted for one S_AXI_ACLK clock cycle when both S_AXI_AWVALID and S_AXI_WVALID are asserted. axi_awready is de-asserted when reset is low.
 	process (S_AXI_ACLK)
 	begin
 	  if rising_edge(S_AXI_ACLK) then 
@@ -273,12 +270,11 @@ begin
 	      end if;
 	    end if;
 	  end if;         
-	end process; 
+	end process;
+	
+	 
 	-- Implement axi_awaddr latching
-
-	-- This process is used to latch the address when both 
-	-- S_AXI_AWVALID and S_AXI_WVALID are valid. 
-
+	-- This process is used to latch the address when both S_AXI_AWVALID and S_AXI_WVALID are valid.
 	process (S_AXI_ACLK)
 	begin
 	  if rising_edge(S_AXI_ACLK) then 
@@ -321,12 +317,10 @@ begin
 	    end if;
 	  end if;
 	end process;
+	
+	
 	-- Implement axi_wready generation
-
-	-- axi_wready is asserted for one S_AXI_ACLK clock cycle when both
-	-- S_AXI_AWVALID and S_AXI_WVALID are asserted. axi_wready is 
-	-- de-asserted when reset is low. 
-
+	-- axi_wready is asserted for one S_AXI_ACLK clock cycle when both S_AXI_AWVALID and S_AXI_WVALID are asserted. axi_wready is de-asserted when reset is low.
 	process (S_AXI_ACLK)
 	begin
 	  if rising_edge(S_AXI_ACLK) then 
@@ -342,14 +336,11 @@ begin
 	      end if;
 	    end if;
 	  end if;         
-	end process; 
+	end process;
+	
+	 
 	-- Implement write response logic generation
-
-	-- The write response and response valid signals are asserted by the slave 
-	-- when axi_wready, S_AXI_WVALID, axi_wready and S_AXI_WVALID are asserted.  
-	-- This marks the acceptance of address and indicates the status of 
-	-- write transaction.
-
+	-- The write response and response valid signals are asserted by the slave when axi_wready, S_AXI_WVALID, axi_wready and S_AXI_WVALID are asserted. This marks the acceptance of address and indicates the status of write transaction.
 	process (S_AXI_ACLK)
 	begin
 	  if rising_edge(S_AXI_ACLK) then 
@@ -367,15 +358,11 @@ begin
 	      end if;
 	    end if;
 	  end if;         
-	end process; 
+	end process;
+	
+	
 	-- Implement axi_arready generation
-
-	-- axi_arready is asserted for one S_AXI_ACLK clock cycle when
-	-- S_AXI_ARVALID is asserted. axi_awready is 
-	-- de-asserted when reset (active low) is asserted. 
-	-- The read address is also latched when S_AXI_ARVALID is 
-	-- asserted. axi_araddr is reset to zero on reset assertion.
-
+	-- axi_arready is asserted for one S_AXI_ACLK clock cycle when S_AXI_ARVALID is asserted. axi_awready is de-asserted when reset (active low) is asserted. The read address is also latched when S_AXI_ARVALID is asserted. axi_araddr is reset to zero on reset assertion.
 	process (S_AXI_ACLK)
 	begin
 	  if rising_edge(S_AXI_ACLK) then 
@@ -394,11 +381,11 @@ begin
 	      end if;
 	    end if;
 	  end if;         
-	end process; 
+	end process;
+	
+	
 	-- Implement axi_araddr latching
-
-	--This process is used to latch the address when both 
-	--S_AXI_ARVALID and S_AXI_RVALID are valid. 
+	--This process is used to latch the address when both S_AXI_ARVALID and S_AXI_RVALID are valid.
 	process (S_AXI_ACLK)
 	begin
 	  if rising_edge(S_AXI_ACLK) then 
@@ -448,17 +435,11 @@ begin
 	      end if;
 	    end if;
 	  end if;
-	end  process;  
+	end  process;
+	
+	
 	-- Implement axi_arvalid generation
-
-	-- axi_rvalid is asserted for one S_AXI_ACLK clock cycle when both 
-	-- S_AXI_ARVALID and axi_arready are asserted. The slave registers 
-	-- data are available on the axi_rdata bus at this instance. The 
-	-- assertion of axi_rvalid marks the validity of read data on the 
-	-- bus and axi_rresp indicates the status of read transaction.axi_rvalid 
-	-- is deasserted on reset (active low). axi_rresp and axi_rdata are 
-	-- cleared to zero on reset (active low).  
-
+	-- axi_rvalid is asserted for one S_AXI_ACLK clock cycle when both S_AXI_ARVALID and axi_arready are asserted. The slave registers data are available on the axi_rdata bus at this instance. The assertion of axi_rvalid marks the validity of read data on the bus and axi_rresp indicates the status of read transaction.axi_rvalid is deasserted on reset (active low). axi_rresp and axi_rdata are cleared to zero on reset (active low).  
 	process (S_AXI_ACLK)
 	begin
 	  if rising_edge(S_AXI_ACLK) then
@@ -475,10 +456,11 @@ begin
 	    end if;
 	  end if;
 	end  process;
+	
+	
 	-- ------------------------------------------
 	-- -- Example code to access user logic memory region
 	-- ------------------------------------------
-
 	gen_mem_sel: if (USER_NUM_MEM >= 1) generate
 	begin
 	  mem_select  <= "1";
@@ -524,8 +506,8 @@ begin
 	 end generate BYTE_BRAM_GEN;
 
 	end generate BRAM_GEN;
+	
 	--Output register or memory read data
-
 	process(mem_data_out, axi_rvalid ) is
 	begin
 	  if (axi_rvalid = '1') then
