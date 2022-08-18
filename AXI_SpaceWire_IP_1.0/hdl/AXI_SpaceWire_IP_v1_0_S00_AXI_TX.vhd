@@ -28,6 +28,29 @@ entity AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
 	);
 	port (
 		-- Users to add ports here
+		
+		-- System clock for SpaceWire entity.
+		clk_logic : in std_logic;
+		
+		-- Synchronous reset for SpaceWire entity (achtive-high).
+		rst_logic : in std_logic;		
+		
+		-- Pulled high by the fifo process to write an N-Char to the transmit
+		-- queue. If "txwrite" and "txrdy" are both high on the rising edge
+		-- of "clk_logic", a character is added to the transmit queue.
+		-- This signal has no effect if "txrdy" is low.
+		txwrite : out std_logic;
+		
+		-- Control flag to be sent with the next N-Char.
+		-- Must be valid while "txwrite" is high.
+		txflag : out std_logic;
+		
+		-- Byte to be sent, or "00000000" for EOP or "00000001" for EEP.
+		-- Must be valid while "txwrite" is high.
+		txdata : out std_logic_vector(7 downto 0);
+		
+		-- High if the SpaceWire entity is ready to accept an N-Char for transmission.
+		txrdy : in std_logic;
 
 		-- User ports ends
 		-- Do not modify the ports beyond this line
@@ -211,7 +234,7 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
 	--ADDR_LSB = 3 for 42 bits (n downto 3)
 
 	constant ADDR_LSB  : integer := (C_S_AXI_DATA_WIDTH/32)+ 1;
-	constant OPT_MEM_ADDR_BITS : integer := 5; -- 2**6 == 32 Rows; 32 * 4 Bytes per Row == 256 Bytes
+	constant OPT_MEM_ADDR_BITS : integer := 5; -- 2**6 == 32 Rows (5 downto 0); 32 * 4 Bytes per Row == 256 Bytes
 	constant USER_NUM_MEM: integer := 1;
 	constant low : std_logic_vector (C_S_AXI_ADDR_WIDTH - 1 downto 0) := "00000000";
 	------------------------------------------------

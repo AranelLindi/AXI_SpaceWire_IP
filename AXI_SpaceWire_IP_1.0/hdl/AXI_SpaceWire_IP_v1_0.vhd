@@ -8,6 +8,34 @@ entity AXI_SpaceWire_IP_v1_0 is
 	generic (
 		-- Users to add parameters here
 
+        -- System clock frequency in Hz for SpaceWire entity.
+        -- This must be set to the frequency of "clk_logic". It is used to setup
+        -- counters for reset timing, disconnect timeout and to transmit
+        -- at 10 Mbit/s during the link handshake.
+        sysfreq : real := 100.0e6;
+        
+        -- Transmit clock frequency in Hz (only if tximpl = impl_fast).
+        -- This must be set to the frequency of "txclk". It is used to 
+        -- transmit at 10 Mbit/s during the link handshake.
+        txclkfreq : real := 0.0;
+        
+        -- Selection of a receiver front-end implementation.
+        rximpl : spw_implementation_type := impl_fast;
+        
+        -- Selection of a transmitter implementation.
+        tximpl : spw_implementation_type := impl_fast;
+        
+        -- Maximum number of bits received per system clock
+        -- (must be 1 in case of impl_generic)
+        rxchunk : integer range 1 to 4 := 1;
+        
+        -- Size of the receive FIFO as the 2-logarithm of the number of bytes.
+        -- Must be at least 6 (64 bytes).
+        rxfifosize_bits : integer range 6 to 14 := 11;
+        
+        -- Size of the transmit FIFO as the 2-logarithm of the number of bytes.
+        txfifosize_bits : integer range 2 to 14 := 11;        
+
 		-- User parameters ends
 		-- Do not modify the parameters beyond this line
 
@@ -38,6 +66,37 @@ entity AXI_SpaceWire_IP_v1_0 is
 	);
 	port (
 		-- Users to add ports here
+
+        -- System clock for SpaceWire entity.
+        clk_logic : in std_logic;
+        
+        -- Receive sample clock for SpaceWire entity (only for impl_fast).
+        rxclk : in std_logic;
+        
+        -- Transmit clock for SpaceWire entity (only for impl_fast).
+        txclk : in std_logic;
+        
+        -- Synchronous reset for SpaceWire entity (active-high).
+        rst_logic : in std_logic;
+        
+        -- High to send new SpaceWire time-code. (TODO: How to ensure that only a single time-code is generated ?)
+        tc_in : in std_logic; -- (Deliberately not called tick_in so as not to have any implication on the actual signal in spwstream !)
+        -- TODO: Build handling-process for this port in this module
+        
+        -- High if valid SpaceWire TimeCode was received (might used as interrupt)
+        tc_out : out std_logic;
+                
+        -- Data In signal from SpaceWire bus.
+        spw_di : in std_logic;
+        
+        -- Strobe In signal from SpaceWire bus.
+        spw_si : in std_logic;
+        
+        -- Data Out signal to SpaceWire bus.
+        spw_do : out std_logic;
+        
+        -- Strobe Out signal to SpaceWire bus.
+        spw_so : out std_logic;
 
 		-- User ports ends
 		-- Do not modify the ports beyond this line
@@ -229,6 +288,13 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0 is
 		C_S_AXI_BUSER_WIDTH	: integer	:= 0
 		);
 		port (
+		clk_logic : in std_logic;
+		rst_logic : in std_logic;
+		txwrite : out std_logic;
+		txflag : out std_logic;
+		txdata : out std_logic_vector(7 downto 0);
+		txrdy : in std_logic;
+		
 		S_AXI_ACLK	: in std_logic;
 		S_AXI_ARESETN	: in std_logic;
 		S_AXI_AWID	: in std_logic_vector(C_S_AXI_ID_WIDTH-1 downto 0);
@@ -290,6 +356,13 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0 is
 		C_S_AXI_BUSER_WIDTH	: integer	:= 0
 		);
 		port (
+		clk_logic : in std_logic;
+		rst_logic : in std_logic;
+		rxvalid : in std_logic;
+		rxflag : in std_logic;
+		rxdata : in std_logic_vector(7 downto 0);
+		rxread : out std_logic;
+		
 		S_AXI_ACLK	: in std_logic;
 		S_AXI_ARESETN	: in std_logic;
 		S_AXI_AWID	: in std_logic_vector(C_S_AXI_ID_WIDTH-1 downto 0);
@@ -345,6 +418,24 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0 is
 		C_S_AXI_ADDR_WIDTH	: integer	:= 4
 		);
 		port (
+		autostart : out std_logic;
+		linkstart : out std_logic;
+		linkdis : out std_logic;
+		txdivcnt : out std_logic_vector(7 downto 0);
+		ctrl_in : out std_logic_vector(1 downto 0);
+		time_in : out std_logic_vector(5 downto 0);
+		txhalff : in std_logic;
+		ctrl_out : in std_logic_vector(1 downto 0);
+		time_out : in std_logic_vector(5 downto 0);
+		rxhalff : in std_logic;
+		started : in std_logic;
+		connecting : in std_logic;
+		running : in std_logic;
+		errdisc : in std_logic;
+		errpar : in std_logic;
+		erresc : in std_logic;
+		errcred : in std_logic;
+		
 		S_AXI_ACLK	: in std_logic;
 		S_AXI_ARESETN	: in std_logic;
 		S_AXI_AWADDR	: in std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
@@ -369,6 +460,35 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0 is
 		);
 	end component AXI_SpaceWire_IP_v1_0_S02_AXI_REG;
 
+    -- Custom signals declaration.
+    -- RX module
+    signal s_rxvalid : std_logic;
+    signal s_rxflag : std_logic;
+    signal s_rxdata : std_logic_vector(7 downto 0);
+    signal s_rxread : std_logic;
+    -- TX module
+    signal s_txwrite : std_logic;
+    signal s_txflag : std_logic;
+    signal s_txdata : std_logic_vector(7 downto 0);
+    signal s_txrdy : std_logic;
+    -- Registers
+    signal s_autostart : std_logic;
+    signal s_linkstart : std_logic;
+    signal s_linkdis : std_logic;
+    signal s_txdivcnt : std_logic_vector(7 downto 0);
+    signal s_ctrl_in : std_logic_vector(1 downto 0);
+    signal s_time_in : std_logic_vector(5 downto 0);
+    signal s_txhalff : std_logic;
+    signal s_rxhalff : std_logic;
+    signal s_ctrl_out : std_logic_vector(1 downto 0);
+    signal s_time_out : std_logic_vector(5 downto 0);
+    signal s_started : std_logic;
+    signal s_connecting : std_logic;
+    signal s_running : std_logic;
+    signal s_errdisc : std_logic;
+    signal s_errpar : std_logic;
+    signal s_errcred : std_logic;
+    signal s_erresc : std_logic;
 begin
 
 -- Instantiation of Axi Bus Interface S00_AXI_TX
@@ -384,6 +504,12 @@ AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst : AXI_SpaceWire_IP_v1_0_S00_AXI_TX
 		C_S_AXI_BUSER_WIDTH	=> C_S00_AXI_TX_BUSER_WIDTH
 	)
 	port map (
+	    clk_logic => clk_logic,
+	    rst_logic => rst_logic,
+        txwrite => s_txwrite,
+        txflag => s_txflag,
+        txdata => s_txdata,
+        txrdy => s_txrdy,
 		S_AXI_ACLK	=> s00_axi_tx_aclk,
 		S_AXI_ARESETN	=> s00_axi_tx_aresetn,
 		S_AXI_AWID	=> s00_axi_tx_awid,
@@ -445,6 +571,12 @@ AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst : AXI_SpaceWire_IP_v1_0_S01_AXI_RX
 		C_S_AXI_BUSER_WIDTH	=> C_S01_AXI_RX_BUSER_WIDTH
 	)
 	port map (
+	    clk_logic => clk_logic,
+	    rst_logic => rst_logic,
+	    rxvalid => s_rxvalid,
+	    rxflag => s_rxflag,
+	    rxdata => s_rxdata,
+	    rxread => s_rxread,
 		S_AXI_ACLK	=> s01_axi_rx_aclk,
 		S_AXI_ARESETN	=> s01_axi_rx_aresetn,
 		S_AXI_AWID	=> s01_axi_rx_awid,
@@ -500,6 +632,24 @@ AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst : AXI_SpaceWire_IP_v1_0_S02_AXI_REG
 		C_S_AXI_ADDR_WIDTH	=> C_S02_AXI_REG_ADDR_WIDTH
 	)
 	port map (
+	    autostart => s_autostart,
+	    linkstart => s_linkstart,
+	    linkdis => s_linkdis,
+	    txdivcnt => s_txdivcnt,
+	    ctrl_in => s_ctrl_in,
+	    time_in => s_time_in,
+	    txhalff => s_txhalff,
+	    ctrl_out => s_ctrl_out,
+	    time_out => s_time_out,
+	    rxhalff => s_rxhalff,
+	    started => s_started,
+	    connecting => s_connecting,
+	    running => s_running,
+	    errdisc => s_errdisc,
+	    errpar => s_errpar,
+	    erresc => s_erresc,
+	    errcred => s_errcred,
+	    
 		S_AXI_ACLK	=> s02_axi_reg_aclk,
 		S_AXI_ARESETN	=> s02_axi_reg_aresetn,
 		S_AXI_AWADDR	=> s02_axi_reg_awaddr,
@@ -537,10 +687,10 @@ AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst : AXI_SpaceWire_IP_v1_0_S02_AXI_REG
             txfifosize_bits => txfifosize_bits
         )
         port map (
-            clk => clk, -- Top Level IO
+            clk => clk_logic, -- Top Level IO
             rxclk => rxclk, -- Top Level IO
             txclk => txclk, -- Top Level IO
-            rst => rst, -- Top Level IO
+            rst => rst_logic, -- Top Level IO
             autostart => s_autostart, -- Register
             linkstart => s_linkstart, -- Register
             linkdis => s_linkdis, -- Register
@@ -553,7 +703,7 @@ AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst : AXI_SpaceWire_IP_v1_0_S02_AXI_REG
             txdata => s_txdata, -- internal
             txrdy => s_txrdy, -- internal
             txhalff => s_txhalff, -- Register
-            tick_out => s_tick_out, -- Interrupt
+            tick_out => tc_out, -- Interrupt
             ctrl_out => s_ctrl_out, -- Register
             time_out => s_time_out, -- Register
             rxvalid => s_rxvalid, -- internal
@@ -573,7 +723,6 @@ AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst : AXI_SpaceWire_IP_v1_0_S02_AXI_REG
             spw_do => spw_do, -- Top Level IO
             spw_so => spw_so -- Top Level IO
         );
-
 
 	-- User logic ends
 

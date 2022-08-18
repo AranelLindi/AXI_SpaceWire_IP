@@ -17,6 +17,69 @@ entity AXI_SpaceWire_IP_v1_0_S02_AXI_REG is
 	port (
 		-- Users to add ports here
 
+        -- Enables automatic link start on receipt of a NULL character.
+        autostart : out std_logic;
+        
+        -- Enables link start once the Ready state is reached.
+        -- Without autostart or linkstart, the link remains in state Ready.
+        linkstart : out std_logic;
+        
+        -- Do not start link (overrides "linkstart" and "autostart") and/or
+        -- disconnect a running link
+        linkdis : out std_logic;
+        
+        -- Scaling factor minus 1, used to scale the transmit base clock into
+        -- the transmission bit rate. The system clock (for impl_generic) or
+        -- the txclk (for impl_fast) is divided by (unsigend(txdivcnt) + 1).
+        -- Changing this signal will immediately change the transmission rate.
+        -- During link setup, the transmission rate is always 10 Mbit/s.
+        txdivcnt : out std_logic_vector(7 downto 0);
+        
+        -- Control bits of the TimeCode to be sent. Must be valid while tick_in is high.
+        ctrl_in : out std_logic_vector(1 downto 0);
+        
+        -- Counter value of the TimeCode to be sent. Must be valid while tick_in is high.
+        time_in : out std_logic_vector(5 downto 0);
+        
+        -- High if transmission queue is at least half full.
+        txhalff : in std_logic;
+        
+        -- Control bits of the last received TimeCode.
+        ctrl_out : in std_logic_vector(1 downto 0);
+        
+        -- Counter value of the last received TimeCode.
+        time_out : in std_logic_vector(5 downto 0);
+        
+        -- High if the receive FIFO is at least half full.
+        rxhalff : in std_logic;
+        
+        -- High if the link state machine is currently in the Started state.
+        started : in std_logic;
+        
+        -- High if the link state machine is currently in the Connecting state.
+        connecting : in std_logic;
+        
+        -- High if the link state machine is currently in the Run state, indicating 
+        -- that the link is fully operational. If none of started, connecting or running
+        -- is high, the link is in an initial state and the transmitter is not yet enabled.
+        running : in std_logic;
+        
+        -- Disconnect detected in state Run. Triggers a reset and reconnect of the link.
+        -- This indication is auto-clearing.
+        errdisc : in std_logic;
+        
+        -- Parity error detected in state Run. Triggers a reset and reconnect of the link.
+        -- This indication is auto-clearing
+        errpar : in std_logic;
+        
+        -- Invalid escape sequence detected in state Run. Triggers a reset and reconnect of
+        -- the link. This indication is auto-clearing.
+        erresc : in std_logic;
+        
+        -- Credit error detected. Triggers a reset and reconnect of the link.
+        -- This indication is auto-clearing.
+        errcred : in std_logic;
+
 		-- User ports ends
 		-- Do not modify the ports beyond this line
 

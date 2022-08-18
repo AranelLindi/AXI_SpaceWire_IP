@@ -28,6 +28,31 @@ entity AXI_SpaceWire_IP_v1_0_S01_AXI_RX is
 	);
 	port (
 		-- Users to add ports here
+		
+		-- System clock for SpaceWire entity.
+		clk_logic : in std_logic;
+		
+		-- Synchronous reset for SpaceWire entity (active-high).
+		rst_logic : in std_logic;
+		
+		-- High if "rxflag" and "rxdata" contain valid data.
+		-- This signal is high unless the receive FIFO is empty.
+		rxvalid : in std_logic;
+		
+		-- High if the received character is EOP or EEP; low if the received
+		-- character is a data byte. Valid if "rxvalid" is high.
+		rxflag : in std_logic;
+		
+		-- Received byte, or "00000000" for EOP or "00000001" for EEP.
+		-- Valid if "rxvalid" is high.
+		rxdata : in std_logic_vector(7 downto 0);
+		
+		-- Pulled high by the fifo process to accept a received character.
+		-- If "rxvalid" and "rxread" are both high on the rising edge of "clk_logic"
+		-- a character is removed from the receive FIFO and "rxvalid", "rxflag" 
+		-- and "rxdata" are updated.
+		-- This signal has no effect if "rxvalid" is low
+		rxread : out std_logic;
 
 		-- User ports ends
 		-- Do not modify the ports beyond this line
