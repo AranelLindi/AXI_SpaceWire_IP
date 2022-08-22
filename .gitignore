@@ -16,7 +16,7 @@
 #########
 #Do NOT ignore VHDL, Verilog, block diagrams or EDIF files.
 !*.vhd
-!*.v
+#!*.v
 !*.bd
 !*.edif
 #########
@@ -25,11 +25,11 @@
 #.xci: synthesis and implemented not possible - you need to return back to the previous version to generate output products
 #.xci + .dcp: implementation possible but not re-synthesis
 #*.xci(www.spiritconsortium.org)
-!*.xci
+#!*.xci
 #*.dcp(checkpoint files)
-!*.dcp
-!*.vds
-!*.pb
+#!*.dcp
+#!*.vds
+#!*.pb
 #All bd comments and layout coordinates are stored within .ui
 !*.ui
 !*.ooc
@@ -56,7 +56,7 @@
 #Do NOT ignore *.xpr files
 !*.xpr
 #Include *.xml files for 2013.4 or earlier version
-!*.xml
+#!*.xml
 #########
 #Constraint files
 #########
@@ -69,7 +69,7 @@
 #########
 #Journal - files
 #########
-!*.jou
+#!*.jou
 #########
 #Reports
 #########

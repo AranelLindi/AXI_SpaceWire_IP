@@ -2,39 +2,44 @@
 # Vivado v2022.1 (64-bit)
 # SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
 # IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
-# Start of session at: Thu Aug 18 12:43:12 2022
-# Process ID: 50342
-# Current directory: /home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1
+# Start of session at: Mon Aug 22 18:52:42 2022
+# Process ID: 127792
+# Current directory: /home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1
 # Command line: vivado -log AXI_SpaceWire_IP_v1_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source AXI_SpaceWire_IP_v1_0.tcl
-# Log file: /home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/AXI_SpaceWire_IP_v1_0.vds
-# Journal file: /home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/vivado.jou
-# Running On: stl56jc-MS-7C95, OS: Linux, CPU Frequency: 3977.305 MHz, CPU Physical cores: 12, Host memory: 14546 MB
+# Log file: /home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/AXI_SpaceWire_IP_v1_0.vds
+# Journal file: /home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/vivado.jou
+# Running On: AranelLindi, OS: Linux, CPU Frequency: 400.000 MHz, CPU Physical cores: 16, Host memory: 15964 MB
 #-----------------------------------------------------------
 source AXI_SpaceWire_IP_v1_0.tcl -notrace
 INFO: [IP_Flow 19-234] Refreshing IP repositories
-INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0'.
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/Vivado/2022.1/data/ip'.
+Command: read_checkpoint -auto_incremental -incremental /home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/utils_1/imports/synth_1/AXI_SpaceWire_IP_v1_0.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from /home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/utils_1/imports/synth_1/AXI_SpaceWire_IP_v1_0.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
 Command: synth_design -top AXI_SpaceWire_IP_v1_0 -part xc7a35tcpg236-1
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 50356
+INFO: [Synth 8-7075] Helper process launched with PID 127807
 ---------------------------------------------------------------------------------
-Starting Synthesize : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 3151.086 ; gain = 0.000 ; free physical = 149 ; free virtual = 6291
+Starting Synthesize : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2624.703 ; gain = 0.000 ; free physical = 772 ; free virtual = 8422
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:226]
-WARNING: [Synth 8-506] null port 's00_axi_tx_awuser' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:118]
-WARNING: [Synth 8-506] null port 's00_axi_tx_wuser' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:124]
-WARNING: [Synth 8-506] null port 's00_axi_tx_buser' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:129]
-WARNING: [Synth 8-506] null port 's00_axi_tx_aruser' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:142]
-WARNING: [Synth 8-506] null port 's00_axi_tx_ruser' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:149]
-WARNING: [Synth 8-506] null port 's01_axi_rx_awuser' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:166]
-WARNING: [Synth 8-506] null port 's01_axi_rx_wuser' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:172]
-WARNING: [Synth 8-506] null port 's01_axi_rx_buser' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:177]
-WARNING: [Synth 8-506] null port 's01_axi_rx_aruser' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:190]
-WARNING: [Synth 8-506] null port 's01_axi_rx_ruser' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:197]
+INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:226]
+WARNING: [Synth 8-506] null port 's00_axi_tx_awuser' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:118]
+WARNING: [Synth 8-506] null port 's00_axi_tx_wuser' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:124]
+WARNING: [Synth 8-506] null port 's00_axi_tx_buser' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:129]
+WARNING: [Synth 8-506] null port 's00_axi_tx_aruser' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:142]
+WARNING: [Synth 8-506] null port 's00_axi_tx_ruser' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:149]
+WARNING: [Synth 8-506] null port 's01_axi_rx_awuser' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:166]
+WARNING: [Synth 8-506] null port 's01_axi_rx_wuser' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:172]
+WARNING: [Synth 8-506] null port 's01_axi_rx_buser' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:177]
+WARNING: [Synth 8-506] null port 's01_axi_rx_aruser' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:190]
+WARNING: [Synth 8-506] null port 's01_axi_rx_ruser' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:197]
 	Parameter C_S_AXI_ID_WIDTH bound to: 1 - type: integer 
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 8 - type: integer 
@@ -43,13 +48,13 @@ WARNING: [Synth 8-506] null port 's01_axi_rx_ruser' ignored [/home/stl56jc/Dokum
 	Parameter C_S_AXI_WUSER_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_RUSER_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_BUSER_WIDTH bound to: 0 - type: integer 
-WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:310]
-WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:316]
-WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:321]
-WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:334]
-WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:341]
-INFO: [Synth 8-3491] module 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:5' bound to instance 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst' of component 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:495]
-INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:191]
+WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:310]
+WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:316]
+WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:321]
+WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:334]
+WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:341]
+INFO: [Synth 8-3491] module 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:25' bound to instance 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst' of component 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:495]
+INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:217]
 	Parameter C_S_AXI_ID_WIDTH bound to: 1 - type: integer 
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 8 - type: integer 
@@ -58,19 +63,48 @@ INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' [/hom
 	Parameter C_S_AXI_WUSER_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_RUSER_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_BUSER_WIDTH bound to: 0 - type: integer 
-WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:90]
-WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:109]
-WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:123]
-WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:160]
-WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:181]
-WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:198]
-WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:205]
-INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' (0#1) [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:191]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:525]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:531]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:536]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:549]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:556]
+WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:116]
+WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:135]
+WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:149]
+WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:186]
+WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:207]
+WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:243]
+WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:250]
+	Parameter ALMOST_EMPTY_OFFSET bound to: 32'b00000000000000000000000000000000 
+	Parameter ALMOST_FULL_OFFSET bound to: 32'b00000000000000000000000000000000 
+	Parameter DATA_WIDTH bound to: 9 - type: integer 
+	Parameter DEVICE bound to: 7SERIES - type: string 
+	Parameter FIFO_SIZE bound to: 18Kb - type: string 
+	Parameter FIRST_WORD_FALL_THROUGH bound to: 1 - type: bool 
+INFO: [Synth 8-3491] module 'FIFO_DUALCLOCK_MACRO' declared at '/tools/Xilinx/Vivado/2022.1/data/vhdl/src/unimacro/FIFO_DUALCLOCK_MACRO.vhd:36' bound to instance 'FIFO_DUALCLOCK_MACRO_inst_TX' of component 'FIFO_DUALCLOCK_MACRO' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:644]
+INFO: [Synth 8-638] synthesizing module 'unimacro_FIFO_DUALCLOCK_MACRO' [/tools/Xilinx/Vivado/2022.1/data/vhdl/src/unimacro/FIFO_DUALCLOCK_MACRO.vhd:70]
+	Parameter ALMOST_FULL_OFFSET bound to: 0 - type: integer 
+	Parameter ALMOST_EMPTY_OFFSET bound to: 0 - type: integer 
+	Parameter DATA_WIDTH bound to: 9 - type: integer 
+	Parameter DEVICE bound to: 7SERIES - type: string 
+	Parameter FIFO_SIZE bound to: 18Kb - type: string 
+	Parameter FIRST_WORD_FALL_THROUGH bound to: 1 - type: bool 
+	Parameter INIT bound to: 72'b000000000000000000000000000000000000000000000000000000000000000000000000 
+	Parameter SRVAL bound to: 72'b000000000000000000000000000000000000000000000000000000000000000000000000 
+	Parameter SIM_MODE bound to: SAFE - type: string 
+	Parameter ALMOST_EMPTY_OFFSET bound to: 0 - type: integer 
+	Parameter ALMOST_FULL_OFFSET bound to: 0 - type: integer 
+	Parameter DATA_WIDTH bound to: 9 - type: integer 
+	Parameter DO_REG bound to: 1 - type: integer 
+	Parameter EN_SYN bound to: 0 - type: bool 
+	Parameter FIFO_MODE bound to: FIFO18 - type: string 
+	Parameter FIRST_WORD_FALL_THROUGH bound to: 1 - type: bool 
+	Parameter INIT bound to: 36'b000000000000000000000000000000000000 
+	Parameter SIM_DEVICE bound to: 7SERIES - type: string 
+	Parameter SRVAL bound to: 36'b000000000000000000000000000000000000 
+INFO: [Synth 8-113] binding component instance 'fifo_18_bl' to cell 'FIFO18E1' [/tools/Xilinx/Vivado/2022.1/data/vhdl/src/unimacro/FIFO_DUALCLOCK_MACRO.vhd:769]
+INFO: [Synth 8-256] done synthesizing module 'unimacro_FIFO_DUALCLOCK_MACRO' (0#1) [/tools/Xilinx/Vivado/2022.1/data/vhdl/src/unimacro/FIFO_DUALCLOCK_MACRO.vhd:70]
+INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:217]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:525]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:531]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:536]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:549]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:556]
 	Parameter C_S_AXI_ID_WIDTH bound to: 1 - type: integer 
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 7 - type: integer 
@@ -79,13 +113,13 @@ WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/
 	Parameter C_S_AXI_WUSER_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_RUSER_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_BUSER_WIDTH bound to: 0 - type: integer 
-WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:378]
-WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:384]
-WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:389]
-WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:402]
-WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:409]
-INFO: [Synth 8-3491] module 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:5' bound to instance 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst' of component 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:562]
-INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:193]
+WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:378]
+WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:384]
+WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:389]
+WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:402]
+WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:409]
+INFO: [Synth 8-3491] module 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:5' bound to instance 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst' of component 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:562]
+INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:193]
 	Parameter C_S_AXI_ID_WIDTH bound to: 1 - type: integer 
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 7 - type: integer 
@@ -94,28 +128,28 @@ INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' [/hom
 	Parameter C_S_AXI_WUSER_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_RUSER_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_BUSER_WIDTH bound to: 0 - type: integer 
-WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:92]
-WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:111]
-WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:125]
-WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:162]
-WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:183]
-WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:200]
-WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:207]
-INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' (0#1) [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:193]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:592]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:598]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:603]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:616]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:623]
+WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:92]
+WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:111]
+WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:125]
+WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:162]
+WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:183]
+WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:200]
+WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:207]
+INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:193]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:592]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:598]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:603]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:616]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:623]
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 4 - type: integer 
-INFO: [Synth 8-3491] module 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:5' bound to instance 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst' of component 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:629]
-INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:149]
+INFO: [Synth 8-3491] module 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:5' bound to instance 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst' of component 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:629]
+INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:149]
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 4 - type: integer 
-INFO: [Synth 8-226] default block is never used [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:287]
-INFO: [Synth 8-226] default block is never used [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:417]
-INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG' (0#1) [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:149]
+INFO: [Synth 8-226] default block is never used [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:287]
+INFO: [Synth 8-226] default block is never used [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:417]
+INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:149]
 	Parameter sysfreq bound to: 100000000.000000 - type: double 
 	Parameter txclkfreq bound to: 0.000000 - type: double 
 	Parameter rximpl bound to: 1'b1 
@@ -123,8 +157,8 @@ INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG'
 	Parameter tximpl bound to: 1'b1 
 	Parameter rxfifosize_bits bound to: 11 - type: integer 
 	Parameter txfifosize_bits bound to: 11 - type: integer 
-INFO: [Synth 8-3491] module 'spwstream' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:23' bound to instance 'spwstream_inst' of component 'spwstream' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:679]
-INFO: [Synth 8-638] synthesizing module 'spwstream' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:189]
+INFO: [Synth 8-3491] module 'spwstream' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:23' bound to instance 'spwstream_inst' of component 'spwstream' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:679]
+INFO: [Synth 8-638] synthesizing module 'spwstream' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:189]
 	Parameter sysfreq bound to: 100000000.000000 - type: double 
 	Parameter txclkfreq bound to: 0.000000 - type: double 
 	Parameter rximpl bound to: 1'b1 
@@ -132,72 +166,69 @@ INFO: [Synth 8-638] synthesizing module 'spwstream' [/home/stl56jc/Dokumente/Cod
 	Parameter tximpl bound to: 1'b1 
 	Parameter rxfifosize_bits bound to: 11 - type: integer 
 	Parameter txfifosize_bits bound to: 11 - type: integer 
-WARNING: [Synth 8-5825] expecting unsigned expression [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:207]
+WARNING: [Synth 8-5825] expecting unsigned expression [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:207]
 	Parameter reset_time bound to: 640 - type: integer 
-INFO: [Synth 8-3491] module 'spwlink' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwlink.vhd:13' bound to instance 'link_inst' of component 'spwlink' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:278]
-INFO: [Synth 8-638] synthesizing module 'spwlink' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwlink.vhd:51]
+INFO: [Synth 8-3491] module 'spwlink' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwlink.vhd:13' bound to instance 'link_inst' of component 'spwlink' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:278]
+INFO: [Synth 8-638] synthesizing module 'spwlink' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwlink.vhd:51]
 	Parameter reset_time bound to: 640 - type: integer 
-INFO: [Synth 8-256] done synthesizing module 'spwlink' (0#1) [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwlink.vhd:51]
+INFO: [Synth 8-256] done synthesizing module 'spwlink' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwlink.vhd:51]
 	Parameter disconnect_time bound to: 85 - type: integer 
 	Parameter rxchunk bound to: 1 - type: integer 
-INFO: [Synth 8-3491] module 'spwrecv' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwrecv.vhd:16' bound to instance 'recv_inst' of component 'spwrecv' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:292]
-INFO: [Synth 8-638] synthesizing module 'spwrecv' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwrecv.vhd:49]
+INFO: [Synth 8-3491] module 'spwrecv' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecv.vhd:16' bound to instance 'recv_inst' of component 'spwrecv' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:292]
+INFO: [Synth 8-638] synthesizing module 'spwrecv' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecv.vhd:49]
 	Parameter disconnect_time bound to: 85 - type: integer 
 	Parameter rxchunk bound to: 1 - type: integer 
-INFO: [Synth 8-256] done synthesizing module 'spwrecv' (0#1) [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwrecv.vhd:49]
-INFO: [Synth 8-3491] module 'spwxmit_fast' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:150' bound to instance 'xmit_fast_inst' of component 'spwxmit_fast' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:317]
-INFO: [Synth 8-638] synthesizing module 'spwxmit_fast' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:188]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_rst' of component 'syncdff' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:331]
-INFO: [Synth 8-638] synthesizing module 'syncdff' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:31]
-INFO: [Synth 8-256] done synthesizing module 'syncdff' (0#1) [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:31]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_sysflip0' of component 'syncdff' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:335]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_sysflip1' of component 'syncdff' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:337]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_txen' of component 'syncdff' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:339]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_txdivsafe' of component 'syncdff' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:341]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_txflip0' of component 'syncdff' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:345]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_txflip1' of component 'syncdff' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:347]
-INFO: [Synth 8-256] done synthesizing module 'spwxmit_fast' (0#1) [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:188]
+INFO: [Synth 8-256] done synthesizing module 'spwrecv' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecv.vhd:49]
+INFO: [Synth 8-3491] module 'spwxmit_fast' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:150' bound to instance 'xmit_fast_inst' of component 'spwxmit_fast' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:317]
+INFO: [Synth 8-638] synthesizing module 'spwxmit_fast' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:188]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_rst' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:331]
+INFO: [Synth 8-638] synthesizing module 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:31]
+INFO: [Synth 8-256] done synthesizing module 'syncdff' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:31]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_sysflip0' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:335]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_sysflip1' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:337]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_txen' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:339]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_txdivsafe' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:341]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_txflip0' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:345]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_txflip1' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:347]
+INFO: [Synth 8-256] done synthesizing module 'spwxmit_fast' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:188]
 	Parameter rxchunk bound to: 1 - type: integer 
-INFO: [Synth 8-3491] module 'spwrecvfront_fast' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:70' bound to instance 'recvfront_fast_inst' of component 'spwrecvfront_fast' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:342]
-INFO: [Synth 8-638] synthesizing module 'spwrecvfront_fast' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:110]
+INFO: [Synth 8-3491] module 'spwrecvfront_fast' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:70' bound to instance 'recvfront_fast_inst' of component 'spwrecvfront_fast' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:342]
+INFO: [Synth 8-638] synthesizing module 'spwrecvfront_fast' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:110]
 	Parameter rxchunk bound to: 1 - type: integer 
 	Parameter abits bound to: 3 - type: integer 
 	Parameter dbits bound to: 2 - type: integer 
-INFO: [Synth 8-3491] module 'spwram' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwram.vhd:10' bound to instance 'bufmem' of component 'spwram' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:202]
-INFO: [Synth 8-638] synthesizing module 'spwram' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwram.vhd:28]
+INFO: [Synth 8-3491] module 'spwram' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:10' bound to instance 'bufmem' of component 'spwram' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:202]
+INFO: [Synth 8-638] synthesizing module 'spwram' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:28]
 	Parameter abits bound to: 3 - type: integer 
 	Parameter dbits bound to: 2 - type: integer 
-INFO: [Synth 8-256] done synthesizing module 'spwram' (0#1) [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwram.vhd:28]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncrx_reset' of component 'syncdff' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:217]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_headptr0' of component 'syncdff' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:221]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_headptr1' of component 'syncdff' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:223]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_headptr2' of component 'syncdff' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:225]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_bitcnt0' of component 'syncdff' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:227]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_bitcnt1' of component 'syncdff' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:229]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_bitcnt2' of component 'syncdff' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:231]
-INFO: [Synth 8-256] done synthesizing module 'spwrecvfront_fast' (0#1) [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:110]
+INFO: [Synth 8-256] done synthesizing module 'spwram' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:28]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncrx_reset' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:217]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_headptr0' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:221]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_headptr1' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:223]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_headptr2' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:225]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_bitcnt0' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:227]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_bitcnt1' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:229]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_bitcnt2' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:231]
+INFO: [Synth 8-256] done synthesizing module 'spwrecvfront_fast' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:110]
 	Parameter abits bound to: 11 - type: integer 
 	Parameter dbits bound to: 9 - type: integer 
-INFO: [Synth 8-3491] module 'spwram' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwram.vhd:10' bound to instance 'rxmem' of component 'spwram' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:357]
-INFO: [Synth 8-638] synthesizing module 'spwram__parameterized1' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwram.vhd:28]
+INFO: [Synth 8-3491] module 'spwram' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:10' bound to instance 'rxmem' of component 'spwram' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:357]
+INFO: [Synth 8-638] synthesizing module 'spwram__parameterized1' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:28]
 	Parameter abits bound to: 11 - type: integer 
 	Parameter dbits bound to: 9 - type: integer 
-INFO: [Synth 8-256] done synthesizing module 'spwram__parameterized1' (0#1) [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwram.vhd:28]
+INFO: [Synth 8-256] done synthesizing module 'spwram__parameterized1' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:28]
 	Parameter abits bound to: 11 - type: integer 
 	Parameter dbits bound to: 9 - type: integer 
-INFO: [Synth 8-3491] module 'spwram' declared at '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwram.vhd:10' bound to instance 'txmem' of component 'spwram' [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:372]
-INFO: [Synth 8-256] done synthesizing module 'spwstream' (0#1) [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:189]
-INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0' (0#1) [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:226]
-WARNING: [Synth 8-3848] Net txwrite in module/entity AXI_SpaceWire_IP_v1_0_S00_AXI_TX does not have driver. [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:42]
-WARNING: [Synth 8-3848] Net txflag in module/entity AXI_SpaceWire_IP_v1_0_S00_AXI_TX does not have driver. [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:46]
-WARNING: [Synth 8-3848] Net txdata in module/entity AXI_SpaceWire_IP_v1_0_S00_AXI_TX does not have driver. [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:50]
-WARNING: [Synth 8-3848] Net rxread in module/entity AXI_SpaceWire_IP_v1_0_S01_AXI_RX does not have driver. [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:55]
-WARNING: [Synth 8-3848] Net autostart in module/entity AXI_SpaceWire_IP_v1_0_S02_AXI_REG does not have driver. [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:21]
-WARNING: [Synth 8-3848] Net linkstart in module/entity AXI_SpaceWire_IP_v1_0_S02_AXI_REG does not have driver. [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:25]
-WARNING: [Synth 8-3848] Net linkdis in module/entity AXI_SpaceWire_IP_v1_0_S02_AXI_REG does not have driver. [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:29]
-WARNING: [Synth 8-3848] Net txdivcnt in module/entity AXI_SpaceWire_IP_v1_0_S02_AXI_REG does not have driver. [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:36]
-WARNING: [Synth 8-3848] Net ctrl_in in module/entity AXI_SpaceWire_IP_v1_0_S02_AXI_REG does not have driver. [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:39]
-WARNING: [Synth 8-3848] Net time_in in module/entity AXI_SpaceWire_IP_v1_0_S02_AXI_REG does not have driver. [/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:42]
+INFO: [Synth 8-3491] module 'spwram' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:10' bound to instance 'txmem' of component 'spwram' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:372]
+INFO: [Synth 8-256] done synthesizing module 'spwstream' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:189]
+INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:226]
+WARNING: [Synth 8-3848] Net rxread in module/entity AXI_SpaceWire_IP_v1_0_S01_AXI_RX does not have driver. [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:55]
+WARNING: [Synth 8-3848] Net autostart in module/entity AXI_SpaceWire_IP_v1_0_S02_AXI_REG does not have driver. [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:21]
+WARNING: [Synth 8-3848] Net linkstart in module/entity AXI_SpaceWire_IP_v1_0_S02_AXI_REG does not have driver. [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:25]
+WARNING: [Synth 8-3848] Net linkdis in module/entity AXI_SpaceWire_IP_v1_0_S02_AXI_REG does not have driver. [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:29]
+WARNING: [Synth 8-3848] Net txdivcnt in module/entity AXI_SpaceWire_IP_v1_0_S02_AXI_REG does not have driver. [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:36]
+WARNING: [Synth 8-3848] Net ctrl_in in module/entity AXI_SpaceWire_IP_v1_0_S02_AXI_REG does not have driver. [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:39]
+WARNING: [Synth 8-3848] Net time_in in module/entity AXI_SpaceWire_IP_v1_0_S02_AXI_REG does not have driver. [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:42]
 WARNING: [Synth 8-7129] Port recvo[gotbit] in module spwlink is either unconnected or has no load
 WARNING: [Synth 8-7129] Port autostart in module AXI_SpaceWire_IP_v1_0_S02_AXI_REG is either unconnected or has no load
 WARNING: [Synth 8-7129] Port linkstart in module AXI_SpaceWire_IP_v1_0_S02_AXI_REG is either unconnected or has no load
@@ -292,18 +323,18 @@ WARNING: [Synth 8-7129] Port S_AXI_ARREGION[3] in module AXI_SpaceWire_IP_v1_0_S
 WARNING: [Synth 8-7129] Port S_AXI_ARREGION[2] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
 WARNING: [Synth 8-7129] Port S_AXI_ARREGION[1] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
 WARNING: [Synth 8-7129] Port S_AXI_ARREGION[0] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
-WARNING: [Synth 8-7129] Port txwrite in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
-WARNING: [Synth 8-7129] Port txflag in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
-WARNING: [Synth 8-7129] Port txdata[7] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
-WARNING: [Synth 8-7129] Port txdata[6] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
-WARNING: [Synth 8-7129] Port txdata[5] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
-WARNING: [Synth 8-7129] Port txdata[4] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port rst_logic in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWSIZE[2] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWSIZE[1] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWSIZE[0] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWLOCK in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWCACHE[3] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
 INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished Synthesize : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3151.086 ; gain = 0.000 ; free physical = 1248 ; free virtual = 7375
+Finished Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2624.703 ; gain = 0.000 ; free physical = 1859 ; free virtual = 9509
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3151.086 ; gain = 0.000 ; free physical = 1243 ; free virtual = 7371
+Finished Constraint Validation : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2624.703 ; gain = 0.000 ; free physical = 1854 ; free virtual = 9505
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
@@ -311,7 +342,7 @@ Start Loading Part and Timing Information
 Loading part: xc7a35tcpg236-1
 INFO: [Device 21-403] Loading part xc7a35tcpg236-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3159.090 ; gain = 8.004 ; free physical = 1241 ; free virtual = 7369
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2632.707 ; gain = 8.004 ; free physical = 1854 ; free virtual = 9505
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'r_reg[state]' in module 'spwlink'
 ---------------------------------------------------------------------------------------------------
@@ -326,7 +357,7 @@ INFO: [Synth 8-802] inferred FSM for state register 'r_reg[state]' in module 'sp
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'r_reg[state]' using encoding 'one-hot' in module 'spwlink'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 3159.090 ; gain = 8.004 ; free physical = 1148 ; free virtual = 7298
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:04 . Memory (MB): peak = 2632.707 ; gain = 8.004 ; free physical = 1783 ; free virtual = 9435
 ---------------------------------------------------------------------------------
 No constraint files found.
 ---------------------------------------------------------------------------------
@@ -364,11 +395,11 @@ Detailed RTL Component Info :
 	                1 Bit    Registers := 137   
 +---RAMs : 
 	              18K Bit	(2048 X 9 bit)          RAMs := 2     
-	              512 Bit	(64 X 8 bit)          RAMs := 4     
 	              256 Bit	(32 X 8 bit)          RAMs := 4     
 	               16 Bit	(8 X 2 bit)          RAMs := 1     
 +---Muxes : 
-	   2 Input   32 Bit        Muxes := 6     
+	   2 Input   32 Bit        Muxes := 10    
+	   3 Input   32 Bit        Muxes := 4     
 	   4 Input   32 Bit        Muxes := 5     
 	   2 Input   11 Bit        Muxes := 2     
 	   5 Input   10 Bit        Muxes := 1     
@@ -389,7 +420,7 @@ Detailed RTL Component Info :
 	   3 Input    3 Bit        Muxes := 1     
 	   2 Input    3 Bit        Muxes := 1     
 	   2 Input    2 Bit        Muxes := 4     
-	   2 Input    1 Bit        Muxes := 115   
+	   2 Input    1 Bit        Muxes := 116   
 	   4 Input    1 Bit        Muxes := 9     
 	   6 Input    1 Bit        Muxes := 2     
 ---------------------------------------------------------------------------------
@@ -410,9 +441,8 @@ Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
 WARNING: [Synth 8-6014] Unused sequential element spwstream_inst/rxmem/s_mem_reg was removed. 
-INFO: [Synth 8-5784] Optimized 0 bits of RAM "spwstream_inst/txmem/s_mem_reg" due to constant propagation. Old ram width 9 bits, new ram width 9 bits.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 3159.090 ; gain = 8.004 ; free physical = 926 ; free virtual = 7093
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2632.707 ; gain = 8.004 ; free physical = 1558 ; free virtual = 9214
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -431,10 +461,6 @@ Distributed RAM: Preliminary Mapping Report (see note below)
 +----------------------+---------------------------------------------------------------------------------+-----------+----------------------+---------------+
 |Module Name           | RTL Object                                                                      | Inference | Size (Depth x Width) | Primitives    | 
 +----------------------+---------------------------------------------------------------------------------+-----------+----------------------+---------------+
-|AXI_SpaceWire_IP_v1_0 | AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].byte_ram_reg | Implied   | 64 x 8               | RAM64X1S x 8  | 
-|AXI_SpaceWire_IP_v1_0 | AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].byte_ram_reg | Implied   | 64 x 8               | RAM64X1S x 8  | 
-|AXI_SpaceWire_IP_v1_0 | AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].byte_ram_reg | Implied   | 64 x 8               | RAM64X1S x 8  | 
-|AXI_SpaceWire_IP_v1_0 | AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].byte_ram_reg | Implied   | 64 x 8               | RAM64X1S x 8  | 
 |AXI_SpaceWire_IP_v1_0 | AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].byte_ram_reg | Implied   | 32 x 8               | RAM32X1S x 8  | 
 |AXI_SpaceWire_IP_v1_0 | AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].byte_ram_reg | Implied   | 32 x 8               | RAM32X1S x 8  | 
 |AXI_SpaceWire_IP_v1_0 | AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].byte_ram_reg | Implied   | 32 x 8               | RAM32X1S x 8  | 
@@ -451,7 +477,7 @@ No constraint files found.
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 3159.090 ; gain = 8.004 ; free physical = 926 ; free virtual = 7094
+Finished Timing Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2632.707 ; gain = 8.004 ; free physical = 1557 ; free virtual = 9213
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -469,10 +495,6 @@ Distributed RAM: Final Mapping Report
 +----------------------+---------------------------------------------------------------------------------+-----------+----------------------+---------------+
 |Module Name           | RTL Object                                                                      | Inference | Size (Depth x Width) | Primitives    | 
 +----------------------+---------------------------------------------------------------------------------+-----------+----------------------+---------------+
-|AXI_SpaceWire_IP_v1_0 | AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].byte_ram_reg | Implied   | 64 x 8               | RAM64X1S x 8  | 
-|AXI_SpaceWire_IP_v1_0 | AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].byte_ram_reg | Implied   | 64 x 8               | RAM64X1S x 8  | 
-|AXI_SpaceWire_IP_v1_0 | AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].byte_ram_reg | Implied   | 64 x 8               | RAM64X1S x 8  | 
-|AXI_SpaceWire_IP_v1_0 | AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].byte_ram_reg | Implied   | 64 x 8               | RAM64X1S x 8  | 
 |AXI_SpaceWire_IP_v1_0 | AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].byte_ram_reg | Implied   | 32 x 8               | RAM32X1S x 8  | 
 |AXI_SpaceWire_IP_v1_0 | AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].byte_ram_reg | Implied   | 32 x 8               | RAM32X1S x 8  | 
 |AXI_SpaceWire_IP_v1_0 | AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].byte_ram_reg | Implied   | 32 x 8               | RAM32X1S x 8  | 
@@ -488,7 +510,7 @@ Start Technology Mapping
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-7052] The timing for the instance spwstream_inst/txmem/s_mem_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 3159.090 ; gain = 8.004 ; free physical = 922 ; free virtual = 7090
+Finished Technology Mapping : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2632.707 ; gain = 8.004 ; free physical = 1551 ; free virtual = 9207
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -510,37 +532,145 @@ INFO: [Synth 8-4163] Replicating register \spwstream_inst/recvfront_sel1.recvfro
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3159.090 ; gain = 8.004 ; free physical = 922 ; free virtual = 7091
+Finished IO Insertion : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2632.707 ; gain = 8.004 ; free physical = 1551 ; free virtual = 9208
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3159.090 ; gain = 8.004 ; free physical = 922 ; free virtual = 7091
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2632.707 ; gain = 8.004 ; free physical = 1551 ; free virtual = 9208
 ---------------------------------------------------------------------------------
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][23] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][23]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][23] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][23]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][23] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][23]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][23] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][23]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][22] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][22]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][22] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][22]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][22] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][22]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][22] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][22]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][21] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][21]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][21] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][21]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][21] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][21]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][21] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][21]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][20] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][20]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][20] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][20]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][20] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][20]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][20] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][20]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][19] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][19]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][19] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][19]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][19] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][19]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][19] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][19]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][18] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][18]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][18] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][18]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][18] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][18]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][18] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][18]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][17] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][17]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][17] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][17]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][17] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][17]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][17] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][17]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][16] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][16]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][16] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][16]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][16] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][16]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][16] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][16]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][15] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][15]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][15] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][15]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][15] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][15]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][15] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][15]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][14] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][14]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][14] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][14]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][14] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][14]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][14] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][14]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][13] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][13]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][13] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][13]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][13] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][13]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][13] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][13]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][12] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][12]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][12] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][12]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][12] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][12]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][12] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][12]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][11] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][11]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][11] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][11]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][11] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][11]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][11] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][11]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][10] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][10]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][10] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][10]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][10] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][10]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][10] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][10]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][9] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][9]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][9] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][9]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][9] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][9]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][9] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][9]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][8] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][8]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][8] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][8]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][8] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][8]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][8] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][8]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][7] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][7]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][7] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][7]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][7] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][7]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][7] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][7]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][6] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][6]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][6] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][6]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][6] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][6]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][6] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][6]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][5] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][5]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][5] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][5]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][5] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][5]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][5] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][5]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][4] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][4]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][4] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][4]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][4] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][4]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][4] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][4]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][3] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][3]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][3] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][3]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][3] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][3]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][3] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][3]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][2] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][2]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][2] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][2]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][2] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][2]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][2] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][2]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][1] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][1]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][1] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][1]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][1] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][1]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][1] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][1]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][0] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][0]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][0] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][0]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][0] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][0]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][0] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][0]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][31] with 1st driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].mem_data_out_reg[0][31]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][31] with 2nd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[0].mem_data_out_reg[0][31]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][31] with 3rd driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[1].mem_data_out_reg[0][31]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/mem_data_out[0][31] with 4th driver pin 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].mem_data_out_reg[0][31]/Q' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:587]
+INFO: [Common 17-14] Message 'Synth 8-6859' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|       32|Failed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3159.090 ; gain = 8.004 ; free physical = 922 ; free virtual = 7091
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2632.707 ; gain = 8.004 ; free physical = 1552 ; free virtual = 9208
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3159.090 ; gain = 8.004 ; free physical = 922 ; free virtual = 7091
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2632.707 ; gain = 8.004 ; free physical = 1552 ; free virtual = 9208
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3159.090 ; gain = 8.004 ; free physical = 922 ; free virtual = 7091
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2632.707 ; gain = 8.004 ; free physical = 1552 ; free virtual = 9208
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3159.090 ; gain = 8.004 ; free physical = 922 ; free virtual = 7091
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2632.707 ; gain = 8.004 ; free physical = 1552 ; free virtual = 9208
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -557,19 +687,19 @@ Report Cell Usage:
 |      |Cell     |Count |
 +------+---------+------+
 |1     |BUFG     |     6|
-|2     |CARRY4   |    24|
-|3     |LUT1     |    29|
-|4     |LUT2     |   137|
-|5     |LUT3     |   100|
-|6     |LUT4     |   145|
-|7     |LUT5     |    66|
-|8     |LUT6     |   148|
-|9     |RAM16X1D |     2|
-|10    |RAM32X1S |    32|
-|11    |RAM64X1S |    32|
+|2     |CARRY4   |    33|
+|3     |FIFO18E1 |     1|
+|4     |LUT1     |    28|
+|5     |LUT2     |   151|
+|6     |LUT3     |    89|
+|7     |LUT4     |   147|
+|8     |LUT5     |    70|
+|9     |LUT6     |   155|
+|10    |RAM16X1D |     2|
+|11    |RAM32X1S |    32|
 |12    |RAMB18E1 |     1|
 |13    |FDCE     |    28|
-|14    |FDRE     |   590|
+|14    |FDRE     |   730|
 |15    |FDSE     |    28|
 |16    |IBUF     |   207|
 |17    |OBUF     |   132|
@@ -579,62 +709,63 @@ Report Instance Areas:
 +------+-----------------------------------------+----------------------------------+------+
 |      |Instance                                 |Module                            |Cells |
 +------+-----------------------------------------+----------------------------------+------+
-|1     |top                                      |                                  |  1707|
-|2     |  AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst  |AXI_SpaceWire_IP_v1_0_S00_AXI_TX  |   272|
-|3     |  AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst  |AXI_SpaceWire_IP_v1_0_S01_AXI_RX  |   249|
-|4     |  AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst |AXI_SpaceWire_IP_v1_0_S02_AXI_REG |   227|
-|5     |  spwstream_inst                         |spwstream                         |   614|
-|6     |    link_inst                            |spwlink                           |   140|
-|7     |    recv_inst                            |spwrecv                           |    94|
-|8     |    \recvfront_sel1.recvfront_fast_inst  |spwrecvfront_fast                 |    83|
-|9     |      bufmem                             |spwram                            |     5|
-|10    |      syncrx_reset                       |syncdff_6                         |     3|
-|11    |      syncsys_bitcnt0                    |syncdff_7                         |     2|
-|12    |      syncsys_bitcnt1                    |syncdff_8                         |     3|
-|13    |      syncsys_bitcnt2                    |syncdff_9                         |     2|
-|14    |      syncsys_headptr0                   |syncdff_10                        |     3|
-|15    |      syncsys_headptr1                   |syncdff_11                        |     2|
-|16    |      syncsys_headptr2                   |syncdff_12                        |     2|
-|17    |    txmem                                |spwram__parameterized1            |     1|
-|18    |    \xmit_sel1.xmit_fast_inst            |spwxmit_fast                      |   250|
-|19    |      syncsys_txflip0                    |syncdff                           |     8|
-|20    |      syncsys_txflip1                    |syncdff_0                         |     5|
-|21    |      synctx_rst                         |syncdff_1                         |     4|
-|22    |      synctx_sysflip0                    |syncdff_2                         |     3|
-|23    |      synctx_sysflip1                    |syncdff_3                         |     5|
-|24    |      synctx_txdivsafe                   |syncdff_4                         |     4|
-|25    |      synctx_txen                        |syncdff_5                         |     6|
+|1     |top                                      |                                  |  1840|
+|2     |  AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst  |AXI_SpaceWire_IP_v1_0_S00_AXI_TX  |   370|
+|3     |    FIFO_DUALCLOCK_MACRO_inst_TX         |unimacro_FIFO_DUALCLOCK_MACRO     |     4|
+|4     |  AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst  |AXI_SpaceWire_IP_v1_0_S01_AXI_RX  |   249|
+|5     |  AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst |AXI_SpaceWire_IP_v1_0_S02_AXI_REG |   227|
+|6     |  spwstream_inst                         |spwstream                         |   649|
+|7     |    link_inst                            |spwlink                           |   138|
+|8     |    recv_inst                            |spwrecv                           |    94|
+|9     |    \recvfront_sel1.recvfront_fast_inst  |spwrecvfront_fast                 |    83|
+|10    |      bufmem                             |spwram                            |     5|
+|11    |      syncrx_reset                       |syncdff_6                         |     3|
+|12    |      syncsys_bitcnt0                    |syncdff_7                         |     2|
+|13    |      syncsys_bitcnt1                    |syncdff_8                         |     3|
+|14    |      syncsys_bitcnt2                    |syncdff_9                         |     2|
+|15    |      syncsys_headptr0                   |syncdff_10                        |     3|
+|16    |      syncsys_headptr1                   |syncdff_11                        |     2|
+|17    |      syncsys_headptr2                   |syncdff_12                        |     2|
+|18    |    txmem                                |spwram__parameterized1            |     1|
+|19    |    \xmit_sel1.xmit_fast_inst            |spwxmit_fast                      |   250|
+|20    |      syncsys_txflip0                    |syncdff                           |     8|
+|21    |      syncsys_txflip1                    |syncdff_0                         |     5|
+|22    |      synctx_rst                         |syncdff_1                         |     4|
+|23    |      synctx_sysflip0                    |syncdff_2                         |     3|
+|24    |      synctx_sysflip1                    |syncdff_3                         |     5|
+|25    |      synctx_txdivsafe                   |syncdff_4                         |     4|
+|26    |      synctx_txen                        |syncdff_5                         |     6|
 +------+-----------------------------------------+----------------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3159.090 ; gain = 8.004 ; free physical = 922 ; free virtual = 7091
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2632.707 ; gain = 8.004 ; free physical = 1552 ; free virtual = 9208
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 348 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3159.090 ; gain = 8.004 ; free physical = 928 ; free virtual = 7097
-Synthesis Optimization Complete : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3159.098 ; gain = 8.004 ; free physical = 928 ; free virtual = 7097
+Synthesis finished with 0 errors, 128 critical warnings and 321 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2632.707 ; gain = 8.004 ; free physical = 1556 ; free virtual = 9212
+Synthesis Optimization Complete : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2632.715 ; gain = 8.004 ; free physical = 1556 ; free virtual = 9212
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3159.098 ; gain = 0.000 ; free physical = 1013 ; free virtual = 7183
-INFO: [Netlist 29-17] Analyzing 91 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2632.715 ; gain = 0.000 ; free physical = 1644 ; free virtual = 9300
+INFO: [Netlist 29-17] Analyzing 69 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
-WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg has IOB = TRUE property, but it cannot be placed in an ILOGIC site. Instances spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di1_reg and spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg cannot be placed in the same site as one or more of their control signals do not match.
-WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg has IOB = TRUE property, but it cannot be placed in an ILOGIC site. Instances spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di1_reg and spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg cannot be placed in the same site as one or more of their control signals do not match.
-WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg has IOB = TRUE property, but it cannot be placed in an ILOGIC site. Instances spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si1_reg and spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg cannot be placed in the same site as one or more of their control signals do not match.
-WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg has IOB = TRUE property, but it cannot be placed in an ILOGIC site. Instances spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si1_reg and spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg cannot be placed in the same site as one or more of their control signals do not match.
+WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg has IOB = TRUE property, but it cannot be placed in an ILOGIC site. Instances spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg and spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di1_reg cannot be placed in the same site as one or more of their control signals do not match.
+WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg has IOB = TRUE property, but it cannot be placed in an ILOGIC site. Instances spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg and spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di1_reg cannot be placed in the same site as one or more of their control signals do not match.
+WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg has IOB = TRUE property, but it cannot be placed in an ILOGIC site. Instances spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg and spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si1_reg cannot be placed in the same site as one or more of their control signals do not match.
+WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg has IOB = TRUE property, but it cannot be placed in an ILOGIC site. Instances spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg and spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si1_reg cannot be placed in the same site as one or more of their control signals do not match.
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
 WARNING: [Constraints 18-4642] Detected two FFs (1. spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg, and 2. spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di1_reg) with both IOB=TRUE that are driven by spw_di_IBUF_inst. Skipping shape updating caused by IOB property change. 
 WARNING: [Constraints 18-4642] Detected two FFs (1. spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg, and 2. spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si1_reg) with both IOB=TRUE that are driven by spw_si_IBUF_inst. Skipping shape updating caused by IOB property change. 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3215.117 ; gain = 0.000 ; free physical = 912 ; free virtual = 7097
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2688.734 ; gain = 0.000 ; free physical = 1558 ; free virtual = 9214
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 66 instances were transformed.
+  A total of 34 instances were transformed.
   RAM16X1D => RAM32X1D (RAMD32(x2)): 2 instances
   RAM32X1S => RAM32X1S (RAMS32): 32 instances
-  RAM64X1S => RAM64X1S (RAMS64E): 32 instances
 
-Synth Design complete, checksum: 11aea6bd
+Synth Design complete, checksum: ff3778b6
 INFO: [Common 17-83] Releasing license: Synthesis
-75 Infos, 163 Warnings, 0 Critical Warnings and 0 Errors encountered.
+83 Infos, 160 Warnings, 100 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:15 ; elapsed = 00:00:12 . Memory (MB): peak = 3215.117 ; gain = 64.031 ; free physical = 1120 ; free virtual = 7305
-INFO: [Common 17-1381] The checkpoint '/home/stl56jc/Dokumente/Code/AXI_SpaceWire_IP/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/AXI_SpaceWire_IP_v1_0.dcp' has been generated.
+synth_design: Time (s): cpu = 00:00:14 ; elapsed = 00:00:11 . Memory (MB): peak = 2688.734 ; gain = 64.031 ; free physical = 1769 ; free virtual = 9426
+INFO: [runtcl-6] Synthesis results are not added to the cache due to CRITICAL_WARNING
+INFO: [Common 17-1381] The checkpoint '/home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/AXI_SpaceWire_IP_v1_0.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file AXI_SpaceWire_IP_v1_0_utilization_synth.rpt -pb AXI_SpaceWire_IP_v1_0_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Thu Aug 18 12:43:30 2022...
+INFO: [Common 17-206] Exiting Vivado at Mon Aug 22 18:52:58 2022...

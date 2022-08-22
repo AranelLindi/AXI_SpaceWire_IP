@@ -695,7 +695,7 @@ AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst : AXI_SpaceWire_IP_v1_0_S02_AXI_REG
             linkstart => s_linkstart, -- Register
             linkdis => s_linkdis, -- Register
             txdivcnt => s_txdivcnt, -- Register
-            tick_in => s_tick_in, -- GPIO ?
+            tick_in => '0',--s_tick_in, -- GPIO ?
             ctrl_in => s_ctrl_in, -- Register
             time_in => s_time_in, -- Register
             txwrite => s_txwrite, -- internal
