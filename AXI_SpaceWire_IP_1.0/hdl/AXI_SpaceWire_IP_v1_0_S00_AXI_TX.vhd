@@ -224,11 +224,11 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
 
     signal s_fifo_almostempty : std_logic; -- Top Level IO
     signal s_fifo_almostfull : std_logic; -- Top Level IO
-    signal s_fifo_do : std_logic_vector(8 downto 0);
-    signal s_fifo_empty : std_logic;
-    signal s_fifo_full : std_logic;
-    signal s_fifo_rdcount : std_logic_vector(10 downto 0); -- err?
-    signal s_fifo_rderr : std_logic;
+    signal s_fifo_do : std_logic_vector(8 downto 0); -- Internal signal
+    signal s_fifo_empty : std_logic; -- Top Level IO
+    signal s_fifo_full : std_logic; -- Top Level IO
+    signal s_fifo_rdcount : std_logic_vector(10 downto 0); -- err? -- Top Level IO ?
+    signal s_fifo_rderr : std_logic; -- Top Level IO ? 
     signal s_fifo_wrcount : std_logic_vector(10 downto 0); -- err?
     signal s_fifo_wrerr : std_logic;
     signal s_fifo_di : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
@@ -553,7 +553,7 @@ begin
             signal data_out : std_logic_vector(8-1 downto 0);
         begin
             --assigning 8 bit data
-            data_in  <= S_AXI_WDATA((mem_byte_index*8+7) downto mem_byte_index*8);
+            data_in  <= S_AXI_WDATA(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
             data_out <= byte_ram(to_integer(unsigned(mem_address)));
 
             -- Memory write process.
@@ -566,10 +566,10 @@ begin
                         case mem_address is
                             when "000000" =>
                                 --byte_ram(to_integer(unsigned(mem_address))) <= data_in;
-                                s_fifo_di((mem_byte_index*8+7) downto mem_byte_index*8) <= data_in;                                
+                                s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= data_in;                                
                                 -- Writing to a full fifo causes no harm on hardware so let it to outside world (e.g. software) to manage and respect that.
 
-                            when others =>
+                            when others => null; -- does this work ?
                         end case;
                     end if;
                 end if;
@@ -584,7 +584,7 @@ begin
                         -- Memory address differentation.
                         case mem_address is
                             when "000000" =>
-                                mem_data_out(i)((mem_byte_index*8+7) downto mem_byte_index*8) <= s_fifo_di((mem_byte_index*8+7) downto (mem_byte_index*8));
+                                mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
                             when others =>
                                 mem_data_out(i) <= (others => '0');
                         end case;

@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-| Date         : Mon Aug 22 18:52:58 2022
+| Date         : Tue Aug 23 20:26:27 2022
 | Host         : AranelLindi running 64-bit Ubuntu 22.04.1 LTS
 | Command      : report_utilization -file AXI_SpaceWire_IP_v1_0_utilization_synth.rpt -pb AXI_SpaceWire_IP_v1_0_utilization_synth.pb
 | Design       : AXI_SpaceWire_IP_v1_0

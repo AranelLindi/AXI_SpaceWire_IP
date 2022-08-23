@@ -17,8 +17,8 @@
 #Do NOT ignore VHDL, Verilog, block diagrams or EDIF files.
 !*.vhd
 #!*.v
-!*.bd
-!*.edif
+#!*.bd
+#!*.edif
 #########
 #IP files
 #########
@@ -36,13 +36,13 @@
 #########
 #System Generator
 #########
-!*.mdl
-!*.slx
-!*.bxml
+#!*.mdl
+#!*.slx
+#!*.bxml
 #########
 #Simulation logic analyzer
 #########
-!*.wcfg
+#!*.wcfg
 !*.coe
 #########
 #MIG
@@ -65,7 +65,7 @@
 #########
 #TCL - files
 #########
-!*.tcl
+#!*.tcl
 #########
 #Journal - files
 #########
@@ -73,14 +73,14 @@
 #########
 #Reports
 #########
-!*.rpt
+#!*.rpt
 !*.txt
-!*.vdi
+#!*.vdi
 #########
 #C-files
 #########
 !*.c
 !*.h
-!*.elf
-!*.bmm
-!*.xmp
+#!*.elf
+#!*.bmm
+#!*.xmp
