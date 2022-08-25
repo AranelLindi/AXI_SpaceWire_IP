@@ -596,10 +596,52 @@ begin
     -- Add user logic here
 
     -- SpaceWire specific assignments. ( Might be that this won't work ! If so put this into a process with more logic ! )
-    s_fifo_wren <= not s_fifo_full when rxvalid = '1' else '0';
-    rxread <= s_fifo_wren;
-    s_fifo_di(8) <= rxflag;
-    s_fifo_di(7 downto 0) <= rxdata;
+    --s_fifo_wren <= not s_fifo_full when rxvalid = '1' else '0';
+    --rxread <= s_fifo_wren;
+    --s_fifo_di(8) <= rxflag;
+    --s_fifo_di(7 downto 0) <= rxdata;
+    
+    -- Combinatorial logic for fifo data input.
+    process(rxflag, rxdata)
+        -- Contains data from spwstream
+        variable v_di : std_logic_vector(8 downto 0);
+        
+        -- Masked data which is written into fifo
+        variable v_do : std_logic_vector(8 downto 0);
+    begin
+        v_di := rxflag & rxdata;
+        
+        if v_di(8) = '1' then
+            -- HIGH flag (EOP, ...)
+            case v_di(7 downto 0) is
+                when "00000000" => -- EOP
+                    v_do(7 downto 0) := "11111111"; -- 255
+                when "00000001" => -- EEP
+                    v_do(7 downto 0) := "11111110"; -- 254
+                when others => -- Process ID or whatever (differentiate it here !)
+                    v_do(7 downto 0) := v_di(7 downto 0);
+            end case;
+        else
+            -- LOW flag (Data byte -> N-Char)
+            v_do := '0' & v_di(7 downto 0);
+        end if;
+    
+        s_fifo_di <= v_do;
+    end process;
+    
+    -- Synchronous rxfifo-spwstream-wrapper.
+    process(clk_logic)
+    begin
+        if rising_edge(clk_logic) then
+            if (rxvalid = '1') then
+                s_fifo_wren <= not s_fifo_full;
+                rxread <= not s_fifo_full;
+            else
+                s_fifo_wren <= '0';
+                rxread <= '0';
+            end if;
+        end if;
+    end process;
     
     -- Muss unter Umständen in einen synchronen Prozess eingebettet werden!
     

@@ -282,6 +282,8 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
     constant OPT_MEM_ADDR_BITS : integer := 5; -- 2**6 == 32 Rows (5 downto 0); 32 * 4 Bytes per Row == 256 Bytes
     constant USER_NUM_MEM: integer := 1;
     constant low : std_logic_vector (C_S_AXI_ADDR_WIDTH - 1 downto 0) := "00000000";
+    
+    
     ------------------------------------------------
     ---- Signals for user logic memory space example
     --------------------------------------------------
@@ -449,8 +451,9 @@ begin
             end if;
         end if;
     end process;
+    
+    
     -- Implement axi_araddr latching
-
     --This process is used to latch the address when both 
     --S_AXI_ARVALID and S_AXI_RVALID are valid. 
     process (S_AXI_ACLK)
@@ -625,10 +628,35 @@ begin
     s_axi_areseth <= not S_AXI_ARESETN;
 
     -- SpaceWire specific assignments. ( Might be that this won't work ! If so put this into a process with more logic ! )
-    s_fifo_rden <= not s_fifo_empty when txrdy = '1' else '0';
-    txwrite <= s_fifo_rden; -- (txwrite needs same signal assignment as s_fifo_rden does)
+    --s_fifo_rden <= not s_fifo_empty when txrdy = '1' else '0';
+    --txwrite <= s_fifo_rden; -- (txwrite needs same signal assignment as s_fifo_rden does)
     txdata <= s_fifo_do(7 downto 0);
     txflag <= s_fifo_do(8);
+    
+    -- Combinatorial logic for fifo data output.
+    process(s_fifo_do)
+        variable v_do : std_logic_vector(8 downto 0);
+    begin
+        v_do := s_fifo_do;
+    
+        -- Insert differentiation logic here...
+        txdata <= v_do(7 downto 0);
+        txflag <= v_do(8);
+    end process;
+    
+    -- Synchronous txfifo-spwstream-wrapper.
+    process(clk_logic)
+    begin
+        if rising_edge(clk_logic) then
+            if (txrdy = '1') then
+                s_fifo_rden <= not s_fifo_empty;
+                txwrite <= not s_fifo_empty;
+            else
+                s_fifo_rden <= '0';
+                txwrite <= '0';
+            end if;
+        end if;
+    end process;
 
     -- FIFO_DUALCLOCK_MACRO: Dual-Clock First-In, First-Out (FIFO) RAM Buffer
     --                       Artix-7
