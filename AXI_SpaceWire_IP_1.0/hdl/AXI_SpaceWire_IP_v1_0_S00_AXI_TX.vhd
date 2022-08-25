@@ -545,7 +545,7 @@ begin
         mem_rden <= axi_arv_arr_flag ;
        
         -- Set fifo write enable signal depending on valid axi write transaction.
-        s_fifo_wren <= axi_wready and S_AXI_WVALID;
+        s_fifo_wren <= mem_wren;
 
         BYTE_BRAM_GEN : for mem_byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) generate
             signal byte_ram : BYTE_RAM_TYPE;
@@ -554,7 +554,17 @@ begin
         begin
             --assigning 8 bit data
             data_in  <= S_AXI_WDATA(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
-            data_out <= byte_ram(to_integer(unsigned(mem_address)));
+            --data_out <= byte_ram(to_integer(unsigned(mem_address)));
+            
+            
+            process(mem_address)
+            begin
+                case mem_address is
+                    when "000000" => data_out <= s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
+                    when others => data_out <= (others => '0'); -- evtl. "null" besser?
+                end case;
+            end process;
+            
 
             -- Memory write process.
             BYTE_RAM_PROC : process( S_AXI_ACLK ) is
@@ -579,15 +589,15 @@ begin
             process( S_AXI_ACLK ) is
             begin
                 if ( rising_edge (S_AXI_ACLK) ) then
-                    if ( mem_rden = '1') then
-                        --mem_data_out(i)((mem_byte_index*8+7) downto mem_byte_index*8) <= data_out;
-                        -- Memory address differentation.
-                        case mem_address is
-                            when "000000" =>
-                                mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
-                            when others =>
-                                mem_data_out(i) <= (others => '0');
-                        end case;
+                    if ( mem_rden = '1' ) then
+                        mem_data_out(i)((mem_byte_index*8+7) downto mem_byte_index*8) <= data_out;
+                        -- Memory address differentation. (probably not needed)
+--                        case mem_address is
+--                            when "000000" =>
+--                                mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
+--                            when others =>
+--                                mem_data_out(i) <= (others => '0');
+--                        end case;
                     end if;
                 end if;
             end process;
@@ -652,7 +662,7 @@ begin
         port map (
             ALMOSTEMPTY => s_fifo_almostempty,   -- 1-bit output almost empty
             ALMOSTFULL => s_fifo_almostfull,     -- 1-bit output almost full
-            DO(8 downto 0) => s_fifo_do,                     -- Output data, width defined by DATA_WIDTH parameter
+            DO => s_fifo_do,                     -- Output data, width defined by DATA_WIDTH parameter
             EMPTY => s_fifo_empty,               -- 1-bit output empty
             FULL => s_fifo_full,                 -- 1-bit output full
             RDCOUNT => s_fifo_rdcount,           -- Output read count, width determined by FIFO depth

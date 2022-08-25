@@ -222,14 +222,14 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S01_AXI_RX is
 
     signal s_fifo_almostempty : std_logic; -- Top Level IO
     signal s_fifo_almostfull : std_logic; -- Top Level IO
-    signal s_fifo_do : std_logic_vector(8 downto 0); -- Internal signal
+    signal s_fifo_do : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0) := (others => '0'); -- Internal signal
     signal s_fifo_empty : std_logic; -- Top Level IO
     signal s_fifo_full : std_logic; -- Top Level IO
     signal s_fifo_rdcount : std_logic_vector(10 downto 0); -- err? -- Top Level IO ?
     signal s_fifo_rderr : std_logic; -- Top Level IO ? 
     signal s_fifo_wrcount : std_logic_vector(10 downto 0); -- err?
     signal s_fifo_wrerr : std_logic;
-    signal s_fifo_di : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+    signal s_fifo_di : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0) := (others => '0');
     signal s_fifo_rden : std_logic;
     signal s_fifo_wren : std_logic;    
 
@@ -549,7 +549,7 @@ begin
         begin
             --assigning 8 bit data
             data_in  <= S_AXI_WDATA((mem_byte_index*8+7) downto mem_byte_index*8);
-            data_out <= byte_ram(to_integer(unsigned(mem_address)));
+            --data_out <= byte_ram(to_integer(unsigned(mem_address)));
             
             -- Memory write process.
             BYTE_RAM_PROC : process( S_AXI_ACLK ) is
@@ -569,7 +569,7 @@ begin
                         --mem_data_out(i)((mem_byte_index*8+7) downto mem_byte_index*8) <= data_out;
                         case mem_address is 
                             when "00000" =>
-                                mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= s_fifo_do((mem_byte_index * 8 + 7 ) downto (( mem_byte_index * 8 ));
+                                mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= s_fifo_do((mem_byte_index * 8 + 7 ) downto (( mem_byte_index * 8 )));
                             when others => null; 
                         end case;
                     end if;
@@ -596,8 +596,14 @@ begin
     -- Add user logic here
 
     -- SpaceWire specific assignments. ( Might be that this won't work ! If so put this into a process with more logic ! )
+    s_fifo_wren <= not s_fifo_full when rxvalid = '1' else '0';
+    rxread <= s_fifo_wren;
+    s_fifo_di(8) <= rxflag;
+    s_fifo_di(7 downto 0) <= rxdata;
     
-        -- FIFO_DUALCLOCK_MACRO: Dual-Clock First-In, First-Out (FIFO) RAM Buffer
+    -- Muss unter Umständen in einen synchronen Prozess eingebettet werden!
+    
+    -- FIFO_DUALCLOCK_MACRO: Dual-Clock First-In, First-Out (FIFO) RAM Buffer
     --                       Artix-7
     -- Xilinx HDL Language Template, version 2022.1
 
