@@ -626,7 +626,7 @@ begin
             v_do := '0' & v_di(7 downto 0);
         end if;
     
-        s_fifo_di <= v_do;
+        s_fifo_di(8 downto 0) <= v_do;
     end process;
     
     -- Synchronous rxfifo-spwstream-wrapper.

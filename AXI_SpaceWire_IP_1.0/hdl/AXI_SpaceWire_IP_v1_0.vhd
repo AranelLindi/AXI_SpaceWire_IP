@@ -229,9 +229,9 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0 is
         generic (
         sysfreq:        real;
         txclkfreq:      real := 0.0;
-        rximpl:         spw_implementation_type := impl_generic;
+        rximpl:         spw_implementation_type := impl_fast;
         rxchunk:        integer range 1 to 4 := 1;
-        tximpl:         spw_implementation_type := impl_generic;
+        tximpl:         spw_implementation_type := impl_fast;
         rxfifosize_bits: integer range 6 to 14 := 11;
         txfifosize_bits: integer range 2 to 14 := 11
         );
