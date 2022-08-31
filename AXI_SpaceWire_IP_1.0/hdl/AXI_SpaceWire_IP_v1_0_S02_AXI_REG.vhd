@@ -12,7 +12,7 @@ entity AXI_SpaceWire_IP_v1_0_S02_AXI_REG is
         -- Width of S_AXI data bus
         C_S_AXI_DATA_WIDTH	: integer	:= 32;
         -- Width of S_AXI address bus
-        C_S_AXI_ADDR_WIDTH	: integer	:= 4
+        C_S_AXI_ADDR_WIDTH	: integer	:= 5
     );
     port (
         -- Users to add ports here
@@ -163,7 +163,7 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S02_AXI_REG is
     -- Example-specific design signals
     -- local parameter for addressing 32 bit / 64 bit C_S_AXI_DATA_WIDTH ADDR_LSB is used for addressing 32/64 bit registers/memories ADDR_LSB = 2 for 32 bits (n downto 2) ADDR_LSB = 3 for 64 bits (n downto 3)
     constant ADDR_LSB  : integer := (C_S_AXI_DATA_WIDTH/32)+ 1;
-    constant OPT_MEM_ADDR_BITS : integer := 3; -- 2**3 == 8 Rows; 8 * 4 Bytes = 32 Bytes
+    constant OPT_MEM_ADDR_BITS : integer := 2; -- 2**3 == 8 Rows; 8 * 4 Bytes = 32 Bytes
 
     ------------------------------------------------
     ---- Signals for user logic register space example
@@ -279,7 +279,7 @@ begin
                 loc_addr := axi_awaddr(ADDR_LSB + OPT_MEM_ADDR_BITS downto ADDR_LSB);
                 if (slv_reg_wren = '1') then
                     case loc_addr is
-                        when b"0000" => -- Line 0
+                        when b"000" => -- Line 0
                             for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
                                 if ( S_AXI_WSTRB(byte_index) = '1' ) then
                                     -- Respective byte enables are asserted as per write strobes                   
@@ -287,7 +287,7 @@ begin
                                     slv_reg0(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
                                 end if;
                             end loop;
-                        when b"0001" => -- Line 1
+                        when b"001" => -- Line 1
                             for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
                                 if ( S_AXI_WSTRB(byte_index) = '1' ) then
                                     -- Respective byte enables are asserted as per write strobes                   
@@ -295,7 +295,7 @@ begin
                                     slv_reg1(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
                                 end if;
                             end loop;
-                        when b"0010" => -- Line 2
+                        when b"010" => -- Line 2
                             for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
                                 if ( S_AXI_WSTRB(byte_index) = '1' ) then
                                     -- Respective byte enables are asserted as per write strobes                   
@@ -408,15 +408,15 @@ begin
         -- Address decoding for reading registers
         loc_addr := axi_araddr(ADDR_LSB + OPT_MEM_ADDR_BITS downto ADDR_LSB);
         case loc_addr is
-            when b"0000" =>
+            when b"000" =>
                 reg_data_out <= slv_reg0;
-            when b"0001" =>
+            when b"001" =>
                 reg_data_out <= slv_reg1;
-            when b"0010" =>
+            when b"010" =>
                 reg_data_out <= slv_reg2;
-            when b"0011" =>
+            when b"011" =>
                 reg_data_out <= slv_reg3;
-            when b"0100" =>
+            when b"100" =>
                 reg_data_out <= slv_reg4;
             when others =>
                 reg_data_out  <= (others => '0');

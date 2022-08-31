@@ -39,7 +39,7 @@ entity AXI_SpaceWire_IP_v1_0_S01_AXI_RX is
         -- Width of S_AXI data bus
         C_S_AXI_DATA_WIDTH	: integer	:= 32;
         -- Width of S_AXI address bus
-        C_S_AXI_ADDR_WIDTH	: integer	:= 7;
+        C_S_AXI_ADDR_WIDTH	: integer	:= 3;
         -- Width of optional user defined signal in write address channel
         C_S_AXI_AWUSER_WIDTH	: integer	:= 0;
         -- Width of optional user defined signal in read address channel
@@ -277,9 +277,11 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S01_AXI_RX is
     --ADDR_LSB = 3 for 42 bits (n downto 3)
 
     constant ADDR_LSB  : integer := (C_S_AXI_DATA_WIDTH/32)+ 1;
-    constant OPT_MEM_ADDR_BITS : integer := 4; -- 2**4 == 16 Rows; 16 * 4 Bytes == 128 Bytes
+    constant OPT_MEM_ADDR_BITS : integer := 0; -- 2**4 == 16 Rows; 16 * 4 Bytes == 128 Bytes
     constant USER_NUM_MEM: integer := 1;
-    constant low : std_logic_vector (C_S_AXI_ADDR_WIDTH - 1 downto 0) := "0000000";
+    constant low : std_logic_vector (C_S_AXI_ADDR_WIDTH - 1 downto 0) := (others => '0');
+    
+    
     ------------------------------------------------
     ---- Signals for user logic memory space example
     --------------------------------------------------
@@ -556,7 +558,14 @@ begin
             begin
                 if ( rising_edge (S_AXI_ACLK) ) then
                     if ( mem_wren = '1' and S_AXI_WSTRB(mem_byte_index) = '1' ) then
-                        byte_ram(to_integer(unsigned(mem_address))) <= data_in;
+                        --byte_ram(to_integer(unsigned(mem_address))) <= data_in;
+                        case mem_address is
+                            when "0" =>
+                                
+                            
+                            when others =>
+                                null; -- enough ? Or more here ?
+                        end case;
                     end if;
                 end if;
             end process BYTE_RAM_PROC;
@@ -568,7 +577,7 @@ begin
                     if ( mem_rden = '1') then
                         --mem_data_out(i)((mem_byte_index*8+7) downto mem_byte_index*8) <= data_out;
                         case mem_address is 
-                            when "00000" =>
+                            when "0" =>
                                 mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= s_fifo_do((mem_byte_index * 8 + 7 ) downto (( mem_byte_index * 8 )));
                             when others => null; 
                         end case;
