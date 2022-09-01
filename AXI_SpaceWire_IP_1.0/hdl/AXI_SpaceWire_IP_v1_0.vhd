@@ -43,7 +43,7 @@ entity AXI_SpaceWire_IP_v1_0 is
 		-- Parameters of Axi Slave Bus Interface S00_AXI_TX
 		C_S00_AXI_TX_ID_WIDTH	: integer	:= 1;
 		C_S00_AXI_TX_DATA_WIDTH	: integer	:= 32;
-		C_S00_AXI_TX_ADDR_WIDTH	: integer	:= 8;
+		C_S00_AXI_TX_ADDR_WIDTH	: integer	:= 3;
 		C_S00_AXI_TX_AWUSER_WIDTH	: integer	:= 0;
 		C_S00_AXI_TX_ARUSER_WIDTH	: integer	:= 0;
 		C_S00_AXI_TX_WUSER_WIDTH	: integer	:= 0;
@@ -53,7 +53,7 @@ entity AXI_SpaceWire_IP_v1_0 is
 		-- Parameters of Axi Slave Bus Interface S01_AXI_RX
 		C_S01_AXI_RX_ID_WIDTH	: integer	:= 1;
 		C_S01_AXI_RX_DATA_WIDTH	: integer	:= 32;
-		C_S01_AXI_RX_ADDR_WIDTH	: integer	:= 7;
+		C_S01_AXI_RX_ADDR_WIDTH	: integer	:= 3;
 		C_S01_AXI_RX_AWUSER_WIDTH	: integer	:= 0;
 		C_S01_AXI_RX_ARUSER_WIDTH	: integer	:= 0;
 		C_S01_AXI_RX_WUSER_WIDTH	: integer	:= 0;
@@ -62,7 +62,7 @@ entity AXI_SpaceWire_IP_v1_0 is
 
 		-- Parameters of Axi Slave Bus Interface S02_AXI_REG
 		C_S02_AXI_REG_DATA_WIDTH	: integer	:= 32;
-		C_S02_AXI_REG_ADDR_WIDTH	: integer	:= 4
+		C_S02_AXI_REG_ADDR_WIDTH	: integer	:= 5
 	);
 	port (
 		-- Users to add ports here
@@ -280,7 +280,7 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0 is
 		generic (
 		C_S_AXI_ID_WIDTH	: integer	:= 1;
 		C_S_AXI_DATA_WIDTH	: integer	:= 32;
-		C_S_AXI_ADDR_WIDTH	: integer	:= 8;
+		C_S_AXI_ADDR_WIDTH	: integer	:= 3;
 		C_S_AXI_AWUSER_WIDTH	: integer	:= 0;
 		C_S_AXI_ARUSER_WIDTH	: integer	:= 0;
 		C_S_AXI_WUSER_WIDTH	: integer	:= 0;
@@ -348,7 +348,7 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0 is
 		generic (
 		C_S_AXI_ID_WIDTH	: integer	:= 1;
 		C_S_AXI_DATA_WIDTH	: integer	:= 32;
-		C_S_AXI_ADDR_WIDTH	: integer	:= 7;
+		C_S_AXI_ADDR_WIDTH	: integer	:= 3;
 		C_S_AXI_AWUSER_WIDTH	: integer	:= 0;
 		C_S_AXI_ARUSER_WIDTH	: integer	:= 0;
 		C_S_AXI_WUSER_WIDTH	: integer	:= 0;
@@ -415,7 +415,7 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0 is
 	component AXI_SpaceWire_IP_v1_0_S02_AXI_REG is
 		generic (
 		C_S_AXI_DATA_WIDTH	: integer	:= 32;
-		C_S_AXI_ADDR_WIDTH	: integer	:= 4
+		C_S_AXI_ADDR_WIDTH	: integer	:= 5
 		);
 		port (
 		autostart : out std_logic;

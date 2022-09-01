@@ -40,7 +40,7 @@ entity AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
         -- Width of S_AXI data bus
         C_S_AXI_DATA_WIDTH	: integer	:= 32;
         -- Width of S_AXI address bus
-        C_S_AXI_ADDR_WIDTH	: integer	:= 8;
+        C_S_AXI_ADDR_WIDTH	: integer	:= 3;
         -- Width of optional user defined signal in write address channel
         C_S_AXI_AWUSER_WIDTH	: integer	:= 0;
         -- Width of optional user defined signal in read address channel
@@ -279,9 +279,9 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
     --ADDR_LSB = 3 for 42 bits (n downto 3)
 
     constant ADDR_LSB  : integer := (C_S_AXI_DATA_WIDTH/32)+ 1;
-    constant OPT_MEM_ADDR_BITS : integer := 5; -- 2**6 == 32 Rows (5 downto 0); 32 * 4 Bytes per Row == 256 Bytes
+    constant OPT_MEM_ADDR_BITS : integer := 0; -- 2**6 == 32 Rows (5 downto 0); 32 * 4 Bytes per Row == 256 Bytes
     constant USER_NUM_MEM: integer := 1;
-    constant low : std_logic_vector (C_S_AXI_ADDR_WIDTH - 1 downto 0) := "00000000";
+    constant low : std_logic_vector (C_S_AXI_ADDR_WIDTH - 1 downto 0) := (others => '0');
     
     
     ------------------------------------------------
@@ -563,7 +563,7 @@ begin
             process(mem_address)
             begin
                 case mem_address is
-                    when "000000" => data_out <= s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
+                    when "0" => data_out <= s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
                     when others => data_out <= (others => '0'); -- evtl. "null" besser?
                 end case;
             end process;
@@ -577,12 +577,13 @@ begin
                         --byte_ram(to_integer(unsigned(mem_address))) <= data_in;
                         -- Memory address differentation.
                         case mem_address is
-                            when "000000" =>
+                            when "0" =>
                                 --byte_ram(to_integer(unsigned(mem_address))) <= data_in;
                                 s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= data_in;                                
                                 -- Writing to a full fifo causes no harm on hardware so let it to outside world (e.g. software) to manage and respect that.
 
-                            when others => null; -- does this work ?
+                            when others => 
+                                null; -- enough ? Or more here ?
                         end case;
                     end if;
                 end if;
@@ -595,12 +596,12 @@ begin
                     if ( mem_rden = '1' ) then
                         mem_data_out(i)((mem_byte_index*8+7) downto mem_byte_index*8) <= data_out;
                         -- Memory address differentation. (probably not needed)
---                        case mem_address is
---                            when "000000" =>
---                                mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
---                            when others =>
---                                mem_data_out(i) <= (others => '0');
---                        end case;
+                        case mem_address is
+                            when "0" =>
+                                mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
+                            when others =>
+                                mem_data_out(i) <= mem_data_out(i);
+                        end case;
                     end if;
                 end if;
             end process;
