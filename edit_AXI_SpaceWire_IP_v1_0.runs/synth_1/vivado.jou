@@ -2,12 +2,12 @@
 # Vivado v2022.1 (64-bit)
 # SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
 # IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
-# Start of session at: Wed Aug 31 22:22:08 2022
-# Process ID: 44007
-# Current directory: /home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1
+# Start of session at: Thu Sep  1 15:06:39 2022
+# Process ID: 31963
+# Current directory: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1
 # Command line: vivado -log AXI_SpaceWire_IP_v1_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source AXI_SpaceWire_IP_v1_0.tcl
-# Log file: /home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/AXI_SpaceWire_IP_v1_0.vds
-# Journal file: /home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/vivado.jou
-# Running On: AranelLindi, OS: Linux, CPU Frequency: 1302.276 MHz, CPU Physical cores: 16, Host memory: 15964 MB
+# Log file: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/AXI_SpaceWire_IP_v1_0.vds
+# Journal file: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/vivado.jou
+# Running On: stl56jc-MS-7C95, OS: Linux, CPU Frequency: 400.000 MHz, CPU Physical cores: 12, Host memory: 14546 MB
 #-----------------------------------------------------------
 source AXI_SpaceWire_IP_v1_0.tcl -notrace

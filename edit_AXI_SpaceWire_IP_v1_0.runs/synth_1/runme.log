@@ -10,10 +10,10 @@
 
 source AXI_SpaceWire_IP_v1_0.tcl -notrace
 INFO: [IP_Flow 19-234] Refreshing IP repositories
-INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0'.
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/Vivado/2022.1/data/ip'.
-Command: read_checkpoint -auto_incremental -incremental /home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/utils_1/imports/synth_1/AXI_SpaceWire_IP_v1_0.dcp
-INFO: [Vivado 12-5825] Read reference checkpoint from /home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/utils_1/imports/synth_1/AXI_SpaceWire_IP_v1_0.dcp for incremental synthesis
+Command: read_checkpoint -auto_incremental -incremental /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/utils_1/imports/synth_1/AXI_SpaceWire_IP_v1_0.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/utils_1/imports/synth_1/AXI_SpaceWire_IP_v1_0.dcp for incremental synthesis
 INFO: [Vivado 12-7989] Please ensure there are no constraint changes
 Command: synth_design -top AXI_SpaceWire_IP_v1_0 -part xc7a35tcpg236-1
 Starting synth_design
@@ -23,21 +23,21 @@ INFO: [Designutils 20-5440] No compile time benefit to using incremental synthes
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 44021
+INFO: [Synth 8-7075] Helper process launched with PID 31987
 ---------------------------------------------------------------------------------
-Starting Synthesize : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2624.707 ; gain = 0.000 ; free physical = 1758 ; free virtual = 9387
+Starting Synthesize : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 2569.965 ; gain = 56.875 ; free physical = 150 ; free virtual = 7275
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:226]
-WARNING: [Synth 8-506] null port 's00_axi_tx_awuser' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:118]
-WARNING: [Synth 8-506] null port 's00_axi_tx_wuser' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:124]
-WARNING: [Synth 8-506] null port 's00_axi_tx_buser' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:129]
-WARNING: [Synth 8-506] null port 's00_axi_tx_aruser' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:142]
-WARNING: [Synth 8-506] null port 's00_axi_tx_ruser' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:149]
-WARNING: [Synth 8-506] null port 's01_axi_rx_awuser' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:166]
-WARNING: [Synth 8-506] null port 's01_axi_rx_wuser' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:172]
-WARNING: [Synth 8-506] null port 's01_axi_rx_buser' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:177]
-WARNING: [Synth 8-506] null port 's01_axi_rx_aruser' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:190]
-WARNING: [Synth 8-506] null port 's01_axi_rx_ruser' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:197]
+INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:226]
+WARNING: [Synth 8-506] null port 's00_axi_tx_awuser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:118]
+WARNING: [Synth 8-506] null port 's00_axi_tx_wuser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:124]
+WARNING: [Synth 8-506] null port 's00_axi_tx_buser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:129]
+WARNING: [Synth 8-506] null port 's00_axi_tx_aruser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:142]
+WARNING: [Synth 8-506] null port 's00_axi_tx_ruser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:149]
+WARNING: [Synth 8-506] null port 's01_axi_rx_awuser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:166]
+WARNING: [Synth 8-506] null port 's01_axi_rx_wuser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:172]
+WARNING: [Synth 8-506] null port 's01_axi_rx_buser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:177]
+WARNING: [Synth 8-506] null port 's01_axi_rx_aruser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:190]
+WARNING: [Synth 8-506] null port 's01_axi_rx_ruser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:197]
 	Parameter C_S_AXI_ID_WIDTH bound to: 1 - type: integer 
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 3 - type: integer 
@@ -46,13 +46,13 @@ WARNING: [Synth 8-506] null port 's01_axi_rx_ruser' ignored [/home/aranel/Dokume
 	Parameter C_S_AXI_WUSER_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_RUSER_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_BUSER_WIDTH bound to: 0 - type: integer 
-WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:310]
-WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:316]
-WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:321]
-WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:334]
-WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:341]
-INFO: [Synth 8-3491] module 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:25' bound to instance 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst' of component 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:495]
-INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:217]
+WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:310]
+WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:316]
+WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:321]
+WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:334]
+WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:341]
+INFO: [Synth 8-3491] module 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:25' bound to instance 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst' of component 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:495]
+INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:217]
 	Parameter C_S_AXI_ID_WIDTH bound to: 1 - type: integer 
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 3 - type: integer 
@@ -61,24 +61,24 @@ INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' [/hom
 	Parameter C_S_AXI_WUSER_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_RUSER_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_BUSER_WIDTH bound to: 0 - type: integer 
-WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:116]
-WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:135]
-WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:149]
-WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:186]
-WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:207]
-WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:243]
-WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:250]
-WARNING: [Synth 8-614] signal 's_fifo_di' is read in the process but is not in the sensitivity list [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:563]
-WARNING: [Synth 8-614] signal 's_fifo_di' is read in the process but is not in the sensitivity list [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:563]
-WARNING: [Synth 8-614] signal 's_fifo_di' is read in the process but is not in the sensitivity list [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:563]
-WARNING: [Synth 8-614] signal 's_fifo_di' is read in the process but is not in the sensitivity list [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:563]
+WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:116]
+WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:135]
+WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:149]
+WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:186]
+WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:207]
+WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:243]
+WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:250]
+WARNING: [Synth 8-614] signal 's_fifo_di' is read in the process but is not in the sensitivity list [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:563]
+WARNING: [Synth 8-614] signal 's_fifo_di' is read in the process but is not in the sensitivity list [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:563]
+WARNING: [Synth 8-614] signal 's_fifo_di' is read in the process but is not in the sensitivity list [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:563]
+WARNING: [Synth 8-614] signal 's_fifo_di' is read in the process but is not in the sensitivity list [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:563]
 	Parameter ALMOST_EMPTY_OFFSET bound to: 32'b00000000000000000000000000000000 
 	Parameter ALMOST_FULL_OFFSET bound to: 32'b00000000000000000000000000000000 
 	Parameter DATA_WIDTH bound to: 9 - type: integer 
 	Parameter DEVICE bound to: 7SERIES - type: string 
 	Parameter FIFO_SIZE bound to: 18Kb - type: string 
 	Parameter FIRST_WORD_FALL_THROUGH bound to: 1 - type: bool 
-INFO: [Synth 8-3491] module 'FIFO_DUALCLOCK_MACRO' declared at '/tools/Xilinx/Vivado/2022.1/data/vhdl/src/unimacro/FIFO_DUALCLOCK_MACRO.vhd:36' bound to instance 'FIFO_DUALCLOCK_MACRO_inst_TX' of component 'FIFO_DUALCLOCK_MACRO' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:683]
+INFO: [Synth 8-3491] module 'FIFO_DUALCLOCK_MACRO' declared at '/tools/Xilinx/Vivado/2022.1/data/vhdl/src/unimacro/FIFO_DUALCLOCK_MACRO.vhd:36' bound to instance 'FIFO_DUALCLOCK_MACRO_inst_TX' of component 'FIFO_DUALCLOCK_MACRO' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:683]
 INFO: [Synth 8-638] synthesizing module 'unimacro_FIFO_DUALCLOCK_MACRO' [/tools/Xilinx/Vivado/2022.1/data/vhdl/src/unimacro/FIFO_DUALCLOCK_MACRO.vhd:70]
 	Parameter ALMOST_FULL_OFFSET bound to: 0 - type: integer 
 	Parameter ALMOST_EMPTY_OFFSET bound to: 0 - type: integer 
@@ -101,12 +101,12 @@ INFO: [Synth 8-638] synthesizing module 'unimacro_FIFO_DUALCLOCK_MACRO' [/tools/
 	Parameter SRVAL bound to: 36'b000000000000000000000000000000000000 
 INFO: [Synth 8-113] binding component instance 'fifo_18_bl' to cell 'FIFO18E1' [/tools/Xilinx/Vivado/2022.1/data/vhdl/src/unimacro/FIFO_DUALCLOCK_MACRO.vhd:769]
 INFO: [Synth 8-256] done synthesizing module 'unimacro_FIFO_DUALCLOCK_MACRO' (0#1) [/tools/Xilinx/Vivado/2022.1/data/vhdl/src/unimacro/FIFO_DUALCLOCK_MACRO.vhd:70]
-INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:217]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:525]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:531]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:536]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:549]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:556]
+INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:217]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:525]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:531]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:536]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:549]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:556]
 	Parameter C_S_AXI_ID_WIDTH bound to: 1 - type: integer 
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 3 - type: integer 
@@ -115,13 +115,13 @@ WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/
 	Parameter C_S_AXI_WUSER_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_RUSER_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_BUSER_WIDTH bound to: 0 - type: integer 
-WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:378]
-WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:384]
-WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:389]
-WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:402]
-WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:409]
-INFO: [Synth 8-3491] module 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:24' bound to instance 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst' of component 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:562]
-INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:218]
+WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:378]
+WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:384]
+WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:389]
+WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:402]
+WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:409]
+INFO: [Synth 8-3491] module 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:24' bound to instance 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst' of component 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:562]
+INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:218]
 	Parameter C_S_AXI_ID_WIDTH bound to: 1 - type: integer 
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 3 - type: integer 
@@ -130,33 +130,33 @@ INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' [/hom
 	Parameter C_S_AXI_WUSER_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_RUSER_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_BUSER_WIDTH bound to: 0 - type: integer 
-WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:117]
-WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:136]
-WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:150]
-WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:187]
-WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:208]
-WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:241]
-WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:248]
+WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:117]
+WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:136]
+WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:150]
+WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:187]
+WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:208]
+WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:241]
+WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:248]
 	Parameter ALMOST_EMPTY_OFFSET bound to: 32'b00000000000000000000000000000000 
 	Parameter ALMOST_FULL_OFFSET bound to: 32'b00000000000000000000000000000000 
 	Parameter DATA_WIDTH bound to: 9 - type: integer 
 	Parameter DEVICE bound to: 7SERIES - type: string 
 	Parameter FIFO_SIZE bound to: 18Kb - type: string 
 	Parameter FIRST_WORD_FALL_THROUGH bound to: 1 - type: bool 
-INFO: [Synth 8-3491] module 'FIFO_DUALCLOCK_MACRO' declared at '/tools/Xilinx/Vivado/2022.1/data/vhdl/src/unimacro/FIFO_DUALCLOCK_MACRO.vhd:36' bound to instance 'FIFO_DUALCLOCK_MACRO_inst_TX' of component 'FIFO_DUALCLOCK_MACRO' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:678]
-INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:218]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:592]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:598]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:603]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:616]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:623]
+INFO: [Synth 8-3491] module 'FIFO_DUALCLOCK_MACRO' declared at '/tools/Xilinx/Vivado/2022.1/data/vhdl/src/unimacro/FIFO_DUALCLOCK_MACRO.vhd:36' bound to instance 'FIFO_DUALCLOCK_MACRO_inst_TX' of component 'FIFO_DUALCLOCK_MACRO' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:678]
+INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:218]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:592]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:598]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:603]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:616]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:623]
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 5 - type: integer 
-INFO: [Synth 8-3491] module 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:5' bound to instance 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst' of component 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:629]
-INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:149]
+INFO: [Synth 8-3491] module 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:5' bound to instance 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst' of component 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:629]
+INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:149]
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 5 - type: integer 
-INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:149]
+INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:149]
 	Parameter sysfreq bound to: 100000000.000000 - type: double 
 	Parameter txclkfreq bound to: 0.000000 - type: double 
 	Parameter rximpl bound to: 1'b1 
@@ -164,8 +164,8 @@ INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG'
 	Parameter tximpl bound to: 1'b1 
 	Parameter rxfifosize_bits bound to: 11 - type: integer 
 	Parameter txfifosize_bits bound to: 11 - type: integer 
-INFO: [Synth 8-3491] module 'spwstream' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:23' bound to instance 'spwstream_inst' of component 'spwstream' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:679]
-INFO: [Synth 8-638] synthesizing module 'spwstream' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:189]
+INFO: [Synth 8-3491] module 'spwstream' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:23' bound to instance 'spwstream_inst' of component 'spwstream' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:679]
+INFO: [Synth 8-638] synthesizing module 'spwstream' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:189]
 	Parameter sysfreq bound to: 100000000.000000 - type: double 
 	Parameter txclkfreq bound to: 0.000000 - type: double 
 	Parameter rximpl bound to: 1'b1 
@@ -173,65 +173,65 @@ INFO: [Synth 8-638] synthesizing module 'spwstream' [/home/aranel/Dokumente/Code
 	Parameter tximpl bound to: 1'b1 
 	Parameter rxfifosize_bits bound to: 11 - type: integer 
 	Parameter txfifosize_bits bound to: 11 - type: integer 
-WARNING: [Synth 8-5825] expecting unsigned expression [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:207]
+WARNING: [Synth 8-5825] expecting unsigned expression [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:207]
 	Parameter reset_time bound to: 640 - type: integer 
-INFO: [Synth 8-3491] module 'spwlink' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwlink.vhd:13' bound to instance 'link_inst' of component 'spwlink' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:278]
-INFO: [Synth 8-638] synthesizing module 'spwlink' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwlink.vhd:51]
+INFO: [Synth 8-3491] module 'spwlink' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwlink.vhd:13' bound to instance 'link_inst' of component 'spwlink' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:278]
+INFO: [Synth 8-638] synthesizing module 'spwlink' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwlink.vhd:51]
 	Parameter reset_time bound to: 640 - type: integer 
-INFO: [Synth 8-256] done synthesizing module 'spwlink' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwlink.vhd:51]
+INFO: [Synth 8-256] done synthesizing module 'spwlink' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwlink.vhd:51]
 	Parameter disconnect_time bound to: 85 - type: integer 
 	Parameter rxchunk bound to: 1 - type: integer 
-INFO: [Synth 8-3491] module 'spwrecv' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecv.vhd:16' bound to instance 'recv_inst' of component 'spwrecv' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:292]
-INFO: [Synth 8-638] synthesizing module 'spwrecv' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecv.vhd:49]
+INFO: [Synth 8-3491] module 'spwrecv' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecv.vhd:16' bound to instance 'recv_inst' of component 'spwrecv' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:292]
+INFO: [Synth 8-638] synthesizing module 'spwrecv' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecv.vhd:49]
 	Parameter disconnect_time bound to: 85 - type: integer 
 	Parameter rxchunk bound to: 1 - type: integer 
-INFO: [Synth 8-256] done synthesizing module 'spwrecv' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecv.vhd:49]
-INFO: [Synth 8-3491] module 'spwxmit_fast' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:150' bound to instance 'xmit_fast_inst' of component 'spwxmit_fast' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:317]
-INFO: [Synth 8-638] synthesizing module 'spwxmit_fast' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:188]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_rst' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:331]
-INFO: [Synth 8-638] synthesizing module 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:31]
-INFO: [Synth 8-256] done synthesizing module 'syncdff' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:31]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_sysflip0' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:335]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_sysflip1' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:337]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_txen' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:339]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_txdivsafe' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:341]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_txflip0' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:345]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_txflip1' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:347]
-INFO: [Synth 8-256] done synthesizing module 'spwxmit_fast' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:188]
+INFO: [Synth 8-256] done synthesizing module 'spwrecv' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecv.vhd:49]
+INFO: [Synth 8-3491] module 'spwxmit_fast' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:150' bound to instance 'xmit_fast_inst' of component 'spwxmit_fast' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:317]
+INFO: [Synth 8-638] synthesizing module 'spwxmit_fast' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:188]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_rst' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:331]
+INFO: [Synth 8-638] synthesizing module 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:31]
+INFO: [Synth 8-256] done synthesizing module 'syncdff' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:31]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_sysflip0' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:335]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_sysflip1' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:337]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_txen' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:339]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_txdivsafe' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:341]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_txflip0' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:345]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_txflip1' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:347]
+INFO: [Synth 8-256] done synthesizing module 'spwxmit_fast' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:188]
 	Parameter rxchunk bound to: 1 - type: integer 
-INFO: [Synth 8-3491] module 'spwrecvfront_fast' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:70' bound to instance 'recvfront_fast_inst' of component 'spwrecvfront_fast' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:342]
-INFO: [Synth 8-638] synthesizing module 'spwrecvfront_fast' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:110]
+INFO: [Synth 8-3491] module 'spwrecvfront_fast' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:70' bound to instance 'recvfront_fast_inst' of component 'spwrecvfront_fast' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:342]
+INFO: [Synth 8-638] synthesizing module 'spwrecvfront_fast' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:110]
 	Parameter rxchunk bound to: 1 - type: integer 
 	Parameter abits bound to: 3 - type: integer 
 	Parameter dbits bound to: 2 - type: integer 
-INFO: [Synth 8-3491] module 'spwram' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:10' bound to instance 'bufmem' of component 'spwram' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:202]
-INFO: [Synth 8-638] synthesizing module 'spwram' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:28]
+INFO: [Synth 8-3491] module 'spwram' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:10' bound to instance 'bufmem' of component 'spwram' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:202]
+INFO: [Synth 8-638] synthesizing module 'spwram' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:28]
 	Parameter abits bound to: 3 - type: integer 
 	Parameter dbits bound to: 2 - type: integer 
-INFO: [Synth 8-256] done synthesizing module 'spwram' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:28]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncrx_reset' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:217]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_headptr0' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:221]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_headptr1' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:223]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_headptr2' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:225]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_bitcnt0' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:227]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_bitcnt1' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:229]
-INFO: [Synth 8-3491] module 'syncdff' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_bitcnt2' of component 'syncdff' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:231]
-INFO: [Synth 8-256] done synthesizing module 'spwrecvfront_fast' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:110]
+INFO: [Synth 8-256] done synthesizing module 'spwram' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:28]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncrx_reset' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:217]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_headptr0' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:221]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_headptr1' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:223]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_headptr2' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:225]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_bitcnt0' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:227]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_bitcnt1' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:229]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_bitcnt2' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:231]
+INFO: [Synth 8-256] done synthesizing module 'spwrecvfront_fast' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:110]
 	Parameter abits bound to: 11 - type: integer 
 	Parameter dbits bound to: 9 - type: integer 
-INFO: [Synth 8-3491] module 'spwram' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:10' bound to instance 'rxmem' of component 'spwram' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:357]
-INFO: [Synth 8-638] synthesizing module 'spwram__parameterized1' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:28]
+INFO: [Synth 8-3491] module 'spwram' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:10' bound to instance 'rxmem' of component 'spwram' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:357]
+INFO: [Synth 8-638] synthesizing module 'spwram__parameterized1' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:28]
 	Parameter abits bound to: 11 - type: integer 
 	Parameter dbits bound to: 9 - type: integer 
-INFO: [Synth 8-256] done synthesizing module 'spwram__parameterized1' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:28]
+INFO: [Synth 8-256] done synthesizing module 'spwram__parameterized1' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:28]
 	Parameter abits bound to: 11 - type: integer 
 	Parameter dbits bound to: 9 - type: integer 
-INFO: [Synth 8-3491] module 'spwram' declared at '/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:10' bound to instance 'txmem' of component 'spwram' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:372]
-INFO: [Synth 8-256] done synthesizing module 'spwstream' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:189]
-INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0' (0#1) [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:226]
-WARNING: [Synth 8-6014] Unused sequential element txwrite_reg was removed.  [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:654]
-WARNING: [Synth 8-6014] Unused sequential element rxread_reg was removed.  [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:647]
-WARNING: [Synth 8-3848] Net s_fifo_rden in module/entity AXI_SpaceWire_IP_v1_0_S01_AXI_RX does not have driver. [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:233]
+INFO: [Synth 8-3491] module 'spwram' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:10' bound to instance 'txmem' of component 'spwram' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:372]
+INFO: [Synth 8-256] done synthesizing module 'spwstream' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:189]
+INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:226]
+WARNING: [Synth 8-6014] Unused sequential element txwrite_reg was removed.  [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:654]
+WARNING: [Synth 8-6014] Unused sequential element rxread_reg was removed.  [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:647]
+WARNING: [Synth 8-3848] Net s_fifo_rden in module/entity AXI_SpaceWire_IP_v1_0_S01_AXI_RX does not have driver. [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:233]
 WARNING: [Synth 8-7129] Port recvo[gotbit] in module spwlink is either unconnected or has no load
 WARNING: [Synth 8-7129] Port rxhalff in module AXI_SpaceWire_IP_v1_0_S02_AXI_REG is either unconnected or has no load
 WARNING: [Synth 8-7129] Port S_AXI_AWPROT[2] in module AXI_SpaceWire_IP_v1_0_S02_AXI_REG is either unconnected or has no load
@@ -334,21 +334,21 @@ WARNING: [Synth 8-7129] Port S_AXI_AWREGION[3] in module AXI_SpaceWire_IP_v1_0_S
 WARNING: [Synth 8-7129] Port S_AXI_AWREGION[2] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
 INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2624.707 ; gain = 0.000 ; free physical = 2845 ; free virtual = 10475
+Finished Synthesize : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2647.934 ; gain = 134.844 ; free physical = 1281 ; free virtual = 8353
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2624.707 ; gain = 0.000 ; free physical = 2840 ; free virtual = 10471
+Finished Constraint Validation : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2665.746 ; gain = 152.656 ; free physical = 1271 ; free virtual = 8345
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tcpg236-1
----------------------------------------------------------------------------------
 INFO: [Device 21-403] Loading part xc7a35tcpg236-1
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2632.711 ; gain = 8.004 ; free physical = 2840 ; free virtual = 10471
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2673.750 ; gain = 160.660 ; free physical = 1270 ; free virtual = 8345
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'r_reg[state]' in module 'spwlink'
-WARNING: [Synth 8-327] inferring latch for variable 'v_do_reg' [/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:627]
+WARNING: [Synth 8-327] inferring latch for variable 'v_do_reg' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:627]
 ---------------------------------------------------------------------------------------------------
                    State |                     New Encoding |                Previous Encoding 
 ---------------------------------------------------------------------------------------------------
@@ -361,7 +361,7 @@ WARNING: [Synth 8-327] inferring latch for variable 'v_do_reg' [/home/aranel/Dok
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'r_reg[state]' using encoding 'one-hot' in module 'spwlink'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2632.711 ; gain = 8.004 ; free physical = 2769 ; free virtual = 10401
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2700.742 ; gain = 187.652 ; free physical = 1179 ; free virtual = 8282
 ---------------------------------------------------------------------------------
 No constraint files found.
 ---------------------------------------------------------------------------------
@@ -445,7 +445,7 @@ WARNING: [Synth 8-3917] design AXI_SpaceWire_IP_v1_0 has port s01_axi_rx_rdata[1
 WARNING: [Synth 8-3917] design AXI_SpaceWire_IP_v1_0 has port s01_axi_rx_rdata[9] driven by constant 0
 WARNING: [Synth 8-3332] Sequential element (AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/v_do_reg[8]) is unused and will be removed from module AXI_SpaceWire_IP_v1_0.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2632.711 ; gain = 8.004 ; free physical = 2548 ; free virtual = 10183
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 904 ; free virtual = 8044
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -477,7 +477,7 @@ No constraint files found.
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2632.711 ; gain = 8.004 ; free physical = 2548 ; free virtual = 10184
+Finished Timing Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 904 ; free virtual = 8044
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -508,7 +508,7 @@ Start Technology Mapping
 INFO: [Synth 8-7052] The timing for the instance spwstream_inst/rxmem/s_mem_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 INFO: [Synth 8-7052] The timing for the instance spwstream_inst/txmem/s_mem_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2632.711 ; gain = 8.004 ; free physical = 2543 ; free virtual = 10178
+Finished Technology Mapping : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 898 ; free virtual = 8039
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -530,37 +530,37 @@ INFO: [Synth 8-4163] Replicating register \spwstream_inst/recvfront_sel1.recvfro
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2632.711 ; gain = 8.004 ; free physical = 2543 ; free virtual = 10179
+Finished IO Insertion : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 892 ; free virtual = 8045
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2632.711 ; gain = 8.004 ; free physical = 2543 ; free virtual = 10179
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 892 ; free virtual = 8045
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2632.711 ; gain = 8.004 ; free physical = 2543 ; free virtual = 10179
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 892 ; free virtual = 8045
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2632.711 ; gain = 8.004 ; free physical = 2543 ; free virtual = 10179
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 892 ; free virtual = 8045
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2632.711 ; gain = 8.004 ; free physical = 2543 ; free virtual = 10179
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 892 ; free virtual = 8045
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2632.711 ; gain = 8.004 ; free physical = 2543 ; free virtual = 10179
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 892 ; free virtual = 8045
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -628,13 +628,13 @@ Report Instance Areas:
 |28    |      synctx_txen                        |syncdff_6                         |     6|
 +------+-----------------------------------------+----------------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2632.711 ; gain = 8.004 ; free physical = 2543 ; free virtual = 10179
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 892 ; free virtual = 8045
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 303 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2632.711 ; gain = 8.004 ; free physical = 2549 ; free virtual = 10184
-Synthesis Optimization Complete : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2632.719 ; gain = 8.004 ; free physical = 2549 ; free virtual = 10184
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 894 ; free virtual = 8048
+Synthesis Optimization Complete : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2826.172 ; gain = 313.074 ; free physical = 894 ; free virtual = 8048
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2632.719 ; gain = 0.000 ; free physical = 2639 ; free virtual = 10275
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2832.102 ; gain = 0.000 ; free physical = 976 ; free virtual = 8137
 INFO: [Netlist 29-17] Analyzing 47 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -645,7 +645,7 @@ WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
 WARNING: [Constraints 18-4642] Detected two FFs (1. spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg, and 2. spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di1_reg) with both IOB=TRUE that are driven by spw_di_IBUF_inst. Skipping shape updating caused by IOB property change. 
 WARNING: [Constraints 18-4642] Detected two FFs (1. spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg, and 2. spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si1_reg) with both IOB=TRUE that are driven by spw_si_IBUF_inst. Skipping shape updating caused by IOB property change. 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2688.738 ; gain = 0.000 ; free physical = 2556 ; free virtual = 10192
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2965.785 ; gain = 0.000 ; free physical = 871 ; free virtual = 8049
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 2 instances were transformed.
   RAM16X1D => RAM32X1D (RAMD32(x2)): 2 instances
@@ -654,7 +654,7 @@ Synth Design complete, checksum: 4e90a6e0
 INFO: [Common 17-83] Releasing license: Synthesis
 82 Infos, 168 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:15 ; elapsed = 00:00:12 . Memory (MB): peak = 2688.738 ; gain = 64.031 ; free physical = 2767 ; free virtual = 10403
-INFO: [Common 17-1381] The checkpoint '/home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/AXI_SpaceWire_IP_v1_0.dcp' has been generated.
+synth_design: Time (s): cpu = 00:00:15 ; elapsed = 00:00:12 . Memory (MB): peak = 2965.785 ; gain = 452.695 ; free physical = 1077 ; free virtual = 8256
+INFO: [Common 17-1381] The checkpoint '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/AXI_SpaceWire_IP_v1_0.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file AXI_SpaceWire_IP_v1_0_utilization_synth.rpt -pb AXI_SpaceWire_IP_v1_0_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Wed Aug 31 22:22:25 2022...
+INFO: [Common 17-206] Exiting Vivado at Thu Sep  1 15:07:01 2022...
