@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="60" Path="/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.xpr">
+<Project Version="7" Minor="60" Path="/home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="08e80ea739aa4fc2b310a46e56fc87f3"/>
@@ -197,14 +197,13 @@
       <Filter Type="Srcs"/>
       <File Path="$PSRCDIR/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd">
         <FileInfo SFType="VHDL2008">
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="AXI_SpaceWire_IP_v1_0"/>
+        <Option Name="TopModule" Val="AXI_SpaceWire_IP_v1_0_tb"/>
         <Option Name="TopLib" Val="xil_defaultlib"/>
         <Option Name="TopAutoSet" Val="TRUE"/>
         <Option Name="TransportPathDelay" Val="0"/>

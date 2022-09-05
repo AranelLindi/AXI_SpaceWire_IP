@@ -46,6 +46,9 @@ end;
 
 architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
     -- Generic constants.
+    constant pl_clock_period : time := 10 ns;
+    constant ps_clock_period : time := 20 ns;
+
     -- Parameters of Axi Slave Bus Interface S00_AXI_TX
     constant C_S00_AXI_TX_ID_WIDTH	: integer	:= 1;
     constant C_S00_AXI_TX_DATA_WIDTH	: integer	:= 32;
@@ -235,6 +238,8 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
         );
     end component;
 
+    signal clk_ps : std_logic;
+
     signal clk_logic: std_logic;
     signal rxclk: std_logic;
     signal txclk: std_logic;
@@ -360,169 +365,243 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
     signal s02_axi_reg_rready: std_logic ;
 
     -- Testbench functions.
-    procedure WriteFullAXI(signal awid : in std_logic_vector; signal awaddr : in std_logic_vector; signal awlen : in std_logic_vector(7 downto 0); signal awsize : in std_logic_vector(2 downto 0); signal awburst : in std_logic_vector(1 downto 0); signal awlock : in std_logic; signal awcache : in std_logic_vector(3 downto 0); signal awprot : in std_logic_vector(2 downto 0); signal awqos : in std_logic_vector(3 downto 0); signal awregion : in std_logic_vector(3 downto 0); signal awuser : in std_logic_vector; signal awvalid : in std_logic; signal awready : out std_logic; signal awdata : in std_logic_vector; signal awstrb : in std_logic_vector; signal awlast : in std_logic; signal awuser : in std_logic_vector; 
+    procedure WriteFullAXI(signal awid : out std_logic_vector; constant awid_val : in std_logic_vector; signal awaddr : out std_logic_vector; constant awaddr_val : in std_logic_vector; signal awlen : out std_logic_vector(7 downto 0); constant awlen_val : in std_logic_vector(7 downto 0); signal awburst : out std_logic_vector(1 downto 0); constant awburst_val : in std_logic_vector(1 downto 0); signal awvalid : out std_logic; constant awvalid_val : in std_logic;
+                           signal wdata : out std_logic_vector; constant wdata_val : in std_logic_vector; signal wstrb : out std_logic_vector; constant wstrb_val : in std_logic_vector; signal wlast : out std_logic; constant wlast_val : in std_logic; signal wvalid : out std_logic; constant wvalid_val : in std_logic;
+                           signal bready : out std_logic; constant bready_val : in std_logic) is
+        -- Save original signal values to restore them later...
+        constant c_awid : std_logic_vector := awid;
+        constant c_awaddr : std_logic_vector := awaddr;
+        constant c_awlen : std_logic_vector(7 downto 0) := awlen;
+        constant c_awburst : std_logic_vector(1 downto 0) := awburst;
+        constant c_awvalid : std_logic := awvalid;
+        constant c_wdata : std_logic_vector := wdata;
+        constant c_wstrb : std_logic_vector := wstrb;
+        constant c_wlast : std_logic := wlast;
+        constant c_wvalid : std_logic := wvalid;
+        constant c_bready : std_logic := bready;
+
+        -- Internal constants.
+        constant c_burstlength : integer := to_integer(unsigned(awlen_val));
+    begin
+        if c_burstlength > 0 then
+            -- Burst Transfer.
+
+            for i in 0 to c_burstlength loop
+                if i /= c_burstlength then
+
+                else
+                -- Last iteration in burst transfer...
+                end if;
+            end loop;
+        else
+            -- Single Transfer.
+
+            wait until falling_edge(clk_logic);
+
+            -- Write address id.
+            awid <= awid_val;
+            -- Write address.
+            awaddr <= awaddr_val;
+            -- Burst length. The burst length gives the exact number of transfers in a burst
+            awlen <= awlen_val;
+            -- Burst Type. The burst type and the size information determine how the address for each transfer within the burst is calculated.
+            awburst <= awburst_val;
+            -- Write address valid. This signal indicates that the channel is signaling valid write address and control information.
+            awvalid <= awvalid_val;
+
+            --  Write data.
+            wdata <= wdata_val;
+            -- Write strobes. This signal indicates which byte lanes hold valid data. There is one write strobe bit for each eight bits of the write data bus.
+            wstrb <= wstrb_val;
+            -- Write last. This signal indicates the last transfer in a write burst.
+            wlast <= wlast;
+            -- Write valid. This signal indicates that valid write data and strobes are available.
+            wvalid <= wvalid_val;
+
+            -- Response ready. This signal indicates that the channel is signaling a valid write response.
+            bready <= bready_val;
+        end if;
+    end procedure WriteFullAXI;
+
+
 begin
+    -- ps clock assignments.
+    s00_axi_tx_aclk <= clk_ps;
+    s01_axi_rx_aclk <= clk_ps;
+    s02_axi_reg_aclk <= clk_ps;
+
 
     -- Insert values for generic parameters !!
     uut: AXI_SpaceWire_IP_v1_0 generic map (sysfreq                   => sysfreq,
-                                           txclkfreq                 => txclkfreq,
-                                           rximpl                    => rximpl,
-                                           tximpl                    => tximpl,
-                                           rxchunk                   => rxchunk,
-                                           rxfifosize_bits           => rxfifosize_bits,
-                                           txfifosize_bits           => txfifosize_bits,
-                                           C_S00_AXI_TX_ID_WIDTH     => C_S00_AXI_TX_ID_WIDTH,
-                                           C_S00_AXI_TX_DATA_WIDTH   => C_S00_AXI_TX_DATA_WIDTH,
-                                           C_S00_AXI_TX_ADDR_WIDTH   => C_S00_AXI_TX_ADDR_WIDTH,
-                                           C_S00_AXI_TX_AWUSER_WIDTH => C_S00_AXI_TX_AWUSER_WIDTH,
-                                           C_S00_AXI_TX_ARUSER_WIDTH => C_S00_AXI_TX_ARUSER_WIDTH,
-                                           C_S00_AXI_TX_WUSER_WIDTH  => C_S00_AXI_TX_WUSER_WIDTH,
-                                           C_S00_AXI_TX_RUSER_WIDTH  => C_S00_AXI_TX_RUSER_WIDTH,
-                                           C_S00_AXI_TX_BUSER_WIDTH  => C_S00_AXI_TX_BUSER_WIDTH,
-                                           C_S01_AXI_RX_ID_WIDTH     => C_S01_AXI_RX_ID_WIDTH,
-                                           C_S01_AXI_RX_DATA_WIDTH   => C_S01_AXI_RX_DATA_WIDTH,
-                                           C_S01_AXI_RX_ADDR_WIDTH   => C_S01_AXI_RX_ADDR_WIDTH,
-                                           C_S01_AXI_RX_AWUSER_WIDTH => C_S01_AXI_RX_AWUSER_WIDTH,
-                                           C_S01_AXI_RX_ARUSER_WIDTH => C_S01_AXI_RX_ARUSER_WIDTH,
-                                           C_S01_AXI_RX_WUSER_WIDTH  => C_S01_AXI_RX_WUSER_WIDTH,
-                                           C_S01_AXI_RX_RUSER_WIDTH  => C_S01_AXI_RX_RUSER_WIDTH,
-                                           C_S01_AXI_RX_BUSER_WIDTH  => C_S01_AXI_RX_BUSER_WIDTH,
-                                           C_S02_AXI_REG_DATA_WIDTH  => C_S02_AXI_REG_DATA_WIDTH,
-                                           C_S02_AXI_REG_ADDR_WIDTH  => C_S02_AXI_REG_ADDR_WIDTH)
-                                port map ( clk_logic                 => clk_logic,
-                                           rxclk                     => rxclk,
-                                           txclk                     => txclk,
-                                           rst_logic                 => rst_logic,
-                                           tc_in                     => tc_in,
-                                           tc_out                    => tc_out,
-                                           spw_di                    => spw_di,
-                                           spw_si                    => spw_si,
-                                           spw_do                    => spw_do,
-                                           spw_so                    => spw_so,
-                                           s00_axi_tx_aclk           => s00_axi_tx_aclk,
-                                           s00_axi_tx_aresetn        => s00_axi_tx_aresetn,
-                                           s00_axi_tx_awid           => s00_axi_tx_awid,
-                                           s00_axi_tx_awaddr         => s00_axi_tx_awaddr,
-                                           s00_axi_tx_awlen          => s00_axi_tx_awlen,
-                                           s00_axi_tx_awsize         => s00_axi_tx_awsize,
-                                           s00_axi_tx_awburst        => s00_axi_tx_awburst,
-                                           s00_axi_tx_awlock         => s00_axi_tx_awlock,
-                                           s00_axi_tx_awcache        => s00_axi_tx_awcache,
-                                           s00_axi_tx_awprot         => s00_axi_tx_awprot,
-                                           s00_axi_tx_awqos          => s00_axi_tx_awqos,
-                                           s00_axi_tx_awregion       => s00_axi_tx_awregion,
-                                           s00_axi_tx_awuser         => s00_axi_tx_awuser,
-                                           s00_axi_tx_awvalid        => s00_axi_tx_awvalid,
-                                           s00_axi_tx_awready        => s00_axi_tx_awready,
-                                           s00_axi_tx_wdata          => s00_axi_tx_wdata,
-                                           s00_axi_tx_wstrb          => s00_axi_tx_wstrb,
-                                           s00_axi_tx_wlast          => s00_axi_tx_wlast,
-                                           s00_axi_tx_wuser          => s00_axi_tx_wuser,
-                                           s00_axi_tx_wvalid         => s00_axi_tx_wvalid,
-                                           s00_axi_tx_wready         => s00_axi_tx_wready,
-                                           s00_axi_tx_bid            => s00_axi_tx_bid,
-                                           s00_axi_tx_bresp          => s00_axi_tx_bresp,
-                                           s00_axi_tx_buser          => s00_axi_tx_buser,
-                                           s00_axi_tx_bvalid         => s00_axi_tx_bvalid,
-                                           s00_axi_tx_bready         => s00_axi_tx_bready,
-                                           s00_axi_tx_arid           => s00_axi_tx_arid,
-                                           s00_axi_tx_araddr         => s00_axi_tx_araddr,
-                                           s00_axi_tx_arlen          => s00_axi_tx_arlen,
-                                           s00_axi_tx_arsize         => s00_axi_tx_arsize,
-                                           s00_axi_tx_arburst        => s00_axi_tx_arburst,
-                                           s00_axi_tx_arlock         => s00_axi_tx_arlock,
-                                           s00_axi_tx_arcache        => s00_axi_tx_arcache,
-                                           s00_axi_tx_arprot         => s00_axi_tx_arprot,
-                                           s00_axi_tx_arqos          => s00_axi_tx_arqos,
-                                           s00_axi_tx_arregion       => s00_axi_tx_arregion,
-                                           s00_axi_tx_aruser         => s00_axi_tx_aruser,
-                                           s00_axi_tx_arvalid        => s00_axi_tx_arvalid,
-                                           s00_axi_tx_arready        => s00_axi_tx_arready,
-                                           s00_axi_tx_rid            => s00_axi_tx_rid,
-                                           s00_axi_tx_rdata          => s00_axi_tx_rdata,
-                                           s00_axi_tx_rresp          => s00_axi_tx_rresp,
-                                           s00_axi_tx_rlast          => s00_axi_tx_rlast,
-                                           s00_axi_tx_ruser          => s00_axi_tx_ruser,
-                                           s00_axi_tx_rvalid         => s00_axi_tx_rvalid,
-                                           s00_axi_tx_rready         => s00_axi_tx_rready,
-                                           s01_axi_rx_aclk           => s01_axi_rx_aclk,
-                                           s01_axi_rx_aresetn        => s01_axi_rx_aresetn,
-                                           s01_axi_rx_awid           => s01_axi_rx_awid,
-                                           s01_axi_rx_awaddr         => s01_axi_rx_awaddr,
-                                           s01_axi_rx_awlen          => s01_axi_rx_awlen,
-                                           s01_axi_rx_awsize         => s01_axi_rx_awsize,
-                                           s01_axi_rx_awburst        => s01_axi_rx_awburst,
-                                           s01_axi_rx_awlock         => s01_axi_rx_awlock,
-                                           s01_axi_rx_awcache        => s01_axi_rx_awcache,
-                                           s01_axi_rx_awprot         => s01_axi_rx_awprot,
-                                           s01_axi_rx_awqos          => s01_axi_rx_awqos,
-                                           s01_axi_rx_awregion       => s01_axi_rx_awregion,
-                                           s01_axi_rx_awuser         => s01_axi_rx_awuser,
-                                           s01_axi_rx_awvalid        => s01_axi_rx_awvalid,
-                                           s01_axi_rx_awready        => s01_axi_rx_awready,
-                                           s01_axi_rx_wdata          => s01_axi_rx_wdata,
-                                           s01_axi_rx_wstrb          => s01_axi_rx_wstrb,
-                                           s01_axi_rx_wlast          => s01_axi_rx_wlast,
-                                           s01_axi_rx_wuser          => s01_axi_rx_wuser,
-                                           s01_axi_rx_wvalid         => s01_axi_rx_wvalid,
-                                           s01_axi_rx_wready         => s01_axi_rx_wready,
-                                           s01_axi_rx_bid            => s01_axi_rx_bid,
-                                           s01_axi_rx_bresp          => s01_axi_rx_bresp,
-                                           s01_axi_rx_buser          => s01_axi_rx_buser,
-                                           s01_axi_rx_bvalid         => s01_axi_rx_bvalid,
-                                           s01_axi_rx_bready         => s01_axi_rx_bready,
-                                           s01_axi_rx_arid           => s01_axi_rx_arid,
-                                           s01_axi_rx_araddr         => s01_axi_rx_araddr,
-                                           s01_axi_rx_arlen          => s01_axi_rx_arlen,
-                                           s01_axi_rx_arsize         => s01_axi_rx_arsize,
-                                           s01_axi_rx_arburst        => s01_axi_rx_arburst,
-                                           s01_axi_rx_arlock         => s01_axi_rx_arlock,
-                                           s01_axi_rx_arcache        => s01_axi_rx_arcache,
-                                           s01_axi_rx_arprot         => s01_axi_rx_arprot,
-                                           s01_axi_rx_arqos          => s01_axi_rx_arqos,
-                                           s01_axi_rx_arregion       => s01_axi_rx_arregion,
-                                           s01_axi_rx_aruser         => s01_axi_rx_aruser,
-                                           s01_axi_rx_arvalid        => s01_axi_rx_arvalid,
-                                           s01_axi_rx_arready        => s01_axi_rx_arready,
-                                           s01_axi_rx_rid            => s01_axi_rx_rid,
-                                           s01_axi_rx_rdata          => s01_axi_rx_rdata,
-                                           s01_axi_rx_rresp          => s01_axi_rx_rresp,
-                                           s01_axi_rx_rlast          => s01_axi_rx_rlast,
-                                           s01_axi_rx_ruser          => s01_axi_rx_ruser,
-                                           s01_axi_rx_rvalid         => s01_axi_rx_rvalid,
-                                           s01_axi_rx_rready         => s01_axi_rx_rready,
-                                           s02_axi_reg_aclk          => s02_axi_reg_aclk,
-                                           s02_axi_reg_aresetn       => s02_axi_reg_aresetn,
-                                           s02_axi_reg_awaddr        => s02_axi_reg_awaddr,
-                                           s02_axi_reg_awprot        => s02_axi_reg_awprot,
-                                           s02_axi_reg_awvalid       => s02_axi_reg_awvalid,
-                                           s02_axi_reg_awready       => s02_axi_reg_awready,
-                                           s02_axi_reg_wdata         => s02_axi_reg_wdata,
-                                           s02_axi_reg_wstrb         => s02_axi_reg_wstrb,
-                                           s02_axi_reg_wvalid        => s02_axi_reg_wvalid,
-                                           s02_axi_reg_wready        => s02_axi_reg_wready,
-                                           s02_axi_reg_bresp         => s02_axi_reg_bresp,
-                                           s02_axi_reg_bvalid        => s02_axi_reg_bvalid,
-                                           s02_axi_reg_bready        => s02_axi_reg_bready,
-                                           s02_axi_reg_araddr        => s02_axi_reg_araddr,
-                                           s02_axi_reg_arprot        => s02_axi_reg_arprot,
-                                           s02_axi_reg_arvalid       => s02_axi_reg_arvalid,
-                                           s02_axi_reg_arready       => s02_axi_reg_arready,
-                                           s02_axi_reg_rdata         => s02_axi_reg_rdata,
-                                           s02_axi_reg_rresp         => s02_axi_reg_rresp,
-                                           s02_axi_reg_rvalid        => s02_axi_reg_rvalid,
-                                           s02_axi_reg_rready        => s02_axi_reg_rready );
+                    txclkfreq                 => txclkfreq,
+                    rximpl                    => rximpl,
+                    tximpl                    => tximpl,
+                    rxchunk                   => rxchunk,
+                    rxfifosize_bits           => rxfifosize_bits,
+                    txfifosize_bits           => txfifosize_bits,
+                    C_S00_AXI_TX_ID_WIDTH     => C_S00_AXI_TX_ID_WIDTH,
+                    C_S00_AXI_TX_DATA_WIDTH   => C_S00_AXI_TX_DATA_WIDTH,
+                    C_S00_AXI_TX_ADDR_WIDTH   => C_S00_AXI_TX_ADDR_WIDTH,
+                    C_S00_AXI_TX_AWUSER_WIDTH => C_S00_AXI_TX_AWUSER_WIDTH,
+                    C_S00_AXI_TX_ARUSER_WIDTH => C_S00_AXI_TX_ARUSER_WIDTH,
+                    C_S00_AXI_TX_WUSER_WIDTH  => C_S00_AXI_TX_WUSER_WIDTH,
+                    C_S00_AXI_TX_RUSER_WIDTH  => C_S00_AXI_TX_RUSER_WIDTH,
+                    C_S00_AXI_TX_BUSER_WIDTH  => C_S00_AXI_TX_BUSER_WIDTH,
+                    C_S01_AXI_RX_ID_WIDTH     => C_S01_AXI_RX_ID_WIDTH,
+                    C_S01_AXI_RX_DATA_WIDTH   => C_S01_AXI_RX_DATA_WIDTH,
+                    C_S01_AXI_RX_ADDR_WIDTH   => C_S01_AXI_RX_ADDR_WIDTH,
+                    C_S01_AXI_RX_AWUSER_WIDTH => C_S01_AXI_RX_AWUSER_WIDTH,
+                    C_S01_AXI_RX_ARUSER_WIDTH => C_S01_AXI_RX_ARUSER_WIDTH,
+                    C_S01_AXI_RX_WUSER_WIDTH  => C_S01_AXI_RX_WUSER_WIDTH,
+                    C_S01_AXI_RX_RUSER_WIDTH  => C_S01_AXI_RX_RUSER_WIDTH,
+                    C_S01_AXI_RX_BUSER_WIDTH  => C_S01_AXI_RX_BUSER_WIDTH,
+                    C_S02_AXI_REG_DATA_WIDTH  => C_S02_AXI_REG_DATA_WIDTH,
+                    C_S02_AXI_REG_ADDR_WIDTH  => C_S02_AXI_REG_ADDR_WIDTH)
+        port map ( clk_logic                 => clk_logic,
+                 rxclk                     => rxclk,
+                 txclk                     => txclk,
+                 rst_logic                 => rst_logic,
+                 tc_in                     => tc_in,
+                 tc_out                    => tc_out,
+                 spw_di                    => spw_di,
+                 spw_si                    => spw_si,
+                 spw_do                    => spw_do,
+                 spw_so                    => spw_so,
+                 s00_axi_tx_aclk           => s00_axi_tx_aclk,
+                 s00_axi_tx_aresetn        => s00_axi_tx_aresetn,
+                 s00_axi_tx_awid           => s00_axi_tx_awid,
+                 s00_axi_tx_awaddr         => s00_axi_tx_awaddr,
+                 s00_axi_tx_awlen          => s00_axi_tx_awlen,
+                 s00_axi_tx_awsize         => s00_axi_tx_awsize,
+                 s00_axi_tx_awburst        => s00_axi_tx_awburst,
+                 s00_axi_tx_awlock         => s00_axi_tx_awlock,
+                 s00_axi_tx_awcache        => s00_axi_tx_awcache,
+                 s00_axi_tx_awprot         => s00_axi_tx_awprot,
+                 s00_axi_tx_awqos          => s00_axi_tx_awqos,
+                 s00_axi_tx_awregion       => s00_axi_tx_awregion,
+                 s00_axi_tx_awuser         => s00_axi_tx_awuser,
+                 s00_axi_tx_awvalid        => s00_axi_tx_awvalid,
+                 s00_axi_tx_awready        => s00_axi_tx_awready,
+                 s00_axi_tx_wdata          => s00_axi_tx_wdata,
+                 s00_axi_tx_wstrb          => s00_axi_tx_wstrb,
+                 s00_axi_tx_wlast          => s00_axi_tx_wlast,
+                 s00_axi_tx_wuser          => s00_axi_tx_wuser,
+                 s00_axi_tx_wvalid         => s00_axi_tx_wvalid,
+                 s00_axi_tx_wready         => s00_axi_tx_wready,
+                 s00_axi_tx_bid            => s00_axi_tx_bid,
+                 s00_axi_tx_bresp          => s00_axi_tx_bresp,
+                 s00_axi_tx_buser          => s00_axi_tx_buser,
+                 s00_axi_tx_bvalid         => s00_axi_tx_bvalid,
+                 s00_axi_tx_bready         => s00_axi_tx_bready,
+                 s00_axi_tx_arid           => s00_axi_tx_arid,
+                 s00_axi_tx_araddr         => s00_axi_tx_araddr,
+                 s00_axi_tx_arlen          => s00_axi_tx_arlen,
+                 s00_axi_tx_arsize         => s00_axi_tx_arsize,
+                 s00_axi_tx_arburst        => s00_axi_tx_arburst,
+                 s00_axi_tx_arlock         => s00_axi_tx_arlock,
+                 s00_axi_tx_arcache        => s00_axi_tx_arcache,
+                 s00_axi_tx_arprot         => s00_axi_tx_arprot,
+                 s00_axi_tx_arqos          => s00_axi_tx_arqos,
+                 s00_axi_tx_arregion       => s00_axi_tx_arregion,
+                 s00_axi_tx_aruser         => s00_axi_tx_aruser,
+                 s00_axi_tx_arvalid        => s00_axi_tx_arvalid,
+                 s00_axi_tx_arready        => s00_axi_tx_arready,
+                 s00_axi_tx_rid            => s00_axi_tx_rid,
+                 s00_axi_tx_rdata          => s00_axi_tx_rdata,
+                 s00_axi_tx_rresp          => s00_axi_tx_rresp,
+                 s00_axi_tx_rlast          => s00_axi_tx_rlast,
+                 s00_axi_tx_ruser          => s00_axi_tx_ruser,
+                 s00_axi_tx_rvalid         => s00_axi_tx_rvalid,
+                 s00_axi_tx_rready         => s00_axi_tx_rready,
+                 s01_axi_rx_aclk           => s01_axi_rx_aclk,
+                 s01_axi_rx_aresetn        => s01_axi_rx_aresetn,
+                 s01_axi_rx_awid           => s01_axi_rx_awid,
+                 s01_axi_rx_awaddr         => s01_axi_rx_awaddr,
+                 s01_axi_rx_awlen          => s01_axi_rx_awlen,
+                 s01_axi_rx_awsize         => s01_axi_rx_awsize,
+                 s01_axi_rx_awburst        => s01_axi_rx_awburst,
+                 s01_axi_rx_awlock         => s01_axi_rx_awlock,
+                 s01_axi_rx_awcache        => s01_axi_rx_awcache,
+                 s01_axi_rx_awprot         => s01_axi_rx_awprot,
+                 s01_axi_rx_awqos          => s01_axi_rx_awqos,
+                 s01_axi_rx_awregion       => s01_axi_rx_awregion,
+                 s01_axi_rx_awuser         => s01_axi_rx_awuser,
+                 s01_axi_rx_awvalid        => s01_axi_rx_awvalid,
+                 s01_axi_rx_awready        => s01_axi_rx_awready,
+                 s01_axi_rx_wdata          => s01_axi_rx_wdata,
+                 s01_axi_rx_wstrb          => s01_axi_rx_wstrb,
+                 s01_axi_rx_wlast          => s01_axi_rx_wlast,
+                 s01_axi_rx_wuser          => s01_axi_rx_wuser,
+                 s01_axi_rx_wvalid         => s01_axi_rx_wvalid,
+                 s01_axi_rx_wready         => s01_axi_rx_wready,
+                 s01_axi_rx_bid            => s01_axi_rx_bid,
+                 s01_axi_rx_bresp          => s01_axi_rx_bresp,
+                 s01_axi_rx_buser          => s01_axi_rx_buser,
+                 s01_axi_rx_bvalid         => s01_axi_rx_bvalid,
+                 s01_axi_rx_bready         => s01_axi_rx_bready,
+                 s01_axi_rx_arid           => s01_axi_rx_arid,
+                 s01_axi_rx_araddr         => s01_axi_rx_araddr,
+                 s01_axi_rx_arlen          => s01_axi_rx_arlen,
+                 s01_axi_rx_arsize         => s01_axi_rx_arsize,
+                 s01_axi_rx_arburst        => s01_axi_rx_arburst,
+                 s01_axi_rx_arlock         => s01_axi_rx_arlock,
+                 s01_axi_rx_arcache        => s01_axi_rx_arcache,
+                 s01_axi_rx_arprot         => s01_axi_rx_arprot,
+                 s01_axi_rx_arqos          => s01_axi_rx_arqos,
+                 s01_axi_rx_arregion       => s01_axi_rx_arregion,
+                 s01_axi_rx_aruser         => s01_axi_rx_aruser,
+                 s01_axi_rx_arvalid        => s01_axi_rx_arvalid,
+                 s01_axi_rx_arready        => s01_axi_rx_arready,
+                 s01_axi_rx_rid            => s01_axi_rx_rid,
+                 s01_axi_rx_rdata          => s01_axi_rx_rdata,
+                 s01_axi_rx_rresp          => s01_axi_rx_rresp,
+                 s01_axi_rx_rlast          => s01_axi_rx_rlast,
+                 s01_axi_rx_ruser          => s01_axi_rx_ruser,
+                 s01_axi_rx_rvalid         => s01_axi_rx_rvalid,
+                 s01_axi_rx_rready         => s01_axi_rx_rready,
+                 s02_axi_reg_aclk          => s02_axi_reg_aclk,
+                 s02_axi_reg_aresetn       => s02_axi_reg_aresetn,
+                 s02_axi_reg_awaddr        => s02_axi_reg_awaddr,
+                 s02_axi_reg_awprot        => s02_axi_reg_awprot,
+                 s02_axi_reg_awvalid       => s02_axi_reg_awvalid,
+                 s02_axi_reg_awready       => s02_axi_reg_awready,
+                 s02_axi_reg_wdata         => s02_axi_reg_wdata,
+                 s02_axi_reg_wstrb         => s02_axi_reg_wstrb,
+                 s02_axi_reg_wvalid        => s02_axi_reg_wvalid,
+                 s02_axi_reg_wready        => s02_axi_reg_wready,
+                 s02_axi_reg_bresp         => s02_axi_reg_bresp,
+                 s02_axi_reg_bvalid        => s02_axi_reg_bvalid,
+                 s02_axi_reg_bready        => s02_axi_reg_bready,
+                 s02_axi_reg_araddr        => s02_axi_reg_araddr,
+                 s02_axi_reg_arprot        => s02_axi_reg_arprot,
+                 s02_axi_reg_arvalid       => s02_axi_reg_arvalid,
+                 s02_axi_reg_arready       => s02_axi_reg_arready,
+                 s02_axi_reg_rdata         => s02_axi_reg_rdata,
+                 s02_axi_reg_rresp         => s02_axi_reg_rresp,
+                 s02_axi_reg_rvalid        => s02_axi_reg_rvalid,
+                 s02_axi_reg_rready        => s02_axi_reg_rready );
 
-  stimulus: process
-  begin
-  
-    -- Put initialisation code here
+    stimulus: process
+    begin
 
-
-    -- Put test bench stimulus code here
-
-    wait;
-  end process;
+        -- Put initialisation code here
 
 
+        -- Put test bench stimulus code here
+
+        wait;
+    end process;
+
+    -- Clocking processes.
+    pl_clock: process
+    begin
+        clk_logic <= '0', '1' after pl_clock_period / 2;
+        wait for pl_clock_period;
+    end process;
+
+    ps_clock: process
+    begin
+        clk_ps <= '0', '1' after ps_clock_period / 2;
+        wait for ps_clock_period;
+    end process;
 end AXI_SpaceWire_IP_v1_0_tb_arch;
