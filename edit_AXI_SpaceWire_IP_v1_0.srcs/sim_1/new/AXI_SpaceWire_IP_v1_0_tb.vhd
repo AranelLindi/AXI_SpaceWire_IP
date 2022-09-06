@@ -239,6 +239,7 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
     end component;
 
     signal clk_ps : std_logic;
+    signal rst_ps : std_logic;
 
     signal clk_logic: std_logic;
     signal rxclk: std_logic;
@@ -365,7 +366,61 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
     signal s02_axi_reg_rready: std_logic ;
 
     -- Testbench functions.
-    procedure WriteFullAXI(signal awid : out std_logic_vector; constant awid_val : in std_logic_vector; signal awaddr : out std_logic_vector; constant awaddr_val : in std_logic_vector; signal awlen : out std_logic_vector(7 downto 0); constant awlen_val : in std_logic_vector(7 downto 0); signal awburst : out std_logic_vector(1 downto 0); constant awburst_val : in std_logic_vector(1 downto 0); signal awvalid : out std_logic; constant awvalid_val : in std_logic;
+    procedure AXI4LiteRead is
+    begin
+    
+    end procedure AXI4LiteRead;
+    
+    procedure AXI4LiteWrite(signal awaddr : out std_logic_vector; constant awaddr_val : in std_logic_vector; signal awvalid : out std_logic; constant awvalid_val : in std_logic;
+                           signal wdata : out std_logic_vector; constant wdata_val : in std_logic_vector; signal wstrb : out std_logic_vector; constant wstrb_val : in std_logic_vector; signal wvalid : out std_logic; constant wvalid_val : in std_logic;
+                           signal bready : out std_logic; constant bready_val : in std_logic;
+                           constant del : in time) is
+        -- Backup orginal signal values to restore them after transfer process.
+        constant c_awaddr : std_logic_vector := awaddr;
+        constant c_awvalid : std_logic := awvalid;
+        constant c_wdata : std_logic_vector := wdata;
+        constant c_wstrb : std_logic_vector := wstrb;
+        constant c_wvalid : std_logic := wvalid;
+        constant c_bready : std_logic := bready;
+    begin
+        -- SET AXI SIGNALS
+        -- Write Address Channel
+        awaddr <= awaddr_val;
+        awvalid <= awvalid_val;
+        -- Write Data Channel
+        wdata <= wdata_val;
+        wstrb <= wstrb_val;
+        wvalid <= wvalid_val;
+        -- Write Response Channel
+        bready <= bready_val;
+        
+        wait for del;        
+    
+        -- Restore origin signal values.
+        awaddr <= c_awaddr;
+        awvalid <= c_awvalid;
+        wdata <= c_wdata;
+        wstrb <= c_wstrb;
+        wvalid <= c_wvalid;
+        bready <= c_bready;
+    end procedure AXI4LiteWrite; 
+    
+    
+    procedure AXI4FullRead(signal araddr : out std_logic_vector; constant araddr_val : in std_logic_vector; signal arvalid : out std_logic; constant arvalid_val : in std_logic;
+                          signal rready : out std_logic_vector; constant rready_val : in std_logic) is
+        -- Backup original signal values to restore them after transfer process.
+        constant c_araddr : std_logic_vector := araddr;
+        constant c_arvalid : std_logic := arvalid;
+        constant c_rready : std_logic_vector := rready;
+    begin
+    
+        -- Restore original signal values.
+        araddr <= c_araddr;
+        arvalid <= c_arvalid;
+        rready <= c_rready;
+    end procedure AXI4FullRead;
+    
+    procedure AXI4FullWrite(signal awid : out std_logic_vector; constant awid_val : in std_logic_vector; signal awaddr : out std_logic_vector; constant awaddr_val : in std_logic_vector; signal awlen : out std_logic_vector(7 downto 0); constant awlen_val : in std_logic_vector(7 downto 0); signal awburst : out std_logic_vector(1 downto 0); constant awburst_val : in std_logic_vector(1 downto 0); signal awvalid : out std_logic; constant awvalid_val : in std_logic;
                            signal wdata : out std_logic_vector; constant wdata_val : in std_logic_vector; signal wstrb : out std_logic_vector; constant wstrb_val : in std_logic_vector; signal wlast : out std_logic; constant wlast_val : in std_logic; signal wvalid : out std_logic; constant wvalid_val : in std_logic;
                            signal bready : out std_logic; constant bready_val : in std_logic) is
         -- Save original signal values to restore them later...
@@ -421,19 +476,36 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
             -- Response ready. This signal indicates that the channel is signaling a valid write response.
             bready <= bready_val;
         end if;
-    end procedure WriteFullAXI;
+    end procedure AXI4FullWrite;
 
 
 begin
+    -- General assignments that won't change during simulation.
+
     -- ps clock assignments.
     s00_axi_tx_aclk <= clk_ps;
     s01_axi_rx_aclk <= clk_ps;
     s02_axi_reg_aclk <= clk_ps;
+    
+    -- ps rst assignments (active_low !)
+    s00_axi_tx_aresetn <= rst_ps;
+    s01_axi_rx_aresetn <= rst_ps;
+    s02_axi_reg_aresetn <= rst_ps;
+    
+    -- spwstream clock assignments.
+    rxclk <= clk_logic;
+    txclk <= clk_logic;
+    
+    -- SpaceWire signal assignments.
+    spw_di <= spw_do;
+    spw_si <= spw_so;
+    
 
 
-    -- Insert values for generic parameters !!
-    uut: AXI_SpaceWire_IP_v1_0 generic map (sysfreq                   => sysfreq,
-                    txclkfreq                 => txclkfreq,
+    -- Design under test (AXI-SpaceWire peripheral)
+    dut: AXI_SpaceWire_IP_v1_0 generic map (
+                    sysfreq                   => sysfreq,
+                    txclkfreq                 => sysfreq,
                     rximpl                    => rximpl,
                     tximpl                    => tximpl,
                     rxchunk                   => rxchunk,
@@ -457,7 +529,8 @@ begin
                     C_S01_AXI_RX_BUSER_WIDTH  => C_S01_AXI_RX_BUSER_WIDTH,
                     C_S02_AXI_REG_DATA_WIDTH  => C_S02_AXI_REG_DATA_WIDTH,
                     C_S02_AXI_REG_ADDR_WIDTH  => C_S02_AXI_REG_ADDR_WIDTH)
-        port map ( clk_logic                 => clk_logic,
+        port map ( 
+                 clk_logic                 => clk_logic,
                  rxclk                     => rxclk,
                  txclk                     => txclk,
                  rst_logic                 => rst_logic,
@@ -581,16 +654,139 @@ begin
                  s02_axi_reg_rvalid        => s02_axi_reg_rvalid,
                  s02_axi_reg_rready        => s02_axi_reg_rready );
 
-    stimulus: process
+
+    -- Stimulus for AXI4-Full-TX-Interface.
+    stimulus_TX: process
     begin
-
-        -- Put initialisation code here
-
-
-        -- Put test bench stimulus code here
-
+        -- Set initial signal values (only signals that are used !).
+        s00_axi_tx_awid <= (others => '0');
+        s00_axi_tx_awaddr <= (others => '0');
+        s00_axi_tx_awlen <= (others => '0');
+        --s00_axi_tx_awsize <= (others => '0');
+        s00_axi_tx_awburst <= (others => '0');
+        --s00_axi_tx_awlock <= '0'; -- not used in dut !
+        --s00_axi_tx_awcache <= (others => '0'); -- not used in dut !
+        --s00_axi_tx_awprot <= (others => '0'); -- not used in dut !
+        --s00_axi_tx_awqos <= (others => '0'); -- not used in dut !
+        --s00_axi_tx_awregion <= (others => '0'); -- not used in dut !
+        --s00_axi_tx_awregion <= (others => '0'); -- not used in dut !
+        s00_axi_tx_awvalid <= '0';
+        s00_axi_tx_wdata <= (others => '0');
+        s00_axi_tx_wstrb <= (others => '0');
+        s00_axi_tx_wlast <= '0';
+        s00_axi_tx_wvalid <= '0';
+        s00_axi_tx_bid <= (others => '0');
+        s00_axi_tx_bready <= '0';
+        s00_axi_tx_arid <= (others => '0');
+        s00_axi_tx_araddr <= (others => '0');
+        s00_axi_tx_arlen <= (others => '0');
+        --s00_axi_tx_arsize <= (others => '0'); -- not used in dut !
+        s00_axi_tx_arburst <= (others => '0');
+        --s00_axi_tx_arlock <= '0'; -- not used in dut !
+        s00_axi_tx_arcache <= (others => '0');
+        s00_axi_tx_arprot <= (others => '0');
+        --s00_axi_tx_arqos <= (others => '0'); -- not used in dut !
+        --s00_axi_tx_arregion <= (others => '0'); -- not used in dut !
+        s00_axi_tx_arvalid <= '0';
+        s00_axi_tx_rid <= (others => '0');
+        s00_axi_tx_rready <= '0';
+        
+        -- Finished !
         wait;
     end process;
+    
+    -- Stimulus for AXI4-Full-RX-Interface.
+    stimulus_RX: process
+    begin
+        -- Set initial signal values (only signals that are used !).
+        s01_axi_rx_awid <= (others => '0');
+        s01_axi_rx_awaddr <= (others => '0');
+        s01_axi_rx_awlen <= (others => '0');
+        --s01_axi_rx_awsize <= (others => '0');
+        s01_axi_rx_awburst <= (others => '0');
+        --s01_axi_rx_awlock <= '0'; -- not used in dut !
+        --s01_axi_rx_awcache <= (others => '0'); -- not used in dut !
+        --s01_axi_rx_awprot <= (others => '0'); -- not used in dut !
+        --s01_axi_rx_awqos <= (others => '0'); -- not used in dut !
+        --s01_axi_rx_awregion <= (others => '0'); -- not used in dut !
+        --s01_axi_rx_awregion <= (others => '0'); -- not used in dut !
+        s01_axi_rx_awvalid <= '0';
+        s01_axi_rx_wdata <= (others => '0');
+        s01_axi_rx_wstrb <= (others => '0');
+        s01_axi_rx_wlast <= '0';
+        s01_axi_rx_wvalid <= '0';
+        s01_axi_rx_bid <= (others => '0');
+        s01_axi_rx_bready <= '0';
+        s01_axi_rx_arid <= (others => '0');
+        s01_axi_rx_araddr <= (others => '0');
+        s01_axi_rx_arlen <= (others => '0');
+        --s01_axi_rx_arsize <= (others => '0'); -- not used in dut !
+        s01_axi_rx_arburst <= (others => '0');
+        --s01_axi_rx_arlock <= '0'; -- not used in dut !
+        s01_axi_rx_arcache <= (others => '0');
+        s01_axi_rx_arprot <= (others => '0');
+        --s01_axi_rx_arqos <= (others => '0'); -- not used in dut !
+        --s01_axi_rx_arregion <= (others => '0'); -- not used in dut !
+        s01_axi_rx_arvalid <= '0';
+        s01_axi_rx_rid <= (others => '0');
+        s01_axi_rx_rready <= '0';
+        
+        -- Finished !
+        wait;
+    end process;
+    
+    -- Stimulus for AXI4-Lite-Register-Interface.
+    stimulus_REG: process
+    begin
+        wait until rst_ps = '1';
+    
+        s02_axi_reg_awaddr <= (others => '0');
+        --s02_axi_reg_awprot <= (others => '0');
+        s02_axi_reg_awvalid <= '0';
+        s02_axi_reg_wdata <= (others => '0');
+        s02_axi_reg_wstrb <= (others => '0');
+        s02_axi_reg_wvalid <= '0';
+        s02_axi_reg_bready <= '0';
+        s02_axi_reg_araddr <= (others => '0');
+        --s02_axi_reg_arport <= (others => '0');
+        s02_axi_reg_arvalid <= '0';
+        s02_axi_reg_bready <= '0';
+        
+        
+        -- Perform write transfer to initial spwstream and to produce signals on spw_di/spw_do and spw_si/spw_so
+        wait until rising_edge(clk_ps);
+        
+        AXI4LITEWrite(s02_axi_reg_awaddr, "00000",
+                      s02_axi_reg_awvalid, '1',
+                      s02_axi_reg_wdata, x"0000_0002",
+                      s02_axi_reg_wstrb, "1111",
+                      s02_axi_reg_wvalid, '1',
+                      s02_axi_reg_bready, '1',
+                      2 * ps_clock_period);
+                      
+        wait for 10 * ps_clock_period;
+        
+        wait;
+    end process;
+    
+    -- Stimulus for SpaceWire-specific signals.
+    stimulus_spwstream: process
+    begin
+        -- Set initial signal values.
+        tc_in <= '0';
+        wait; -- wait forever
+    end process;
+
+
+    -- Initial reset (maybe not neccessary in implementation !)
+    init_rst: process
+    begin
+        -- Careful: pl reset is active_high, ps reset is active_low !
+        rst_ps <= '0', '1' after ps_clock_period;
+        rst_logic <= '1', '0' after pl_clock_period;       
+        wait; -- wait forever
+    end process;
+
 
     -- Clocking processes.
     pl_clock: process

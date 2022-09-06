@@ -1,8 +1,8 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-| Date         : Thu Sep  1 15:07:01 2022
-| Host         : stl56jc-MS-7C95 running 64-bit Ubuntu 20.04.4 LTS
+| Date         : Tue Sep  6 10:24:30 2022
+| Host         : stl56jc-MS-7C95 running 64-bit Ubuntu 22.04.1 LTS
 | Command      : report_utilization -file AXI_SpaceWire_IP_v1_0_utilization_synth.rpt -pb AXI_SpaceWire_IP_v1_0_utilization_synth.pb
 | Design       : AXI_SpaceWire_IP_v1_0
 | Device       : xc7a35tcpg236-1

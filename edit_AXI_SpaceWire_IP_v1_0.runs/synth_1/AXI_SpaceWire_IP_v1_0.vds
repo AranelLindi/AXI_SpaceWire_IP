@@ -2,13 +2,13 @@
 # Vivado v2022.1 (64-bit)
 # SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
 # IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
-# Start of session at: Thu Sep  1 15:06:39 2022
-# Process ID: 31963
+# Start of session at: Tue Sep  6 10:24:10 2022
+# Process ID: 13894
 # Current directory: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1
 # Command line: vivado -log AXI_SpaceWire_IP_v1_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source AXI_SpaceWire_IP_v1_0.tcl
 # Log file: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/AXI_SpaceWire_IP_v1_0.vds
 # Journal file: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/vivado.jou
-# Running On: stl56jc-MS-7C95, OS: Linux, CPU Frequency: 400.000 MHz, CPU Physical cores: 12, Host memory: 14546 MB
+# Running On: stl56jc-MS-7C95, OS: Linux, CPU Frequency: 4431.289 MHz, CPU Physical cores: 12, Host memory: 14546 MB
 #-----------------------------------------------------------
 source AXI_SpaceWire_IP_v1_0.tcl -notrace
 INFO: [IP_Flow 19-234] Refreshing IP repositories
@@ -25,9 +25,9 @@ INFO: [Designutils 20-5440] No compile time benefit to using incremental synthes
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 31987
+INFO: [Synth 8-7075] Helper process launched with PID 13914
 ---------------------------------------------------------------------------------
-Starting Synthesize : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 2569.965 ; gain = 56.875 ; free physical = 150 ; free virtual = 7275
+Starting Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 3152.434 ; gain = 0.000 ; free physical = 356 ; free virtual = 6890
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:226]
 WARNING: [Synth 8-506] null port 's00_axi_tx_awuser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:118]
@@ -336,10 +336,10 @@ WARNING: [Synth 8-7129] Port S_AXI_AWREGION[3] in module AXI_SpaceWire_IP_v1_0_S
 WARNING: [Synth 8-7129] Port S_AXI_AWREGION[2] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
 INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished Synthesize : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2647.934 ; gain = 134.844 ; free physical = 1281 ; free virtual = 8353
+Finished Synthesize : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3152.434 ; gain = 0.000 ; free physical = 1414 ; free virtual = 7973
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2665.746 ; gain = 152.656 ; free physical = 1271 ; free virtual = 8345
+Finished Constraint Validation : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3152.434 ; gain = 0.000 ; free physical = 1407 ; free virtual = 7966
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
@@ -347,7 +347,7 @@ Start Loading Part and Timing Information
 Loading part: xc7a35tcpg236-1
 INFO: [Device 21-403] Loading part xc7a35tcpg236-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2673.750 ; gain = 160.660 ; free physical = 1270 ; free virtual = 8345
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3160.438 ; gain = 8.004 ; free physical = 1405 ; free virtual = 7964
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'r_reg[state]' in module 'spwlink'
 WARNING: [Synth 8-327] inferring latch for variable 'v_do_reg' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:627]
@@ -363,7 +363,7 @@ WARNING: [Synth 8-327] inferring latch for variable 'v_do_reg' [/home/stl56jc/Do
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'r_reg[state]' using encoding 'one-hot' in module 'spwlink'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2700.742 ; gain = 187.652 ; free physical = 1179 ; free virtual = 8282
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 3160.438 ; gain = 8.004 ; free physical = 1309 ; free virtual = 7890
 ---------------------------------------------------------------------------------
 No constraint files found.
 ---------------------------------------------------------------------------------
@@ -447,7 +447,7 @@ WARNING: [Synth 8-3917] design AXI_SpaceWire_IP_v1_0 has port s01_axi_rx_rdata[1
 WARNING: [Synth 8-3917] design AXI_SpaceWire_IP_v1_0 has port s01_axi_rx_rdata[9] driven by constant 0
 WARNING: [Synth 8-3332] Sequential element (AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/v_do_reg[8]) is unused and will be removed from module AXI_SpaceWire_IP_v1_0.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 904 ; free virtual = 8044
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 3160.438 ; gain = 8.004 ; free physical = 1008 ; free virtual = 7634
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -479,7 +479,7 @@ No constraint files found.
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 904 ; free virtual = 8044
+Finished Timing Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 3160.438 ; gain = 8.004 ; free physical = 1018 ; free virtual = 7647
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -510,7 +510,7 @@ Start Technology Mapping
 INFO: [Synth 8-7052] The timing for the instance spwstream_inst/rxmem/s_mem_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 INFO: [Synth 8-7052] The timing for the instance spwstream_inst/txmem/s_mem_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 898 ; free virtual = 8039
+Finished Technology Mapping : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 3160.438 ; gain = 8.004 ; free physical = 1024 ; free virtual = 7659
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -532,37 +532,37 @@ INFO: [Synth 8-4163] Replicating register \spwstream_inst/recvfront_sel1.recvfro
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 892 ; free virtual = 8045
+Finished IO Insertion : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3160.438 ; gain = 8.004 ; free physical = 1027 ; free virtual = 7667
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 892 ; free virtual = 8045
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3160.438 ; gain = 8.004 ; free physical = 1027 ; free virtual = 7667
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 892 ; free virtual = 8045
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3160.438 ; gain = 8.004 ; free physical = 1027 ; free virtual = 7667
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 892 ; free virtual = 8045
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3160.438 ; gain = 8.004 ; free physical = 1027 ; free virtual = 7667
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 892 ; free virtual = 8045
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3160.438 ; gain = 8.004 ; free physical = 1027 ; free virtual = 7667
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 892 ; free virtual = 8045
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3160.438 ; gain = 8.004 ; free physical = 1027 ; free virtual = 7667
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -630,24 +630,24 @@ Report Instance Areas:
 |28    |      synctx_txen                        |syncdff_6                         |     6|
 +------+-----------------------------------------+----------------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 892 ; free virtual = 8045
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3160.438 ; gain = 8.004 ; free physical = 1027 ; free virtual = 7667
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 303 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2826.164 ; gain = 313.074 ; free physical = 894 ; free virtual = 8048
-Synthesis Optimization Complete : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2826.172 ; gain = 313.074 ; free physical = 894 ; free virtual = 8048
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3160.438 ; gain = 8.004 ; free physical = 1029 ; free virtual = 7669
+Synthesis Optimization Complete : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3160.445 ; gain = 8.004 ; free physical = 1029 ; free virtual = 7669
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2832.102 ; gain = 0.000 ; free physical = 976 ; free virtual = 8137
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3160.445 ; gain = 0.000 ; free physical = 1108 ; free virtual = 7757
 INFO: [Netlist 29-17] Analyzing 47 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
-WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg has IOB = TRUE property, but it cannot be placed in an ILOGIC site. Instances spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di1_reg and spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg cannot be placed in the same site as one or more of their control signals do not match.
-WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg has IOB = TRUE property, but it cannot be placed in an ILOGIC site. Instances spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di1_reg and spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg cannot be placed in the same site as one or more of their control signals do not match.
-WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg has IOB = TRUE property, but it cannot be placed in an ILOGIC site. Instances spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg and spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si1_reg cannot be placed in the same site as one or more of their control signals do not match.
-WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg has IOB = TRUE property, but it cannot be placed in an ILOGIC site. Instances spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg and spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si1_reg cannot be placed in the same site as one or more of their control signals do not match.
+WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg has IOB = TRUE property, but it cannot be placed in an ILOGIC site. Instances spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg and spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di1_reg cannot be placed in the same site as one or more of their control signals do not match.
+WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg has IOB = TRUE property, but it cannot be placed in an ILOGIC site. Instances spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg and spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di1_reg cannot be placed in the same site as one or more of their control signals do not match.
+WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg has IOB = TRUE property, but it cannot be placed in an ILOGIC site. Instances spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si1_reg and spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg cannot be placed in the same site as one or more of their control signals do not match.
+WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg has IOB = TRUE property, but it cannot be placed in an ILOGIC site. Instances spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si1_reg and spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg cannot be placed in the same site as one or more of their control signals do not match.
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
 WARNING: [Constraints 18-4642] Detected two FFs (1. spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg, and 2. spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di1_reg) with both IOB=TRUE that are driven by spw_di_IBUF_inst. Skipping shape updating caused by IOB property change. 
 WARNING: [Constraints 18-4642] Detected two FFs (1. spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg, and 2. spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si1_reg) with both IOB=TRUE that are driven by spw_si_IBUF_inst. Skipping shape updating caused by IOB property change. 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2965.785 ; gain = 0.000 ; free physical = 871 ; free virtual = 8049
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3216.465 ; gain = 0.000 ; free physical = 1008 ; free virtual = 7673
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 2 instances were transformed.
   RAM16X1D => RAM32X1D (RAMD32(x2)): 2 instances
@@ -656,7 +656,7 @@ Synth Design complete, checksum: 4e90a6e0
 INFO: [Common 17-83] Releasing license: Synthesis
 82 Infos, 168 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:15 ; elapsed = 00:00:12 . Memory (MB): peak = 2965.785 ; gain = 452.695 ; free physical = 1077 ; free virtual = 8256
+synth_design: Time (s): cpu = 00:00:15 ; elapsed = 00:00:13 . Memory (MB): peak = 3216.465 ; gain = 64.031 ; free physical = 1215 ; free virtual = 7880
 INFO: [Common 17-1381] The checkpoint '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/AXI_SpaceWire_IP_v1_0.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file AXI_SpaceWire_IP_v1_0_utilization_synth.rpt -pb AXI_SpaceWire_IP_v1_0_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Thu Sep  1 15:07:01 2022...
+INFO: [Common 17-206] Exiting Vivado at Tue Sep  6 10:24:30 2022...
