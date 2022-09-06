@@ -418,6 +418,8 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0 is
 		C_S_AXI_ADDR_WIDTH	: integer	:= 5
 		);
 		port (
+		clk_logic : in std_logic;
+		rst_logic : in std_logic;
 		autostart : out std_logic;
 		linkstart : out std_logic;
 		linkdis : out std_logic;
@@ -632,6 +634,8 @@ AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst : AXI_SpaceWire_IP_v1_0_S02_AXI_REG
 		C_S_AXI_ADDR_WIDTH	=> C_S02_AXI_REG_ADDR_WIDTH
 	)
 	port map (
+	    clk_logic => clk_logic,
+	    rst_logic => rst_logic,
 	    autostart => s_autostart,
 	    linkstart => s_linkstart,
 	    linkdis => s_linkdis,

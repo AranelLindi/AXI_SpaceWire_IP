@@ -16,6 +16,12 @@ entity AXI_SpaceWire_IP_v1_0_S02_AXI_REG is
     );
     port (
         -- Users to add ports here
+        
+        -- spwstream clock.
+        clk_logic : in std_logic;
+        
+        -- Synchronous reset (PL).
+        rst_logic : in std_logic;
 
         -- Enables automatic link start on receipt of a NULL character.
         autostart : out std_logic;
@@ -441,16 +447,17 @@ begin
 
 
     -- Add user logic here
-    
-    -- Read/Write registers.
-    line0 <= slv_reg0;
-    line1 <= slv_reg1;
-    line2 <= slv_reg2;
-            
+              
     -- Apply R/W register values to IO ports.
-    process( S_AXI_ACLK )
+    process( clk_logic )
     begin
-        if rising_edge( S_AXI_ACLK ) then
+        if rising_edge( clk_logic ) then
+            -- Read/Write registers.
+            line0 <= slv_reg0;
+            line1 <= slv_reg1;
+            line2 <= slv_reg2;
+        
+        
             -- Line0: Configuration
             linkdis <= line0(0);
             linkstart <= line0(1);
@@ -464,14 +471,14 @@ begin
             ctrl_in <= line2(9 downto 8);
         end if;
     end process;
-    
-    slv_reg3 <= line3;
-    slv_reg4 <= line4;
-    
+       
     -- Write values to read only registers.
-    process( S_AXI_ACLK )
+    process( clk_logic )
     begin
-        if rising_edge( S_AXI_ACLK ) then
+        if rising_edge( clk_logic ) then
+            slv_reg3 <= line3;
+            slv_reg4 <= line4;
+        
             -- Line3: Incoming time-codes
             line3(5 downto 0) <= time_out;
             line3(9 downto 8) <= ctrl_out;
