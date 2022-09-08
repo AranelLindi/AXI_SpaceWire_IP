@@ -225,8 +225,8 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
     signal s_fifo_almostempty : std_logic; -- Top Level IO
     signal s_fifo_almostfull : std_logic; -- Top Level IO
     signal s_fifo_do : std_logic_vector(8 downto 0); -- Internal signal
-    signal s_fifo_empty : std_logic; -- Top Level IO
-    signal s_fifo_full : std_logic; -- Top Level IO
+    signal s_fifo_empty : std_logic := '1'; -- Top Level IO
+    signal s_fifo_full : std_logic := '0'; -- Top Level IO
     signal s_fifo_rdcount : std_logic_vector(10 downto 0); -- err? -- Top Level IO ?
     signal s_fifo_rderr : std_logic; -- Top Level IO ? 
     signal s_fifo_wrcount : std_logic_vector(10 downto 0); -- err?
@@ -234,6 +234,10 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
     signal s_fifo_di : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
     signal s_fifo_rden : std_logic;
     signal s_fifo_wren : std_logic;
+    
+    -- Buffer for TX fifo data.
+    signal s_fifo_txflag_buffer : std_logic;
+    signal s_fifo_txdata_buffer : std_logic_vector(7 downto 0);
 
     -- AXI4FULL signals
     signal axi_awaddr	: std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
@@ -548,7 +552,7 @@ begin
         mem_rden <= axi_arv_arr_flag ;
        
         -- Set fifo write enable signal depending on valid axi write transaction.
-        s_fifo_wren <= mem_wren;
+        --s_fifo_wren <= mem_wren;
 
         BYTE_BRAM_GEN : for mem_byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) generate
             signal byte_ram : BYTE_RAM_TYPE;
@@ -631,33 +635,88 @@ begin
     -- SpaceWire specific assignments. ( Might be that this won't work ! If so put this into a process with more logic ! )
     --s_fifo_rden <= not s_fifo_empty when txrdy = '1' else '0';
     --txwrite <= s_fifo_rden; -- (txwrite needs same signal assignment as s_fifo_rden does)
-    txdata <= s_fifo_do(7 downto 0);
-    txflag <= s_fifo_do(8);
+    --txdata <= s_fifo_do(7 downto 0);
+    --txflag <= s_fifo_do(8);
     
     -- Combinatorial logic for fifo data output.
-    process(s_fifo_do)
-        variable v_do : std_logic_vector(8 downto 0);
-    begin
-        v_do := s_fifo_do;
+--    process(s_fifo_do)
+--        variable v_do : std_logic_vector(8 downto 0);
+--    begin
+--        v_do := s_fifo_do;
     
-        -- Insert differentiation logic here...
-        txdata <= v_do(7 downto 0);
-        txflag <= v_do(8);
-    end process;
+--        -- Insert differentiation logic here...
+--        s_fifo_txdata_buffer <= v_do(7 downto 0);
+--        s_fifo_txflag_buffer <= v_do(8);
+--    end process;
     
-    -- Synchronous txfifo-spwstream-wrapper.
-    process(clk_logic)
+--    -- Synchronous txfifo-spwstream-wrapper.
+--    process(clk_logic)
+--    begin
+--        if rising_edge(clk_logic) then
+--            if (txrdy = '1') then
+--                s_fifo_rden <= '1' when s_fifo_empty = '0' else '0';
+--                txwrite <= not s_fifo_empty;
+                
+--                if s_fifo_empty = '0' then
+--                    s_fifo_rden <= '1';
+--                    txdata <= s_fifo_do(7 downto 0);
+--                    txflag <= s_fifo_do(8);
+--                    txwrite <= '1';
+--                end if;
+--            else
+--                s_fifo_rden <= '0';
+--                txwrite <= '0';
+--            end if;
+--        end if;
+--    end process;
+
+
+    process(S_AXI_ACLK)
     begin
-        if rising_edge(clk_logic) then
-            if (txrdy = '1') then
-                s_fifo_rden <= not s_fifo_empty;
-                txwrite <= not s_fifo_empty;
+        if falling_edge(S_AXI_ACLK) then
+            if S_AXI_ARESETN = '0' then -- (active_low !)
+                -- Synchronous reset.
+                s_fifo_wren <= '0';
             else
-                s_fifo_rden <= '0';
-                txwrite <= '0';
+                if S_AXI_WVALID = '1' and axi_wready = '1' then -- sehr gefährlich... ist vermutlich oft länger als einen takt high (also beides)
+                    s_fifo_wren <= '0';
+                else
+                    s_fifo_wren <= '0';
+                end if;
             end if;
         end if;
     end process;
+
+
+    
+    txdata <= s_fifo_do(7 downto 0);
+    txflag <= s_fifo_do(8);
+    
+    process(clk_logic)
+    begin
+        if rising_edge(clk_logic) then
+            if rst_logic = '1' then
+                -- Synchronous reset.
+                s_fifo_rden <= '0';
+                txwrite <= '0';
+            else
+                if s_fifo_empty = '1' then
+                    -- fifo is empty
+                    txwrite <= '0';
+                    s_fifo_rden <= '0';
+                else
+                    if txrdy = '1' then
+                        txwrite <= '1';
+                        s_fifo_rden <= '1';
+                    else
+                        txwrite <= '0';    
+                        s_fifo_rden <= '0';
+                    end if;
+                end if;
+            end if;
+        end if;
+    end process;
+    
 
     -- FIFO_DUALCLOCK_MACRO: Dual-Clock First-In, First-Out (FIFO) RAM Buffer
     --                       Artix-7

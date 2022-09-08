@@ -81,6 +81,10 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
     constant tximpl:         spw_implementation_type := impl_fast;
     constant rxfifosize_bits: integer range 6 to 14 := 11;
     constant txfifosize_bits: integer range 2 to 14 := 11;
+    
+    
+    -- Array type definition (used for AXI4-Transfer procedures)
+    type array_t is array(natural range <>) of std_logic_vector;
 
 
     component AXI_SpaceWire_IP_v1_0
@@ -369,7 +373,8 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
     
     -- Creates single AXI4-Lite read transaction (rdata signal is updated automatically after this procedure)
     procedure AXI4LiteRead(signal araddr : out std_logic_vector; constant araddr_val : in std_logic_vector; signal arvalid : out std_logic; signal arready : in std_logic; -- read address channel
-                           signal rready : out std_logic; signal rvalid : in std_logic) is -- read data channel
+                           signal rready : out std_logic; signal rvalid : in std_logic) -- read data channel
+                           is
     begin
         wait until rising_edge(clk_ps); -- Simulate synchronous circuit
     
@@ -379,17 +384,18 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
         arvalid <= '1'; -- Set master handshake signal for read address channel
         
         wait until rising_edge(clk_ps) and arready = '1';
-        wait for ps_clock_period/2;
-        arvalid <= '0';
+        wait for ps_clock_period/2; -- wait a while before reset handshake...
+        arvalid <= '0'; -- Reset handshake signal
      
         -- Read Data Channel
         rready <= '1';  
 
         wait until rising_edge(clk_ps) and rvalid = '1';
         wait for ps_clock_period/2; -- wait a while before reset handshake...
-        rready <= '0';        
+        rready <= '0'; -- Reset handshake signal 
     end procedure AXI4LiteRead;
 
+    -- Creates single AXI4-Lite write transaction
     procedure AXI4LiteWrite(signal awaddr : out std_logic_vector; constant awaddr_val : in std_logic_vector; signal awvalid : out std_logic; signal awready : in std_logic; -- write address channel
                             signal wdata : out std_logic_vector; constant wdata_val : in std_logic_vector; signal wstrb : out std_logic_vector; constant wstrb_val : in std_logic_vector; signal wvalid : out std_logic; signal wready : in std_logic; -- write data channel
                             signal bready : out std_logic; signal bvalid : in std_logic) -- write response channel
@@ -406,7 +412,7 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
         wstrb <= wstrb_val;
         wvalid <= '1'; -- Set master handshake signal for write data channel
         
-        wait until rising_edge(clk_ps) and awready = '1' and wready = '1'; -- wait for next rising_edge and evaluate slave handshake signals
+        wait until rising_edge(clk_ps) and awready = '1' and wready = '1'; -- wait for next rising_edge and check slave handshake signals
         wait for ps_clock_period/2; -- wait a while before reset handshake...
         bready <= '1';  -- Set slave handshake signal for write response channel
         awvalid <= '0'; -- Reset handshake signal
@@ -429,63 +435,65 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
 
     end procedure AXI4FullRead;
 
-
-    procedure AXI4FullWrite(signal awid : out std_logic_vector; constant awid_val : in std_logic_vector; signal awaddr : out std_logic_vector; constant awaddr_val : in std_logic_vector; signal awlen : out std_logic_vector(7 downto 0); constant awlen_val : in std_logic_vector(7 downto 0); signal awburst : out std_logic_vector(1 downto 0); constant awburst_val : in std_logic_vector(1 downto 0); signal awvalid : out std_logic; constant awvalid_val : in std_logic;
-                            signal wdata : out std_logic_vector; constant wdata_val : in std_logic_vector; signal wstrb : out std_logic_vector; constant wstrb_val : in std_logic_vector; signal wlast : out std_logic; constant wlast_val : in std_logic; signal wvalid : out std_logic; constant wvalid_val : in std_logic;
-                            signal bready : out std_logic; constant bready_val : in std_logic) is
-        -- Save original signal values to restore them later...
-        constant c_awid : std_logic_vector := awid;
-        constant c_awaddr : std_logic_vector := awaddr;
-        constant c_awlen : std_logic_vector(7 downto 0) := awlen;
-        constant c_awburst : std_logic_vector(1 downto 0) := awburst;
-        constant c_awvalid : std_logic := awvalid;
-        constant c_wdata : std_logic_vector := wdata;
-        constant c_wstrb : std_logic_vector := wstrb;
-        constant c_wlast : std_logic := wlast;
-        constant c_wvalid : std_logic := wvalid;
-        constant c_bready : std_logic := bready;
-
-        -- Internal constants.
-        constant c_burstlength : integer := to_integer(unsigned(awlen_val));
+    procedure AXI4FullWrite(signal awid : out std_logic_vector; constant awid_val : in std_logic_vector; signal awaddr : out std_logic_vector; constant awaddr_val : in std_logic_vector; signal awlen : out std_logic_vector(7 downto 0); constant awlen_val : in std_logic_vector(7 downto 0); signal awburst : out std_logic_vector(1 downto 0); constant awburst_val : in std_logic_vector(1 downto 0); signal awvalid : out std_logic; signal awready : in std_logic; -- write address channel
+                            signal wdata : out std_logic_vector; constant wdata_val : in array_t; signal wstrb : out std_logic_vector; constant wstrb_val : in std_logic_vector; signal wlast : out std_logic; signal wvalid : out std_logic; signal wready : in std_logic; -- write data channel
+                            signal bready : out std_logic; signal bvalid : in std_logic) -- write response channel
+                            is
+        variable transfer_length : integer := to_integer(unsigned(awlen_val)) - 1;
     begin
-        if c_burstlength > 0 then
-            -- Burst Transfer.
+        wait until rising_edge(clk_ps);
+        report "Start 1";
+        -- Before starting transfer, drive control information that won't change during progress
+        -- Write Address Channel
+        awid <= awid_val;
+        awaddr <= awaddr_val;
+        awlen <= awlen;
+        awburst <= awburst;
+        awvalid <= '1'; -- Set master handshake signal for write address channel
+        
+        bready <= '1';
+        
+        wait until rising_edge(clk_ps) and awready = '1';
+        wait for ps_clock_period/2;
+        awvalid <= '0';
 
-            for i in 0 to c_burstlength loop
-                if i /= c_burstlength then
-
-                else
-                -- Last iteration in burst transfer...
-                end if;
-            end loop;
-        else
-            -- Single Transfer.
-
-            wait until falling_edge(clk_logic);
-
-            -- Write address id.
-            awid <= awid_val;
-            -- Write address.
-            awaddr <= awaddr_val;
-            -- Burst length. The burst length gives the exact number of transfers in a burst
-            awlen <= awlen_val;
-            -- Burst Type. The burst type and the size information determine how the address for each transfer within the burst is calculated.
-            awburst <= awburst_val;
-            -- Write address valid. This signal indicates that the channel is signaling valid write address and control information.
-            awvalid <= awvalid_val;
-
-            --  Write data.
-            wdata <= wdata_val;
-            -- Write strobes. This signal indicates which byte lanes hold valid data. There is one write strobe bit for each eight bits of the write data bus.
+        wvalid <= '1';
+        for i in 0 to transfer_length loop
+            wdata <= wdata_val(i);
             wstrb <= wstrb_val;
-            -- Write last. This signal indicates the last transfer in a write burst.
-            wlast <= wlast;
-            -- Write valid. This signal indicates that valid write data and strobes are available.
-            wvalid <= wvalid_val;
-
-            -- Response ready. This signal indicates that the channel is signaling a valid write response.
-            bready <= bready_val;
-        end if;
+            
+            wlast <= '1' when i = transfer_length else '0';
+            
+            --wait until rising_edge(clk_ps) and wready = '1';
+            --wait for ps_clock_period/2;
+            
+            --bready <= '1';
+            --wvalid <= '0';
+            
+            wait until rising_edge(clk_ps) and wready = '1';
+            wait for ps_clock_period/2;
+            
+            --bready <= '0';
+            
+            report "i is " & integer'image(i);
+        end loop;
+        
+        --wait for ps_clock_period/2;
+        
+        wait until rising_edge(clk_ps) and bvalid = '1';
+        wait for ps_clock_period/2;
+        
+        -- burst transfer finished, so reset all handshake & control signals.
+        awid <= (others => '0');
+        awaddr <= (others => '0');
+        awlen <= (others => '0');
+        awburst <= (others => '0');
+        awvalid <= '0';
+        wdata <= (others => '0');
+        wstrb <= (others => '0');
+        wvalid <= '0';
+        wlast <= '0';
+        bready <= '0';
     end procedure AXI4FullWrite;
 
 
@@ -667,12 +675,15 @@ begin
 
     -- Stimulus for AXI4-Full-TX-Interface.
     stimulus_TX: process
+        variable data : array_t(0 to 3)(31 downto 0);
     begin
+        wait on rst_ps;
+    
         -- Set initial signal values (only signals that are used !).
         s00_axi_tx_awid <= (others => '0');
         s00_axi_tx_awaddr <= (others => '0');
         s00_axi_tx_awlen <= (others => '0');
-        --s00_axi_tx_awsize <= (others => '0');
+        --s00_axi_tx_awsize <= (others => '0'); -- not used in dut !
         s00_axi_tx_awburst <= (others => '0');
         --s00_axi_tx_awlock <= '0'; -- not used in dut !
         --s00_axi_tx_awcache <= (others => '0'); -- not used in dut !
@@ -700,19 +711,48 @@ begin
         s00_axi_tx_arvalid <= '0';
         s00_axi_tx_rid <= (others => '0');
         s00_axi_tx_rready <= '0';
-
         -- Finished !
+        
+        
+        wait for 10 us;
+                
+        -- Perform single transfer to write into TX fifo (if spwstream is activated and in running mode it should send this data asap)
+        data(0) := x"ffffff0f"; -- define some pseudo data
+        data(1) := x"AAAAAA0A";
+        data(2) := x"0000000f";
+        data(3) := x"0f0f0f0f";
+        
+        --report "length of data is " & integer'image(data'length);
+        
+        AXI4FullWrite(s00_axi_tx_awid, "0",
+                      s00_axi_tx_awaddr, "000",
+                      s00_axi_tx_awlen, std_logic_vector(to_unsigned(data'length, s00_axi_tx_awlen'length)), -- awlen is zero-based index !
+                      s00_axi_tx_awburst, "00", -- FIXED
+                      s00_axi_tx_awvalid,
+                      s00_axi_tx_awready,
+                      s00_axi_tx_wdata, data,
+                      s00_axi_tx_wstrb, "0011",
+                      s00_axi_tx_wlast,
+                      s00_axi_tx_wvalid,
+                      s00_axi_tx_wready,
+                      s00_axi_tx_bready,
+                      s00_axi_tx_bvalid);
+                      
+        wait for 10 us;
+                      
         wait;
     end process;
 
     -- Stimulus for AXI4-Full-RX-Interface.
     stimulus_RX: process
     begin
+        wait on rst_ps;
+    
         -- Set initial signal values (only signals that are used !).
         s01_axi_rx_awid <= (others => '0');
         s01_axi_rx_awaddr <= (others => '0');
         s01_axi_rx_awlen <= (others => '0');
-        --s01_axi_rx_awsize <= (others => '0');
+        --s01_axi_rx_awsize <= (others => '0');  -- not used in dut !
         s01_axi_rx_awburst <= (others => '0');
         --s01_axi_rx_awlock <= '0'; -- not used in dut !
         --s01_axi_rx_awcache <= (others => '0'); -- not used in dut !
@@ -740,7 +780,6 @@ begin
         s01_axi_rx_arvalid <= '0';
         s01_axi_rx_rid <= (others => '0');
         s01_axi_rx_rready <= '0';
-
         -- Finished !
         wait;
     end process;
@@ -748,64 +787,23 @@ begin
     -- Stimulus for AXI4-Lite-Register-Interface.
     stimulus_REG: process
     begin
-        wait until rst_ps = '1';
+        wait on rst_ps;
 
+        -- Set initial signal values (only signals that are used !).
         s02_axi_reg_awaddr <= (others => '0');
-        --s02_axi_reg_awprot <= (others => '0');
+        --s02_axi_reg_awprot <= (others => '0'); -- not used in dut !
         s02_axi_reg_awvalid <= '0';
         s02_axi_reg_wdata <= (others => '0');
         s02_axi_reg_wstrb <= (others => '0');
         s02_axi_reg_wvalid <= '0';
         s02_axi_reg_bready <= '0';
         s02_axi_reg_araddr <= (others => '0');
-        --s02_axi_reg_arport <= (others => '0');
+        --s02_axi_reg_arport <= (others => '0'); -- not used in dut !
         s02_axi_reg_arvalid <= '0';
         s02_axi_reg_bready <= '0';
-
+        -- Finished !
 
         -- Perform write transfer to initial spwstream and to produce signals on spw_di/spw_do and spw_si/spw_so
-        --wait until rising_edge(clk_ps);
-
-        AXI4LiteWrite(s02_axi_reg_awaddr, "00000",
-                      s02_axi_reg_awvalid,
-                      s02_axi_reg_awready, -- write address channel
-                      s02_axi_reg_wdata, x"0000_0006",
-                      s02_axi_reg_wstrb, "1111",
-                      s02_axi_reg_wvalid,
-                      s02_axi_reg_wready, -- write data channel
-                      s02_axi_reg_bready,
-                      s02_axi_reg_bvalid); -- write response channel
-                      
-        wait for ps_clock_period;
-        
-        AXI4LiteRead(s02_axi_reg_araddr, "00000",
-                     s02_axi_reg_arvalid,
-                     s02_axi_reg_arready, -- read address channel
-                     s02_axi_reg_rready,
-                     s02_axi_reg_rvalid); -- read data channel
-                      
-        wait for 40 us;
-
-        AXI4LiteWrite(s02_axi_reg_awaddr, "00000",
-                      s02_axi_reg_awvalid,
-                      s02_axi_reg_awready, -- write address channel
-                      s02_axi_reg_wdata, x"0000_0001",
-                      s02_axi_reg_wstrb, "1111",
-                      s02_axi_reg_wvalid,
-                      s02_axi_reg_wready, -- write data channel
-                      s02_axi_reg_bready,
-                      s02_axi_reg_bvalid); -- write response channel
-        
-        wait for 10 us; 
-
-        AXI4LiteRead(s02_axi_reg_araddr, "00000",
-                     s02_axi_reg_arvalid,
-                     s02_axi_reg_arready, -- read address channel
-                     s02_axi_reg_rready,
-                     s02_axi_reg_rvalid); -- read data channel
-        
-        wait for 5 us;
-        
         AXI4LiteWrite(s02_axi_reg_awaddr, "00000",
                       s02_axi_reg_awvalid,
                       s02_axi_reg_awready, -- write address channel
@@ -816,13 +814,56 @@ begin
                       s02_axi_reg_bready,
                       s02_axi_reg_bvalid); -- write response channel
 
-        wait for 15 us;
-
-        AXI4LiteRead(s02_axi_reg_araddr, "10000",
+        -- Read Configuration register to make sure that spwstream is activated        
+        AXI4LiteRead(s02_axi_reg_araddr, "00000",
                      s02_axi_reg_arvalid,
                      s02_axi_reg_arready, -- read address channel
                      s02_axi_reg_rready,
                      s02_axi_reg_rvalid); -- read data channel
+                      
+--        wait for 40 us;
+
+        -- Write transfer to disable spwstream.
+--        AXI4LiteWrite(s02_axi_reg_awaddr, "00000",
+--                      s02_axi_reg_awvalid,
+--                      s02_axi_reg_awready, -- write address channel
+--                      s02_axi_reg_wdata, x"0000_0001",
+--                      s02_axi_reg_wstrb, "1111",
+--                      s02_axi_reg_wvalid,
+--                      s02_axi_reg_wready, -- write data channel
+--                      s02_axi_reg_bready,
+--                      s02_axi_reg_bvalid); -- write response channel
+        
+--        wait for 10 us; 
+
+        -- Read Configuration register again to check its value
+--        AXI4LiteRead(s02_axi_reg_araddr, "00000",
+--                     s02_axi_reg_arvalid,
+--                     s02_axi_reg_arready, -- read address channel
+--                     s02_axi_reg_rready,
+--                     s02_axi_reg_rvalid); -- read data channel
+        
+--        wait for 5 us;
+        
+        -- Activate spwstream again
+--        AXI4LiteWrite(s02_axi_reg_awaddr, "00000",
+--                      s02_axi_reg_awvalid,
+--                      s02_axi_reg_awready, -- write address channel
+--                      s02_axi_reg_wdata, x"0000_0006",
+--                      s02_axi_reg_wstrb, "1111",
+--                      s02_axi_reg_wvalid,
+--                      s02_axi_reg_wready, -- write data channel
+--                      s02_axi_reg_bready,
+--                      s02_axi_reg_bvalid); -- write response channel
+
+--        wait for 15 us;
+
+        -- Read Status register of spwstream
+--        AXI4LiteRead(s02_axi_reg_araddr, "10000",
+--                     s02_axi_reg_arvalid,
+--                     s02_axi_reg_arready, -- read address channel
+--                     s02_axi_reg_rready,
+--                     s02_axi_reg_rvalid); -- read data channel
 
         wait;
     end process;
