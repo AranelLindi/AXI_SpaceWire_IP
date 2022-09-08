@@ -448,16 +448,15 @@ begin
 
     -- Add user logic here
               
+    line0 <= slv_reg0;
+    line1 <= slv_reg1;
+    line2 <= slv_reg2;          
+              
     -- Apply R/W register values to IO ports.
     process( clk_logic )
     begin
         if rising_edge( clk_logic ) then
             -- Read/Write registers.
-            line0 <= slv_reg0;
-            line1 <= slv_reg1;
-            line2 <= slv_reg2;
-        
-        
             -- Line0: Configuration
             linkdis <= line0(0);
             linkstart <= line0(1);
@@ -472,27 +471,29 @@ begin
         end if;
     end process;
        
+    slv_reg3 <= line3;
+    slv_reg4 <= line4;   
+       
     -- Write values to read only registers.
     process( clk_logic )
     begin
-        if rising_edge( clk_logic ) then
-            slv_reg3 <= line3;
-            slv_reg4 <= line4;
-        
+        if rising_edge( clk_logic ) then       
             -- Line3: Incoming time-codes
-            line3(5 downto 0) <= time_out;
-            line3(9 downto 8) <= ctrl_out;
+--            line3(5 downto 0) <= time_out;
+--            line3(9 downto 8) <= ctrl_out;
+            line3 <= (0 => time_out(0), 1 => time_out(1), 2 => time_out(2), 3 => time_out(3), 4 => time_out(4), 5 => time_out(5), 8 => ctrl_out(0), 9 => ctrl_out(1), others => '0'); 
             
             -- Line4: Status
-            line4(0) <= started;
-            line4(1) <= connecting;
-            line4(2) <= running;
-            line4(8) <= errdisc;
-            line4(9) <= errpar;
-            line4(10) <= erresc;
-            line4(11) <= errcred;
-            line4(16) <= rxhalff;
-            line4(16) <= txhalff;
+--            line4(0) <= started;
+--            line4(1) <= connecting;
+--            line4(2) <= running;
+--            line4(8) <= errdisc;
+--            line4(9) <= errpar;
+--            line4(10) <= erresc;
+--            line4(11) <= errcred;
+--            line4(16) <= rxhalff;
+--            line4(16) <= txhalff;            
+            line4 <= (0 => started, 1 => connecting, 2 => running, 8 => errdisc, 9 => errpar, 10 => erresc, 11 => errcred, 16 => rxhalff, 17 => txhalff, others => '0');
         end if;
     end process;
     

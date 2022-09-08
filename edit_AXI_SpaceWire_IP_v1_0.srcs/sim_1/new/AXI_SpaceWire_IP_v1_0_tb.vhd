@@ -366,56 +366,62 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
     signal s02_axi_reg_rready: std_logic ;
 
     -- Testbench functions.
-    procedure AXI4LiteRead(signal araddr : out std_logic_vector; constant araddr_val : in std_logic_vector; signal arvalid : out std_logic; constant arvalid_val : in std_logic;
-                           signal rready : out std_logic; constant rready_val : in std_logic;
-                           constant del : in time) is
-        -- Backup original signal values to restore them after transfer process.
-        constant c_araddr : std_logic_vector := araddr;
-        constant c_arvalid : std_logic := arvalid;
-        constant c_rready : std_logic := rready;
+    
+    -- Creates single AXI4-Lite read transaction (rdata signal is updated automatically after this procedure)
+    procedure AXI4LiteRead(signal araddr : out std_logic_vector; constant araddr_val : in std_logic_vector; signal arvalid : out std_logic; signal arready : in std_logic; -- read address channel
+                           signal rready : out std_logic; signal rvalid : in std_logic) is -- read data channel
     begin
-        -- SET AXI SIGNALS
+        wait until rising_edge(clk_ps); -- Simulate synchronous circuit
+    
+        -- Asserting AXI4-Lite signals for read transfer.
         -- Read Address Channel
         araddr <= araddr_val;
-        arvalid <= arvalid_val;
+        arvalid <= '1'; -- Set master handshake signal for read address channel
+        
+        wait until rising_edge(clk_ps) and arready = '1';
+        wait for ps_clock_period/2;
+        arvalid <= '0';
+     
         -- Read Data Channel
-        rready <= rready_val;
+        rready <= '1';  
 
-        wait for del;
-
-        -- Restore original signal values.
-        araddr <= c_araddr;
-        arvalid <= c_arvalid;
-        rready <= c_rready;
+        wait until rising_edge(clk_ps) and rvalid = '1';
+        wait for ps_clock_period/2; -- wait a while before reset handshake...
+        rready <= '0';        
     end procedure AXI4LiteRead;
 
-    procedure AXI4LiteWrite(signal awaddr : out std_logic_vector; constant awaddr_val : in std_logic_vector; signal awvalid : out std_logic; constant awvalid_val : in std_logic;
-                            signal wdata : out std_logic_vector; constant wdata_val : in std_logic_vector; signal wstrb : out std_logic_vector; constant wstrb_val : in std_logic_vector; signal wvalid : out std_logic; constant wvalid_val : in std_logic;
-                            signal bready : out std_logic; constant bready_val : in std_logic;
-                            constant del : in time;
-                            signal awready : in std_logic; signal wready : in std_logic) is
+    procedure AXI4LiteWrite(signal awaddr : out std_logic_vector; constant awaddr_val : in std_logic_vector; signal awvalid : out std_logic; signal awready : in std_logic; -- write address channel
+                            signal wdata : out std_logic_vector; constant wdata_val : in std_logic_vector; signal wstrb : out std_logic_vector; constant wstrb_val : in std_logic_vector; signal wvalid : out std_logic; signal wready : in std_logic; -- write data channel
+                            signal bready : out std_logic; signal bvalid : in std_logic) -- write response channel
+                            is
     begin
-        -- SET AXI SIGNALS
+        wait until rising_edge(clk_ps);
+    
+        -- Asserting AXI4-Lite signals for write transfer.
         -- Write Address Channel
         awaddr <= awaddr_val;
-        awvalid <= awvalid_val;
+        awvalid <= '1'; -- Set master handshake signal for write address channel
         -- Write Data Channel
         wdata <= wdata_val;
         wstrb <= wstrb_val;
-        wvalid <= wvalid_val;
-        -- Write Response Channel
-        bready <= bready_val;
-
-        wait for ps_clock_period;
-        wait until awready = '1' and wready = '1';
-        wait for ps_clock_period;
-  
+        wvalid <= '1'; -- Set master handshake signal for write data channel
+        
+        wait until rising_edge(clk_ps) and awready = '1' and wready = '1'; -- wait for next rising_edge and evaluate slave handshake signals
+        wait for ps_clock_period/2; -- wait a while before reset handshake...
+        bready <= '1';  -- Set slave handshake signal for write response channel
+        awvalid <= '0'; -- Reset handshake signal
+        wvalid <= '0'; -- Reset handshake signal
+        
+        -- ... and channel signals
         awaddr <= (others => '0');
         awvalid <= '0';
         wdata <= (others => '0');
         wstrb <= (others => '0');
-        wvalid <= '0';
-        bready <= '0';
+        
+        -- Write response handshake must be done last: same procedure
+        wait until rising_edge(clk_ps) and bvalid = '1';
+        wait for ps_clock_period/2;        
+        bready <= '0'; -- Reset handshake signal
     end procedure AXI4LiteWrite;
 
     procedure AXI4FullRead is
@@ -758,45 +764,65 @@ begin
 
 
         -- Perform write transfer to initial spwstream and to produce signals on spw_di/spw_do and spw_si/spw_so
-        wait until rising_edge(clk_ps);
+        --wait until rising_edge(clk_ps);
 
         AXI4LiteWrite(s02_axi_reg_awaddr, "00000",
-                      s02_axi_reg_awvalid, '1',
+                      s02_axi_reg_awvalid,
+                      s02_axi_reg_awready, -- write address channel
                       s02_axi_reg_wdata, x"0000_0006",
                       s02_axi_reg_wstrb, "1111",
-                      s02_axi_reg_wvalid, '1',
-                      s02_axi_reg_bready, '1',
-                      ps_clock_period,
-                      s02_axi_reg_awready, s02_axi_reg_wready);
---        wait for ps_clock_period;
---        AXI4LiteRead(s02_axi_reg_araddr, "00000",
---                     s02_axi_reg_arvalid, '1',
---                     s02_axi_reg_rready, '1',
---                     2 * ps_clock_period);
+                      s02_axi_reg_wvalid,
+                      s02_axi_reg_wready, -- write data channel
+                      s02_axi_reg_bready,
+                      s02_axi_reg_bvalid); -- write response channel
                       
---        wait for 40 us;
-
---        AXI4LiteWrite(s02_axi_reg_awaddr, "00000",
---                      s02_axi_reg_awvalid, '1',
---                      s02_axi_reg_wdata, x"0000_0001",
---                      s02_axi_reg_wstrb, "1111",
---                      s02_axi_reg_wvalid, '1',
---                      s02_axi_reg_bready, '1',
---                      2 * ps_clock_period);
+        wait for ps_clock_period;
         
---        wait for 10 us; 
+        AXI4LiteRead(s02_axi_reg_araddr, "00000",
+                     s02_axi_reg_arvalid,
+                     s02_axi_reg_arready, -- read address channel
+                     s02_axi_reg_rready,
+                     s02_axi_reg_rvalid); -- read data channel
+                      
+        wait for 40 us;
 
---        AXI4LiteWrite(s02_axi_reg_awaddr, "00000",
---                      s02_axi_reg_awvalid, '1',
---                      s02_axi_reg_wdata, x"0000_0006",
---                      s02_axi_reg_wstrb, "1111",
---                      s02_axi_reg_wvalid, '1',
---                      s02_axi_reg_bready, '1',
---                      4 * ps_clock_period);
---        AXI4LiteRead(s02_axi_reg_araddr, "00000",
---                     s02_axi_reg_arvalid, '1',
---                     s02_axi_reg_rready, '1',
---                     2 * ps_clock_period);
+        AXI4LiteWrite(s02_axi_reg_awaddr, "00000",
+                      s02_axi_reg_awvalid,
+                      s02_axi_reg_awready, -- write address channel
+                      s02_axi_reg_wdata, x"0000_0001",
+                      s02_axi_reg_wstrb, "1111",
+                      s02_axi_reg_wvalid,
+                      s02_axi_reg_wready, -- write data channel
+                      s02_axi_reg_bready,
+                      s02_axi_reg_bvalid); -- write response channel
+        
+        wait for 10 us; 
+
+        AXI4LiteRead(s02_axi_reg_araddr, "00000",
+                     s02_axi_reg_arvalid,
+                     s02_axi_reg_arready, -- read address channel
+                     s02_axi_reg_rready,
+                     s02_axi_reg_rvalid); -- read data channel
+        
+        wait for 5 us;
+        
+        AXI4LiteWrite(s02_axi_reg_awaddr, "00000",
+                      s02_axi_reg_awvalid,
+                      s02_axi_reg_awready, -- write address channel
+                      s02_axi_reg_wdata, x"0000_0006",
+                      s02_axi_reg_wstrb, "1111",
+                      s02_axi_reg_wvalid,
+                      s02_axi_reg_wready, -- write data channel
+                      s02_axi_reg_bready,
+                      s02_axi_reg_bvalid); -- write response channel
+
+        wait for 15 us;
+
+        AXI4LiteRead(s02_axi_reg_araddr, "10000",
+                     s02_axi_reg_arvalid,
+                     s02_axi_reg_arready, -- read address channel
+                     s02_axi_reg_rready,
+                     s02_axi_reg_rvalid); -- read data channel
 
         wait;
     end process;
