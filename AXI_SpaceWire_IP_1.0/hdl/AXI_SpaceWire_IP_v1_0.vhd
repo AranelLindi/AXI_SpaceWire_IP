@@ -491,6 +491,7 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0 is
     signal s_errpar : std_logic;
     signal s_errcred : std_logic;
     signal s_erresc : std_logic;
+
 begin
 
 -- Instantiation of Axi Bus Interface S00_AXI_TX

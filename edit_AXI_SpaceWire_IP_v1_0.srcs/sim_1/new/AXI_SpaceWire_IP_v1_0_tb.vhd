@@ -678,6 +678,7 @@ begin
         variable data : array_t(0 to 3)(31 downto 0);
     begin
         wait on rst_ps;
+        --wait for 2 * ps_clock_period;
     
         -- Set initial signal values (only signals that are used !).
         s00_axi_tx_awid <= (others => '0');
@@ -714,7 +715,7 @@ begin
         -- Finished !
         
         
-        wait for 10 us;
+        wait for 5 us;
                 
         -- Perform single transfer to write into TX fifo (if spwstream is activated and in running mode it should send this data asap)
         data(0) := x"ffffff0f"; -- define some pseudo data
@@ -724,19 +725,19 @@ begin
         
         --report "length of data is " & integer'image(data'length);
         
-        AXI4FullWrite(s00_axi_tx_awid, "0",
-                      s00_axi_tx_awaddr, "000",
-                      s00_axi_tx_awlen, std_logic_vector(to_unsigned(data'length, s00_axi_tx_awlen'length)), -- awlen is zero-based index !
-                      s00_axi_tx_awburst, "00", -- FIXED
-                      s00_axi_tx_awvalid,
-                      s00_axi_tx_awready,
-                      s00_axi_tx_wdata, data,
-                      s00_axi_tx_wstrb, "0011",
-                      s00_axi_tx_wlast,
-                      s00_axi_tx_wvalid,
-                      s00_axi_tx_wready,
-                      s00_axi_tx_bready,
-                      s00_axi_tx_bvalid);
+--        AXI4FullWrite(s00_axi_tx_awid, "0",
+--                      s00_axi_tx_awaddr, "000",
+--                      s00_axi_tx_awlen, std_logic_vector(to_unsigned(data'length, s00_axi_tx_awlen'length)), -- awlen is zero-based index !
+--                      s00_axi_tx_awburst, "00", -- FIXED
+--                      s00_axi_tx_awvalid,
+--                      s00_axi_tx_awready,
+--                      s00_axi_tx_wdata, data,
+--                      s00_axi_tx_wstrb, "0011",
+--                      s00_axi_tx_wlast,
+--                      s00_axi_tx_wvalid,
+--                      s00_axi_tx_wready,
+--                      s00_axi_tx_bready,
+--                      s00_axi_tx_bvalid);
                       
         wait for 10 us;
                       
@@ -747,6 +748,7 @@ begin
     stimulus_RX: process
     begin
         wait on rst_ps;
+        wait for 2 * ps_clock_period;
     
         -- Set initial signal values (only signals that are used !).
         s01_axi_rx_awid <= (others => '0');
@@ -788,6 +790,7 @@ begin
     stimulus_REG: process
     begin
         wait on rst_ps;
+        wait for 2 * ps_clock_period;
 
         -- Set initial signal values (only signals that are used !).
         s02_axi_reg_awaddr <= (others => '0');
@@ -881,8 +884,8 @@ begin
     init_rst: process
     begin
         -- Careful: pl reset is active_high, ps reset is active_low !
-        rst_ps <= '0', '1' after 5*ps_clock_period;
-        rst_logic <= '1', '0' after 5*pl_clock_period;       
+        rst_ps <= '0', '1' after 6 * ps_clock_period; -- don't change !
+        rst_logic <= '1', '0' after 6 * pl_clock_period; -- don't change !
         wait; -- wait forever
     end process;
 

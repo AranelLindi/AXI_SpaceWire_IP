@@ -232,8 +232,8 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
     signal s_fifo_wrcount : std_logic_vector(10 downto 0); -- err?
     signal s_fifo_wrerr : std_logic;
     signal s_fifo_di : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-    signal s_fifo_rden : std_logic;
-    signal s_fifo_wren : std_logic;
+    signal s_fifo_rden : std_logic;-- := '0';
+    signal s_fifo_wren : std_logic;-- := '0';
     
     -- Buffer for TX fifo data.
     signal s_fifo_txflag_buffer : std_logic;
@@ -673,13 +673,13 @@ begin
 
     process(S_AXI_ACLK)
     begin
-        if falling_edge(S_AXI_ACLK) then
+        if rising_edge(S_AXI_ACLK) then
             if S_AXI_ARESETN = '0' then -- (active_low !)
                 -- Synchronous reset.
                 s_fifo_wren <= '0';
             else
                 if S_AXI_WVALID = '1' and axi_wready = '1' then -- sehr gefährlich... ist vermutlich oft länger als einen takt high (also beides)
-                    s_fifo_wren <= '0';
+                    s_fifo_wren <= '1';
                 else
                     s_fifo_wren <= '0';
                 end if;
@@ -689,8 +689,8 @@ begin
 
 
     
-    txdata <= s_fifo_do(7 downto 0);
-    txflag <= s_fifo_do(8);
+    --txdata <= s_fifo_do(7 downto 0);
+    --txflag <= s_fifo_do(8);
     
     process(clk_logic)
     begin
@@ -698,6 +698,9 @@ begin
             if rst_logic = '1' then
                 -- Synchronous reset.
                 s_fifo_rden <= '0';
+                
+                txdata <= (others => '0');
+                txflag <= '0';
                 txwrite <= '0';
             else
                 if s_fifo_empty = '1' then
@@ -705,7 +708,10 @@ begin
                     txwrite <= '0';
                     s_fifo_rden <= '0';
                 else
-                    if txrdy = '1' then
+                    -- fifo is not empty
+                    if txrdy = '1' and s_fifo_rden = '0' then
+                        txdata <= s_fifo_do(7 downto 0);
+                        txflag <= s_fifo_do(8);
                         txwrite <= '1';
                         s_fifo_rden <= '1';
                     else
