@@ -1,0 +1,33 @@
+Time resolution is 1 ps
+Note: Start AXI4 Full Write...
+Time: 5010 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_TX  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: i is 0
+Time: 5080 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_TX  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: i is 1
+Time: 5100 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_TX  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: i is 2
+Time: 5120 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_TX  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: i is 3
+Time: 5140 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_TX  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: AXI4 Full Write Done!
+Time: 5160 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_TX  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: Write into fifo: 0F0
+Time: 22315 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/line__675  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: Write into fifo: 0FF
+Time: 22455 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/line__675  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: Write into fifo: 00F
+Time: 22555 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/line__675  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: Write into fifo: 100
+Time: 22595 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/line__675  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: Start AXI4 Full Read...
+Time: 25050 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_RX  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: RDEN 1
+Time: 25090 ns  Iteration: 1  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/line__656  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: RDEN 1
+Time: 25130 ns  Iteration: 1  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/line__656  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: RDEN 1
+Time: 25170 ns  Iteration: 1  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/line__656  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: RDEN 1
+Time: 25210 ns  Iteration: 1  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/line__656  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: RDEN 1
+Time: 25250 ns  Iteration: 1  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/line__656  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd

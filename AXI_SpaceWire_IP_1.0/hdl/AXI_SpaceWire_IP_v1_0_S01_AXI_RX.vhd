@@ -230,8 +230,8 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S01_AXI_RX is
     signal s_fifo_wrcount : std_logic_vector(10 downto 0); -- err?
     signal s_fifo_wrerr : std_logic;
     signal s_fifo_di : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0) := (others => '0');
-    signal s_fifo_rden : std_logic;
-    signal s_fifo_wren : std_logic;    
+    signal s_fifo_rden : std_logic := '0';
+    signal s_fifo_wren : std_logic := '0';    
 
     -- AXI4FULL signals
     signal axi_awaddr	: std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
@@ -554,21 +554,21 @@ begin
             --data_out <= byte_ram(to_integer(unsigned(mem_address)));
             
             -- Memory write process.
-            BYTE_RAM_PROC : process( S_AXI_ACLK ) is
-            begin
-                if ( rising_edge (S_AXI_ACLK) ) then
-                    if ( mem_wren = '1' and S_AXI_WSTRB(mem_byte_index) = '1' ) then
-                        --byte_ram(to_integer(unsigned(mem_address))) <= data_in;
-                        case mem_address is
-                            when "0" =>
+--            BYTE_RAM_PROC : process( S_AXI_ACLK ) is
+--            begin
+--                if ( rising_edge (S_AXI_ACLK) ) then
+--                    if ( mem_wren = '1' and S_AXI_WSTRB(mem_byte_index) = '1' ) then
+--                        --byte_ram(to_integer(unsigned(mem_address))) <= data_in;
+--                        case mem_address is
+--                            when "0" =>
                                 
                             
-                            when others =>
-                                null; -- enough ? Or more here ?
-                        end case;
-                    end if;
-                end if;
-            end process BYTE_RAM_PROC;
+--                            when others =>
+--                                null; -- enough ? Or more here ?
+--                        end case;
+--                    end if;
+--                end if;
+--            end process BYTE_RAM_PROC;
             
             -- Memory read process.
             process( S_AXI_ACLK ) is
@@ -579,7 +579,8 @@ begin
                         case mem_address is 
                             when "0" =>
                                 mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= s_fifo_do((mem_byte_index * 8 + 7 ) downto (( mem_byte_index * 8 )));
-                            when others => null; 
+                            when others => 
+                                mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));--mem_data_out(i); 
                         end case;
                     end if;
                 end if;
@@ -611,43 +612,96 @@ begin
     --s_fifo_di(7 downto 0) <= rxdata;
     
     -- Combinatorial logic for fifo data input.
-    process(rxflag, rxdata)
-        -- Contains data from spwstream
-        variable v_di : std_logic_vector(8 downto 0);
+--    process(rxflag, rxdata)
+--        -- Contains data from spwstream
+--        variable v_di : std_logic_vector(8 downto 0);
         
-        -- Masked data which is written into fifo
-        variable v_do : std_logic_vector(8 downto 0);
-    begin
-        v_di := rxflag & rxdata;
+--        -- Masked data which is written into fifo
+--        variable v_do : std_logic_vector(8 downto 0);
+--    begin
+--        v_di := rxflag & rxdata;
         
-        if v_di(8) = '1' then
-            -- HIGH flag (EOP, ...)
-            case v_di(7 downto 0) is
-                when "00000000" => -- EOP
-                    v_do(7 downto 0) := "11111111"; -- 255
-                when "00000001" => -- EEP
-                    v_do(7 downto 0) := "11111110"; -- 254
-                when others => -- Process ID or whatever (differentiate it here !)
-                    v_do(7 downto 0) := v_di(7 downto 0);
-            end case;
-        else
-            -- LOW flag (Data byte -> N-Char)
-            v_do := '0' & v_di(7 downto 0);
-        end if;
+--        if v_di(8) = '1' then
+--            -- HIGH flag (EOP, ...)
+--            case v_di(7 downto 0) is
+--                when "00000000" => -- EOP
+--                    v_do(7 downto 0) := "11111111"; -- 255
+--                when "00000001" => -- EEP
+--                    v_do(7 downto 0) := "11111110"; -- 254
+--                when others => -- Process ID or whatever (differentiate it here !)
+--                    v_do(7 downto 0) := v_di(7 downto 0);
+--            end case;
+--        else
+--            -- LOW flag (Data byte -> N-Char)
+--            v_do := '0' & v_di(7 downto 0);
+--        end if;
     
-        s_fifo_di(8 downto 0) <= v_do;
-    end process;
+--        s_fifo_di(8 downto 0) <= v_do;
+--    end process;
     
     -- Synchronous rxfifo-spwstream-wrapper.
+--    process(clk_logic)
+--    begin
+--        if rising_edge(clk_logic) then
+--            if (rxvalid = '1') then
+--                s_fifo_wren <= not s_fifo_full;
+--                rxread <= not s_fifo_full;
+--            else
+--                s_fifo_wren <= '0';
+--                rxread <= '0';
+--            end if;
+--        end if;
+--    end process;
+
+    process(S_AXI_ACLK)
+    begin
+        if rising_edge(S_AXI_ACLK) then
+            if S_AXI_ARESETN = '0' then -- (active_low !)
+                -- Synchronous reset.
+                s_fifo_rden <= '0';
+            else
+                if S_AXI_RREADY = '1' and axi_rvalid = '1' then 
+                --if S_AXI_WVALID = '1' and axi_wready = '1' then -- sehr gefährlich... ist vermutlich oft länger als einen takt high (also beides)
+                    s_fifo_rden <= '1';
+                    report "RDEN 1";
+                else
+                    s_fifo_rden <= '0';
+                end if;
+            end if;
+        end if;
+    end process;
+
+    
     process(clk_logic)
     begin
         if rising_edge(clk_logic) then
-            if (rxvalid = '1') then
-                s_fifo_wren <= not s_fifo_full;
-                rxread <= not s_fifo_full;
-            else
+            if rst_logic = '1' then
+                -- Synchronous reset.
                 s_fifo_wren <= '0';
-                rxread <= '0';
+                
+                --s_fifo_di <= (others => '0');
+                rxread <= '0';                
+            else
+                if s_fifo_full = '1' then
+                    -- fifo is full
+                    --s_fifo_di <= (others => '0');
+                    rxread <= '0';
+                    s_fifo_wren <= '0';
+                else
+                    -- fifo is not full
+                    if rxvalid = '1' and s_fifo_wren = '0' then
+                        s_fifo_di(8 downto 0) <= rxflag & rxdata;
+                        
+                        report "Write into fifo: " & to_hstring(std_logic_vector(rxflag & rxdata));
+                        
+                        rxread <= '1';
+                        s_fifo_wren <= '1';
+                    else
+                        --s_fifo_di <= (others => '0');
+                        rxread <= '0';
+                        s_fifo_wren <= '0';
+                    end if;
+                end if;
             end if;
         end if;
     end process;

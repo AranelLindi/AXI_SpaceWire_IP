@@ -232,8 +232,8 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
     signal s_fifo_wrcount : std_logic_vector(10 downto 0); -- err?
     signal s_fifo_wrerr : std_logic;
     signal s_fifo_di : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-    signal s_fifo_rden : std_logic;-- := '0';
-    signal s_fifo_wren : std_logic;-- := '0';
+    signal s_fifo_rden : std_logic := '0';
+    signal s_fifo_wren : std_logic := '0';
     
     -- Buffer for TX fifo data.
     signal s_fifo_txflag_buffer : std_logic;
@@ -710,11 +710,13 @@ begin
                 else
                     -- fifo is not empty
                     if txrdy = '1' and s_fifo_rden = '0' then
+                        -- spwstream is ready to accept new transmit data
                         txdata <= s_fifo_do(7 downto 0);
                         txflag <= s_fifo_do(8);
                         txwrite <= '1';
                         s_fifo_rden <= '1';
                     else
+                        -- spwstream is not ready to accept new transmit data
                         txwrite <= '0';    
                         s_fifo_rden <= '0';
                     end if;
