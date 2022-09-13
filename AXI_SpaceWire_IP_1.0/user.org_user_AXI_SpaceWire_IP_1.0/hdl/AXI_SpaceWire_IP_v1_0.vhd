@@ -20,10 +20,10 @@ entity AXI_SpaceWire_IP_v1_0 is
         txclkfreq : real := 0.0;
         
         -- Selection of a receiver front-end implementation.
-        --rximpl : spw_implementation_type := impl_fast;
+        rximpl : spw_implementation_type := impl_fast;
         
         -- Selection of a transmitter implementation.
-        --tximpl : spw_implementation_type := impl_fast;
+        tximpl : spw_implementation_type := impl_fast;
         
         -- Maximum number of bits received per system clock
         -- (must be 1 in case of impl_generic)
