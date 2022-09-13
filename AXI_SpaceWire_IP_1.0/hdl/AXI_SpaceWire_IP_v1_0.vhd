@@ -12,12 +12,12 @@ entity AXI_SpaceWire_IP_v1_0 is
         -- This must be set to the frequency of "clk_logic". It is used to setup
         -- counters for reset timing, disconnect timeout and to transmit
         -- at 10 Mbit/s during the link handshake.
-        sysfreq : real := 100.0e6;
+        --sysfreq : real := 100.0e6;
         
         -- Transmit clock frequency in Hz (only if tximpl = impl_fast).
         -- This must be set to the frequency of "txclk". It is used to 
         -- transmit at 10 Mbit/s during the link handshake.
-        txclkfreq : real := 0.0;
+        --txclkfreq : real := 0.0;
         
         -- Selection of a receiver front-end implementation.
         --rximpl : spw_implementation_type := impl_fast;
@@ -717,11 +717,11 @@ AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst : AXI_SpaceWire_IP_v1_0_S02_AXI_REG
 
     spwstream_inst : spwstream
         generic map (
-            sysfreq => sysfreq,
-            txclkfreq => txclkfreq,
-            rximpl => rximpl,
+            sysfreq => 100.0e6,
+            txclkfreq => 100.0e6,
+            rximpl => impl_fast,
             rxchunk => rxchunk,
-            tximpl => tximpl,
+            tximpl => impl_fast,
             rxfifosize_bits => rxfifosize_bits,
             txfifosize_bits => txfifosize_bits
         )
@@ -734,7 +734,7 @@ AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst : AXI_SpaceWire_IP_v1_0_S02_AXI_REG
             linkstart => s_linkstart, -- Register
             linkdis => s_linkdis, -- Register
             txdivcnt => s_txdivcnt, -- Register
-            tick_in => '0',--s_tick_in, -- GPIO ?
+            tick_in => tc_in, -- GPIO ?
             ctrl_in => s_ctrl_in, -- Register
             time_in => s_time_in, -- Register
             txwrite => s_txwrite, -- internal

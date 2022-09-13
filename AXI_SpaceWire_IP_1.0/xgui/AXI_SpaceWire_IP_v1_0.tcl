@@ -4,7 +4,6 @@ proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "txfifosize_bits"
   ipgui::add_param $IPINST -name "rxfifosize_bits"
   ipgui::add_param $IPINST -name "rxchunk"
-  ipgui::add_param $IPINST -name "sysfreq"
 
 }
 
@@ -23,24 +22,6 @@ proc update_PARAM_VALUE.rxfifosize_bits { PARAM_VALUE.rxfifosize_bits } {
 
 proc validate_PARAM_VALUE.rxfifosize_bits { PARAM_VALUE.rxfifosize_bits } {
 	# Procedure called to validate rxfifosize_bits
-	return true
-}
-
-proc update_PARAM_VALUE.sysfreq { PARAM_VALUE.sysfreq } {
-	# Procedure called to update sysfreq when any of the dependent parameters in the arguments change
-}
-
-proc validate_PARAM_VALUE.sysfreq { PARAM_VALUE.sysfreq } {
-	# Procedure called to validate sysfreq
-	return true
-}
-
-proc update_PARAM_VALUE.txclkfreq { PARAM_VALUE.txclkfreq } {
-	# Procedure called to update txclkfreq when any of the dependent parameters in the arguments change
-}
-
-proc validate_PARAM_VALUE.txclkfreq { PARAM_VALUE.txclkfreq } {
-	# Procedure called to validate txclkfreq
 	return true
 }
 
@@ -358,16 +339,6 @@ proc update_MODELPARAM_VALUE.C_S02_AXI_REG_DATA_WIDTH { MODELPARAM_VALUE.C_S02_A
 proc update_MODELPARAM_VALUE.C_S02_AXI_REG_ADDR_WIDTH { MODELPARAM_VALUE.C_S02_AXI_REG_ADDR_WIDTH PARAM_VALUE.C_S02_AXI_REG_ADDR_WIDTH } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
 	set_property value [get_property value ${PARAM_VALUE.C_S02_AXI_REG_ADDR_WIDTH}] ${MODELPARAM_VALUE.C_S02_AXI_REG_ADDR_WIDTH}
-}
-
-proc update_MODELPARAM_VALUE.sysfreq { MODELPARAM_VALUE.sysfreq PARAM_VALUE.sysfreq } {
-	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
-	set_property value [get_property value ${PARAM_VALUE.sysfreq}] ${MODELPARAM_VALUE.sysfreq}
-}
-
-proc update_MODELPARAM_VALUE.txclkfreq { MODELPARAM_VALUE.txclkfreq PARAM_VALUE.txclkfreq } {
-	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
-	set_property value [get_property value ${PARAM_VALUE.txclkfreq}] ${MODELPARAM_VALUE.txclkfreq}
 }
 
 proc update_MODELPARAM_VALUE.rxchunk { MODELPARAM_VALUE.rxchunk PARAM_VALUE.rxchunk } {

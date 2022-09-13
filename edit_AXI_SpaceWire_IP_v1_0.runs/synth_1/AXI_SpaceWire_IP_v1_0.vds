@@ -1,0 +1,658 @@
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Tue Sep 13 16:41:14 2022
+# Process ID: 5788
+# Current directory: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1
+# Command line: vivado -log AXI_SpaceWire_IP_v1_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source AXI_SpaceWire_IP_v1_0.tcl
+# Log file: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/AXI_SpaceWire_IP_v1_0.vds
+# Journal file: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/vivado.jou
+# Running On: stl56jc-MS-7C95, OS: Linux, CPU Frequency: 400.000 MHz, CPU Physical cores: 12, Host memory: 14546 MB
+#-----------------------------------------------------------
+source AXI_SpaceWire_IP_v1_0.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/Vivado/2022.1/data/ip'.
+WARNING: [IP_Flow 19-1663] Duplicate IP found for 'uni-wuerzburg.informatikviii:user:AXI_SpaceWire_IP:1.0'. The one found in IP location '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0' will take precedence over the same IP in location /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/user.org_user_AXI_SpaceWire_IP_1.0
+Command: read_checkpoint -auto_incremental -incremental /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/utils_1/imports/synth_1/AXI_SpaceWire_IP_v1_0.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/utils_1/imports/synth_1/AXI_SpaceWire_IP_v1_0.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top AXI_SpaceWire_IP_v1_0 -part xc7a35tcpg236-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 5800
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 3158.371 ; gain = 0.000 ; free physical = 2333 ; free virtual = 7420
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:226]
+WARNING: [Synth 8-506] null port 's00_axi_tx_awuser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:118]
+WARNING: [Synth 8-506] null port 's00_axi_tx_wuser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:124]
+WARNING: [Synth 8-506] null port 's00_axi_tx_buser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:129]
+WARNING: [Synth 8-506] null port 's00_axi_tx_aruser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:142]
+WARNING: [Synth 8-506] null port 's00_axi_tx_ruser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:149]
+WARNING: [Synth 8-506] null port 's01_axi_rx_awuser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:166]
+WARNING: [Synth 8-506] null port 's01_axi_rx_wuser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:172]
+WARNING: [Synth 8-506] null port 's01_axi_rx_buser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:177]
+WARNING: [Synth 8-506] null port 's01_axi_rx_aruser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:190]
+WARNING: [Synth 8-506] null port 's01_axi_rx_ruser' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:197]
+	Parameter C_S_AXI_ID_WIDTH bound to: 1 - type: integer 
+	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_S_AXI_ADDR_WIDTH bound to: 3 - type: integer 
+	Parameter C_S_AXI_AWUSER_WIDTH bound to: 0 - type: integer 
+	Parameter C_S_AXI_ARUSER_WIDTH bound to: 0 - type: integer 
+	Parameter C_S_AXI_WUSER_WIDTH bound to: 0 - type: integer 
+	Parameter C_S_AXI_RUSER_WIDTH bound to: 0 - type: integer 
+	Parameter C_S_AXI_BUSER_WIDTH bound to: 0 - type: integer 
+WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:319]
+WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:325]
+WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:330]
+WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:343]
+WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:350]
+INFO: [Synth 8-3491] module 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:25' bound to instance 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst' of component 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:516]
+INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:228]
+	Parameter C_S_AXI_ID_WIDTH bound to: 1 - type: integer 
+	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_S_AXI_ADDR_WIDTH bound to: 3 - type: integer 
+	Parameter C_S_AXI_AWUSER_WIDTH bound to: 0 - type: integer 
+	Parameter C_S_AXI_ARUSER_WIDTH bound to: 0 - type: integer 
+	Parameter C_S_AXI_WUSER_WIDTH bound to: 0 - type: integer 
+	Parameter C_S_AXI_RUSER_WIDTH bound to: 0 - type: integer 
+	Parameter C_S_AXI_BUSER_WIDTH bound to: 0 - type: integer 
+WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:127]
+WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:146]
+WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:160]
+WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:197]
+WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:218]
+WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:258]
+WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:265]
+WARNING: [Synth 8-614] signal 's_fifo_di' is read in the process but is not in the sensitivity list [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:578]
+WARNING: [Synth 8-614] signal 's_fifo_di' is read in the process but is not in the sensitivity list [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:578]
+WARNING: [Synth 8-614] signal 's_fifo_di' is read in the process but is not in the sensitivity list [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:578]
+WARNING: [Synth 8-614] signal 's_fifo_di' is read in the process but is not in the sensitivity list [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:578]
+	Parameter ALMOST_EMPTY_OFFSET bound to: 32'b00000000000000000000000000000000 
+	Parameter ALMOST_FULL_OFFSET bound to: 32'b00000000000000000000000000000000 
+	Parameter DATA_WIDTH bound to: 9 - type: integer 
+	Parameter DEVICE bound to: 7SERIES - type: string 
+	Parameter FIFO_SIZE bound to: 18Kb - type: string 
+	Parameter FIRST_WORD_FALL_THROUGH bound to: 1 - type: bool 
+INFO: [Synth 8-3491] module 'FIFO_DUALCLOCK_MACRO' declared at '/tools/Xilinx/Vivado/2022.1/data/vhdl/src/unimacro/FIFO_DUALCLOCK_MACRO.vhd:36' bound to instance 'FIFO_DUALCLOCK_MACRO_inst_TX' of component 'FIFO_DUALCLOCK_MACRO' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:771]
+INFO: [Synth 8-638] synthesizing module 'unimacro_FIFO_DUALCLOCK_MACRO' [/tools/Xilinx/Vivado/2022.1/data/vhdl/src/unimacro/FIFO_DUALCLOCK_MACRO.vhd:70]
+	Parameter ALMOST_FULL_OFFSET bound to: 0 - type: integer 
+	Parameter ALMOST_EMPTY_OFFSET bound to: 0 - type: integer 
+	Parameter DATA_WIDTH bound to: 9 - type: integer 
+	Parameter DEVICE bound to: 7SERIES - type: string 
+	Parameter FIFO_SIZE bound to: 18Kb - type: string 
+	Parameter FIRST_WORD_FALL_THROUGH bound to: 1 - type: bool 
+	Parameter INIT bound to: 72'b000000000000000000000000000000000000000000000000000000000000000000000000 
+	Parameter SRVAL bound to: 72'b000000000000000000000000000000000000000000000000000000000000000000000000 
+	Parameter SIM_MODE bound to: SAFE - type: string 
+	Parameter ALMOST_EMPTY_OFFSET bound to: 0 - type: integer 
+	Parameter ALMOST_FULL_OFFSET bound to: 0 - type: integer 
+	Parameter DATA_WIDTH bound to: 9 - type: integer 
+	Parameter DO_REG bound to: 1 - type: integer 
+	Parameter EN_SYN bound to: 0 - type: bool 
+	Parameter FIFO_MODE bound to: FIFO18 - type: string 
+	Parameter FIRST_WORD_FALL_THROUGH bound to: 1 - type: bool 
+	Parameter INIT bound to: 36'b000000000000000000000000000000000000 
+	Parameter SIM_DEVICE bound to: 7SERIES - type: string 
+	Parameter SRVAL bound to: 36'b000000000000000000000000000000000000 
+INFO: [Synth 8-113] binding component instance 'fifo_18_bl' to cell 'FIFO18E1' [/tools/Xilinx/Vivado/2022.1/data/vhdl/src/unimacro/FIFO_DUALCLOCK_MACRO.vhd:769]
+INFO: [Synth 8-256] done synthesizing module 'unimacro_FIFO_DUALCLOCK_MACRO' (0#1) [/tools/Xilinx/Vivado/2022.1/data/vhdl/src/unimacro/FIFO_DUALCLOCK_MACRO.vhd:70]
+INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:228]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:554]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:560]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:565]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:578]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:585]
+	Parameter C_S_AXI_ID_WIDTH bound to: 1 - type: integer 
+	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_S_AXI_ADDR_WIDTH bound to: 3 - type: integer 
+	Parameter C_S_AXI_AWUSER_WIDTH bound to: 0 - type: integer 
+	Parameter C_S_AXI_ARUSER_WIDTH bound to: 0 - type: integer 
+	Parameter C_S_AXI_WUSER_WIDTH bound to: 0 - type: integer 
+	Parameter C_S_AXI_RUSER_WIDTH bound to: 0 - type: integer 
+	Parameter C_S_AXI_BUSER_WIDTH bound to: 0 - type: integer 
+WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:396]
+WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:402]
+WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:407]
+WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:420]
+WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:427]
+INFO: [Synth 8-3491] module 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:24' bound to instance 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst' of component 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:591]
+INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:229]
+	Parameter C_S_AXI_ID_WIDTH bound to: 1 - type: integer 
+	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_S_AXI_ADDR_WIDTH bound to: 3 - type: integer 
+	Parameter C_S_AXI_AWUSER_WIDTH bound to: 0 - type: integer 
+	Parameter C_S_AXI_ARUSER_WIDTH bound to: 0 - type: integer 
+	Parameter C_S_AXI_WUSER_WIDTH bound to: 0 - type: integer 
+	Parameter C_S_AXI_RUSER_WIDTH bound to: 0 - type: integer 
+	Parameter C_S_AXI_BUSER_WIDTH bound to: 0 - type: integer 
+WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:128]
+WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:147]
+WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:161]
+WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:198]
+WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:219]
+WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:252]
+WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:259]
+	Parameter ALMOST_EMPTY_OFFSET bound to: 32'b00000000000000000000000000000000 
+	Parameter ALMOST_FULL_OFFSET bound to: 32'b00000000000000000000000000000000 
+	Parameter DATA_WIDTH bound to: 9 - type: integer 
+	Parameter DEVICE bound to: 7SERIES - type: string 
+	Parameter FIFO_SIZE bound to: 18Kb - type: string 
+	Parameter FIRST_WORD_FALL_THROUGH bound to: 1 - type: bool 
+INFO: [Synth 8-3491] module 'FIFO_DUALCLOCK_MACRO' declared at '/tools/Xilinx/Vivado/2022.1/data/vhdl/src/unimacro/FIFO_DUALCLOCK_MACRO.vhd:36' bound to instance 'FIFO_DUALCLOCK_MACRO_inst_TX' of component 'FIFO_DUALCLOCK_MACRO' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:764]
+INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0_S01_AXI_RX' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:229]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:629]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:635]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:640]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:653]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:660]
+	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_S_AXI_ADDR_WIDTH bound to: 5 - type: integer 
+INFO: [Synth 8-3491] module 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:5' bound to instance 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst' of component 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:666]
+INFO: [Synth 8-638] synthesizing module 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:155]
+	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_S_AXI_ADDR_WIDTH bound to: 5 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0_S02_AXI_REG' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd:155]
+	Parameter sysfreq bound to: 100000000.000000 - type: double 
+	Parameter txclkfreq bound to: 100000000.000000 - type: double 
+	Parameter rximpl bound to: 1'b1 
+	Parameter rxchunk bound to: 1 - type: integer 
+	Parameter tximpl bound to: 1'b1 
+	Parameter rxfifosize_bits bound to: 11 - type: integer 
+	Parameter txfifosize_bits bound to: 11 - type: integer 
+INFO: [Synth 8-3491] module 'spwstream' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:23' bound to instance 'spwstream_inst' of component 'spwstream' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:718]
+INFO: [Synth 8-638] synthesizing module 'spwstream' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:189]
+	Parameter sysfreq bound to: 100000000.000000 - type: double 
+	Parameter txclkfreq bound to: 100000000.000000 - type: double 
+	Parameter rximpl bound to: 1'b1 
+	Parameter rxchunk bound to: 1 - type: integer 
+	Parameter tximpl bound to: 1'b1 
+	Parameter rxfifosize_bits bound to: 11 - type: integer 
+	Parameter txfifosize_bits bound to: 11 - type: integer 
+	Parameter reset_time bound to: 640 - type: integer 
+INFO: [Synth 8-3491] module 'spwlink' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwlink.vhd:13' bound to instance 'link_inst' of component 'spwlink' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:278]
+INFO: [Synth 8-638] synthesizing module 'spwlink' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwlink.vhd:51]
+	Parameter reset_time bound to: 640 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'spwlink' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwlink.vhd:51]
+	Parameter disconnect_time bound to: 85 - type: integer 
+	Parameter rxchunk bound to: 1 - type: integer 
+INFO: [Synth 8-3491] module 'spwrecv' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecv.vhd:16' bound to instance 'recv_inst' of component 'spwrecv' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:292]
+INFO: [Synth 8-638] synthesizing module 'spwrecv' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecv.vhd:49]
+	Parameter disconnect_time bound to: 85 - type: integer 
+	Parameter rxchunk bound to: 1 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'spwrecv' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecv.vhd:49]
+INFO: [Synth 8-3491] module 'spwxmit_fast' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:150' bound to instance 'xmit_fast_inst' of component 'spwxmit_fast' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:317]
+INFO: [Synth 8-638] synthesizing module 'spwxmit_fast' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:188]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_rst' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:331]
+INFO: [Synth 8-638] synthesizing module 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:31]
+INFO: [Synth 8-256] done synthesizing module 'syncdff' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:31]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_sysflip0' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:335]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_sysflip1' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:337]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_txen' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:339]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'synctx_txdivsafe' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:341]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_txflip0' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:345]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_txflip1' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:347]
+INFO: [Synth 8-256] done synthesizing module 'spwxmit_fast' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd:188]
+	Parameter rxchunk bound to: 1 - type: integer 
+INFO: [Synth 8-3491] module 'spwrecvfront_fast' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:70' bound to instance 'recvfront_fast_inst' of component 'spwrecvfront_fast' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:342]
+INFO: [Synth 8-638] synthesizing module 'spwrecvfront_fast' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:110]
+	Parameter rxchunk bound to: 1 - type: integer 
+	Parameter abits bound to: 3 - type: integer 
+	Parameter dbits bound to: 2 - type: integer 
+INFO: [Synth 8-3491] module 'spwram' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:10' bound to instance 'bufmem' of component 'spwram' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:202]
+INFO: [Synth 8-638] synthesizing module 'spwram' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:28]
+	Parameter abits bound to: 3 - type: integer 
+	Parameter dbits bound to: 2 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'spwram' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:28]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncrx_reset' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:217]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_headptr0' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:221]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_headptr1' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:223]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_headptr2' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:225]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_bitcnt0' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:227]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_bitcnt1' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:229]
+INFO: [Synth 8-3491] module 'syncdff' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd:16' bound to instance 'syncsys_bitcnt2' of component 'syncdff' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:231]
+INFO: [Synth 8-256] done synthesizing module 'spwrecvfront_fast' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd:110]
+	Parameter abits bound to: 11 - type: integer 
+	Parameter dbits bound to: 9 - type: integer 
+INFO: [Synth 8-3491] module 'spwram' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:10' bound to instance 'rxmem' of component 'spwram' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:357]
+INFO: [Synth 8-638] synthesizing module 'spwram__parameterized1' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:28]
+	Parameter abits bound to: 11 - type: integer 
+	Parameter dbits bound to: 9 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'spwram__parameterized1' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:28]
+	Parameter abits bound to: 11 - type: integer 
+	Parameter dbits bound to: 9 - type: integer 
+INFO: [Synth 8-3491] module 'spwram' declared at '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd:10' bound to instance 'txmem' of component 'spwram' [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:372]
+INFO: [Synth 8-256] done synthesizing module 'spwstream' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd:189]
+INFO: [Synth 8-256] done synthesizing module 'AXI_SpaceWire_IP_v1_0' (0#1) [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd:226]
+WARNING: [Synth 8-6014] Unused sequential element txwrite_reg was removed.  [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd:725]
+WARNING: [Synth 8-6014] Unused sequential element rxread_reg was removed.  [/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd:715]
+WARNING: [Synth 8-7129] Port recvo[gotbit] in module spwlink is either unconnected or has no load
+WARNING: [Synth 8-7129] Port rst_logic in module AXI_SpaceWire_IP_v1_0_S02_AXI_REG is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[2] in module AXI_SpaceWire_IP_v1_0_S02_AXI_REG is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[1] in module AXI_SpaceWire_IP_v1_0_S02_AXI_REG is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[0] in module AXI_SpaceWire_IP_v1_0_S02_AXI_REG is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[2] in module AXI_SpaceWire_IP_v1_0_S02_AXI_REG is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[1] in module AXI_SpaceWire_IP_v1_0_S02_AXI_REG is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[0] in module AXI_SpaceWire_IP_v1_0_S02_AXI_REG is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWSIZE[2] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWSIZE[1] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWSIZE[0] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWLOCK in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWCACHE[3] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWCACHE[2] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWCACHE[1] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWCACHE[0] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[2] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[1] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[0] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWQOS[3] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWQOS[2] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWQOS[1] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWQOS[0] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWREGION[3] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWREGION[2] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWREGION[1] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWREGION[0] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[31] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[30] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[29] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[28] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[27] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[26] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[25] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[24] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[23] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[22] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[21] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[20] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[19] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[18] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[17] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[16] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[15] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[14] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[13] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[12] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[11] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[10] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[9] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[8] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[7] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[6] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[5] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[4] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[3] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[2] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[1] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WDATA[0] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WSTRB[3] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WSTRB[2] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WSTRB[1] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WSTRB[0] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARSIZE[2] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARSIZE[1] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARSIZE[0] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARLOCK in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARCACHE[3] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARCACHE[2] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARCACHE[1] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARCACHE[0] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[2] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[1] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[0] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARQOS[3] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARQOS[2] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARQOS[1] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARQOS[0] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARREGION[3] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARREGION[2] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARREGION[1] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARREGION[0] in module AXI_SpaceWire_IP_v1_0_S01_AXI_RX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port do[31] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port do[30] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port do[29] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port do[28] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port do[27] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port do[26] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port do[25] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port do[24] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port do[23] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port do[22] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port do[21] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port do[20] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port do[19] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port do[18] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port do[17] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port do[16] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port do[15] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+WARNING: [Synth 8-7129] Port do[14] in module AXI_SpaceWire_IP_v1_0_S00_AXI_TX is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3158.371 ; gain = 0.000 ; free physical = 3418 ; free virtual = 8506
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3158.371 ; gain = 0.000 ; free physical = 3414 ; free virtual = 8502
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a35tcpg236-1
+INFO: [Device 21-403] Loading part xc7a35tcpg236-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3166.375 ; gain = 8.004 ; free physical = 3414 ; free virtual = 8502
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'r_reg[state]' in module 'spwlink'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+            s_errorreset |                           000001 |                              000
+             s_errorwait |                           100000 |                              001
+                 s_ready |                           010000 |                              010
+               s_started |                           001000 |                              011
+            s_connecting |                           000100 |                              100
+                   s_run |                           000010 |                              101
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'r_reg[state]' using encoding 'one-hot' in module 'spwlink'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:04 . Memory (MB): peak = 3166.375 ; gain = 8.004 ; free physical = 3344 ; free virtual = 8433
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   11 Bit       Adders := 9     
+	   3 Input   11 Bit       Adders := 4     
+	   2 Input    8 Bit       Adders := 5     
+	   3 Input    6 Bit       Adders := 3     
+	   2 Input    6 Bit       Adders := 1     
+	   3 Input    3 Bit       Adders := 4     
+	   2 Input    3 Bit       Adders := 3     
+	   2 Input    2 Bit       Adders := 2     
+	   3 Input    2 Bit       Adders := 3     
+	   2 Input    1 Bit       Adders := 4     
++---XORs : 
+	   2 Input      3 Bit         XORs := 4     
+	   2 Input      1 Bit         XORs := 9     
+	   3 Input      1 Bit         XORs := 1     
++---Registers : 
+	               32 Bit    Registers := 7     
+	               11 Bit    Registers := 5     
+	               10 Bit    Registers := 3     
+	                9 Bit    Registers := 6     
+	                8 Bit    Registers := 32    
+	                6 Bit    Registers := 4     
+	                5 Bit    Registers := 2     
+	                3 Bit    Registers := 9     
+	                2 Bit    Registers := 19    
+	                1 Bit    Registers := 144   
++---RAMs : 
+	              18K Bit	(2048 X 9 bit)          RAMs := 2     
+	               16 Bit	(8 X 2 bit)          RAMs := 1     
++---Muxes : 
+	   2 Input   32 Bit        Muxes := 8     
+	   4 Input   32 Bit        Muxes := 3     
+	   2 Input   11 Bit        Muxes := 2     
+	   5 Input   10 Bit        Muxes := 1     
+	   3 Input   10 Bit        Muxes := 1     
+	   2 Input   10 Bit        Muxes := 2     
+	   2 Input    9 Bit        Muxes := 6     
+	   4 Input    9 Bit        Muxes := 1     
+	   5 Input    8 Bit        Muxes := 1     
+	   3 Input    8 Bit        Muxes := 1     
+	   2 Input    8 Bit        Muxes := 5     
+	   6 Input    6 Bit        Muxes := 1     
+	   2 Input    6 Bit        Muxes := 4     
+	   4 Input    4 Bit        Muxes := 1     
+	   2 Input    3 Bit        Muxes := 9     
+	   4 Input    3 Bit        Muxes := 4     
+	   3 Input    3 Bit        Muxes := 1     
+	   2 Input    2 Bit        Muxes := 4     
+	   2 Input    1 Bit        Muxes := 119   
+	   4 Input    1 Bit        Muxes := 9     
+	   6 Input    1 Bit        Muxes := 2     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 90 (col length:60)
+BRAMs: 100 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-3917] design AXI_SpaceWire_IP_v1_0 has port s01_axi_rx_rdata[15] driven by constant 0
+WARNING: [Synth 8-3917] design AXI_SpaceWire_IP_v1_0 has port s01_axi_rx_rdata[14] driven by constant 0
+WARNING: [Synth 8-3917] design AXI_SpaceWire_IP_v1_0 has port s01_axi_rx_rdata[13] driven by constant 0
+WARNING: [Synth 8-3917] design AXI_SpaceWire_IP_v1_0 has port s01_axi_rx_rdata[12] driven by constant 0
+WARNING: [Synth 8-3917] design AXI_SpaceWire_IP_v1_0 has port s01_axi_rx_rdata[11] driven by constant 0
+WARNING: [Synth 8-3917] design AXI_SpaceWire_IP_v1_0 has port s01_axi_rx_rdata[10] driven by constant 0
+WARNING: [Synth 8-3917] design AXI_SpaceWire_IP_v1_0 has port s01_axi_rx_rdata[9] driven by constant 0
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 3166.375 ; gain = 8.004 ; free physical = 3119 ; free virtual = 8212
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Preliminary Mapping Report (see note below)
++----------------------+--------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name           | RTL Object                     | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++----------------------+--------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|AXI_SpaceWire_IP_v1_0 | spwstream_inst/rxmem/s_mem_reg | 2 K x 9(READ_FIRST)    | W |   | 2 K x 9(WRITE_FIRST)   |   | R | Port A and B     | 1      | 0      | 
+|AXI_SpaceWire_IP_v1_0 | spwstream_inst/txmem/s_mem_reg | 2 K x 9(READ_FIRST)    | W |   | 2 K x 9(WRITE_FIRST)   |   | R | Port A and B     | 1      | 0      | 
++----------------------+--------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+Note: The table above is a preliminary report that shows the Block RAMs at the current stage of the synthesis flow. Some Block RAMs may be reimplemented as non Block RAM primitives later in the synthesis flow. Multiple instantiated Block RAMs are reported only once. 
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++----------------------+--------------------------------------------------------------------+-----------+----------------------+---------------+
+|Module Name           | RTL Object                                                         | Inference | Size (Depth x Width) | Primitives    | 
++----------------------+--------------------------------------------------------------------+-----------+----------------------+---------------+
+|AXI_SpaceWire_IP_v1_0 | spwstream_inst/recvfront_sel1.recvfront_fast_inst/bufmem/s_mem_reg | Implied   | 8 x 2                | RAM16X1D x 2  | 
++----------------------+--------------------------------------------------------------------+-----------+----------------------+---------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 3166.375 ; gain = 8.004 ; free physical = 3119 ; free virtual = 8212
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Final Mapping Report
++----------------------+--------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name           | RTL Object                     | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++----------------------+--------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|AXI_SpaceWire_IP_v1_0 | spwstream_inst/rxmem/s_mem_reg | 2 K x 9(READ_FIRST)    | W |   | 2 K x 9(WRITE_FIRST)   |   | R | Port A and B     | 1      | 0      | 
+|AXI_SpaceWire_IP_v1_0 | spwstream_inst/txmem/s_mem_reg | 2 K x 9(READ_FIRST)    | W |   | 2 K x 9(WRITE_FIRST)   |   | R | Port A and B     | 1      | 0      | 
++----------------------+--------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+
+Distributed RAM: Final Mapping Report
++----------------------+--------------------------------------------------------------------+-----------+----------------------+---------------+
+|Module Name           | RTL Object                                                         | Inference | Size (Depth x Width) | Primitives    | 
++----------------------+--------------------------------------------------------------------+-----------+----------------------+---------------+
+|AXI_SpaceWire_IP_v1_0 | spwstream_inst/recvfront_sel1.recvfront_fast_inst/bufmem/s_mem_reg | Implied   | 8 x 2                | RAM16X1D x 2  | 
++----------------------+--------------------------------------------------------------------+-----------+----------------------+---------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+INFO: [Synth 8-7052] The timing for the instance spwstream_inst/txmem/s_mem_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 3166.375 ; gain = 8.004 ; free physical = 3113 ; free virtual = 8207
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+INFO: [Synth 8-4163] Replicating register \spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si1_reg  to handle IOB=TRUE attribute
+INFO: [Synth 8-4163] Replicating register \spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di1_reg  to handle IOB=TRUE attribute
+INFO: [Synth 8-4163] Replicating register \spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg  to handle IOB=TRUE attribute
+INFO: [Synth 8-4163] Replicating register \spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg  to handle IOB=TRUE attribute
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 3166.375 ; gain = 8.004 ; free physical = 3111 ; free virtual = 8204
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 3166.375 ; gain = 8.004 ; free physical = 3111 ; free virtual = 8204
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 3166.375 ; gain = 8.004 ; free physical = 3111 ; free virtual = 8204
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 3166.375 ; gain = 8.004 ; free physical = 3111 ; free virtual = 8204
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 3166.375 ; gain = 8.004 ; free physical = 3111 ; free virtual = 8204
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 3166.375 ; gain = 8.004 ; free physical = 3111 ; free virtual = 8204
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |BUFG     |     6|
+|2     |CARRY4   |    41|
+|3     |FIFO18E1 |     2|
+|4     |LUT1     |    13|
+|5     |LUT2     |   171|
+|6     |LUT3     |    80|
+|7     |LUT4     |    94|
+|8     |LUT5     |    95|
+|9     |LUT6     |   116|
+|10    |RAM16X1D |     2|
+|11    |RAMB18E1 |     2|
+|12    |FDCE     |    28|
+|13    |FDRE     |   646|
+|14    |FDSE     |    29|
+|15    |IBUF     |   145|
+|16    |OBUF     |   132|
++------+---------+------+
+
+Report Instance Areas: 
++------+-----------------------------------------+----------------------------------+------+
+|      |Instance                                 |Module                            |Cells |
++------+-----------------------------------------+----------------------------------+------+
+|1     |top                                      |                                  |  1602|
+|2     |  AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst  |AXI_SpaceWire_IP_v1_0_S00_AXI_TX  |   222|
+|3     |    FIFO_DUALCLOCK_MACRO_inst_TX         |unimacro_FIFO_DUALCLOCK_MACRO_14  |     3|
+|4     |  AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst  |AXI_SpaceWire_IP_v1_0_S01_AXI_RX  |    87|
+|5     |    FIFO_DUALCLOCK_MACRO_inst_TX         |unimacro_FIFO_DUALCLOCK_MACRO     |     3|
+|6     |  AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst |AXI_SpaceWire_IP_v1_0_S02_AXI_REG |   245|
+|7     |  spwstream_inst                         |spwstream                         |   765|
+|8     |    link_inst                            |spwlink                           |   125|
+|9     |    recv_inst                            |spwrecv                           |   120|
+|10    |    \recvfront_sel1.recvfront_fast_inst  |spwrecvfront_fast                 |    83|
+|11    |      bufmem                             |spwram                            |     5|
+|12    |      syncrx_reset                       |syncdff_7                         |     3|
+|13    |      syncsys_bitcnt0                    |syncdff_8                         |     2|
+|14    |      syncsys_bitcnt1                    |syncdff_9                         |     3|
+|15    |      syncsys_bitcnt2                    |syncdff_10                        |     2|
+|16    |      syncsys_headptr0                   |syncdff_11                        |     2|
+|17    |      syncsys_headptr1                   |syncdff_12                        |     3|
+|18    |      syncsys_headptr2                   |syncdff_13                        |     2|
+|19    |    rxmem                                |spwram__parameterized1            |     2|
+|20    |    txmem                                |spwram__parameterized1_0          |     1|
+|21    |    \xmit_sel1.xmit_fast_inst            |spwxmit_fast                      |   276|
+|22    |      syncsys_txflip0                    |syncdff                           |     9|
+|23    |      syncsys_txflip1                    |syncdff_1                         |     5|
+|24    |      synctx_rst                         |syncdff_2                         |     4|
+|25    |      synctx_sysflip0                    |syncdff_3                         |     3|
+|26    |      synctx_sysflip1                    |syncdff_4                         |     5|
+|27    |      synctx_txdivsafe                   |syncdff_5                         |     2|
+|28    |      synctx_txen                        |syncdff_6                         |     6|
++------+-----------------------------------------+----------------------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 3166.375 ; gain = 8.004 ; free physical = 3111 ; free virtual = 8204
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 319 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 3166.375 ; gain = 8.004 ; free physical = 3116 ; free virtual = 8209
+Synthesis Optimization Complete : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 3166.383 ; gain = 8.004 ; free physical = 3116 ; free virtual = 8209
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3166.383 ; gain = 0.000 ; free physical = 3202 ; free virtual = 8296
+INFO: [Netlist 29-17] Analyzing 47 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg has IOB = TRUE property, but it cannot be placed in an ILOGIC site. Instances spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di1_reg and spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg cannot be placed in the same site as one or more of their control signals do not match.
+WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg has IOB = TRUE property, but it cannot be placed in an ILOGIC site. Instances spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di1_reg and spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg cannot be placed in the same site as one or more of their control signals do not match.
+WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg has IOB = TRUE property, but it cannot be placed in an ILOGIC site. Instances spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg and spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si1_reg cannot be placed in the same site as one or more of their control signals do not match.
+WARNING: [Constraints 18-1062] Instance spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg has IOB = TRUE property, but it cannot be placed in an ILOGIC site. Instances spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg and spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si1_reg cannot be placed in the same site as one or more of their control signals do not match.
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+WARNING: [Constraints 18-4642] Detected two FFs (1. spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di2_reg, and 2. spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_di1_reg) with both IOB=TRUE that are driven by spw_di_IBUF_inst. Skipping shape updating caused by IOB property change. 
+WARNING: [Constraints 18-4642] Detected two FFs (1. spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si2_reg, and 2. spwstream_inst/recvfront_sel1.recvfront_fast_inst/s_a_si1_reg) with both IOB=TRUE that are driven by spw_si_IBUF_inst. Skipping shape updating caused by IOB property change. 
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3222.402 ; gain = 0.000 ; free physical = 3117 ; free virtual = 8210
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 2 instances were transformed.
+  RAM16X1D => RAM32X1D (RAMD32(x2)): 2 instances
+
+Synth Design complete, checksum: b42e3543
+INFO: [Common 17-83] Releasing license: Synthesis
+81 Infos, 165 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:15 ; elapsed = 00:00:12 . Memory (MB): peak = 3222.402 ; gain = 64.031 ; free physical = 3327 ; free virtual = 8421
+INFO: [Common 17-1381] The checkpoint '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/AXI_SpaceWire_IP_v1_0.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file AXI_SpaceWire_IP_v1_0_utilization_synth.rpt -pb AXI_SpaceWire_IP_v1_0_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Tue Sep 13 16:41:31 2022...
