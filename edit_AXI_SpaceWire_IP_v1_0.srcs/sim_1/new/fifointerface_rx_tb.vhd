@@ -75,6 +75,14 @@ architecture fifointerface_rx_tb_arch of fifointerface_rx_tb is
             C_S_AXI_BUSER_WIDTH	: integer	:= 0
         );
         port (
+            do : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);        
+            di : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);    
+            rden : out std_logic;        
+            wren : out std_logic;
+            rdcount : out std_logic_vector(10 downto 0);
+            wrcount : out std_logic_vector(10 downto 0);
+            empty : out std_logic;
+            full : out std_logic;
             clk_logic : in std_logic;
             rst_logic : in std_logic;
             rxvalid : in std_logic;
@@ -130,6 +138,15 @@ architecture fifointerface_rx_tb_arch of fifointerface_rx_tb is
         );
     end component;
 
+    signal s_fifo_rdcount : std_logic_vector(10 downto 0);
+    signal s_fifo_wrcount : std_logic_vector(10 downto 0);
+    signal s_fifo_wren : std_logic;
+    signal s_fifo_rden : std_logic;
+    signal s_fifo_di : std_logic_vector(31 downto 0);
+    signal s_fifo_do : std_logic_vector(31 downto 0);
+    signal s_fifo_empty : std_logic;
+    signal s_fifo_full : std_logic;
+
     signal clk_logic: std_logic;
     signal rst_logic: std_logic := '0';
     signal rxvalid: std_logic;
@@ -183,51 +200,52 @@ architecture fifointerface_rx_tb_arch of fifointerface_rx_tb is
     signal S_AXI_RVALID: std_logic;
     signal S_AXI_RREADY: std_logic ;
 
-    procedure AXI4FullRead(signal arid : out std_logic_vector; constant arid_val : in std_logic_vector; signal araddr : out std_logic_vector; constant araddr_val : in std_logic_vector; signal arlen : out std_logic_vector(7 downto 0); constant arlen_val : in std_logic_vector(7 downto 0); signal arburst : out std_logic_vector(1 downto 0); constant arburst_val : in std_logic_vector(1 downto 0); signal arcache : out std_logic_vector(3 downto 0); constant arcache_val : in std_logic_vector(3 downto 0); signal arprot : out std_logic_vector(2 downto 0); constant arprot_val : in std_logic_vector(2 downto 0); signal arvalid : out std_logic; signal arready : in std_logic; -- Read Address Channel
-                           signal rid : in std_logic_vector; signal rlast : in std_logic; signal rvalid : in std_logic; signal rready : out std_logic -- Read Data Channel
-                          ) is
-        --variable transfer_length : integer := to_integer(unsigned(arlen_val)) - 1;
+    procedure AXI4FullRead(signal araddr : out std_logic_vector; constant araddr_val : in std_logic_vector; signal arlen : out std_logic_vector(7 downto 0); constant arlen_val : in std_logic_vector(7 downto 0); signal arburst : out std_logic_vector(1 downto 0); constant arburst_val : in std_logic_vector(1 downto 0); signal arvalid : out std_logic; signal arready : in std_logic; -- Read Address Channel
+                           signal rlast : in std_logic; signal rvalid : in std_logic; signal rready : out std_logic -- Read Data Channel
+                           ) is
+        variable transfer_length : integer := to_integer(unsigned(arlen_val)) - 1;
     begin
         wait until rising_edge(S_AXI_ACLK);
         report "Start AXI4 Full Read...";
-
+        
         -- Before starting transfer, drive control information that won't change during process.
         -- Read Address Channel
-        arid <= arid_val;
         araddr <= araddr_val;
         arlen <= arlen_val;
         arburst <= arburst_val;
-        arcache <= arcache_val;
-        arprot <= arprot_val;
+
         arvalid <= '1'; -- Set master handshake signal for read address channel
-
-        rready <= '1';
-
+        
         wait until rising_edge(S_AXI_ACLK) and arready = '1';
-        wait for ps_clock_period/2;
-        arvalid <= '0';       
-
+        arvalid <= '0';
+        
+        --wait for ps_clock_period;       
+        rready <= '1';
+              
         -- Loop until rlast signal is HIGH
         while rlast = '0' loop
+            --rready <= '1';
+        
             wait until rising_edge(S_AXI_ACLK) and rvalid = '1';
             --wait for ps_clock_period/2;
-            report "Next iteration";
+            
+            --rready <= '0';
+            
+            --wait for ps_clock_period/2;
         end loop;
-
-        rready <= '0';
+            
+        wait until rising_edge(S_AXI_ACLK);
+        wait for ps_clock_period/2;
+        --rready <= '0';
         
-        report "Finished reading";
         -- Burst transfer finished so reset all relevant signals.
-        arid <= (others => '0');
         araddr <= (others => '0');
         arlen <= (others => '0');
         arburst <= (others => '0');
-        arcache <= (others => '0');
-        arprot <= (others => '0');
-        arvalid <= '0';
+        
+        --arvalid <= '0';
         rready <= '0';
     end procedure AXI4FullRead;
-
 begin
 
     -- Design under test.
@@ -241,7 +259,16 @@ begin
                     C_S_AXI_WUSER_WIDTH      => C_S_AXI_WUSER_WIDTH,
                     C_S_AXI_RUSER_WIDTH      => C_S_AXI_RUSER_WIDTH,
                     C_S_AXI_BUSER_WIDTH      => C_S_AXI_BUSER_WIDTH)
-        port map ( clk_logic                => clk_logic,
+        port map (
+                do => s_fifo_do,        
+                di => s_fifo_di,
+                rden => s_fifo_rden,
+                wren => s_fifo_wren,
+                rdcount => s_fifo_rdcount,
+                wrcount => s_fifo_wrcount,
+                empty => s_fifo_empty,
+                full => s_fifo_full,
+                 clk_logic                => clk_logic,
                  rst_logic                => rst_logic,
                  rxvalid                  => rxvalid,
                  rxflag                   => rxflag,
@@ -306,24 +333,63 @@ begin
         -- Put test bench stimulus code here
         
         wait for 10 us;
+        
+        wait until rising_edge(clk_logic);
 
+        rxdata <= x"f0";
+        rxflag <= '0';
+        rxvalid <= '1';
+        
+        wait for pl_clock_period;
+        
+        rxvalid <= '0';
+        
+        wait for pl_clock_period;
+        
         rxdata <= x"ff";
         rxflag <= '0';
         rxvalid <= '1';
+        
+        wait for pl_clock_period;
+        
+        rxvalid <= '0';
+        
+        wait for pl_clock_period;
+        
+        rxdata <= x"0f";
+        rxflag <= '0';
+        rxvalid <= '1';
+        
+        wait for pl_clock_period;
+        
+        rxvalid <= '0';
+        
+        wait for pl_clock_period;
+        
+        rxdata <= x"00";
+        rxflag <= '1';
+        rxvalid <= '1';
+        
+        wait for pl_clock_period;
+        
+        rxvalid <= '0'; 
+        
+        wait for pl_clock_period;
+        
+        rxdata <= x"00";
+        rxflag <= '0';
+        
+       
         
         --S_AXI_RDATA <= (others => '1');
 
 
                 -- Perform read transfer
-        AXI4FullRead(S_AXI_ARID, "0",
-                     S_AXI_ARADDR, "000",
-                     S_AXI_ARLEN, std_logic_vector(to_unsigned(4, S_AXI_AWLEN'length)),
-                     S_AXI_ARBURST, "00", -- FIXED BURST
-                     S_AXI_ARCACHE, "0000",
-                     S_AXI_ARPROT, "011",
+        AXI4FullRead(S_AXI_ARADDR, "000",
+                     S_AXI_ARLEN, std_logic_vector(to_unsigned(3, S_AXI_AWLEN'length)),
+                     S_AXI_ARBURST, "00", -- FIXED BURST                     
                      S_AXI_ARVALID,
-                     S_AXI_ARREADY, -- read address channel
-                     S_AXI_RID,
+                     S_AXI_ARREADY, -- read address channel                     
                      S_AXI_RLAST,
                      S_AXI_RVALID,
                      S_AXI_RREADY); -- read data channel

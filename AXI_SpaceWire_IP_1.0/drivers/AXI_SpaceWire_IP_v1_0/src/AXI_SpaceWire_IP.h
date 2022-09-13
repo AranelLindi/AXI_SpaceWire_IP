@@ -11,6 +11,7 @@
 #define AXI_SPACEWIRE_IP_S02_AXI_REG_SLV_REG1_OFFSET 4
 #define AXI_SPACEWIRE_IP_S02_AXI_REG_SLV_REG2_OFFSET 8
 #define AXI_SPACEWIRE_IP_S02_AXI_REG_SLV_REG3_OFFSET 12
+#define AXI_SPACEWIRE_IP_S02_AXI_REG_SLV_REG4_OFFSET 16
 
 
 /**************************** Type Definitions *****************************/

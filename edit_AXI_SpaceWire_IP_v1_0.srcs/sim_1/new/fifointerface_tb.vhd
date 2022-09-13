@@ -76,6 +76,14 @@ architecture fifointerface_tx_tb_arch of fifointerface_tx_tb is
             C_S_AXI_BUSER_WIDTH	: integer	:= 0
         );
         port (
+            do : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+            di : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+            rden : out std_logic;
+            wren : out std_logic;
+            rdcount : out std_logic_vector(10 downto 0);
+            wrcount : out std_logic_vector(10 downto 0);
+            empty : out std_logic;
+            full : out std_logic;
             clk_logic : in std_logic;
             rst_logic : in std_logic;
             txwrite : out std_logic;
@@ -183,8 +191,8 @@ architecture fifointerface_tx_tb_arch of fifointerface_tx_tb is
     signal S_AXI_RUSER: std_logic_vector(C_S_AXI_RUSER_WIDTH-1 downto 0);
     signal S_AXI_RVALID: std_logic;
     signal S_AXI_RREADY: std_logic ;
-    
-    
+
+
     type array_t is array(natural range <>) of std_logic_vector;
 
 
@@ -261,58 +269,67 @@ begin
                     C_S_AXI_WUSER_WIDTH      => C_S_AXI_WUSER_WIDTH,
                     C_S_AXI_RUSER_WIDTH      => C_S_AXI_RUSER_WIDTH,
                     C_S_AXI_BUSER_WIDTH      => C_S_AXI_BUSER_WIDTH)
-        port map ( clk_logic                => clk_logic,
-                 rst_logic                => rst_logic,
-                 txwrite                  => txwrite,
-                 txflag                   => txflag,
-                 txdata                   => txdata,
-                 txrdy                    => txrdy,
-                 S_AXI_ACLK               => S_AXI_ACLK,
-                 S_AXI_ARESETN            => S_AXI_ARESETN,
-                 S_AXI_AWID               => S_AXI_AWID,
-                 S_AXI_AWADDR             => S_AXI_AWADDR,
-                 S_AXI_AWLEN              => S_AXI_AWLEN,
-                 S_AXI_AWSIZE             => S_AXI_AWSIZE,
-                 S_AXI_AWBURST            => S_AXI_AWBURST,
-                 S_AXI_AWLOCK             => S_AXI_AWLOCK,
-                 S_AXI_AWCACHE            => S_AXI_AWCACHE,
-                 S_AXI_AWPROT             => S_AXI_AWPROT,
-                 S_AXI_AWQOS              => S_AXI_AWQOS,
-                 S_AXI_AWREGION           => S_AXI_AWREGION,
-                 S_AXI_AWUSER             => S_AXI_AWUSER,
-                 S_AXI_AWVALID            => S_AXI_AWVALID,
-                 S_AXI_AWREADY            => S_AXI_AWREADY,
-                 S_AXI_WDATA              => S_AXI_WDATA,
-                 S_AXI_WSTRB              => S_AXI_WSTRB,
-                 S_AXI_WLAST              => S_AXI_WLAST,
-                 S_AXI_WUSER              => S_AXI_WUSER,
-                 S_AXI_WVALID             => S_AXI_WVALID,
-                 S_AXI_WREADY             => S_AXI_WREADY,
-                 S_AXI_BID                => S_AXI_BID,
-                 S_AXI_BRESP              => S_AXI_BRESP,
-                 S_AXI_BUSER              => S_AXI_BUSER,
-                 S_AXI_BVALID             => S_AXI_BVALID,
-                 S_AXI_BREADY             => S_AXI_BREADY,
-                 S_AXI_ARID               => S_AXI_ARID,
-                 S_AXI_ARADDR             => S_AXI_ARADDR,
-                 S_AXI_ARLEN              => S_AXI_ARLEN,
-                 S_AXI_ARSIZE             => S_AXI_ARSIZE,
-                 S_AXI_ARBURST            => S_AXI_ARBURST,
-                 S_AXI_ARLOCK             => S_AXI_ARLOCK,
-                 S_AXI_ARCACHE            => S_AXI_ARCACHE,
-                 S_AXI_ARPROT             => S_AXI_ARPROT,
-                 S_AXI_ARQOS              => S_AXI_ARQOS,
-                 S_AXI_ARREGION           => S_AXI_ARREGION,
-                 S_AXI_ARUSER             => S_AXI_ARUSER,
-                 S_AXI_ARVALID            => S_AXI_ARVALID,
-                 S_AXI_ARREADY            => S_AXI_ARREADY,
-                 S_AXI_RID                => S_AXI_RID,
-                 S_AXI_RDATA              => S_AXI_RDATA,
-                 S_AXI_RRESP              => S_AXI_RRESP,
-                 S_AXI_RLAST              => S_AXI_RLAST,
-                 S_AXI_RUSER              => S_AXI_RUSER,
-                 S_AXI_RVALID             => S_AXI_RVALID,
-                 S_AXI_RREADY             => S_AXI_RREADY );
+        port map (
+            do => open,
+            di => open,
+            rden => open,
+            wren => open,
+            rdcount => open,
+            wrcount => open,
+            empty => open,
+            full => open,
+            clk_logic                => clk_logic,
+            rst_logic                => rst_logic,
+            txwrite                  => txwrite,
+            txflag                   => txflag,
+            txdata                   => txdata,
+            txrdy                    => txrdy,
+            S_AXI_ACLK               => S_AXI_ACLK,
+            S_AXI_ARESETN            => S_AXI_ARESETN,
+            S_AXI_AWID               => S_AXI_AWID,
+            S_AXI_AWADDR             => S_AXI_AWADDR,
+            S_AXI_AWLEN              => S_AXI_AWLEN,
+            S_AXI_AWSIZE             => S_AXI_AWSIZE,
+            S_AXI_AWBURST            => S_AXI_AWBURST,
+            S_AXI_AWLOCK             => S_AXI_AWLOCK,
+            S_AXI_AWCACHE            => S_AXI_AWCACHE,
+            S_AXI_AWPROT             => S_AXI_AWPROT,
+            S_AXI_AWQOS              => S_AXI_AWQOS,
+            S_AXI_AWREGION           => S_AXI_AWREGION,
+            S_AXI_AWUSER             => S_AXI_AWUSER,
+            S_AXI_AWVALID            => S_AXI_AWVALID,
+            S_AXI_AWREADY            => S_AXI_AWREADY,
+            S_AXI_WDATA              => S_AXI_WDATA,
+            S_AXI_WSTRB              => S_AXI_WSTRB,
+            S_AXI_WLAST              => S_AXI_WLAST,
+            S_AXI_WUSER              => S_AXI_WUSER,
+            S_AXI_WVALID             => S_AXI_WVALID,
+            S_AXI_WREADY             => S_AXI_WREADY,
+            S_AXI_BID                => S_AXI_BID,
+            S_AXI_BRESP              => S_AXI_BRESP,
+            S_AXI_BUSER              => S_AXI_BUSER,
+            S_AXI_BVALID             => S_AXI_BVALID,
+            S_AXI_BREADY             => S_AXI_BREADY,
+            S_AXI_ARID               => S_AXI_ARID,
+            S_AXI_ARADDR             => S_AXI_ARADDR,
+            S_AXI_ARLEN              => S_AXI_ARLEN,
+            S_AXI_ARSIZE             => S_AXI_ARSIZE,
+            S_AXI_ARBURST            => S_AXI_ARBURST,
+            S_AXI_ARLOCK             => S_AXI_ARLOCK,
+            S_AXI_ARCACHE            => S_AXI_ARCACHE,
+            S_AXI_ARPROT             => S_AXI_ARPROT,
+            S_AXI_ARQOS              => S_AXI_ARQOS,
+            S_AXI_ARREGION           => S_AXI_ARREGION,
+            S_AXI_ARUSER             => S_AXI_ARUSER,
+            S_AXI_ARVALID            => S_AXI_ARVALID,
+            S_AXI_ARREADY            => S_AXI_ARREADY,
+            S_AXI_RID                => S_AXI_RID,
+            S_AXI_RDATA              => S_AXI_RDATA,
+            S_AXI_RRESP              => S_AXI_RRESP,
+            S_AXI_RLAST              => S_AXI_RLAST,
+            S_AXI_RUSER              => S_AXI_RUSER,
+            S_AXI_RVALID             => S_AXI_RVALID,
+            S_AXI_RREADY             => S_AXI_RREADY );
 
     stimulus: process
         variable data : array_t(0 to 3)(31 downto 0);
@@ -322,17 +339,17 @@ begin
         S_AXI_ARESETN <= '0', '1' after 6 * ps_clock_period;
 
         wait for 5 * ps_clock_period;
-        
+
         txrdy <= '1';
-        
-                -- Perform single transfer to write into TX fifo (if spwstream is activated and in running mode it should send this data asap)
+
+        -- Perform single transfer to write into TX fifo (if spwstream is activated and in running mode it should send this data asap)
         data(0) := x"ffffff0f"; -- define some pseudo data
         data(1) := x"AAAAAA0A";
         data(2) := x"0000000f";
         data(3) := x"0f0f0f0f";
-        
+
         --report "length of data is " & integer'image(data'length);
-        
+
         AXI4FullWrite(S_AXI_AWID, "0",
                       S_AXI_AWADDR, "000",
                       S_AXI_AWLEN, std_logic_vector(to_unsigned(data'length, S_AXI_AWLEN'length)), -- awlen is zero-based index !
@@ -346,7 +363,7 @@ begin
                       S_AXI_WREADY,
                       S_AXI_BREADY,
                       S_AXI_BVALID);
-        
+
         wait for 20 * ps_clock_period;
         wait;
     end process;

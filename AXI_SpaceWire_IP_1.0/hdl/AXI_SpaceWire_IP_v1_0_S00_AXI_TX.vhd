@@ -54,6 +54,17 @@ entity AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
     );
     port (
         -- Users to add ports here
+        
+        -- DEBUG BEGIN
+        do : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0); -- Fifo data out
+        di : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0); -- Fifo data in
+        rden : out std_logic; -- Fifo read enable
+        wren : out std_logic; -- Fifo write enable
+        rdcount : out std_logic_vector(10 downto 0); -- Fifo read counter
+        wrcount : out std_logic_vector(10 downto 0); -- Fifo write counter
+        empty : out std_logic; -- Fifo empty
+        full : out std_logic; -- Fifo full
+        -- DEBUG END
 
         -- System clock for SpaceWire entity.
         clk_logic : in std_logic;
@@ -628,6 +639,16 @@ begin
     end process;
 
     -- Add user logic here
+    
+    -- Debug signal assignment
+    rden <= s_fifo_rden;
+    wren <= s_fifo_wren;
+    rdcount <= s_fifo_rdcount;
+    wrcount <= s_fifo_wrcount;
+    di <= s_fifo_di;
+    do(8 downto 0) <= s_fifo_do;
+    empty <= s_fifo_empty;
+    full <= s_fifo_full;
     
     -- Create active_high reset signal from AXI reset (which is active_low).
     s_axi_areseth <= not S_AXI_ARESETN;

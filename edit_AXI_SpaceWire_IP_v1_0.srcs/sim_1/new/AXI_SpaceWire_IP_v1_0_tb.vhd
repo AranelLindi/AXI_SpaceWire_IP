@@ -830,7 +830,7 @@ begin
         
         -- Perform read transfer
         AXI4FullRead(s01_axi_rx_araddr, "000",
-                     s01_axi_rx_arlen, std_logic_vector(to_unsigned(4, s01_axi_rx_arlen'length)),
+                     s01_axi_rx_arlen, std_logic_vector(to_unsigned(3, s01_axi_rx_arlen'length)),
                      s01_axi_rx_arburst, "00", -- FIXED BURST
                      s01_axi_rx_arvalid,
                      s01_axi_rx_arready, -- read address channel

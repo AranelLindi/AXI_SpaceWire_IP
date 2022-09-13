@@ -53,6 +53,17 @@ entity AXI_SpaceWire_IP_v1_0_S01_AXI_RX is
     );
     port (
         -- Users to add ports here
+        
+        -- DEBUG BEGIN
+        do : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0); -- Fifo data out
+        di : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0); -- Fifo data in
+        rden : out std_logic; -- Fifo read enable
+        wren : out std_logic; -- Fifo write enable
+        rdcount : out std_logic_vector(10 downto 0); -- Fifo read counter
+        wrcount : out std_logic_vector(10 downto 0); -- Fifo write counter
+        empty : out std_logic; -- Fifo empty
+        full : out std_logic; -- Fifo full
+        -- DEBUG END
 
         -- System clock for SpaceWire entity.
         clk_logic : in std_logic;
@@ -543,7 +554,7 @@ begin
     begin
         mem_wren <= axi_wready and S_AXI_WVALID ;
         mem_rden <= axi_arv_arr_flag ;
-
+        
         BYTE_BRAM_GEN : for mem_byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) generate
             signal byte_ram : BYTE_RAM_TYPE;
             signal data_in  : std_logic_vector(8-1 downto 0);
@@ -604,6 +615,16 @@ begin
     end process;
 
     -- Add user logic here
+    
+    -- Debug signal assignment
+    rden <= s_fifo_rden;
+    wren <= s_fifo_wren;
+    rdcount <= s_fifo_rdcount;
+    wrcount <= s_fifo_wrcount;
+    di <= s_fifo_di;
+    do <= s_fifo_do;
+    empty <= s_fifo_empty;
+    full <= s_fifo_full;
 
     -- SpaceWire specific assignments. ( Might be that this won't work ! If so put this into a process with more logic ! )
     --s_fifo_wren <= not s_fifo_full when rxvalid = '1' else '0';
@@ -653,23 +674,34 @@ begin
 --        end if;
 --    end process;
 
-    process(S_AXI_ACLK)
-    begin
-        if rising_edge(S_AXI_ACLK) then
-            if S_AXI_ARESETN = '0' then -- (active_low !)
-                -- Synchronous reset.
-                s_fifo_rden <= '0';
-            else
-                if S_AXI_RREADY = '1' and axi_rvalid = '1' then 
-                --if S_AXI_WVALID = '1' and axi_wready = '1' then -- sehr gefährlich... ist vermutlich oft länger als einen takt high (also beides)
-                    s_fifo_rden <= '1';
-                    report "RDEN 1";
-                else
-                    s_fifo_rden <= '0';
-                end if;
-            end if;
-        end if;
-    end process;
+    --s_fifo_rden <= '1' when s_AXI_WVALID = '1' and axi_wready = '1' and s_fifo_empty = '0' else '0';
+      process(S_AXI_RREADY, axi_rvalid, s_fifo_empty)--, s_fifo_rden)
+      begin
+          if S_AXI_RREADY = '1' and axi_rvalid = '1' and s_fifo_empty = '0' then
+              s_fifo_rden <= '1';
+          else
+              s_fifo_rden <= '0';
+          end if;
+      end process;
+    
+
+--    process(S_AXI_ACLK)
+--    begin
+--        if rising_edge(S_AXI_ACLK) then
+--            if S_AXI_ARESETN = '0' then -- (active_low !)
+--                -- Synchronous reset.
+--                s_fifo_rden <= '0';
+--            else
+--                if S_AXI_RREADY = '1' and axi_rvalid = '1' and s_fifo_empty = '0' then 
+--                --if S_AXI_WVALID = '1' and axi_wready = '1' then -- sehr gefährlich... ist vermutlich oft länger als einen takt high (also beides)
+--                    s_fifo_rden <= '1';
+--                    report "RDEN 1";
+--                else
+--                    s_fifo_rden <= '0';
+--                end if;
+--            end if;
+--        end if;
+--    end process;
 
     
     process(clk_logic)

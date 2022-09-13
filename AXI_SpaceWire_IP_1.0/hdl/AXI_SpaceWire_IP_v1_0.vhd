@@ -288,6 +288,15 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0 is
 		C_S_AXI_BUSER_WIDTH	: integer	:= 0
 		);
 		port (
+		do : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		di : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		rden : out std_logic;
+		wren : out std_logic;
+		rdcount : out std_logic_vector(10 downto 0);
+		wrcount : out std_logic_vector(10 downto 0);
+		empty : out std_logic;
+		full : out std_logic;		
+		
 		clk_logic : in std_logic;
 		rst_logic : in std_logic;
 		txwrite : out std_logic;
@@ -356,6 +365,15 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0 is
 		C_S_AXI_BUSER_WIDTH	: integer	:= 0
 		);
 		port (
+		do : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		di : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		rden : out std_logic;
+		wren : out std_logic;
+		rdcount : out std_logic_vector(10 downto 0);
+		wrcount : out std_logic_vector(10 downto 0);
+		empty : out std_logic;
+		full : out std_logic;
+		
 		clk_logic : in std_logic;
 		rst_logic : in std_logic;
 		rxvalid : in std_logic;
@@ -507,6 +525,14 @@ AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst : AXI_SpaceWire_IP_v1_0_S00_AXI_TX
 		C_S_AXI_BUSER_WIDTH	=> C_S00_AXI_TX_BUSER_WIDTH
 	)
 	port map (
+	    do => open,
+	    di => open,
+	    rden => open,
+	    wren => open,
+	    rdcount => open,
+	    wrcount => open,
+	    empty => open,
+	    full => open,	
 	    clk_logic => clk_logic,
 	    rst_logic => rst_logic,
         txwrite => s_txwrite,
@@ -574,6 +600,14 @@ AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst : AXI_SpaceWire_IP_v1_0_S01_AXI_RX
 		C_S_AXI_BUSER_WIDTH	=> C_S01_AXI_RX_BUSER_WIDTH
 	)
 	port map (
+	    do => open,
+	    di => open,
+	    rden => open,
+	    wren => open,
+	    rdcount => open,
+	    wrcount => open,
+	    empty => open,
+	    full => open,
 	    clk_logic => clk_logic,
 	    rst_logic => rst_logic,
 	    rxvalid => s_rxvalid,
