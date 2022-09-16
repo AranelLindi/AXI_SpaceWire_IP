@@ -1,7 +1,7 @@
-Running: xsim.dir/AXI_SpaceWire_IP_v1_0_tb_behav/xsimk -simmode gui -wdb AXI_SpaceWire_IP_v1_0_tb_behav.wdb -simrunnum 0 -socket 48651
+Running: xsim.dir/AXI_SpaceWire_IP_v1_0_tb_behav/xsimk -simmode gui -wdb AXI_SpaceWire_IP_v1_0_tb_behav.wdb -simrunnum 0 -socket 55671
 Design successfully loaded
-Design Loading Memory Usage: 29816 KB (Peak: 29824 KB)
+Design Loading Memory Usage: 29812 KB (Peak: 29820 KB)
 Design Loading CPU Usage: 20 ms
 Simulation completed
-Simulation Memory Usage: 119752 KB (Peak: 169084 KB)
-Simulation CPU Usage: 120 ms
+Simulation Memory Usage: 119748 KB (Peak: 169080 KB)
+Simulation CPU Usage: 30 ms

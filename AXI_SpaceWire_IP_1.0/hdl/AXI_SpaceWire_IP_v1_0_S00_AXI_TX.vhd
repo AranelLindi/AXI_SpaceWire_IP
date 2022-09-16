@@ -20,7 +20,7 @@ use UNISIM.vcomponents.all;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
---use ieee.numeric_bit.all;
+use ieee.math_real.all;
 
 entity AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
     generic (
@@ -54,7 +54,7 @@ entity AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
     );
     port (
         -- Users to add ports here
-        
+
         -- DEBUG BEGIN
         do : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0); -- Fifo data out
         di : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0); -- Fifo data in
@@ -245,10 +245,15 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
     signal s_fifo_di : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
     signal s_fifo_rden : std_logic := '0';
     signal s_fifo_wren : std_logic := '0';
-    
+
     -- Buffer for TX fifo data.
-    signal s_fifo_txflag_buffer : std_logic;
-    signal s_fifo_txdata_buffer : std_logic_vector(7 downto 0);
+    --signal s_fifo_txflag_buffer : std_logic;
+    --signal s_fifo_txdata_buffer : std_logic_vector(7 downto 0);
+    --signal s_fifo_wrcount_buffer : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
+
+    -- Available fifo space register.
+    signal s_fifo_space_reg : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+    constant c_fifo_size : integer := (2 ** s_fifo_wrcount'length); -- 2048 (2**11)
 
     -- AXI4FULL signals
     signal axi_awaddr	: std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
@@ -297,8 +302,8 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
     constant OPT_MEM_ADDR_BITS : integer := 0; -- 2**6 == 32 Rows (5 downto 0); 32 * 4 Bytes per Row == 256 Bytes
     constant USER_NUM_MEM: integer := 1;
     constant low : std_logic_vector (C_S_AXI_ADDR_WIDTH - 1 downto 0) := (others => '0');
-    
-    
+
+
     ------------------------------------------------
     ---- Signals for user logic memory space example
     --------------------------------------------------
@@ -466,8 +471,8 @@ begin
             end if;
         end if;
     end process;
-    
-    
+
+
     -- Implement axi_araddr latching
     --This process is used to latch the address when both 
     --S_AXI_ARVALID and S_AXI_RVALID are valid. 
@@ -561,7 +566,7 @@ begin
     begin
         mem_wren <= axi_wready and S_AXI_WVALID ;
         mem_rden <= axi_arv_arr_flag ;
-       
+
         -- Set fifo write enable signal depending on valid axi write transaction.
         --s_fifo_wren <= mem_wren;
 
@@ -573,8 +578,8 @@ begin
             --assigning 8 bit data
             data_in  <= S_AXI_WDATA(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
             --data_out <= byte_ram(to_integer(unsigned(mem_address)));
-            
-            
+
+
             process(mem_address)
             begin
                 case mem_address is
@@ -582,7 +587,7 @@ begin
                     when others => data_out <= (others => '0'); -- evtl. "null" besser?
                 end case;
             end process;
-            
+
 
             -- Memory write process.
             BYTE_RAM_PROC : process( S_AXI_ACLK ) is
@@ -594,10 +599,10 @@ begin
                         case mem_address is
                             when "0" =>
                                 --byte_ram(to_integer(unsigned(mem_address))) <= data_in;
-                                s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= data_in;                                
-                                -- Writing to a full fifo causes no harm on hardware so let it to outside world (e.g. software) to manage and respect that.
+                                s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= data_in;
+                            -- Writing to a full fifo causes no harm on hardware so let it to outside world (e.g. software) to manage and respect that.
 
-                            when others => 
+                            when others =>
                                 null; -- enough ? Or more here ?
                         end case;
                     end if;
@@ -614,8 +619,9 @@ begin
                         case mem_address is
                             when "0" =>
                                 mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
-                            when others =>
-                                mem_data_out(i) <= mem_data_out(i);
+                            when "1" =>
+                                mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= s_fifo_space_reg(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
+                            when others => null; -- relevant for simulation only !
                         end case;
                     end if;
                 end if;
@@ -639,17 +645,20 @@ begin
     end process;
 
     -- Add user logic here
-    
+
     -- Debug signal assignment
     rden <= s_fifo_rden;
     wren <= s_fifo_wren;
     rdcount <= s_fifo_rdcount;
     wrcount <= s_fifo_wrcount;
-    di <= s_fifo_di;
+    di <= s_fifo_space_reg;--s_fifo_di;
     do(8 downto 0) <= s_fifo_do;
     empty <= s_fifo_empty;
     full <= s_fifo_full;
-    
+
+    -- WRCOUNTER buffer
+    --s_fifo_wrcount_buffer(10 downto 0) <= s_fifo_wrcount;
+
     -- Create active_high reset signal from AXI reset (which is active_low).
     s_axi_areseth <= not S_AXI_ARESETN;
 
@@ -658,38 +667,90 @@ begin
     --txwrite <= s_fifo_rden; -- (txwrite needs same signal assignment as s_fifo_rden does)
     --txdata <= s_fifo_do(7 downto 0);
     --txflag <= s_fifo_do(8);
-    
+
     -- Combinatorial logic for fifo data output.
---    process(s_fifo_do)
---        variable v_do : std_logic_vector(8 downto 0);
+    --    process(s_fifo_do)
+    --        variable v_do : std_logic_vector(8 downto 0);
+    --    begin
+    --        v_do := s_fifo_do;
+
+    --        -- Insert differentiation logic here...
+    --        s_fifo_txdata_buffer <= v_do(7 downto 0);
+    --        s_fifo_txflag_buffer <= v_do(8);
+    --    end process;
+
+    --    -- Synchronous txfifo-spwstream-wrapper.
+    --    process(clk_logic)
+    --    begin
+    --        if rising_edge(clk_logic) then
+    --            if (txrdy = '1') then
+    --                s_fifo_rden <= '1' when s_fifo_empty = '0' else '0';
+    --                txwrite <= not s_fifo_empty;
+
+    --                if s_fifo_empty = '0' then
+    --                    s_fifo_rden <= '1';
+    --                    txdata <= s_fifo_do(7 downto 0);
+    --                    txflag <= s_fifo_do(8);
+    --                    txwrite <= '1';
+    --                end if;
+    --            else
+    --                s_fifo_rden <= '0';
+    --                txwrite <= '0';
+    --            end if;
+    --        end if;
+    --    end process;
+
+--    process(S_AXI_ACLK)
+--        variable wrcount : unsigned(s_fifo_wrcount'length-1 downto 0);
+--        variable rdcount : unsigned(s_fifo_rdcount'length-1 downto 0);
+--        variable available_size : unsigned(maximum(s_fifo_wrcount'length, s_fifo_rdcount'length) downto 0);
+--        --variable available_size_vec : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 --    begin
---        v_do := s_fifo_do;
-    
---        -- Insert differentiation logic here...
---        s_fifo_txdata_buffer <= v_do(7 downto 0);
---        s_fifo_txflag_buffer <= v_do(8);
---    end process;
-    
---    -- Synchronous txfifo-spwstream-wrapper.
---    process(clk_logic)
---    begin
---        if rising_edge(clk_logic) then
---            if (txrdy = '1') then
---                s_fifo_rden <= '1' when s_fifo_empty = '0' else '0';
---                txwrite <= not s_fifo_empty;
-                
---                if s_fifo_empty = '0' then
---                    s_fifo_rden <= '1';
---                    txdata <= s_fifo_do(7 downto 0);
---                    txflag <= s_fifo_do(8);
---                    txwrite <= '1';
---                end if;
---            else
---                s_fifo_rden <= '0';
---                txwrite <= '0';
---            end if;
+--        if rising_edge(S_AXI_ACLK) then
+--            -- Get current fifo values and hold them
+--            wrcount := unsigned(s_fifo_wrcount);
+--            rdcount := unsigned(s_fifo_rdcount);
+
+--            -- Calculate available space...
+----            if wrcount = rdcount and available_size /= to_unsigned(c_fifo_size, available_size'length) then
+----                available_size := c_fifo_size - wrcount + rdcount + 2;
+----            else
+--                available_size := ('0' & (c_fifo_size - wrcount + rdcount)) + 1;
+----            end if;
+--            --available_size := unsigned(c_fifo_size) - wrcount + rdcount;
+
+--            -- ... convert it to vector... 
+--            s_fifo_space_reg(C_S_AXI_DATA_WIDTH-1 downto maximum(s_fifo_wrcount'length, s_fifo_rdcount'length+1)) <= (others => '0');
+--            s_fifo_space_reg(maximum(s_fifo_wrcount'length, s_fifo_rdcount'length) downto 0) <= std_logic_vector(available_size);
 --        end if;
 --    end process;
+
+    process(S_AXI_ACLK)
+        variable sr : std_logic_vector(3 downto 0) := (others => '0');
+        variable fall : std_logic;
+        
+        variable wrcount : unsigned(s_fifo_wrcount'length-1 downto 0); -- 10 downto 0 (0-2047)
+        variable rdcount : unsigned(s_fifo_rdcount'length-1 downto 0); -- 10 downto 0
+        variable size : unsigned(Integer(ceil(log2(real(c_fifo_size)))) downto 0); -- 11 downto 0
+    begin
+        if rising_edge(S_AXI_ACLK) then
+            wrcount := unsigned(s_fifo_wrcount);
+            rdcount := unsigned(s_fifo_rdcount);        
+        
+            fall := not sr(2) and sr(3);
+        
+            if fall = '1' then
+                size := size - 2;
+            else
+                size := ('0' & (c_fifo_size - wrcount + rdcount));
+            end if;
+                        
+            s_fifo_space_reg(C_S_AXI_DATA_WIDTH-1 downto maximum(s_fifo_wrcount'length, s_fifo_rdcount'length+1)) <= (others => '0');
+            s_fifo_space_reg(maximum(s_fifo_wrcount'length, s_fifo_rdcount'length) downto 0) <= std_logic_vector(size);
+            
+            sr := sr(2 downto 0) & s_fifo_empty;
+        end if;
+    end process;
 
 
     process(S_AXI_ACLK)
@@ -709,17 +770,17 @@ begin
     end process;
 
 
-    
+
     --txdata <= s_fifo_do(7 downto 0);
     --txflag <= s_fifo_do(8);
-    
+
     process(clk_logic)
     begin
         if rising_edge(clk_logic) then
-            if rst_logic = '1' then
+            if s_axi_areseth = '1' then -- It is important that rden is deasserted during fifo reset (RDCLK is S_AXI_ACLK) so axi reset signal is neccessary here !
                 -- Synchronous reset.
                 s_fifo_rden <= '0';
-                
+
                 txdata <= (others => '0');
                 txflag <= '0';
                 txwrite <= '0';
@@ -738,14 +799,14 @@ begin
                         s_fifo_rden <= '1';
                     else
                         -- spwstream is not ready to accept new transmit data
-                        txwrite <= '0';    
+                        txwrite <= '0';
                         s_fifo_rden <= '0';
                     end if;
                 end if;
             end if;
         end if;
     end process;
-    
+
 
     -- FIFO_DUALCLOCK_MACRO: Dual-Clock First-In, First-Out (FIFO) RAM Buffer
     --                       Artix-7
@@ -789,7 +850,7 @@ begin
             DI => s_fifo_di(8 downto 0),                     -- Input data, width defined by DATA_WIDTH parameter
             RDCLK => clk_logic,               -- 1-bit input read clock
             RDEN => s_fifo_rden,                 -- 1-bit input read enable
-            RST => s_axi_areseth,                   -- 1-bit input reset ( CAUTION ! AXI RESET IS active_low BUT FIFO RESET IS PROBABLY active_high ! )
+            RST => s_axi_areseth,                   -- 1-bit input reset ( CAUTION ! AXI RESET IS active_low BUT FIFO RESET IS active_high ! )
             WRCLK => S_AXI_ACLK,               -- 1-bit input write clock
             WREN => s_fifo_wren                  -- 1-bit input write enable
         );

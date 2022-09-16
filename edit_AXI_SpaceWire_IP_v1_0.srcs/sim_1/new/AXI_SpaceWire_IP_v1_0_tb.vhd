@@ -89,10 +89,10 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
 
     component AXI_SpaceWire_IP_v1_0
         generic (
-            sysfreq : real := 100.0e6;
-            txclkfreq : real := 0.0;
-            rximpl : spw_implementation_type := impl_fast;
-            tximpl : spw_implementation_type := impl_fast;
+            --sysfreq : real := 100.0e6;
+            --txclkfreq : real := 0.0;
+            --rximpl : spw_implementation_type := impl_fast;
+            --tximpl : spw_implementation_type := impl_fast;
             rxchunk : integer range 1 to 4 := 1;
             rxfifosize_bits : integer range 6 to 14 := 11;
             txfifosize_bits : integer range 2 to 14 := 11;
@@ -564,10 +564,10 @@ begin
 
     -- Design under test (AXI-SpaceWire peripheral)
     dut: AXI_SpaceWire_IP_v1_0 generic map (
-            sysfreq                   => sysfreq,
-            txclkfreq                 => sysfreq,
-            rximpl                    => rximpl,
-            tximpl                    => tximpl,
+            --sysfreq                   => sysfreq,
+            --txclkfreq                 => sysfreq,
+            --rximpl                    => rximpl,
+            --tximpl                    => tximpl,
             rxchunk                   => rxchunk,
             rxfifosize_bits           => rxfifosize_bits,
             txfifosize_bits           => txfifosize_bits,

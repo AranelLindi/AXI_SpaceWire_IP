@@ -190,7 +190,7 @@ architecture fifointerface_tx_tb_arch of fifointerface_tx_tb is
     signal S_AXI_RLAST: std_logic;
     signal S_AXI_RUSER: std_logic_vector(C_S_AXI_RUSER_WIDTH-1 downto 0);
     signal S_AXI_RVALID: std_logic;
-    signal S_AXI_RREADY: std_logic ;
+    signal S_AXI_RREADY: std_logic;
 
 
     type array_t is array(natural range <>) of std_logic_vector;
@@ -256,6 +256,17 @@ architecture fifointerface_tx_tb_arch of fifointerface_tx_tb is
         wlast <= '0';
         bready <= '0';
     end procedure AXI4FullWrite;
+
+
+    -- Debug signals.
+    signal s_do : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+    signal s_di : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+    signal s_rden : std_logic;
+    signal s_wren : std_logic;
+    signal s_rdcount : std_logic_vector(10 downto 0);
+    signal s_wrcount : std_logic_vector(10 downto 0);
+    signal s_empty : std_logic;
+    signal s_full : std_logic;
 begin
 
     -- Design under test.
@@ -270,14 +281,14 @@ begin
                     C_S_AXI_RUSER_WIDTH      => C_S_AXI_RUSER_WIDTH,
                     C_S_AXI_BUSER_WIDTH      => C_S_AXI_BUSER_WIDTH)
         port map (
-            do => open,
-            di => open,
-            rden => open,
-            wren => open,
-            rdcount => open,
-            wrcount => open,
-            empty => open,
-            full => open,
+            do => s_do,
+            di => s_di,
+            rden => s_rden,
+            wren => s_wren,
+            rdcount => s_rdcount,
+            wrcount => s_wrcount,
+            empty => s_empty,
+            full => s_full,
             clk_logic                => clk_logic,
             rst_logic                => rst_logic,
             txwrite                  => txwrite,
@@ -340,7 +351,7 @@ begin
 
         wait for 5 * ps_clock_period;
 
-        txrdy <= '1';
+        txrdy <= '0';
 
         -- Perform single transfer to write into TX fifo (if spwstream is activated and in running mode it should send this data asap)
         data(0) := x"ffffff0f"; -- define some pseudo data
@@ -364,7 +375,46 @@ begin
                       S_AXI_BREADY,
                       S_AXI_BVALID);
 
-        wait for 20 * ps_clock_period;
+        wait for 500 ns;
+
+        AXI4FullWrite(S_AXI_AWID, "0",
+                      S_AXI_AWADDR, "000",
+                      S_AXI_AWLEN, std_logic_vector(to_unsigned(data'length, S_AXI_AWLEN'length)), -- awlen is zero-based index !
+                      S_AXI_AWBURST, "00", -- FIXED
+                      S_AXI_AWVALID,
+                      S_AXI_AWREADY,
+                      S_AXI_WDATA, data,
+                      S_AXI_WSTRB, "0011",
+                      S_AXI_WLAST,
+                      S_AXI_WVALID,
+                      S_AXI_WREADY,
+                      S_AXI_BREADY,
+                      S_AXI_BVALID);
+
+        wait for 500 ns;
+                     
+        txrdy <= '1';
+
+        wait for 500 ns;
+        
+        txrdy <= '0';
+        
+        AXI4FullWrite(S_AXI_AWID, "0",
+                      S_AXI_AWADDR, "000",
+                      S_AXI_AWLEN, std_logic_vector(to_unsigned(data'length, S_AXI_AWLEN'length)), -- awlen is zero-based index !
+                      S_AXI_AWBURST, "00", -- FIXED
+                      S_AXI_AWVALID,
+                      S_AXI_AWREADY,
+                      S_AXI_WDATA, data,
+                      S_AXI_WSTRB, "0011",
+                      S_AXI_WLAST,
+                      S_AXI_WVALID,
+                      S_AXI_WREADY,
+                      S_AXI_BREADY,
+                      S_AXI_BVALID);        
+        
+        wait for 2 us;
+        
         wait;
     end process;
 
