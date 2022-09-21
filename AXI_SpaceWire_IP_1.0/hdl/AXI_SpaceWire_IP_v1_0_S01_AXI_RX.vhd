@@ -53,7 +53,7 @@ entity AXI_SpaceWire_IP_v1_0_S01_AXI_RX is
     );
     port (
         -- Users to add ports here
-        
+
         -- DEBUG BEGIN
         do : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0); -- Fifo data out
         di : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0); -- Fifo data in
@@ -227,10 +227,7 @@ entity AXI_SpaceWire_IP_v1_0_S01_AXI_RX is
 end AXI_SpaceWire_IP_v1_0_S01_AXI_RX;
 
 architecture arch_imp of AXI_SpaceWire_IP_v1_0_S01_AXI_RX is
-    -- Fifo signal declaration.
-    constant c_fifo_almostfull_offset : integer range 0 to ( 18 * 1000 / 8 ) := FIFO_ALMOST_FULL_OFFSET;
-    constant c_fifo_almostempty_offset : integer range 0 to ( 18 * 1000 / 8 ) := FIFO_ALMOST_EMPTY_OFFSET;
-
+    -- Fifo related signals.
     signal s_fifo_almostempty : std_logic; -- Top Level IO
     signal s_fifo_almostfull : std_logic; -- Top Level IO
     signal s_fifo_do : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0) := (others => '0'); -- Internal signal
@@ -242,7 +239,17 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S01_AXI_RX is
     signal s_fifo_wrerr : std_logic;
     signal s_fifo_di : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0) := (others => '0');
     signal s_fifo_rden : std_logic := '0';
-    signal s_fifo_wren : std_logic := '0';    
+    signal s_fifo_wren : std_logic := '0';
+    
+    -- Data buffer signal
+    signal s_fifo_do_buffer : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+
+    -- Fifo constants declaration.
+    constant c_fifo_size : integer := (2 ** s_fifo_wrcount'length); -- 2048
+
+    -- Available elements register signals.
+    signal s_fifo_elements_reg : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+    signal s_rdcounter : integer range 0 to c_fifo_size - 1 := 0;
 
     -- AXI4FULL signals
     signal axi_awaddr	: std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
@@ -291,8 +298,8 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S01_AXI_RX is
     constant OPT_MEM_ADDR_BITS : integer := 0; -- 2**4 == 16 Rows; 16 * 4 Bytes == 128 Bytes
     constant USER_NUM_MEM: integer := 1;
     constant low : std_logic_vector (C_S_AXI_ADDR_WIDTH - 1 downto 0) := (others => '0');
-    
-    
+
+
     ------------------------------------------------
     ---- Signals for user logic memory space example
     --------------------------------------------------
@@ -554,7 +561,7 @@ begin
     begin
         mem_wren <= axi_wready and S_AXI_WVALID ;
         mem_rden <= axi_arv_arr_flag ;
-        
+
         BYTE_BRAM_GEN : for mem_byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) generate
             signal byte_ram : BYTE_RAM_TYPE;
             signal data_in  : std_logic_vector(8-1 downto 0);
@@ -563,35 +570,37 @@ begin
             --assigning 8 bit data
             data_in  <= S_AXI_WDATA((mem_byte_index*8+7) downto mem_byte_index*8);
             --data_out <= byte_ram(to_integer(unsigned(mem_address)));
-            
+
             -- Memory write process.
---            BYTE_RAM_PROC : process( S_AXI_ACLK ) is
---            begin
---                if ( rising_edge (S_AXI_ACLK) ) then
---                    if ( mem_wren = '1' and S_AXI_WSTRB(mem_byte_index) = '1' ) then
---                        --byte_ram(to_integer(unsigned(mem_address))) <= data_in;
---                        case mem_address is
---                            when "0" =>
-                                
-                            
---                            when others =>
---                                null; -- enough ? Or more here ?
---                        end case;
---                    end if;
---                end if;
---            end process BYTE_RAM_PROC;
-            
+            --            BYTE_RAM_PROC : process( S_AXI_ACLK ) is
+            --            begin
+            --                if ( rising_edge (S_AXI_ACLK) ) then
+            --                    if ( mem_wren = '1' and S_AXI_WSTRB(mem_byte_index) = '1' ) then
+            --                        --byte_ram(to_integer(unsigned(mem_address))) <= data_in;
+            --                        case mem_address is
+            --                            when "0" =>
+
+
+            --                            when others =>
+            --                                null; -- enough ? Or more here ?
+            --                        end case;
+            --                    end if;
+            --                end if;
+            --            end process BYTE_RAM_PROC;
+
             -- Memory read process.
             process( S_AXI_ACLK ) is
             begin
                 if ( rising_edge (S_AXI_ACLK) ) then
                     if ( mem_rden = '1') then
                         --mem_data_out(i)((mem_byte_index*8+7) downto mem_byte_index*8) <= data_out;
-                        case mem_address is 
+                        case mem_address is
                             when "0" =>
                                 mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= s_fifo_do((mem_byte_index * 8 + 7 ) downto (( mem_byte_index * 8 )));
-                            when others => 
-                                mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));--mem_data_out(i); 
+                            when "1" =>
+                                mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= s_fifo_elements_reg(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
+                            when others => -- only need for simulation ! 
+                                mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
                         end case;
                     end if;
                 end if;
@@ -615,7 +624,7 @@ begin
     end process;
 
     -- Add user logic here
-    
+
     -- Debug signal assignment
     rden <= s_fifo_rden;
     wren <= s_fifo_wren;
@@ -626,110 +635,106 @@ begin
     empty <= s_fifo_empty;
     full <= s_fifo_full;
 
-    -- SpaceWire specific assignments. ( Might be that this won't work ! If so put this into a process with more logic ! )
-    --s_fifo_wren <= not s_fifo_full when rxvalid = '1' else '0';
-    --rxread <= s_fifo_wren;
-    --s_fifo_di(8) <= rxflag;
-    --s_fifo_di(7 downto 0) <= rxdata;
-    
-    -- Combinatorial logic for fifo data input.
---    process(rxflag, rxdata)
---        -- Contains data from spwstream
---        variable v_di : std_logic_vector(8 downto 0);
+
+    -- Combinatorial logic for fifo data input. Responsible if data has to be changed/adjusted before
+    -- being output to AXI bus. Fifo data output is saved into s_fifo_do_buffer.
+    process(s_fifo_do_buffer)
+        variable do : std_logic_vector(8 downto 0);
+    begin
+        -- Destinction based on flag bit (8)
+        if s_fifo_do_buffer(8) = '1' then
+            -- HIGH flag (EOP, ...)
+            case s_fifo_do_buffer(7 downto 0) is
+                when "00000000" => -- EOP
+                    do := "111111111";
+                when "00000001" => -- EEP
+                    do := "111111110";
+                when others => -- Process ID
+                    do := '1' & s_fifo_do_buffer(7 downto 0);
+            end case;
+        else
+            -- LOW flag (Data byte -> N-Char)
+            do := '0' & s_fifo_do_buffer(7 downto 0);
+        end if;
         
---        -- Masked data which is written into fifo
---        variable v_do : std_logic_vector(8 downto 0);
---    begin
---        v_di := rxflag & rxdata;
-        
---        if v_di(8) = '1' then
---            -- HIGH flag (EOP, ...)
---            case v_di(7 downto 0) is
---                when "00000000" => -- EOP
---                    v_do(7 downto 0) := "11111111"; -- 255
---                when "00000001" => -- EEP
---                    v_do(7 downto 0) := "11111110"; -- 254
---                when others => -- Process ID or whatever (differentiate it here !)
---                    v_do(7 downto 0) := v_di(7 downto 0);
---            end case;
---        else
---            -- LOW flag (Data byte -> N-Char)
---            v_do := '0' & v_di(7 downto 0);
---        end if;
-    
---        s_fifo_di(8 downto 0) <= v_do;
---    end process;
-    
-    -- Synchronous rxfifo-spwstream-wrapper.
---    process(clk_logic)
---    begin
---        if rising_edge(clk_logic) then
---            if (rxvalid = '1') then
---                s_fifo_wren <= not s_fifo_full;
---                rxread <= not s_fifo_full;
---            else
---                s_fifo_wren <= '0';
---                rxread <= '0';
---            end if;
---        end if;
---    end process;
-
-    --s_fifo_rden <= '1' when s_AXI_WVALID = '1' and axi_wready = '1' and s_fifo_empty = '0' else '0';
-      process(S_AXI_RREADY, axi_rvalid, s_fifo_empty)--, s_fifo_rden)
-      begin
-          if S_AXI_RREADY = '1' and axi_rvalid = '1' and s_fifo_empty = '0' then
-              s_fifo_rden <= '1';
-          else
-              s_fifo_rden <= '0';
-          end if;
-      end process;
-    
-
---    process(S_AXI_ACLK)
---    begin
---        if rising_edge(S_AXI_ACLK) then
---            if S_AXI_ARESETN = '0' then -- (active_low !)
---                -- Synchronous reset.
---                s_fifo_rden <= '0';
---            else
---                if S_AXI_RREADY = '1' and axi_rvalid = '1' and s_fifo_empty = '0' then 
---                --if S_AXI_WVALID = '1' and axi_wready = '1' then -- sehr gefährlich... ist vermutlich oft länger als einen takt high (also beides)
---                    s_fifo_rden <= '1';
---                    report "RDEN 1";
---                else
---                    s_fifo_rden <= '0';
---                end if;
---            end if;
---        end if;
---    end process;
+        -- Assert modified data to axi output.
+        s_fifo_do(8 downto 0) <= do;
+    end process;
 
     
+    -- Combinatorial process that asserts or deasserts the rden signal
+    -- depending on axi read channel handhsake signals and fifo empty signal.
+    process(S_AXI_RREADY, axi_rvalid, s_fifo_empty)
+    begin
+        if S_AXI_RREADY = '1' and axi_rvalid = '1' and s_fifo_empty = '0' then
+            s_fifo_rden <= '1';
+        else
+            s_fifo_rden <= '0';
+        end if;
+    end process;
+
+
+    -- Custom rdcount counter that takes the FWFT option into account and only counts clock cycles when rden=1
+    -- s_fifo_rdcount is incremented twice (without rden is set to HIGH) if the fifo was previously empty and
+    -- is being refilled, which means that result would deviate from true value by two.
+    process(S_AXI_ACLK)
+        variable v : integer range 0 to c_fifo_size - 1 := 0;
+    begin
+        if rising_edge(S_AXI_ACLK) then
+            if rst_logic = '1' then
+                -- Synchronous reset.
+                v := to_integer(unsigned(s_fifo_wrcount));
+            else
+                if s_fifo_rden = '1' then
+                    v := v + 1;
+                end if;
+            end if;
+
+            s_rdcounter <= v;
+        end if;
+    end process;
+
+
+    -- Calculates number of elements in the fifo, taking into account the custom counter for rdcount.
+    -- The calculated value is then written into a register.
+    process(S_AXI_ACLK)
+        variable wrcount : integer range 0 to c_fifo_size - 1;
+        variable rdcount : integer range 0 to c_fifo_size - 1;
+
+        variable elements : integer range 0 to c_fifo_size - 1;
+    begin
+        if rising_edge(S_AXI_ACLK) then
+            wrcount := to_integer(unsigned(s_fifo_wrcount));
+            rdcount := s_rdcounter;
+
+            elements := wrcount - rdcount;
+
+            s_fifo_elements_reg <= std_logic_vector(to_unsigned(elements, s_fifo_elements_reg'length));
+        end if;
+    end process;
+
+
+    -- Wrapper for spwstream that takes care of data flow from spwstream to fifo.
     process(clk_logic)
     begin
         if rising_edge(clk_logic) then
             if rst_logic = '1' then
                 -- Synchronous reset.
                 s_fifo_wren <= '0';
-                
-                --s_fifo_di <= (others => '0');
-                rxread <= '0';                
+
+                rxread <= '0';
             else
                 if s_fifo_full = '1' then
                     -- fifo is full
-                    --s_fifo_di <= (others => '0');
                     rxread <= '0';
                     s_fifo_wren <= '0';
                 else
                     -- fifo is not full
                     if rxvalid = '1' and s_fifo_wren = '0' then
                         s_fifo_di(8 downto 0) <= rxflag & rxdata;
-                        
-                        report "Write into fifo: " & to_hstring(std_logic_vector(rxflag & rxdata));
-                        
                         rxread <= '1';
                         s_fifo_wren <= '1';
                     else
-                        --s_fifo_di <= (others => '0');
                         rxread <= '0';
                         s_fifo_wren <= '0';
                     end if;
@@ -737,9 +742,8 @@ begin
             end if;
         end if;
     end process;
-    
-    -- Muss unter Umständen in einen synchronen Prozess eingebettet werden!
-    
+
+
     -- FIFO_DUALCLOCK_MACRO: Dual-Clock First-In, First-Out (FIFO) RAM Buffer
     --                       Artix-7
     -- Xilinx HDL Language Template, version 2022.1
@@ -764,7 +768,7 @@ begin
     FIFO_DUALCLOCK_MACRO_inst_TX : FIFO_DUALCLOCK_MACRO
         generic map (
             DEVICE => "7SERIES",            -- Target Device: "VIRTEX5", "VIRTEX6", "7SERIES" 
-            ALMOST_FULL_OFFSET => x"7f9", -- 2041  -- Sets almost full threshold
+            ALMOST_FULL_OFFSET => x"7f8", -- 2041  -- Sets almost full threshold
             ALMOST_EMPTY_OFFSET => x"6", -- Sets the almost empty threshold
             DATA_WIDTH => 9,   -- Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
             FIFO_SIZE => "18Kb",            -- Target BRAM, "18Kb" or "36Kb" 
@@ -772,22 +776,22 @@ begin
         port map (
             ALMOSTEMPTY => s_fifo_almostempty,   -- 1-bit output almost empty
             ALMOSTFULL => s_fifo_almostfull,     -- 1-bit output almost full
-            DO => s_fifo_do(8 downto 0),                     -- Output data, width defined by DATA_WIDTH parameter
+            DO => s_fifo_do_buffer(8 downto 0),  -- Output data, width defined by DATA_WIDTH parameter
             EMPTY => s_fifo_empty,               -- 1-bit output empty
             FULL => s_fifo_full,                 -- 1-bit output full
             RDCOUNT => s_fifo_rdcount,           -- Output read count, width determined by FIFO depth
             RDERR => s_fifo_rderr,               -- 1-bit output read error
             WRCOUNT => s_fifo_wrcount,           -- Output write count, width determined by FIFO depth
             WRERR => s_fifo_wrerr,               -- 1-bit output write error
-            DI => s_fifo_di(8 downto 0),                     -- Input data, width defined by DATA_WIDTH parameter
-            RDCLK => S_AXI_ACLK,               -- 1-bit input read clock
+            DI => s_fifo_di(8 downto 0),         -- Input data, width defined by DATA_WIDTH parameter
+            RDCLK => S_AXI_ACLK,                 -- 1-bit input read clock
             RDEN => s_fifo_rden,                 -- 1-bit input read enable
-            RST => rst_logic,                   -- 1-bit input reset ( CAUTION ! AXI RESET IS active_low BUT FIFO RESET IS PROBABLY active_high ! )
-            WRCLK => clk_logic,               -- 1-bit input write clock
+            RST => rst_logic,                    -- 1-bit input reset ( CAUTION ! AXI RESET IS active_low BUT FIFO RESET IS PROBABLY active_high ! )
+            WRCLK => clk_logic,                  -- 1-bit input write clock
             WREN => s_fifo_wren                  -- 1-bit input write enable
         );
         -- End of FIFO_DUALCLOCK_MACRO_inst instantiation
 
-    -- User logic ends
+        -- User logic ends
 
 end arch_imp;

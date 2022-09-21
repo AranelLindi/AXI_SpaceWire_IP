@@ -236,7 +236,7 @@ architecture fifointerface_tx_tb_arch of fifointerface_tx_tb is
 
             --bready <= '0';
 
-            report "i is " & integer'image(i);
+            --report "i is " & integer'image(i);
         end loop;
 
         --wait for ps_clock_period/2;

@@ -1,1 +1,1 @@
---incr --debug "typical" --relax --mt "8" -L "xil_defaultlib" -L "secureip" --snapshot "fifointerface_rx_tb_behav" "xil_defaultlib.fifointerface_rx_tb" -log "elaborate.log" 
+--incr --debug "typical" --relax --mt "8" -L "xil_defaultlib" -L "work" -L "secureip" --snapshot "fifointerface_rx_tb_behav" "work.fifointerface_rx_tb" -log "elaborate.log" 

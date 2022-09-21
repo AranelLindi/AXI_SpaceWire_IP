@@ -502,6 +502,7 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0 is
     signal s_rxhalff : std_logic;
     signal s_ctrl_out : std_logic_vector(1 downto 0);
     signal s_time_out : std_logic_vector(5 downto 0);
+    signal s_tc_out : std_logic;
     signal s_started : std_logic;
     signal s_connecting : std_logic;
     signal s_running : std_logic;
@@ -712,7 +713,18 @@ AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst : AXI_SpaceWire_IP_v1_0_S02_AXI_REG
 		S_AXI_RREADY	=> s02_axi_reg_rready
 	);
 
+
 	-- Add user logic here
+	
+	-- noch eine lösung überlegen wie das signal für time codes (eintreffen und ausgehend) mit den zwei verschiedenen clocks harmonieren kann
+	process(s_tc_out, s00_axi_tx_aclk) -- noch gründlich testen!!!
+	begin
+	   if s00_axi_tx_aclk = '0' then
+	       tc_out <= '0';
+	   elsif rising_edge(s_tc_out) then
+	       tc_out <= '1';
+	   end if;
+	end process;
 
 
     spwstream_inst : spwstream
@@ -742,7 +754,7 @@ AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst : AXI_SpaceWire_IP_v1_0_S02_AXI_REG
             txdata => s_txdata, -- internal
             txrdy => s_txrdy, -- internal
             txhalff => s_txhalff, -- Register
-            tick_out => tc_out, -- Interrupt
+            tick_out => s_tc_out, -- Interrupt
             ctrl_out => s_ctrl_out, -- Register
             time_out => s_time_out, -- Register
             rxvalid => s_rxvalid, -- internal
