@@ -498,6 +498,7 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0 is
     signal s_txdivcnt : std_logic_vector(7 downto 0);
     signal s_ctrl_in : std_logic_vector(1 downto 0);
     signal s_time_in : std_logic_vector(5 downto 0);
+    signal s_tc_in : std_logic;
     signal s_txhalff : std_logic;
     signal s_rxhalff : std_logic;
     signal s_ctrl_out : std_logic_vector(1 downto 0);
@@ -511,6 +512,14 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0 is
     signal s_errcred : std_logic;
     signal s_erresc : std_logic;
 
+
+    -- Pulse stretching signals for tc_out.
+    -- Signal to reset pulse
+    signal s_rst_pulse : std_logic := '0';
+    -- Shiftregister to stretch pulse
+    signal s_pulse_reg : std_logic_vector(1 downto 0) := (others => '0'); -- ACHTUNG! IST DAS PULSE SIGNAL NOCH ZU KURZ ODER ZU LANG UM VON DER CPU ERKANNT ZU WERDEN, DANN HIER MIT DER LÄNGE DES SCHIEBEREIGSTERS EXPERIMENTIEREN!
+    -- Actual pulse transport signal
+    signal s_pulse : std_logic := '0';
 begin
 
 -- Instantiation of Axi Bus Interface S00_AXI_TX
@@ -717,14 +726,62 @@ AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst : AXI_SpaceWire_IP_v1_0_S02_AXI_REG
 	-- Add user logic here
 	
 	-- noch eine lösung überlegen wie das signal für time codes (eintreffen und ausgehend) mit den zwei verschiedenen clocks harmonieren kann
-	process(s_tc_out, s00_axi_tx_aclk) -- noch gründlich testen!!!
-	begin
-	   if s00_axi_tx_aclk = '0' then
-	       tc_out <= '0';
-	   elsif rising_edge(s_tc_out) then
-	       tc_out <= '1';
-	   end if;
-	end process;
+--	process(s_tc_out, s00_axi_tx_aclk) -- noch gründlich testen!!!
+--	begin
+--	   if s00_axi_tx_aclk = '0' then
+--	       --tc_out <= '0';
+--	   elsif rising_edge(s_tc_out) then
+--	       tc_out <= '1';
+--	   end if;
+--	end process;
+
+    -- Pulse stretching signals
+    tc_out <= s_pulse;    
+    s_rst_pulse <= s_pulse_reg(s_pulse_reg'length-1);
+   
+    -- Asserts and deasserts pulse signal to stretch it for AXI bus depending on tc_out (outgoing TimeCodes).
+    tc_out_0 : process(s_tc_out, s_rst_pulse)
+    begin
+        if s_rst_pulse = '1' then
+            s_pulse <= '0';
+        elsif rising_edge(s_tc_out) then        
+            s_pulse <= '1';
+        end if;
+    end process tc_out_0;    
+    
+    -- Fills and resets shift register to stretch pulse signal for tc_out.
+    tc_out_1 : process(s00_axi_tx_aclk)
+    begin
+        if rising_edge(s00_axi_tx_aclk) then
+            if s_pulse = '0' then
+                s_pulse_reg <= (others => '0');
+            else
+                s_pulse_reg(0) <= '1';
+            
+                for i in 0 to s_pulse_reg'length-2 loop
+                    s_pulse_reg(i+1) <= s_pulse_reg(i);
+                end loop;
+            end if;
+        end if;
+    end process tc_out_1;
+    
+    
+    -- Ensures that exactly one TimeCode is sent.
+    tc_in_0 : process(clk_logic)
+    begin
+        if rising_edge(clk_logic) then
+            if tc_in = '1' then
+                if s_tc_in = '0' then
+                    s_tc_in <= '1'; -- only one cycle active !
+                else
+                    s_tc_in <= '0';
+                end if;
+            else
+                s_tc_in <= '0';
+            end if;            
+        end if;
+    end process tc_in_0;
+
 
 
     spwstream_inst : spwstream
@@ -746,7 +803,7 @@ AXI_SpaceWire_IP_v1_0_S02_AXI_REG_inst : AXI_SpaceWire_IP_v1_0_S02_AXI_REG
             linkstart => s_linkstart, -- Register
             linkdis => s_linkdis, -- Register
             txdivcnt => s_txdivcnt, -- Register
-            tick_in => tc_in, -- GPIO ?
+            tick_in => s_tc_in, -- GPIO ?
             ctrl_in => s_ctrl_in, -- Register
             time_in => s_time_in, -- Register
             txwrite => s_txwrite, -- internal

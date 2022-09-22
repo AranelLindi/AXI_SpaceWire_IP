@@ -1154,7 +1154,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>e643fc28</spirit:value>
+            <spirit:value>623b4e21</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1170,7 +1170,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>e643fc28</spirit:value>
+            <spirit:value>623b4e21</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -3501,7 +3501,7 @@
       <spirit:file>
         <spirit:name>hdl/AXI_SpaceWire_IP_v1_0.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_6ae6e227</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_a354913b</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -3886,17 +3886,17 @@
         <xilinx:family xilinx:lifeCycle="Beta">azynq</xilinx:family>
       </xilinx:supportedFamilies>
       <xilinx:taxonomies>
-        <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
+        <xilinx:taxonomy>/AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>AXI SpaceWire</xilinx:displayName>
-      <xilinx:coreRevision>24</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2022-09-13T14:55:18Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>25</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2022-09-22T13:03:30Z</xilinx:coreCreationDateTime>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2022.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="b2ed52fb"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="5a2af960"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="3a55984e"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="f0c857a9"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="4498f0f3"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="b1f62592"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="d4e348cb"/>

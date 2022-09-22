@@ -249,7 +249,7 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
     signal rxclk: std_logic;
     signal txclk: std_logic;
     signal rst_logic: std_logic;
-    signal tc_in: std_logic;
+    signal tc_in: std_logic := '0';
     signal tc_out: std_logic;
     signal spw_di: std_logic;
     signal spw_si: std_logic;
@@ -713,8 +713,8 @@ begin
             s02_axi_reg_rresp         => s02_axi_reg_rresp,
             s02_axi_reg_rvalid        => s02_axi_reg_rvalid,
             s02_axi_reg_rready        => s02_axi_reg_rready );
-
-
+            
+            
     -- Stimulus for AXI4-Full-TX-Interface.
     stimulus_TX: process
         variable data : array_t(0 to 3)(31 downto 0);
@@ -925,16 +925,45 @@ begin
 --                     s02_axi_reg_rready,
 --                     s02_axi_reg_rvalid); -- read data channel
 
+        wait for 40 us;
+        
+        -- Send TimeCode! Therefore...
+        -- 
+        AXI4LiteWrite(s02_axi_reg_awaddr, "01000",
+                      s02_axi_reg_awvalid,
+                      s02_axi_reg_awready, -- write address channel
+                      s02_axi_reg_wdata, x"0000_0201", -- 1000000001
+                      s02_axi_reg_wstrb, "1111",
+                      s02_axi_reg_wvalid,
+                      s02_axi_reg_wready, -- write data channel
+                      s02_axi_reg_bready,
+                      s02_axi_reg_bvalid); -- write response channel
+        
+        wait for 1 us;
+        
+        -- Check:
+         AXI4LiteRead(s02_axi_reg_araddr, "01000",
+                     s02_axi_reg_arvalid,
+                     s02_axi_reg_arready, -- read address channel
+                     s02_axi_reg_rready,
+                     s02_axi_reg_rvalid); -- read data channel
+                     
+        wait for 1 us;
+        
+        tc_in <= '1', '0' after ps_clock_period; -- should ensure that it is triggered even if we are not synchron with clock edges
+        
+           
+                  
         wait;
     end process;
 
     -- Stimulus for SpaceWire-specific signals.
-    stimulus_spwstream: process
-    begin
-        -- Set initial signal values.
-        tc_in <= '0';
-        wait; -- wait forever
-    end process;
+--    stimulus_spwstream: process
+--    begin
+--        -- Set initial signal values.
+--        tc_in <= '0';
+--        wait; -- wait forever
+--    end process;
 
 
     -- Initial reset (maybe not neccessary in implementation !)

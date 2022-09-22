@@ -643,7 +643,7 @@ begin
 
     -- Add user logic here
 
-    -- Debug signal assignment (could be marked as 'open' in upper code if not needed; Signals are not required in regular operation)
+    -- Debug signal assignment (could be marked as 'open' in upper code if not needed; signals are not required in regular operation)
     rden <= s_fifo_rden;
     wren <= s_fifo_wren;
     rdcount <= s_fifo_rdcount;
@@ -675,7 +675,7 @@ begin
     -- Custom rdcount counter that takes the FWFT option into account and only counts clock cycles when rden=1
     -- s_fifo_rdcount is incremented twice (without rden is set to HIGH) if the fifo was previously empty and 
     -- is being refilled, which means that result would deviate from true value by two.
-    process(clk_logic)
+    calc_0 : process(clk_logic)
         variable v : integer range 0 to c_fifo_size - 1 := 0; 
     begin
         if rising_edge(clk_logic) then
@@ -690,12 +690,12 @@ begin
         
             s_rdcounter <= v;
         end if;
-    end process;
+    end process calc_0;
     
     
     -- Calculates available space in the fifo, taking into account the custom counter for rdcount.
     -- The calculated value is then written into a register.
-    process(S_AXI_ACLK)
+    calc_1 : process(S_AXI_ACLK)
         variable wrcount : integer range 0 to c_fifo_size - 1;
         variable rdcount : integer range 0 to c_fifo_size - 1;
         
@@ -709,30 +709,30 @@ begin
             
             s_fifo_space_reg <= std_logic_vector(to_unsigned(size, s_fifo_space_reg'length)); 
         end if;
-    end process;
+    end process calc_1;
 
 
     -- Writes data words coming from AXI bus into fifo. The wren signal is asserted or deasserted 
     -- depending on the write channel handshake signals.
-    process(S_AXI_ACLK)
+    wr_0 : process(S_AXI_ACLK)
     begin
         if rising_edge(S_AXI_ACLK) then
             if S_AXI_ARESETN = '0' then -- (active_low !)
                 -- Synchronous reset.
                 s_fifo_wren <= '0';
             else
-                if S_AXI_WVALID = '1' and axi_wready = '1' then -- sehr gefährlich... ist vermutlich oft länger als einen takt high (also beides)
+                if S_AXI_WVALID = '1' and axi_wready = '1' then -- sehr gefährlich... ist vermutlich oft länger als einen takt HIGH (also beides) (hat bisher aber funktioniert, mal gut testen!!)
                     s_fifo_wren <= '1';
                 else
                     s_fifo_wren <= '0';
                 end if;
             end if;
         end if;
-    end process;
+    end process wr_0;
 
 
     -- Wrapper for spwstream that takes care of data flow from fifo to spwstream.
-    process(clk_logic)
+    spwwrapper : process(clk_logic)
     begin
         if rising_edge(clk_logic) then
             if s_axi_areseth = '1' then -- It is important that rden is deasserted during fifo reset (WRCLK is S_AXI_ACLK) so axi reset signal is neccessary here !
@@ -763,7 +763,7 @@ begin
                 end if;
             end if;
         end if;
-    end process;
+    end process spwwrapper;
 
 
     -- FIFO_DUALCLOCK_MACRO: Dual-Clock First-In, First-Out (FIFO) RAM Buffer

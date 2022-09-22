@@ -240,7 +240,7 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S01_AXI_RX is
     signal s_fifo_di : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0) := (others => '0');
     signal s_fifo_rden : std_logic := '0';
     signal s_fifo_wren : std_logic := '0';
-    
+
     -- Data buffer signal
     signal s_fifo_do_buffer : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 
@@ -638,7 +638,7 @@ begin
 
     -- Combinatorial logic for fifo data input. Responsible if data has to be changed/adjusted before
     -- being output to AXI bus. Fifo data output is saved into s_fifo_do_buffer.
-    process(s_fifo_do_buffer)
+    rd_0 : process(s_fifo_do_buffer)
         variable do : std_logic_vector(8 downto 0);
     begin
         -- Destinction based on flag bit (8)
@@ -656,48 +656,48 @@ begin
             -- LOW flag (Data byte -> N-Char)
             do := '0' & s_fifo_do_buffer(7 downto 0);
         end if;
-        
+
         -- Assert modified data to axi output.
         s_fifo_do(8 downto 0) <= do;
-    end process;
+    end process rd_0;
 
-    
+
     -- Combinatorial process that asserts or deasserts the rden signal
     -- depending on axi read channel handhsake signals and fifo empty signal.
-    process(S_AXI_RREADY, axi_rvalid, s_fifo_empty)
+    rd_1 : process(S_AXI_RREADY, axi_rvalid, s_fifo_empty)
     begin
         if S_AXI_RREADY = '1' and axi_rvalid = '1' and s_fifo_empty = '0' then
             s_fifo_rden <= '1';
         else
             s_fifo_rden <= '0';
         end if;
-    end process;
+    end process rd_1;
 
 
     -- Custom rdcount counter that takes the FWFT option into account and only counts clock cycles when rden=1
     -- s_fifo_rdcount is incremented twice (without rden is set to HIGH) if the fifo was previously empty and
     -- is being refilled, which means that result would deviate from true value by two.
-    process(S_AXI_ACLK)
+    calc_0 : process(S_AXI_ACLK)
         variable v : integer range 0 to c_fifo_size - 1 := 0;
     begin
-        if rising_edge(S_AXI_ACLK) then
-            if rst_logic = '1' then
-                -- Synchronous reset.
-                v := to_integer(unsigned(s_fifo_wrcount));
-            else
-                if s_fifo_rden = '1' then
-                    v := v + 1;
-                end if;
+        if rst_logic = '1' then
+            -- Asynchronous reset. (It is important here to make this async because period of S_AXI_ACLK may much longer that clk_logic !)
+            v := to_integer(unsigned(s_fifo_wrcount));
+
+            s_rdcounter <= v;
+        elsif rising_edge(S_AXI_ACLK) then
+            if s_fifo_rden = '1' then
+                v := v + 1;
             end if;
 
             s_rdcounter <= v;
         end if;
-    end process;
+    end process calc_0;
 
 
     -- Calculates number of elements in the fifo, taking into account the custom counter for rdcount.
     -- The calculated value is then written into a register.
-    process(S_AXI_ACLK)
+    calc_1 : process(S_AXI_ACLK)
         variable wrcount : integer range 0 to c_fifo_size - 1;
         variable rdcount : integer range 0 to c_fifo_size - 1;
 
@@ -711,11 +711,11 @@ begin
 
             s_fifo_elements_reg <= std_logic_vector(to_unsigned(elements, s_fifo_elements_reg'length));
         end if;
-    end process;
+    end process calc_1;
 
 
     -- Wrapper for spwstream that takes care of data flow from spwstream to fifo.
-    process(clk_logic)
+    spwwrapper : process(clk_logic)
     begin
         if rising_edge(clk_logic) then
             if rst_logic = '1' then
@@ -741,7 +741,7 @@ begin
                 end if;
             end if;
         end if;
-    end process;
+    end process spwwrapper;
 
 
     -- FIFO_DUALCLOCK_MACRO: Dual-Clock First-In, First-Out (FIFO) RAM Buffer
