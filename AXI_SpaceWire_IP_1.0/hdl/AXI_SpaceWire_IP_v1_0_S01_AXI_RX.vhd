@@ -250,6 +250,10 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S01_AXI_RX is
     -- Available elements register signals.
     signal s_fifo_elements_reg : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
     signal s_rdcounter : integer range 0 to c_fifo_size - 1 := 0;
+    
+    -- Spwwrapper declarations.
+    type spwwrapperstates is (S_Idle, S_Operation);
+    signal spwwrapperstate : spwwrapperstates := S_Idle;
 
     -- AXI4FULL signals
     signal axi_awaddr	: std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
@@ -715,33 +719,107 @@ begin
 
 
     -- Wrapper for spwstream that takes care of data flow from spwstream to fifo.
-    spwwrapper : process(clk_logic)
+--    spwwrapper : process(clk_logic)
+--    begin
+--        if rising_edge(clk_logic) then
+--            if rst_logic = '1' then
+--                -- Synchronous reset.
+--                s_fifo_wren <= '0';
+
+--                rxread <= '0';
+--            else
+--                if s_fifo_full = '1' then
+--                    -- fifo is full
+--                    rxread <= '0';
+--                    s_fifo_wren <= '0';
+--                else
+--                    -- fifo is not full
+--                    if rxvalid = '1' and s_fifo_wren = '0' then
+--                        s_fifo_di(8 downto 0) <= rxflag & rxdata;
+--                        rxread <= '1';
+--                        s_fifo_wren <= '1';
+--                    else
+--                        rxread <= '0';
+--                        s_fifo_wren <= '0';
+--                    end if;
+--                end if;
+--            end if;
+--        end if;
+--    end process spwwrapper;
+    
+    -- Implemented to test if this kind of FSM is able to handle the problem that first n-char is not correctly written into fifo and last n-char is read twice. Problem: FSM slows process from 100 MHz down to 50 MHz (best case)
+    spwwrapper_experimental : process(clk_logic)
+        variable v_write : std_logic_vector(8 downto 0);
+        variable openPacket : boolean := False; -- Important not to change value during reset otherwise an open packet will be misclassified !
     begin
         if rising_edge(clk_logic) then
             if rst_logic = '1' then
                 -- Synchronous reset.
                 s_fifo_wren <= '0';
-
+                s_fifo_di <= (others => '0');
+                v_write := (others => '0');           
                 rxread <= '0';
+                spwwrapperstate <= S_Idle;
             else
-                if s_fifo_full = '1' then
-                    -- fifo is full
-                    rxread <= '0';
-                    s_fifo_wren <= '0';
-                else
-                    -- fifo is not full
-                    if rxvalid = '1' and s_fifo_wren = '0' then
-                        s_fifo_di(8 downto 0) <= rxflag & rxdata;
-                        rxread <= '1';
-                        s_fifo_wren <= '1';
-                    else
-                        rxread <= '0';
+                case spwwrapperstate is 
+                    when S_Idle =>
+                        --rxread <= '0';
                         s_fifo_wren <= '0';
-                    end if;
-                end if;
+                    
+                        if rxvalid = '1' then                            
+                            report to_string(rxflag & rxdata);
+                            
+                            if rxflag = '1' then
+                                -- EOP/EEP/Process Id
+                                case rxdata is
+                                    when "00000000" => -- EOP
+                                        v_write := "111111111";
+                                        --openPacket := False; -- ... packet finished (planed)
+                                        --report "EOP";
+                                    
+                                    when "00000001" => -- EEP
+                                        v_write := "111111110";
+                                        --openPacket := False; -- ... packet finished (unplaned)
+                                        --report "EEP";
+                                    
+                                    when others => -- Shouldn't not occur
+                                        report "This shouldn't happen !";
+                                        v_write := (others => '0');
+                                        --report "Else";
+                                end case;
+                                
+                                openPacket := False;
+                            else
+                                -- Data word (N-Char)
+                                if openPacket = False then
+                                    -- Data word is first N-Char of a packet
+                                    v_write := '1' & rxdata;
+                                    openPacket := True; -- First data word of a packet ! Now we have an open packet...
+                                else
+                                    -- (inside an open packet)
+                                    v_write := '0' & rxdata;
+                                end if;
+                                
+                                --report "NChar";
+                            end if;
+                            
+                            s_fifo_di(8 downto 0) <= v_write;
+                            
+                            spwwrapperstate <= S_Operation;
+                            rxread <= '1'; -- Testweise hier schon auf 1 gesetzt anstatt im nächsten Zustand (Simulation lief dann wie vorgesehen, allerdings warum?) Würde es erst im zweiten Stunden auf HIGH gesetzt, würde jedes empfangene Datenwort zweimal via report ausgegeben werden (Warum ?)
+                        end if;
+                        
+                    when S_Operation =>
+                        if s_fifo_full = '0' then
+                            rxread <= '0';
+                            s_fifo_wren <= '1';
+                            
+                            spwwrapperstate <= S_Idle;
+                        end if;
+                end case;
             end if;
         end if;
-    end process spwwrapper;
+    end process;
 
 
     -- FIFO_DUALCLOCK_MACRO: Dual-Clock First-In, First-Out (FIFO) RAM Buffer

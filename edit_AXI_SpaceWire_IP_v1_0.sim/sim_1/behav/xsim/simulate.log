@@ -8,8 +8,16 @@ $finish called at time : 6030 ns
 Failure: DRC Error : The attribute ALMOST_FULL_OFFSET on FIFO18E1 is set to 2040. It must be set to a value smaller than (FIFO_DEPTH - ((roundup (4 * (WRCLK frequency / RDCLK frequency))) + 6)) when FIFO18E1 has different frequencies for RDCLK and WRCLK.
 Time: 9050 ns  Iteration: 2  Process: /fifointerface_rx_tb/dut/FIFO_DUALCLOCK_MACRO_inst_TX/bl/fifo_18_inst_bl/fifo_18_bl/FIFO18E1_inst/prcs_check_almost_rdclk  File: /tools/Xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/FIFO18E1.vhd
 $finish called at time : 9050 ns
+Note: 011110000
+Time: 10115 ns  Iteration: 0  Process: /fifointerface_rx_tb/dut/spwwrapper_experimental  File: /home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: 011111111
+Time: 10135 ns  Iteration: 0  Process: /fifointerface_rx_tb/dut/spwwrapper_experimental  File: /home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: 000001111
+Time: 10155 ns  Iteration: 0  Process: /fifointerface_rx_tb/dut/spwwrapper_experimental  File: /home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: 100000000
+Time: 10175 ns  Iteration: 0  Process: /fifointerface_rx_tb/dut/spwwrapper_experimental  File: /home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
 Note: Start AXI4 Full Read...
-Time: 10190 ns  Iteration: 0  Process: /fifointerface_rx_tb/stimulus  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/fifointerface_rx_tb.vhd
+Time: 10190 ns  Iteration: 0  Process: /fifointerface_rx_tb/stimulus  File: /home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/fifointerface_rx_tb.vhd
 Failure: DRC Error : The attribute ALMOST_FULL_OFFSET on FIFO18E1 is set to 2040. It must be set to a value smaller than (FIFO_DEPTH - ((roundup (4 * (WRCLK frequency / RDCLK frequency))) + 6)) when FIFO18E1 has different frequencies for RDCLK and WRCLK.
 Time: 12070 ns  Iteration: 2  Process: /fifointerface_rx_tb/dut/FIFO_DUALCLOCK_MACRO_inst_TX/bl/fifo_18_inst_bl/fifo_18_bl/FIFO18E1_inst/prcs_check_almost_rdclk  File: /tools/Xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/FIFO18E1.vhd
 $finish called at time : 12070 ns
@@ -19,3 +27,26 @@ $finish called at time : 15090 ns
 Failure: DRC Error : The attribute ALMOST_FULL_OFFSET on FIFO18E1 is set to 2040. It must be set to a value smaller than (FIFO_DEPTH - ((roundup (4 * (WRCLK frequency / RDCLK frequency))) + 6)) when FIFO18E1 has different frequencies for RDCLK and WRCLK.
 Time: 18110 ns  Iteration: 2  Process: /fifointerface_rx_tb/dut/FIFO_DUALCLOCK_MACRO_inst_TX/bl/fifo_18_inst_bl/fifo_18_bl/FIFO18E1_inst/prcs_check_almost_rdclk  File: /tools/Xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/FIFO18E1.vhd
 $finish called at time : 18110 ns
+Failure: DRC Error : The attribute ALMOST_FULL_OFFSET on FIFO18E1 is set to 2040. It must be set to a value smaller than (FIFO_DEPTH - ((roundup (4 * (WRCLK frequency / RDCLK frequency))) + 6)) when FIFO18E1 has different frequencies for RDCLK and WRCLK.
+Time: 21130 ns  Iteration: 2  Process: /fifointerface_rx_tb/dut/FIFO_DUALCLOCK_MACRO_inst_TX/bl/fifo_18_inst_bl/fifo_18_bl/FIFO18E1_inst/prcs_check_almost_rdclk  File: /tools/Xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/FIFO18E1.vhd
+$finish called at time : 21130 ns
+Failure: DRC Error : The attribute ALMOST_FULL_OFFSET on FIFO18E1 is set to 2040. It must be set to a value smaller than (FIFO_DEPTH - ((roundup (4 * (WRCLK frequency / RDCLK frequency))) + 6)) when FIFO18E1 has different frequencies for RDCLK and WRCLK.
+Time: 24150 ns  Iteration: 2  Process: /fifointerface_rx_tb/dut/FIFO_DUALCLOCK_MACRO_inst_TX/bl/fifo_18_inst_bl/fifo_18_bl/FIFO18E1_inst/prcs_check_almost_rdclk  File: /tools/Xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/FIFO18E1.vhd
+$finish called at time : 24150 ns
+Failure: DRC Error : The attribute ALMOST_FULL_OFFSET on FIFO18E1 is set to 2040. It must be set to a value smaller than (FIFO_DEPTH - ((roundup (4 * (WRCLK frequency / RDCLK frequency))) + 6)) when FIFO18E1 has different frequencies for RDCLK and WRCLK.
+Time: 27170 ns  Iteration: 2  Process: /fifointerface_rx_tb/dut/FIFO_DUALCLOCK_MACRO_inst_TX/bl/fifo_18_inst_bl/fifo_18_bl/FIFO18E1_inst/prcs_check_almost_rdclk  File: /tools/Xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/FIFO18E1.vhd
+$finish called at time : 27170 ns
+Failure: DRC Error : The attribute ALMOST_FULL_OFFSET on FIFO18E1 is set to 2040. It must be set to a value smaller than (FIFO_DEPTH - ((roundup (4 * (WRCLK frequency / RDCLK frequency))) + 6)) when FIFO18E1 has different frequencies for RDCLK and WRCLK.
+Time: 30190 ns  Iteration: 2  Process: /fifointerface_rx_tb/dut/FIFO_DUALCLOCK_MACRO_inst_TX/bl/fifo_18_inst_bl/fifo_18_bl/FIFO18E1_inst/prcs_check_almost_rdclk  File: /tools/Xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/FIFO18E1.vhd
+$finish called at time : 30190 ns
+Failure: DRC Error : The attribute ALMOST_FULL_OFFSET on FIFO18E1 is set to 2040. It must be set to a value smaller than (FIFO_DEPTH - ((roundup (4 * (WRCLK frequency / RDCLK frequency))) + 6)) when FIFO18E1 has different frequencies for RDCLK and WRCLK.
+Time: 33210 ns  Iteration: 2  Process: /fifointerface_rx_tb/dut/FIFO_DUALCLOCK_MACRO_inst_TX/bl/fifo_18_inst_bl/fifo_18_bl/FIFO18E1_inst/prcs_check_almost_rdclk  File: /tools/Xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/FIFO18E1.vhd
+$finish called at time : 33210 ns
+Failure: DRC Error : The attribute ALMOST_FULL_OFFSET on FIFO18E1 is set to 2040. It must be set to a value smaller than (FIFO_DEPTH - ((roundup (4 * (WRCLK frequency / RDCLK frequency))) + 6)) when FIFO18E1 has different frequencies for RDCLK and WRCLK.
+Time: 36230 ns  Iteration: 2  Process: /fifointerface_rx_tb/dut/FIFO_DUALCLOCK_MACRO_inst_TX/bl/fifo_18_inst_bl/fifo_18_bl/FIFO18E1_inst/prcs_check_almost_rdclk  File: /tools/Xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/FIFO18E1.vhd
+$finish called at time : 36230 ns
+Failure: DRC Error : The attribute ALMOST_FULL_OFFSET on FIFO18E1 is set to 2040. It must be set to a value smaller than (FIFO_DEPTH - ((roundup (4 * (WRCLK frequency / RDCLK frequency))) + 6)) when FIFO18E1 has different frequencies for RDCLK and WRCLK.
+Time: 39250 ns  Iteration: 2  Process: /fifointerface_rx_tb/dut/FIFO_DUALCLOCK_MACRO_inst_TX/bl/fifo_18_inst_bl/fifo_18_bl/FIFO18E1_inst/prcs_check_almost_rdclk  File: /tools/Xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/FIFO18E1.vhd
+$finish called at time : 39250 ns
+Failure: DRC Error : The attribute ALMOST_FULL_OFFSET on FIFO18E1 is set to 2040. It must be set to a value smaller than (FIFO_DEPTH - ((roundup (4 * (WRCLK frequency / RDCLK frequency))) + 6)) when FIFO18E1 has different frequencies for RDCLK and WRCLK.
+Time: 42270 ns  Iteration: 2  Process: /fifointerface_rx_tb/dut/FIFO_DUALCLOCK_MACRO_inst_TX/bl/fifo_18_inst_bl/fifo_18_bl/FIFO18E1_inst/prcs_check_almost_rdclk  File: /tools/Xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/FIFO18E1.vhd

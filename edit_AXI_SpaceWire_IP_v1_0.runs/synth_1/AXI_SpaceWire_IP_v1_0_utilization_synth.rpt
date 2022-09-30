@@ -1,8 +1,8 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-| Date         : Fri Sep 30 12:20:04 2022
-| Host         : stl56jc-MS-7C95 running 64-bit Ubuntu 22.04.1 LTS
+| Date         : Sat Oct  1 00:47:24 2022
+| Host         : AranelLindi running 64-bit Ubuntu 22.04.1 LTS
 | Command      : report_utilization -file AXI_SpaceWire_IP_v1_0_utilization_synth.rpt -pb AXI_SpaceWire_IP_v1_0_utilization_synth.pb
 | Design       : AXI_SpaceWire_IP_v1_0
 | Device       : xc7a35tcpg236-1
@@ -31,13 +31,13 @@ Table of Contents
 +----------------------------+------+-------+------------+-----------+-------+
 |          Site Type         | Used | Fixed | Prohibited | Available | Util% |
 +----------------------------+------+-------+------------+-----------+-------+
-| Slice LUTs*                |  532 |     0 |          0 |     20800 |  2.56 |
-|   LUT as Logic             |  528 |     0 |          0 |     20800 |  2.54 |
+| Slice LUTs*                |  539 |     0 |          0 |     20800 |  2.59 |
+|   LUT as Logic             |  535 |     0 |          0 |     20800 |  2.57 |
 |   LUT as Memory            |    4 |     0 |          0 |      9600 |  0.04 |
 |     LUT as Distributed RAM |    4 |     0 |            |           |       |
 |     LUT as Shift Register  |    0 |     0 |            |           |       |
-| Slice Registers            |  775 |     6 |          0 |     41600 |  1.86 |
-|   Register as Flip Flop    |  764 |     6 |          0 |     41600 |  1.84 |
+| Slice Registers            |  786 |     6 |          0 |     41600 |  1.89 |
+|   Register as Flip Flop    |  775 |     6 |          0 |     41600 |  1.86 |
 |   Register as Latch        |   11 |     0 |          0 |     41600 |  0.03 |
 | F7 Muxes                   |    0 |     0 |          0 |     16300 |  0.00 |
 | F8 Muxes                   |    0 |     0 |          0 |      8150 |  0.00 |
@@ -60,7 +60,7 @@ Table of Contents
 | 11    |          Yes |           - |          Set |
 | 51    |          Yes |           - |        Reset |
 | 29    |          Yes |         Set |            - |
-| 684   |          Yes |       Reset |            - |
+| 695   |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -154,14 +154,14 @@ Table of Contents
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| FDRE     |  684 |        Flop & Latch |
-| LUT2     |  210 |                 LUT |
+| FDRE     |  695 |        Flop & Latch |
+| LUT2     |  214 |                 LUT |
 | IBUF     |  145 |                  IO |
 | OBUF     |  132 |                  IO |
-| LUT4     |  127 |                 LUT |
-| LUT6     |  112 |                 LUT |
-| LUT3     |  108 |                 LUT |
-| LUT5     |  100 |                 LUT |
+| LUT4     |  132 |                 LUT |
+| LUT3     |  119 |                 LUT |
+| LUT6     |  108 |                 LUT |
+| LUT5     |   96 |                 LUT |
 | CARRY4   |   50 |          CarryLogic |
 | FDCE     |   40 |        Flop & Latch |
 | FDSE     |   29 |        Flop & Latch |

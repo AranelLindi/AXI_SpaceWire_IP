@@ -47,7 +47,7 @@ end;
 architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
     -- Generic constants.
     constant pl_clock_period : time := 10 ns;
-    constant ps_clock_period : time := 20 ns;
+    constant ps_clock_period : time := 30 ns;
 
     -- Parameters of Axi Slave Bus Interface S00_AXI_TX
     constant C_S00_AXI_TX_ID_WIDTH	: integer	:= 1;
@@ -881,9 +881,9 @@ begin
                      s02_axi_reg_rready,
                      s02_axi_reg_rvalid); -- read data channel
                       
---        wait for 40 us;
+        wait for 40 us;
 
-        -- Write transfer to disable spwstream.
+--        -- Write transfer to disable spwstream.
 --        AXI4LiteWrite(s02_axi_reg_awaddr, "00000",
 --                      s02_axi_reg_awvalid,
 --                      s02_axi_reg_awready, -- write address channel
@@ -896,7 +896,7 @@ begin
         
 --        wait for 10 us; 
 
-        -- Read Configuration register again to check its value
+--        -- Read Configuration register again to check its value
 --        AXI4LiteRead(s02_axi_reg_araddr, "00000",
 --                     s02_axi_reg_arvalid,
 --                     s02_axi_reg_arready, -- read address channel
@@ -905,7 +905,7 @@ begin
         
 --        wait for 5 us;
         
-        -- Activate spwstream again
+--        -- Activate spwstream again
 --        AXI4LiteWrite(s02_axi_reg_awaddr, "00000",
 --                      s02_axi_reg_awvalid,
 --                      s02_axi_reg_awready, -- write address channel
@@ -918,14 +918,14 @@ begin
 
 --        wait for 15 us;
 
-        -- Read Status register of spwstream
+--        -- Read Status register of spwstream
 --        AXI4LiteRead(s02_axi_reg_araddr, "10000",
 --                     s02_axi_reg_arvalid,
 --                     s02_axi_reg_arready, -- read address channel
 --                     s02_axi_reg_rready,
 --                     s02_axi_reg_rvalid); -- read data channel
 
-        wait for 40 us;
+--        wait for 40 us;
         
         -- Send TimeCode! Therefore...
         -- 

@@ -1,0 +1,35 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.sim/sim_1/synth/timing/xsim/AXI_SpaceWire_IP_v1_0_tb_time_synth.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module RAM32X1D_UNIQ_BASE_
+INFO: [VRFC 10-311] analyzing module RAM32X1D_HD1
+INFO: [VRFC 10-311] analyzing module AXI_SpaceWire_IP_v1_0
+INFO: [VRFC 10-311] analyzing module AXI_SpaceWire_IP_v1_0_S00_AXI_TX
+INFO: [VRFC 10-311] analyzing module AXI_SpaceWire_IP_v1_0_S01_AXI_RX
+INFO: [VRFC 10-311] analyzing module AXI_SpaceWire_IP_v1_0_S02_AXI_REG
+INFO: [VRFC 10-311] analyzing module spwlink
+INFO: [VRFC 10-311] analyzing module spwram
+INFO: [VRFC 10-311] analyzing module spwram__parameterized1
+INFO: [VRFC 10-311] analyzing module spwram__parameterized1_0
+INFO: [VRFC 10-311] analyzing module spwrecv
+INFO: [VRFC 10-311] analyzing module spwrecvfront_fast
+INFO: [VRFC 10-311] analyzing module spwstream
+INFO: [VRFC 10-311] analyzing module spwxmit_fast
+INFO: [VRFC 10-311] analyzing module syncdff
+INFO: [VRFC 10-311] analyzing module syncdff_1
+INFO: [VRFC 10-311] analyzing module syncdff_10
+INFO: [VRFC 10-311] analyzing module syncdff_11
+INFO: [VRFC 10-311] analyzing module syncdff_12
+INFO: [VRFC 10-311] analyzing module syncdff_13
+INFO: [VRFC 10-311] analyzing module syncdff_2
+INFO: [VRFC 10-311] analyzing module syncdff_3
+INFO: [VRFC 10-311] analyzing module syncdff_4
+INFO: [VRFC 10-311] analyzing module syncdff_5
+INFO: [VRFC 10-311] analyzing module syncdff_6
+INFO: [VRFC 10-311] analyzing module syncdff_7
+INFO: [VRFC 10-311] analyzing module syncdff_8
+INFO: [VRFC 10-311] analyzing module syncdff_9
+INFO: [VRFC 10-311] analyzing module unimacro_FIFO_DUALCLOCK_MACRO
+INFO: [VRFC 10-311] analyzing module unimacro_FIFO_DUALCLOCK_MACRO_14
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwpkg.vhd" into library xil_defaultlib
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'AXI_SpaceWire_IP_v1_0_tb'
