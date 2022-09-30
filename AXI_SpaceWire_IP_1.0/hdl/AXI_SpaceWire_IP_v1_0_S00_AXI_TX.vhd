@@ -579,7 +579,7 @@ begin
             begin
                 case mem_address is
                     when "0" => data_out <= s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
-                    when others => data_out <= (others => '0'); -- evtl. "null" besser?
+                    when others => data_out <= data_out;--(others => '0'); -- evtl. "null" besser?
                 end case;
             end process;
 
@@ -598,7 +598,8 @@ begin
                             -- Writing to a full fifo causes no harm on hardware so let it to outside world (e.g. software) to manage and respect that.
 
                             when others =>
-                                null; -- enough ? Or more here ?
+                                s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
+                                --null; -- enough ? Or more here ?
                         end case;
                     end if;
                 end if;

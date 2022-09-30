@@ -1,0 +1,310 @@
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Fri Sep 30 12:20:15 2022
+# Process ID: 24554
+# Current directory: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/impl_1
+# Command line: vivado -log AXI_SpaceWire_IP_v1_0.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source AXI_SpaceWire_IP_v1_0.tcl -notrace
+# Log file: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/impl_1/AXI_SpaceWire_IP_v1_0.vdi
+# Journal file: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/impl_1/vivado.jou
+# Running On: stl56jc-MS-7C95, OS: Linux, CPU Frequency: 400.000 MHz, CPU Physical cores: 12, Host memory: 14546 MB
+#-----------------------------------------------------------
+source AXI_SpaceWire_IP_v1_0.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/Vivado/2022.1/data/ip'.
+WARNING: [IP_Flow 19-1663] Duplicate IP found for 'uni-wuerzburg.informatikviii:user:AXI_SpaceWire_IP:1.0'. The one found in IP location '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0' will take precedence over the same IP in location /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/user.org_user_AXI_SpaceWire_IP_1.0
+Command: link_design -top AXI_SpaceWire_IP_v1_0 -part xc7a35tcpg236-1
+Design is defaulting to srcset: sources_1
+Design is defaulting to constrset: constrs_1
+INFO: [Device 21-403] Loading part xc7a35tcpg236-1
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3157.367 ; gain = 0.000 ; free physical = 1319 ; free virtual = 6825
+INFO: [Netlist 29-17] Analyzing 56 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2022.1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 3157.367 ; gain = 0.000 ; free physical = 1235 ; free virtual = 6742
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 2 instances were transformed.
+  RAM16X1D => RAM32X1D (RAMD32(x2)): 2 instances
+
+9 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
+link_design completed successfully
+Command: opt_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a35t'
+Running DRC as a precondition to command opt_design
+
+Starting DRC Task
+INFO: [DRC 23-27] Running DRC with 8 threads
+INFO: [Project 1-461] DRC finished with 0 Errors
+INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
+
+Time (s): cpu = 00:00:00.7 ; elapsed = 00:00:00.45 . Memory (MB): peak = 3221.398 ; gain = 64.031 ; free physical = 1222 ; free virtual = 6729
+
+Starting Cache Timing Information Task
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Ending Cache Timing Information Task | Checksum: fed71c47
+
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3229.398 ; gain = 8.000 ; free physical = 816 ; free virtual = 6351
+
+Starting Logic Optimization Task
+
+Phase 1 Retarget
+INFO: [Opt 31-138] Pushed 1 inverter(s) to 1 load pin(s).
+INFO: [Opt 31-49] Retargeted 4 cell(s).
+Phase 1 Retarget | Checksum: 13e5bdea3
+
+Time (s): cpu = 00:00:00.09 ; elapsed = 00:00:00.05 . Memory (MB): peak = 3478.566 ; gain = 56.027 ; free physical = 575 ; free virtual = 6109
+INFO: [Opt 31-389] Phase Retarget created 2 cells and removed 4 cells
+
+Phase 2 Constant propagation
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Phase 2 Constant propagation | Checksum: 13e5bdea3
+
+Time (s): cpu = 00:00:00.1 ; elapsed = 00:00:00.05 . Memory (MB): peak = 3478.566 ; gain = 56.027 ; free physical = 575 ; free virtual = 6109
+INFO: [Opt 31-389] Phase Constant propagation created 0 cells and removed 0 cells
+
+Phase 3 Sweep
+Phase 3 Sweep | Checksum: a74bad28
+
+Time (s): cpu = 00:00:00.11 ; elapsed = 00:00:00.06 . Memory (MB): peak = 3478.566 ; gain = 56.027 ; free physical = 575 ; free virtual = 6109
+INFO: [Opt 31-389] Phase Sweep created 0 cells and removed 0 cells
+
+Phase 4 BUFG optimization
+Phase 4 BUFG optimization | Checksum: a74bad28
+
+Time (s): cpu = 00:00:00.13 ; elapsed = 00:00:00.08 . Memory (MB): peak = 3510.582 ; gain = 88.043 ; free physical = 574 ; free virtual = 6109
+INFO: [Opt 31-662] Phase BUFG optimization created 0 cells of which 0 are BUFGs and removed 0 cells.
+
+Phase 5 Shift Register Optimization
+INFO: [Opt 31-1064] SRL Remap converted 0 SRLs to 0 registers and converted 0 registers of register chains to 0 SRLs
+Phase 5 Shift Register Optimization | Checksum: a74bad28
+
+Time (s): cpu = 00:00:00.13 ; elapsed = 00:00:00.08 . Memory (MB): peak = 3510.582 ; gain = 88.043 ; free physical = 574 ; free virtual = 6109
+INFO: [Opt 31-389] Phase Shift Register Optimization created 0 cells and removed 0 cells
+
+Phase 6 Post Processing Netlist
+Phase 6 Post Processing Netlist | Checksum: a74bad28
+
+Time (s): cpu = 00:00:00.13 ; elapsed = 00:00:00.08 . Memory (MB): peak = 3510.582 ; gain = 88.043 ; free physical = 574 ; free virtual = 6109
+INFO: [Opt 31-389] Phase Post Processing Netlist created 0 cells and removed 0 cells
+Opt_design Change Summary
+=========================
+
+
+-------------------------------------------------------------------------------------------------------------------------
+|  Phase                        |  #Cells created  |  #Cells Removed  |  #Constrained objects preventing optimizations  |
+-------------------------------------------------------------------------------------------------------------------------
+|  Retarget                     |               2  |               4  |                                              0  |
+|  Constant propagation         |               0  |               0  |                                              0  |
+|  Sweep                        |               0  |               0  |                                              0  |
+|  BUFG optimization            |               0  |               0  |                                              0  |
+|  Shift Register Optimization  |               0  |               0  |                                              0  |
+|  Post Processing Netlist      |               0  |               0  |                                              0  |
+-------------------------------------------------------------------------------------------------------------------------
+
+
+
+Starting Connectivity Check Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3510.582 ; gain = 0.000 ; free physical = 574 ; free virtual = 6108
+Ending Logic Optimization Task | Checksum: cae1602c
+
+Time (s): cpu = 00:00:00.15 ; elapsed = 00:00:00.1 . Memory (MB): peak = 3510.582 ; gain = 88.043 ; free physical = 574 ; free virtual = 6108
+
+Starting Power Optimization Task
+INFO: [Pwropt 34-132] Skipping clock gating for clocks with a period < 2.00 ns.
+INFO: [Pwropt 34-9] Applying IDT optimizations ...
+INFO: [Pwropt 34-10] Applying ODC optimizations ...
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+WARNING: [Power 33-232] No user defined clocks were found in the design! Power estimation will be inaccurate until this is corrected.
+Resolution: Please specify clocks using create_clock/create_generated_clock for sequential elements. For pure combinatorial circuits, please specify a virtual clock, otherwise the vectorless estimation might be inaccurate
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+
+
+Starting PowerOpt Patch Enables Task
+INFO: [Pwropt 34-162] WRITE_MODE attribute of 0 BRAM(s) out of a total of 2 has been updated to save power. Run report_power_opt to get a complete listing of the BRAMs updated.
+INFO: [Pwropt 34-201] Structural ODC has moved 0 WE to EN ports
+Number of BRAM Ports augmented: 0 newly gated: 0 Total Ports: 4
+Ending PowerOpt Patch Enables Task | Checksum: cae1602c
+
+Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 3779.363 ; gain = 0.000 ; free physical = 568 ; free virtual = 6111
+Ending Power Optimization Task | Checksum: cae1602c
+
+Time (s): cpu = 00:00:00.63 ; elapsed = 00:00:00.51 . Memory (MB): peak = 3779.363 ; gain = 268.781 ; free physical = 572 ; free virtual = 6115
+
+Starting Final Cleanup Task
+Ending Final Cleanup Task | Checksum: cae1602c
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3779.363 ; gain = 0.000 ; free physical = 572 ; free virtual = 6116
+
+Starting Netlist Obfuscation Task
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3779.363 ; gain = 0.000 ; free physical = 572 ; free virtual = 6116
+Ending Netlist Obfuscation Task | Checksum: cae1602c
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3779.363 ; gain = 0.000 ; free physical = 572 ; free virtual = 6116
+INFO: [Common 17-83] Releasing license: Implementation
+31 Infos, 2 Warnings, 0 Critical Warnings and 0 Errors encountered.
+opt_design completed successfully
+opt_design: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 3779.363 ; gain = 621.996 ; free physical = 572 ; free virtual = 6116
+INFO: [Common 17-1381] The checkpoint '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/impl_1/AXI_SpaceWire_IP_v1_0_opt.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_drc -file AXI_SpaceWire_IP_v1_0_drc_opted.rpt -pb AXI_SpaceWire_IP_v1_0_drc_opted.pb -rpx AXI_SpaceWire_IP_v1_0_drc_opted.rpx
+Command: report_drc -file AXI_SpaceWire_IP_v1_0_drc_opted.rpt -pb AXI_SpaceWire_IP_v1_0_drc_opted.pb -rpx AXI_SpaceWire_IP_v1_0_drc_opted.rpx
+INFO: [IP_Flow 19-1839] IP Catalog is up to date.
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [DRC 23-27] Running DRC with 8 threads
+INFO: [Vivado_Tcl 2-168] The results of DRC are in file /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/impl_1/AXI_SpaceWire_IP_v1_0_drc_opted.rpt.
+report_drc completed successfully
+Command: place_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a35t'
+INFO: [DRC 23-27] Running DRC with 8 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+Running DRC as a precondition to command place_design
+INFO: [DRC 23-27] Running DRC with 8 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+Starting Placer Task
+INFO: [Place 30-611] Multithreading enabled for place_design using a maximum of 8 CPUs
+
+Phase 1 Placer Initialization
+
+Phase 1.1 Placer Initialization Netlist Sorting
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3779.363 ; gain = 0.000 ; free physical = 516 ; free virtual = 6063
+Phase 1.1 Placer Initialization Netlist Sorting | Checksum: b2ff1138
+
+Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.02 . Memory (MB): peak = 3779.363 ; gain = 0.000 ; free physical = 516 ; free virtual = 6063
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3779.363 ; gain = 0.000 ; free physical = 516 ; free virtual = 6063
+
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device
+ERROR: [Place 30-415] IO Placement failed due to overutilization. This design contains 277 I/O ports
+ while the target  device: 7a35t package: cpg236, contains only 106 available user I/O. The target device has 106 usable I/O pins of which 0 are already occupied by user-locked I/Os.
+ To rectify this issue:
+ 1. Ensure you are targeting the correct device and package.  Select a larger device or different package if necessary.
+ 2. Check the top-level ports of the design to ensure the correct number of ports are specified.
+ 3. Consider design changes to reduce the number of I/Os necessary.
+WARNING: [Place 30-568] A LUT 'spwstream_inst/recv_inst/s_pulse_i_1' is driving clock pin of 1 registers. This could lead to large hold time violations. First few involved registers are:
+	s_pulse_reg {FDCE}
+ERROR: [Place 30-68] Instance clk_logic_IBUF_BUFG_inst (BUFG) is not placed
+ERROR: [Place 30-68] Instance clk_logic_IBUF_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance rst_logic_IBUF_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance rxclk_IBUF_BUFG_inst (BUFG) is not placed
+ERROR: [Place 30-68] Instance rxclk_IBUF_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_aclk_IBUF_BUFG_inst (BUFG) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_aclk_IBUF_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_araddr_IBUF[2]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_arburst_IBUF[0]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_arburst_IBUF[1]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_aresetn_IBUF_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_arid_IBUF[0]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_arlen_IBUF[0]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_arlen_IBUF[1]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_arlen_IBUF[2]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_arlen_IBUF[3]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_arlen_IBUF[4]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_arlen_IBUF[5]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_arlen_IBUF[6]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_arlen_IBUF[7]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_arready_OBUF_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_arvalid_IBUF_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_awaddr_IBUF[2]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_awburst_IBUF[0]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_awburst_IBUF[1]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_awid_IBUF[0]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_awlen_IBUF[0]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_awlen_IBUF[1]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_awlen_IBUF[2]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_awlen_IBUF[3]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_awlen_IBUF[4]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_awlen_IBUF[5]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_awlen_IBUF[6]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_awlen_IBUF[7]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_awready_OBUF_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_awvalid_IBUF_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_bid_OBUF[0]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_bready_IBUF_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_bresp_OBUF[0]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_bresp_OBUF[1]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_bvalid_OBUF_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[0]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[10]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[11]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[12]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[13]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[14]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[15]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[16]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[17]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[18]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[19]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[1]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[20]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[21]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[22]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[23]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[24]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[25]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[26]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[27]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[28]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[29]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[2]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[30]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[31]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[3]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[4]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[5]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[6]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[7]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[8]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rdata_OBUF[9]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rid_OBUF[0]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rlast_OBUF_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rready_IBUF_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rresp_OBUF[0]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rresp_OBUF[1]_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_rvalid_OBUF_inst (OBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[0]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[10]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[11]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[12]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[13]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[14]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[15]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[16]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[17]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[18]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[19]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[1]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[20]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[21]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[22]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[23]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[24]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[25]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[26]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[27]_inst (IBUF) is not placed
+ERROR: [Place 30-68] Instance s00_axi_tx_wdata_IBUF[28]_inst (IBUF) is not placed
+INFO: [Common 17-14] Message 'Place 30-68' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device | Checksum: 11ccc5a1
+
+Time (s): cpu = 00:00:00.6 ; elapsed = 00:00:00.4 . Memory (MB): peak = 3779.363 ; gain = 0.000 ; free physical = 545 ; free virtual = 6094
+Phase 1 Placer Initialization | Checksum: 11ccc5a1
+
+Time (s): cpu = 00:00:00.6 ; elapsed = 00:00:00.4 . Memory (MB): peak = 3779.363 ; gain = 0.000 ; free physical = 545 ; free virtual = 6094
+ERROR: [Place 30-99] Placer failed with error: 'IO Clock Placer failed'
+Please review all ERROR, CRITICAL WARNING, and WARNING messages during placement to understand the cause for failure.
+Ending Placer Task | Checksum: 11ccc5a1
+
+Time (s): cpu = 00:00:00.61 ; elapsed = 00:00:00.4 . Memory (MB): peak = 3779.363 ; gain = 0.000 ; free physical = 545 ; free virtual = 6094
+INFO: [Common 17-83] Releasing license: Implementation
+47 Infos, 3 Warnings, 0 Critical Warnings and 103 Errors encountered.
+place_design failed
+ERROR: [Common 17-69] Command failed: Placer could not place all instances
+INFO: [Common 17-206] Exiting Vivado at Fri Sep 30 12:20:32 2022...

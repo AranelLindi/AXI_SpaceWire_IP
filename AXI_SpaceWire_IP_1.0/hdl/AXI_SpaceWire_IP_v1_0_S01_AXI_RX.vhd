@@ -638,28 +638,28 @@ begin
 
     -- Combinatorial logic for fifo data input. Responsible if data has to be changed/adjusted before
     -- being output to AXI bus. Fifo data output is saved into s_fifo_do_buffer.
-    rd_0 : process(s_fifo_do_buffer)
-        variable do : std_logic_vector(8 downto 0);
-    begin
-        -- Destinction based on flag bit (8)
-        if s_fifo_do_buffer(8) = '1' then
-            -- HIGH flag (EOP, ...)
-            case s_fifo_do_buffer(7 downto 0) is
-                when "00000000" => -- EOP
-                    do := "111111111";
-                when "00000001" => -- EEP
-                    do := "111111110";
-                when others => -- Process ID
-                    do := '1' & s_fifo_do_buffer(7 downto 0);
-            end case;
-        else
-            -- LOW flag (Data byte -> N-Char)
-            do := '0' & s_fifo_do_buffer(7 downto 0);
-        end if;
+--    rd_0 : process(s_fifo_do_buffer)
+--        variable do : std_logic_vector(8 downto 0);
+--    begin
+--        -- Destinction based on flag bit (8)
+--        if s_fifo_do_buffer(8) = '1' then
+--            -- HIGH flag (EOP, ...)
+--            case s_fifo_do_buffer(7 downto 0) is
+--                when "00000000" => -- EOP
+--                    do := "111111111";
+--                when "00000001" => -- EEP
+--                    do := "111111110";
+--                when others => -- Process ID
+--                    do := '1' & s_fifo_do_buffer(7 downto 0);
+--            end case;
+--        else
+--            -- LOW flag (Data byte -> N-Char)
+--            do := '0' & s_fifo_do_buffer(7 downto 0);
+--        end if;
 
-        -- Assert modified data to axi output.
-        s_fifo_do(8 downto 0) <= do;
-    end process rd_0;
+--        -- Assert modified data to axi output.
+--        s_fifo_do(8 downto 0) <= do;
+--    end process rd_0;
 
 
     -- Combinatorial process that asserts or deasserts the rden signal
@@ -776,7 +776,7 @@ begin
         port map (
             ALMOSTEMPTY => s_fifo_almostempty,   -- 1-bit output almost empty
             ALMOSTFULL => s_fifo_almostfull,     -- 1-bit output almost full
-            DO => s_fifo_do_buffer(8 downto 0),  -- Output data, width defined by DATA_WIDTH parameter
+            DO => s_fifo_do(8 downto 0),  -- Output data, width defined by DATA_WIDTH parameter
             EMPTY => s_fifo_empty,               -- 1-bit output empty
             FULL => s_fifo_full,                 -- 1-bit output full
             RDCOUNT => s_fifo_rdcount,           -- Output read count, width determined by FIFO depth
