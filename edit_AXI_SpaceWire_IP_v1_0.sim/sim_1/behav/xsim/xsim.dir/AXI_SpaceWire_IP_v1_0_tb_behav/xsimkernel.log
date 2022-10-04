@@ -2,3 +2,6 @@ Running: xsim.dir/AXI_SpaceWire_IP_v1_0_tb_behav/xsimk -simmode gui -wdb AXI_Spa
 Design successfully loaded
 Design Loading Memory Usage: 29820 KB (Peak: 29828 KB)
 Design Loading CPU Usage: 20 ms
+Simulation completed
+Simulation Memory Usage: 119756 KB (Peak: 169088 KB)
+Simulation CPU Usage: 100 ms
