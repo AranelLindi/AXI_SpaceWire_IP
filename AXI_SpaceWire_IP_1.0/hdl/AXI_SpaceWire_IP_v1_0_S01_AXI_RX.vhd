@@ -249,8 +249,8 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S01_AXI_RX is
 
     -- Available elements register signals.
     signal s_fifo_elements_reg : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-    signal s_rdcounter : integer range 0 to c_fifo_size - 1 := 0;
-    
+    signal s_rdcounter : unsigned(maximum(s_fifo_rdcount'length-1, s_fifo_wrcount'length-1) downto 0);--integer range 0 to c_fifo_size - 1 := 0;
+
     -- Spwwrapper declarations.
     type spwwrapperstates is (S_Idle, S_Operation);
     signal spwwrapperstate : spwwrapperstates := S_Idle;
@@ -642,28 +642,28 @@ begin
 
     -- Combinatorial logic for fifo data input. Responsible if data has to be changed/adjusted before
     -- being output to AXI bus. Fifo data output is saved into s_fifo_do_buffer.
---    rd_0 : process(s_fifo_do_buffer)
---        variable do : std_logic_vector(8 downto 0);
---    begin
---        -- Destinction based on flag bit (8)
---        if s_fifo_do_buffer(8) = '1' then
---            -- HIGH flag (EOP, ...)
---            case s_fifo_do_buffer(7 downto 0) is
---                when "00000000" => -- EOP
---                    do := "111111111";
---                when "00000001" => -- EEP
---                    do := "111111110";
---                when others => -- Process ID
---                    do := '1' & s_fifo_do_buffer(7 downto 0);
---            end case;
---        else
---            -- LOW flag (Data byte -> N-Char)
---            do := '0' & s_fifo_do_buffer(7 downto 0);
---        end if;
+    --    rd_0 : process(s_fifo_do_buffer)
+    --        variable do : std_logic_vector(8 downto 0);
+    --    begin
+    --        -- Destinction based on flag bit (8)
+    --        if s_fifo_do_buffer(8) = '1' then
+    --            -- HIGH flag (EOP, ...)
+    --            case s_fifo_do_buffer(7 downto 0) is
+    --                when "00000000" => -- EOP
+    --                    do := "111111111";
+    --                when "00000001" => -- EEP
+    --                    do := "111111110";
+    --                when others => -- Process ID
+    --                    do := '1' & s_fifo_do_buffer(7 downto 0);
+    --            end case;
+    --        else
+    --            -- LOW flag (Data byte -> N-Char)
+    --            do := '0' & s_fifo_do_buffer(7 downto 0);
+    --        end if;
 
---        -- Assert modified data to axi output.
---        s_fifo_do(8 downto 0) <= do;
---    end process rd_0;
+    --        -- Assert modified data to axi output.
+    --        s_fifo_do(8 downto 0) <= do;
+    --    end process rd_0;
 
 
     -- Combinatorial process that asserts or deasserts the rden signal
@@ -671,7 +671,11 @@ begin
     rd_1 : process(S_AXI_RREADY, axi_rvalid, s_fifo_empty)
     begin
         if S_AXI_RREADY = '1' and axi_rvalid = '1' and s_fifo_empty = '0' then
-            s_fifo_rden <= '1';
+            if axi_araddr(ADDR_LSB+OPT_MEM_ADDR_BITS downto ADDR_LSB) = "0" then
+                s_fifo_rden <= '1';
+            else
+                s_fifo_rden <= '0';
+            end if;
         else
             s_fifo_rden <= '0';
         end if;
@@ -682,11 +686,12 @@ begin
     -- s_fifo_rdcount is incremented twice (without rden is set to HIGH) if the fifo was previously empty and
     -- is being refilled, which means that result would deviate from true value by two.
     calc_0 : process(S_AXI_ACLK)
-        variable v : integer range 0 to c_fifo_size - 1 := 0;
+        --variable v : integer range 0 to c_fifo_size - 1 := 0;
+        variable v : unsigned(maximum(s_fifo_wrcount'length-1, s_fifo_rdcount'length-1) downto 0);
     begin
         if rst_logic = '1' then
             -- Asynchronous reset. (It is important here to make this async because period of S_AXI_ACLK may much longer that clk_logic !)
-            v := to_integer(unsigned(s_fifo_wrcount));
+            v := unsigned(s_fifo_wrcount);
 
             s_rdcounter <= v;
         elsif rising_edge(S_AXI_ACLK) then
@@ -702,51 +707,51 @@ begin
     -- Calculates number of elements in the fifo, taking into account the custom counter for rdcount.
     -- The calculated value is then written into a register.
     calc_1 : process(S_AXI_ACLK)
-        variable wrcount : integer range 0 to c_fifo_size - 1;
-        variable rdcount : integer range 0 to c_fifo_size - 1;
+        variable wrcount : unsigned(maximum(s_fifo_rdcount'length-1, s_fifo_wrcount'length-1) downto 0);--integer range 0 to c_fifo_size - 1;
+        variable rdcount : unsigned(maximum(s_fifo_rdcount'length-1, s_fifo_wrcount'length-1) downto 0);--integer range 0 to c_fifo_size - 1;
 
-        variable elements : integer range 0 to c_fifo_size - 1;
+        variable elements : unsigned(maximum(s_fifo_rdcount'length-1, s_fifo_wrcount'length-1) downto 0);--integer range 0 to c_fifo_size - 1;
     begin
         if rising_edge(S_AXI_ACLK) then
-            wrcount := to_integer(unsigned(s_fifo_wrcount));
+            wrcount := unsigned(s_fifo_wrcount);
             rdcount := s_rdcounter;
 
             elements := wrcount - rdcount;
 
-            s_fifo_elements_reg <= std_logic_vector(to_unsigned(elements, s_fifo_elements_reg'length));
+            s_fifo_elements_reg(elements'length-1 downto 0) <= std_logic_vector(elements);
         end if;
     end process calc_1;
 
 
     -- Wrapper for spwstream that takes care of data flow from spwstream to fifo.
---    spwwrapper : process(clk_logic)
---    begin
---        if rising_edge(clk_logic) then
---            if rst_logic = '1' then
---                -- Synchronous reset.
---                s_fifo_wren <= '0';
+    --    spwwrapper : process(clk_logic)
+    --    begin
+    --        if rising_edge(clk_logic) then
+    --            if rst_logic = '1' then
+    --                -- Synchronous reset.
+    --                s_fifo_wren <= '0';
 
---                rxread <= '0';
---            else
---                if s_fifo_full = '1' then
---                    -- fifo is full
---                    rxread <= '0';
---                    s_fifo_wren <= '0';
---                else
---                    -- fifo is not full
---                    if rxvalid = '1' and s_fifo_wren = '0' then
---                        s_fifo_di(8 downto 0) <= rxflag & rxdata;
---                        rxread <= '1';
---                        s_fifo_wren <= '1';
---                    else
---                        rxread <= '0';
---                        s_fifo_wren <= '0';
---                    end if;
---                end if;
---            end if;
---        end if;
---    end process spwwrapper;
-    
+    --                rxread <= '0';
+    --            else
+    --                if s_fifo_full = '1' then
+    --                    -- fifo is full
+    --                    rxread <= '0';
+    --                    s_fifo_wren <= '0';
+    --                else
+    --                    -- fifo is not full
+    --                    if rxvalid = '1' and s_fifo_wren = '0' then
+    --                        s_fifo_di(8 downto 0) <= rxflag & rxdata;
+    --                        rxread <= '1';
+    --                        s_fifo_wren <= '1';
+    --                    else
+    --                        rxread <= '0';
+    --                        s_fifo_wren <= '0';
+    --                    end if;
+    --                end if;
+    --            end if;
+    --        end if;
+    --    end process spwwrapper;
+
     -- Implemented to test if this kind of FSM is able to handle the problem that first n-char is not correctly written into fifo and last n-char is read twice. Problem: FSM slows process from 100 MHz down to 50 MHz (best case)
     spwwrapper_experimental : process(clk_logic)
         variable v_write : std_logic_vector(8 downto 0);
@@ -757,37 +762,37 @@ begin
                 -- Synchronous reset.
                 s_fifo_wren <= '0';
                 s_fifo_di <= (others => '0');
-                v_write := (others => '0');           
+                v_write := (others => '0');
                 rxread <= '0';
                 spwwrapperstate <= S_Idle;
             else
-                case spwwrapperstate is 
+                case spwwrapperstate is
                     when S_Idle =>
                         --rxread <= '0';
                         s_fifo_wren <= '0';
-                    
-                        if rxvalid = '1' then                            
+
+                        if rxvalid = '1' then
                             report to_string(rxflag & rxdata);
-                            
+
                             if rxflag = '1' then
                                 -- EOP/EEP/Process Id
                                 case rxdata is
                                     when "00000000" => -- EOP
                                         v_write := "111111111";
-                                        --openPacket := False; -- ... packet finished (planed)
-                                        --report "EOP";
-                                    
+                                    --openPacket := False; -- ... packet finished (planed)
+                                    --report "EOP";
+
                                     when "00000001" => -- EEP
                                         v_write := "111111110";
-                                        --openPacket := False; -- ... packet finished (unplaned)
-                                        --report "EEP";
-                                    
-                                    when others => -- Shouldn't not occur
+                                    --openPacket := False; -- ... packet finished (unplaned)
+                                    --report "EEP";
+
+                                    when others => -- Should not occur
                                         report "This shouldn't happen !";
                                         v_write := (others => '0');
                                         --report "Else";
                                 end case;
-                                
+
                                 openPacket := False;
                             else
                                 -- Data word (N-Char)
@@ -799,21 +804,21 @@ begin
                                     -- (inside an open packet)
                                     v_write := '0' & rxdata;
                                 end if;
-                                
+
                                 --report "NChar";
                             end if;
-                            
+
                             s_fifo_di(8 downto 0) <= v_write;
-                            
+
                             spwwrapperstate <= S_Operation;
                             rxread <= '1'; -- Testweise hier schon auf 1 gesetzt anstatt im nächsten Zustand (Simulation lief dann wie vorgesehen, allerdings warum?) Würde es erst im zweiten Stunden auf HIGH gesetzt, würde jedes empfangene Datenwort zweimal via report ausgegeben werden (Warum ?)
                         end if;
-                        
+
                     when S_Operation =>
                         if s_fifo_full = '0' then
                             rxread <= '0';
                             s_fifo_wren <= '1';
-                            
+
                             spwwrapperstate <= S_Idle;
                         end if;
                 end case;

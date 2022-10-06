@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Thu Oct  6 12:03:40 2022
+# Process ID: 101495
+# Current directory: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/impl_1
+# Command line: vivado -log AXI_SpaceWire_IP_v1_0.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source AXI_SpaceWire_IP_v1_0.tcl -notrace
+# Log file: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/impl_1/AXI_SpaceWire_IP_v1_0.vdi
+# Journal file: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/impl_1/vivado.jou
+# Running On: stl56jc-MS-7C95, OS: Linux, CPU Frequency: 400.000 MHz, CPU Physical cores: 12, Host memory: 14546 MB
+#-----------------------------------------------------------
+source AXI_SpaceWire_IP_v1_0.tcl -notrace

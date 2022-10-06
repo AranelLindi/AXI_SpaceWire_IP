@@ -242,13 +242,13 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
     signal s_fifo_di : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
     signal s_fifo_rden : std_logic := '0';
     signal s_fifo_wren : std_logic := '0';
-    
+
     -- Fifo constants declaration.
     constant c_fifo_size : integer := (2 ** s_fifo_wrcount'length); -- 2048 (2**11)
 
     -- Available fifo space register signals.
-    signal s_fifo_space_reg : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);    
-    signal s_rdcounter : integer range 0 to c_fifo_size - 1 := 0;    
+    signal s_fifo_space_reg : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+    signal s_rdcounter : integer range 0 to c_fifo_size - 1 := 0;
 
     -- AXI4FULL signals
     signal axi_awaddr	: std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
@@ -659,25 +659,25 @@ begin
 
 
     -- Hat funktioniert! (Mal in Reserve behalten für alle Fälle!)
---    process(s_fifo_rden, s_fifo_empty)
---        variable v : integer range 0 to c_fifo_size -1 := 0;
---    begin
---        if s_fifo_empty = '1' then
---            -- Asynchronous reset.
---            v := to_integer(unsigned(s_fifo_wrcount));
---        elsif rising_edge(s_fifo_rden) then -- works only if rden is not hold 
---            v := v + 1;
---        end if;
-        
---        s_rdcounter <= v;
---    end process;
+    --    process(s_fifo_rden, s_fifo_empty)
+    --        variable v : integer range 0 to c_fifo_size -1 := 0;
+    --    begin
+    --        if s_fifo_empty = '1' then
+    --            -- Asynchronous reset.
+    --            v := to_integer(unsigned(s_fifo_wrcount));
+    --        elsif rising_edge(s_fifo_rden) then -- works only if rden is not hold 
+    --            v := v + 1;
+    --        end if;
 
-    
+    --        s_rdcounter <= v;
+    --    end process;
+
+
     -- Custom rdcount counter that takes the FWFT option into account and only counts clock cycles when rden=1
     -- s_fifo_rdcount is incremented twice (without rden is set to HIGH) if the fifo was previously empty and 
     -- is being refilled, which means that result would deviate from true value by two.
     calc_0 : process(clk_logic)
-        variable v : integer range 0 to c_fifo_size - 1 := 0; 
+        variable v : integer range 0 to c_fifo_size - 1 := 0;
     begin
         if rising_edge(clk_logic) then
             if s_axi_areseth = '1' then
@@ -688,27 +688,27 @@ begin
                     v := v + 1;
                 end if;
             end if;
-        
+
             s_rdcounter <= v;
         end if;
     end process calc_0;
-    
-    
+
+
     -- Calculates available space in the fifo, taking into account the custom counter for rdcount.
     -- The calculated value is then written into a register.
     calc_1 : process(S_AXI_ACLK)
         variable wrcount : integer range 0 to c_fifo_size - 1;
         variable rdcount : integer range 0 to c_fifo_size - 1;
-        
+
         variable size : integer range 0 to c_fifo_size - 1;
     begin
         if rising_edge(S_AXI_ACLK) then
             wrcount := to_integer(unsigned(s_fifo_wrcount));
             rdcount := s_rdcounter;
-        
+
             size := c_fifo_size -1 - wrcount + rdcount;
-            
-            s_fifo_space_reg <= std_logic_vector(to_unsigned(size, s_fifo_space_reg'length)); 
+
+            s_fifo_space_reg <= std_logic_vector(to_unsigned(size, s_fifo_space_reg'length));
         end if;
     end process calc_1;
 
@@ -723,7 +723,11 @@ begin
                 s_fifo_wren <= '0';
             else
                 if S_AXI_WVALID = '1' and axi_wready = '1' then -- sehr gefährlich... ist vermutlich oft länger als einen takt HIGH (also beides) (hat bisher aber funktioniert, mal gut testen!!)
-                    s_fifo_wren <= '1';
+                    if axi_awaddr(ADDR_LSB+OPT_MEM_ADDR_BITS downto ADDR_LSB) = "0" then
+                        s_fifo_wren <= '1';
+                    else
+                        s_fifo_wren <= '0';
+                    end if;
                 else
                     s_fifo_wren <= '0';
                 end if;

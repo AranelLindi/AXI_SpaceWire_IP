@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "/home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/AXI_SpaceWire_IP_v1_0.tcl"
+  variable script "/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/AXI_SpaceWire_IP_v1_0.tcl"
   variable category "vivado_synth"
 }
 
@@ -70,38 +70,39 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param chipscope.maxJobs 3
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a35tcpg236-1
 
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_property webtalk.parent_dir /home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.cache/wt [current_project]
-set_property parent.project_path /home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.xpr [current_project]
+set_property webtalk.parent_dir /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.cache/wt [current_project]
+set_property parent.project_path /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.xpr [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language VHDL [current_project]
-set_property ip_repo_paths /home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0 [current_project]
+set_property ip_repo_paths /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0 [current_project]
 update_ip_catalog
-set_property ip_output_repo /home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.cache/ip [current_project]
+set_property ip_output_repo /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_vhdl -library xil_defaultlib {
-  /home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwpkg.vhd
-  /home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd
-  /home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd
-  /home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwlink.vhd
-  /home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd
-  /home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecv.vhd
-  /home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd
-  /home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_generic.vhd
-  /home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd
-  /home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit.vhd
-  /home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd
-  /home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd
-  /home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd
+  /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwpkg.vhd
+  /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd
+  /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd
+  /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwlink.vhd
+  /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd
+  /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecv.vhd
+  /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd
+  /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_generic.vhd
+  /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd
+  /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit.vhd
+  /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd
+  /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd
+  /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd
 }
-read_vhdl -vhdl2008 -library xil_defaultlib /home/aranel/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+read_vhdl -vhdl2008 -library xil_defaultlib /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
@@ -113,7 +114,7 @@ foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
 }
 set_param ips.enableIPCacheLiteLoad 1
 
-read_checkpoint -auto_incremental -incremental /home/aranel/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/utils_1/imports/synth_1/AXI_SpaceWire_IP_v1_0.dcp
+read_checkpoint -auto_incremental -incremental /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/utils_1/imports/synth_1/AXI_SpaceWire_IP_v1_0.dcp
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
