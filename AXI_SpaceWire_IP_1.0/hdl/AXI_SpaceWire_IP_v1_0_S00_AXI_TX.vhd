@@ -249,6 +249,10 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
     -- Available fifo space register signals.
     signal s_fifo_space_reg : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
     signal s_rdcounter : integer range 0 to c_fifo_size - 1 := 0;
+    
+    -- Spwwrapper declarations.
+    type spwwrapperstates is (S_Idle, S_Operation);
+    signal spwwrapperstate : spwwrapperstates := S_Idle;
 
     -- AXI4FULL signals
     signal axi_awaddr	: std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
@@ -562,9 +566,6 @@ begin
         mem_wren <= axi_wready and S_AXI_WVALID ;
         mem_rden <= axi_arv_arr_flag ;
 
-        -- Set fifo write enable signal depending on valid axi write transaction.
-        --s_fifo_wren <= mem_wren;
-
         BYTE_BRAM_GEN : for mem_byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) generate
             signal byte_ram : BYTE_RAM_TYPE;
             signal data_in  : std_logic_vector(8-1 downto 0);
@@ -573,15 +574,15 @@ begin
             --assigning 8 bit data
             data_in  <= S_AXI_WDATA(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
             --data_out <= byte_ram(to_integer(unsigned(mem_address)));
-
-
-            process(mem_address)
-            begin
-                case mem_address is
-                    when "0" => data_out <= s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
-                    when others => data_out <= data_out;--(others => '0'); -- evtl. "null" besser?
-                end case;
-            end process;
+            --data_out <= s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) when mem_address = "0" else data_out;
+            
+--            process(mem_address)
+--            begin
+--                case mem_address is
+--                    when "0" => data_out <= s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
+--                    when others => data_out <= data_out;--(others => '0'); -- evtl. "null" besser?
+--                end case;
+--            end process;
 
 
             -- Memory write process.
@@ -610,12 +611,12 @@ begin
             begin
                 if ( rising_edge (S_AXI_ACLK) ) then
                     if ( mem_rden = '1' ) then
-                        mem_data_out(i)((mem_byte_index*8+7) downto mem_byte_index*8) <= data_out;
+                        --mem_data_out(i)((mem_byte_index*8+7) downto mem_byte_index*8) <= data_out;
                         -- Memory address differentation. (probably not needed)
                         case mem_address is
-                            when "0" =>
+                            when "0" => -- FIFO access
                                 mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
-                            when "1" =>
+                            when "1" => -- Space Register
                                 mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= s_fifo_space_reg(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
                             when others => -- only need for simulation !
                                 mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
@@ -634,7 +635,7 @@ begin
         if (axi_rvalid = '1') then
             -- When there is a valid read address (S_AXI_ARVALID) with 
             -- acceptance of read address by the slave (axi_arready), 
-            -- output the read dada 
+            -- output the read data 
             axi_rdata <= mem_data_out(0);  -- memory range 0 read data
         else
             axi_rdata <= (others => '0');
@@ -684,7 +685,7 @@ begin
                 -- Synchronous reset.
                 v := to_integer(unsigned(s_fifo_wrcount));
             else
-                if s_fifo_rden = '1' then
+                if s_fifo_rden = '1' and s_fifo_full = '0' then
                     v := v + 1;
                 end if;
             end if;
@@ -736,39 +737,90 @@ begin
     end process wr_0;
 
 
-    -- Wrapper for spwstream that takes care of data flow from fifo to spwstream.
-    spwwrapper : process(clk_logic)
+    spwwrapper_experimental : process(clk_logic)
     begin
         if rising_edge(clk_logic) then
-            if s_axi_areseth = '1' then -- It is important that rden is deasserted during fifo reset (WRCLK is S_AXI_ACLK) so axi reset signal is neccessary here !
+            if s_axi_areseth = '1' then
                 -- Synchronous reset.
                 s_fifo_rden <= '0';
-
+                
                 txdata <= (others => '0');
                 txflag <= '0';
                 txwrite <= '0';
+                spwwrapperstate <= S_Idle;
             else
-                if s_fifo_empty = '1' then
-                    -- fifo is empty
-                    txwrite <= '0';
-                    s_fifo_rden <= '0';
-                else
-                    -- fifo is not empty
-                    if txrdy = '1' and s_fifo_rden = '0' then -- It is very important that rden is asserted only for one clock cycle since the fifo needs another cycle to put next element on data output. Otherwise same word would be sent twice ! 
-                        -- spwstream is ready to accept new transmit data
-                        txdata <= s_fifo_do(7 downto 0);
-                        txflag <= s_fifo_do(8);
-                        txwrite <= '1';
-                        s_fifo_rden <= '1';
-                    else
-                        -- spwstream is not ready to accept new transmit data
-                        txwrite <= '0';
+                case spwwrapperstate is
+                    when S_Idle =>
                         s_fifo_rden <= '0';
-                    end if;
-                end if;
+                        txwrite <= '0';
+                        
+                        if txrdy = '1' then
+                            txdata <= s_fifo_do(7 downto 0);
+                            txflag <= s_fifo_do(8);
+                            txwrite <= '0';
+                            
+                            spwwrapperstate <= S_Operation;
+                        end if;
+                    
+                    when S_Operation =>
+                        if s_fifo_empty = '0' then
+                            txwrite <= '1';
+                            s_fifo_rden <= '1';
+                            
+                            spwwrapperstate <= S_Idle;
+                        end if;
+                    
+                end case;
             end if;
         end if;
-    end process spwwrapper;
+    end process;
+    
+--    process(clk_logic)
+--    begin
+--        if rising_edge(clk_logic) then
+--            if txwrite = '1' then
+--                report to_string(txflag & txdata);
+--            end if;
+--        end if;
+--    end process;
+
+    -- Wrapper for spwstream that takes care of data flow from fifo to spwstream.
+--    spwwrapper : process(clk_logic)
+--    begin
+--        if rising_edge(clk_logic) then
+--            if s_axi_areseth = '1' then -- It is important that rden is deasserted during fifo reset (WRCLK is S_AXI_ACLK) so axi reset signal is neccessary here !
+--                -- Synchronous reset.
+--                s_fifo_rden <= '0';
+
+--                txdata <= (others => '0');
+--                txflag <= '0';
+--                txwrite <= '0';
+--            else
+--                if s_fifo_empty = '1' then
+--                    -- fifo is empty
+--                    txdata <= (others => '0');
+--                    txflag <= '0';
+--                    txwrite <= '0';
+--                    s_fifo_rden <= '0';
+--                else
+--                    -- fifo is not empty
+--                    if txrdy = '1' and s_fifo_rden = '0' then -- It is very important that rden is asserted only for one clock cycle since the fifo needs another cycle to put next element on data output. Otherwise same word would be sent twice ! 
+--                        -- spwstream is ready to accept new transmit data
+--                        txdata <= s_fifo_do(7 downto 0);
+--                        txflag <= s_fifo_do(8);
+--                        txwrite <= '1';
+--                        s_fifo_rden <= '1';
+--                    else
+--                        -- spwstream is not ready to accept new transmit data
+--                        txdata <= (others => '0');
+--                        txflag <= '0';
+--                        txwrite <= '0';
+--                        s_fifo_rden <= '0';
+--                    end if;
+--                end if;
+--            end if;
+--        end if;
+--    end process spwwrapper;
 
 
     -- FIFO_DUALCLOCK_MACRO: Dual-Clock First-In, First-Out (FIFO) RAM Buffer

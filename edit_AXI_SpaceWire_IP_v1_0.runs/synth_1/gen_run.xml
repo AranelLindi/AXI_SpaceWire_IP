@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1665050590" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/AXI_SpaceWire_IP_v1_0.dcp">
-  <File Type="VDS-TIMINGSUMMARY" Name="AXI_SpaceWire_IP_v1_0_timing_summary_synth.rpt"/>
+<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1665496163" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/AXI_SpaceWire_IP_v1_0.dcp">
   <File Type="RDS-DCP" Name="AXI_SpaceWire_IP_v1_0.dcp"/>
   <File Type="RDS-UTIL-PB" Name="AXI_SpaceWire_IP_v1_0_utilization_synth.pb"/>
-  <File Type="RDS-UTIL" Name="AXI_SpaceWire_IP_v1_0_utilization_synth.rpt"/>
-  <File Type="RDS-PROPCONSTRS" Name="AXI_SpaceWire_IP_v1_0_drc_synth.rpt"/>
-  <File Type="RDS-RDS" Name="AXI_SpaceWire_IP_v1_0.vds"/>
-  <File Type="REPORTS-TCL" Name="AXI_SpaceWire_IP_v1_0_reports.tcl"/>
-  <File Type="VDS-TIMING-PB" Name="AXI_SpaceWire_IP_v1_0_timing_summary_synth.pb"/>
   <File Type="PA-TCL" Name="AXI_SpaceWire_IP_v1_0.tcl"/>
+  <File Type="RDS-UTIL" Name="AXI_SpaceWire_IP_v1_0_utilization_synth.rpt"/>
+  <File Type="REPORTS-TCL" Name="AXI_SpaceWire_IP_v1_0_reports.tcl"/>
+  <File Type="RDS-RDS" Name="AXI_SpaceWire_IP_v1_0.vds"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PPRDIR/AXI_SpaceWire_IP_1.0/src/spwpkg.vhd">

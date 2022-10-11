@@ -1,41 +1,61 @@
 Time resolution is 1 ps
-Failure: DRC Error : The attribute ALMOST_FULL_OFFSET on FIFO18E1 is set to 2040. It must be set to a value smaller than (FIFO_DEPTH - ((roundup (4 * (WRCLK frequency / RDCLK frequency))) + 6)) when FIFO18E1 has different frequencies for RDCLK and WRCLK.
-Time: 4515 ns  Iteration: 3  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/FIFO_DUALCLOCK_MACRO_inst_TX/bl/fifo_18_inst_bl/fifo_18_bl/FIFO18E1_inst/prcs_check_almost_rdclk  File: /tools/Xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/FIFO18E1.vhd
-$finish called at time : 4515 ns
-Note: Start AXI4 Full Write...
-Time: 5025 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_TX  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
-Note: i is 0
-Time: 5130 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_TX  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
-Note: i is 1
-Time: 5160 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_TX  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
-Note: i is 2
-Time: 5190 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_TX  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
-Note: i is 3
-Time: 5220 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_TX  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
-Note: AXI4 Full Write Done!
-Time: 5250 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_TX  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
-Failure: DRC Error : The attribute ALMOST_FULL_OFFSET on FIFO18E1 is set to 2040. It must be set to a value smaller than (FIFO_DEPTH - ((roundup (4 * (WRCLK frequency / RDCLK frequency))) + 6)) when FIFO18E1 has different frequencies for RDCLK and WRCLK.
-Time: 9045 ns  Iteration: 3  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/FIFO_DUALCLOCK_MACRO_inst_TX/bl/fifo_18_inst_bl/fifo_18_bl/FIFO18E1_inst/prcs_check_almost_rdclk  File: /tools/Xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/FIFO18E1.vhd
-$finish called at time : 9045 ns
-Failure: DRC Error : The attribute ALMOST_FULL_OFFSET on FIFO18E1 is set to 2040. It must be set to a value smaller than (FIFO_DEPTH - ((roundup (4 * (WRCLK frequency / RDCLK frequency))) + 6)) when FIFO18E1 has different frequencies for RDCLK and WRCLK.
-Time: 13575 ns  Iteration: 3  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/FIFO_DUALCLOCK_MACRO_inst_TX/bl/fifo_18_inst_bl/fifo_18_bl/FIFO18E1_inst/prcs_check_almost_rdclk  File: /tools/Xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/FIFO18E1.vhd
-$finish called at time : 13575 ns
-Failure: DRC Error : The attribute ALMOST_FULL_OFFSET on FIFO18E1 is set to 2040. It must be set to a value smaller than (FIFO_DEPTH - ((roundup (4 * (WRCLK frequency / RDCLK frequency))) + 6)) when FIFO18E1 has different frequencies for RDCLK and WRCLK.
-Time: 18105 ns  Iteration: 3  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/FIFO_DUALCLOCK_MACRO_inst_TX/bl/fifo_18_inst_bl/fifo_18_bl/FIFO18E1_inst/prcs_check_almost_rdclk  File: /tools/Xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/FIFO18E1.vhd
-$finish called at time : 18105 ns
-Note: 011110000
-Time: 22375 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/spwwrapper_experimental  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
-Note: 011111111
-Time: 22515 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/spwwrapper_experimental  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
-Note: 000001111
-Time: 22615 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/spwwrapper_experimental  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
-Failure: DRC Error : The attribute ALMOST_FULL_OFFSET on FIFO18E1 is set to 2040. It must be set to a value smaller than (FIFO_DEPTH - ((roundup (4 * (WRCLK frequency / RDCLK frequency))) + 6)) when FIFO18E1 has different frequencies for RDCLK and WRCLK.
-Time: 22635 ns  Iteration: 3  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/FIFO_DUALCLOCK_MACRO_inst_TX/bl/fifo_18_inst_bl/fifo_18_bl/FIFO18E1_inst/prcs_check_almost_rdclk  File: /tools/Xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/FIFO18E1.vhd
-$finish called at time : 22635 ns
-Note: 100000000
-Time: 22655 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/spwwrapper_experimental  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
-Note: Start AXI4 Full Read...
-Time: 25065 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_RX  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
-Failure: DRC Error : The attribute ALMOST_FULL_OFFSET on FIFO18E1 is set to 2040. It must be set to a value smaller than (FIFO_DEPTH - ((roundup (4 * (WRCLK frequency / RDCLK frequency))) + 6)) when FIFO18E1 has different frequencies for RDCLK and WRCLK.
-Time: 27165 ns  Iteration: 3  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/FIFO_DUALCLOCK_MACRO_inst_TX/bl/fifo_18_inst_bl/fifo_18_bl/FIFO18E1_inst/prcs_check_almost_rdclk  File: /tools/Xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/FIFO18E1.vhd
-$finish called at time : 27165 ns
+Note: Number of elements in TX FIFO: 00000000000000000000000000000000
+Time: 10770 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_common  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: 0
+Time: 10920 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_common  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: 1
+Time: 11100 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_common  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: 2
+Time: 11280 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_common  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: 3
+Time: 11460 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_common  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: 4
+Time: 11640 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_common  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: 5
+Time: 11820 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_common  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: 6
+Time: 12 us  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_common  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: 7
+Time: 12180 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_common  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: 8
+Time: 12360 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_common  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: 9
+Time: 12540 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_common  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: 10
+Time: 12720 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_common  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: Number of elements in TX FIFO: 00000000000000000000000000000000
+Time: 12930 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_common  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: Init device!
+Time: 12930 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_common  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: Number of elements in RX FIFO: 00000000000000000000000000000000
+Time: 13440 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_common  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: 000000000
+Time: 22645 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/spwwrapper_experimental  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: 000000000
+Time: 22925 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/spwwrapper_experimental  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: 000000001
+Time: 23125 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/spwwrapper_experimental  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: 000000010
+Time: 23325 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/spwwrapper_experimental  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: 000000011
+Time: 23525 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/spwwrapper_experimental  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: 000000100
+Time: 23725 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/spwwrapper_experimental  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: 000000101
+Time: 23925 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/spwwrapper_experimental  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: 000000110
+Time: 24125 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/spwwrapper_experimental  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: 000000111
+Time: 24325 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/spwwrapper_experimental  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: 000001000
+Time: 24525 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/spwwrapper_experimental  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: 000001001
+Time: 24725 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/dut/AXI_SpaceWire_IP_v1_0_S01_AXI_RX_inst/spwwrapper_experimental  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd
+Note: Number of elements in RX FIFO: 00000000000000000000000000000000
+Time: 43620 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_common  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: Number of elements in RX FIFO: 00000000000000000000000000000000
+Time: 44790 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_common  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: Number of elements in RX FIFO: 00000000000000000000000000000000
+Time: 46560 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_common  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+Note: ~~~ Testbench completed! ~~~
+Time: 47560 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_common  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd

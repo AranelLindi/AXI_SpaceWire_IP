@@ -599,9 +599,9 @@ begin
                     if ( mem_rden = '1') then
                         --mem_data_out(i)((mem_byte_index*8+7) downto mem_byte_index*8) <= data_out;
                         case mem_address is
-                            when "0" =>
+                            when "0" => -- FIFO access
                                 mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= s_fifo_do((mem_byte_index * 8 + 7 ) downto (( mem_byte_index * 8 )));
-                            when "1" =>
+                            when "1" => -- Elements register
                                 mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= s_fifo_elements_reg(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
                             when others => -- only need for simulation ! 
                                 mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) <= mem_data_out(i)(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
@@ -620,7 +620,7 @@ begin
         if (axi_rvalid = '1') then
             -- When there is a valid read address (S_AXI_ARVALID) with 
             -- acceptance of read address by the slave (axi_arready), 
-            -- output the read dada 
+            -- output the read data 
             axi_rdata <= mem_data_out(0);  -- memory range 0 read data
         else
             axi_rdata <= (others => '0');
@@ -686,20 +686,24 @@ begin
     -- s_fifo_rdcount is incremented twice (without rden is set to HIGH) if the fifo was previously empty and
     -- is being refilled, which means that result would deviate from true value by two.
     calc_0 : process(S_AXI_ACLK)
-        --variable v : integer range 0 to c_fifo_size - 1 := 0;
         variable v : unsigned(maximum(s_fifo_wrcount'length-1, s_fifo_rdcount'length-1) downto 0);
     begin
-        if rst_logic = '1' then
-            -- Asynchronous reset. (It is important here to make this async because period of S_AXI_ACLK may much longer that clk_logic !)
-            v := unsigned(s_fifo_wrcount);
+        if rising_edge(S_AXI_ACLK) then
+            if rst_logic = '1' then
+                -- ORIGINALLY here was asynchronous reset. Now changed to synchronous reset because: rst_logic must hold at least five write cycles to be valid (5*clk_logic_period >= clk_ps_period)
+                -- [Asynchronous reset. (It is important here to make this async because period of S_AXI_ACLK may much longer that clk_logic !)]
+                v := unsigned(s_fifo_wrcount);
 
-            s_rdcounter <= v;
-        elsif rising_edge(S_AXI_ACLK) then
-            if s_fifo_rden = '1' then
-                v := v + 1;
+                s_rdcounter <= v;
+            else
+                if s_fifo_rden = '1' and s_fifo_empty = '0' then
+                    v := v + 1;
+                else
+                    v := v;
+                end if;
+
+                s_rdcounter <= v;
             end if;
-
-            s_rdcounter <= v;
         end if;
     end process calc_0;
 
@@ -851,7 +855,7 @@ begin
     FIFO_DUALCLOCK_MACRO_inst_TX : FIFO_DUALCLOCK_MACRO
         generic map (
             DEVICE => "7SERIES",            -- Target Device: "VIRTEX5", "VIRTEX6", "7SERIES" 
-            ALMOST_FULL_OFFSET => x"7f8", -- 2041  -- Sets almost full threshold
+            ALMOST_FULL_OFFSET => x"3E8", -- 1000  -- Sets almost full threshold
             ALMOST_EMPTY_OFFSET => x"6", -- Sets the almost empty threshold
             DATA_WIDTH => 9,   -- Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
             FIFO_SIZE => "18Kb",            -- Target BRAM, "18Kb" or "36Kb" 

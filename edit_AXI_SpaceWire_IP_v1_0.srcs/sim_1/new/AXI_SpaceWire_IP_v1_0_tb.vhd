@@ -81,8 +81,8 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
     constant tximpl:         spw_implementation_type := impl_fast;
     constant rxfifosize_bits: integer range 6 to 14 := 11;
     constant txfifosize_bits: integer range 2 to 14 := 11;
-    
-    
+
+
     -- Array type definition (used for AXI4-Transfer procedures)
     type array_t is array(natural range <>) of std_logic_vector;
 
@@ -370,29 +370,66 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
     signal s02_axi_reg_rready: std_logic ;
 
     -- Testbench functions.
-    
+    procedure AXI4LiteWrite2(signal awaddr : out std_logic_vector; constant awaddr_val : in std_logic_vector; signal awvalid : out std_logic; signal awready : in std_logic; -- write address channel
+                             signal wdata : out std_logic_vector; constant wdata_val : in std_logic_vector; signal wstrb : out std_logic_vector; constant wstrb_val : in std_logic_vector; signal wvalid : out std_logic; signal wready : in std_logic; -- write data channel
+                             signal bready : out std_logic; signal bvalid : in std_logic) -- write response channel
+    is
+    begin
+        wait until rising_edge(clk_ps);
+
+        -- Asserting AXI4-Lite signals for write transfer.
+        -- Write Address Channel
+        awaddr <= awaddr_val;
+        awvalid <= '1'; -- Set master handshake signal for write address channel
+        -- Write Data Channel
+        wdata <= wdata_val;
+        wstrb <= wstrb_val;
+        wvalid <= '1'; -- Set master handshake signal for write data channel
+
+        wait until rising_edge(clk_ps) and awready = '1' and wready = '1'; -- wait for next rising_edge and check slave handshake signals
+        wait for ps_clock_period/2; -- wait a while before reset handshake...
+        bready <= '1';  -- Set slave handshake signal for write response channel
+        awvalid <= '0'; -- Reset handshake signal
+        wvalid <= '0'; -- Reset handshake signal
+
+        -- ... and channel signals
+        awaddr <= (others => '0');
+        awvalid <= '0';
+        wdata <= (others => '0');
+        wstrb <= (others => '0');
+
+        -- Write response handshake must be done last: same procedure
+        wait until rising_edge(clk_ps) and bvalid = '1';
+        wait for ps_clock_period/2;
+        bready <= '0'; -- Reset handshake signal
+    end procedure AXI4LiteWrite2;
+
     -- Creates single AXI4-Lite read transaction (rdata signal is updated automatically after this procedure)
     procedure AXI4LiteRead(signal araddr : out std_logic_vector; constant araddr_val : in std_logic_vector; signal arvalid : out std_logic; signal arready : in std_logic; -- read address channel
                            signal rready : out std_logic; signal rvalid : in std_logic) -- read data channel
-                           is
+    is
     begin
+        --report "Start AXI4LiteRead";
+
         wait until rising_edge(clk_ps); -- Simulate synchronous circuit
-    
+
         -- Asserting AXI4-Lite signals for read transfer.
         -- Read Address Channel
         araddr <= araddr_val;
         arvalid <= '1'; -- Set master handshake signal for read address channel
-        
+
         wait until rising_edge(clk_ps) and arready = '1';
         wait for ps_clock_period/2; -- wait a while before reset handshake...
         arvalid <= '0'; -- Reset handshake signal
-     
+
         -- Read Data Channel
-        rready <= '1';  
+        rready <= '1';
 
         wait until rising_edge(clk_ps) and rvalid = '1';
         wait for ps_clock_period/2; -- wait a while before reset handshake...
-        rready <= '0'; -- Reset handshake signal 
+        rready <= '0'; -- Reset handshake signal
+
+        --report "End AXI4LiteRead";
     end procedure AXI4LiteRead;
 
     -- Creates single AXI4-Lite write transaction
@@ -432,12 +469,13 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
 
     procedure AXI4FullRead(signal araddr : out std_logic_vector; constant araddr_val : in std_logic_vector; signal arlen : out std_logic_vector(7 downto 0); constant arlen_val : in std_logic_vector(7 downto 0); signal arburst : out std_logic_vector(1 downto 0); constant arburst_val : in std_logic_vector(1 downto 0); signal arvalid : out std_logic; signal arready : in std_logic; -- Read Address Channel
                            signal rlast : in std_logic; signal rvalid : in std_logic; signal rready : out std_logic -- Read Data Channel
-                           ) is
+                          ) is
         variable transfer_length : integer := to_integer(unsigned(arlen_val)) - 1;
     begin
+        --report "Start AXI4FullRead";
+
         wait until rising_edge(clk_ps);
-        report "Start AXI4 Full Read...";
-        
+
         -- Before starting transfer, drive control information that won't change during process.
         -- Read Address Channel
         araddr <= araddr_val;
@@ -445,55 +483,58 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
         arburst <= arburst_val;
 
         arvalid <= '1'; -- Set master handshake signal for read address channel
-        
+
         wait until rising_edge(clk_ps) and arready = '1';
         arvalid <= '0';
-        
+
         --wait for ps_clock_period;       
         rready <= '1';
-              
+
         -- Loop until rlast signal is HIGH
         while rlast = '0' loop
             --rready <= '1';
-        
+
             wait until rising_edge(clk_ps) and rvalid = '1';
             --wait for ps_clock_period/2;
-            
+
             --rready <= '0';
-            
+
             --wait for ps_clock_period/2;
         end loop;
-            
+
         wait until rising_edge(clk_ps);
         wait for ps_clock_period/2;
         --rready <= '0';
-        
+
         -- Burst transfer finished so reset all relevant signals.
         araddr <= (others => '0');
         arlen <= (others => '0');
         arburst <= (others => '0');
-        
+
         --arvalid <= '0';
         rready <= '0';
+
+        --report "End AXI4FullRead";
     end procedure AXI4FullRead;
 
     procedure AXI4FullWrite(signal awaddr : out std_logic_vector; constant awaddr_val : in std_logic_vector; signal awlen : out std_logic_vector(7 downto 0); constant awlen_val : in std_logic_vector(7 downto 0); signal awburst : out std_logic_vector(1 downto 0); constant awburst_val : in std_logic_vector(1 downto 0); signal awvalid : out std_logic; signal awready : in std_logic; -- write address channel
                             signal wdata : out std_logic_vector; constant wdata_val : in array_t; signal wstrb : out std_logic_vector; constant wstrb_val : in std_logic_vector; signal wlast : out std_logic; signal wvalid : out std_logic; signal wready : in std_logic; -- write data channel
                             signal bready : out std_logic; signal bvalid : in std_logic) -- write response channel
-                            is
+    is
         variable transfer_length : integer := to_integer(unsigned(awlen_val)) - 1;
     begin
+        --report "Start AXI4FullWrite";
+
         wait until rising_edge(clk_ps);
-        report "Start AXI4 Full Write...";
         -- Before starting transfer, drive control information that won't change during process.
         -- Write Address Channel
         awaddr <= awaddr_val;
         awlen <= awlen;
         awburst <= awburst;
         awvalid <= '1'; -- Set master handshake signal for write address channel
-        
+
         bready <= '1';
-        
+
         wait until rising_edge(clk_ps) and awready = '1';
         wait for ps_clock_period/2;
         awvalid <= '0';
@@ -502,28 +543,28 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
         for i in 0 to transfer_length loop
             wdata <= wdata_val(i);
             wstrb <= wstrb_val;
-            
+
             wlast <= '1' when i = transfer_length else '0';
-            
+
             --wait until rising_edge(clk_ps) and wready = '1';
             --wait for ps_clock_period/2;
-            
+
             --bready <= '1';
             --wvalid <= '0';
-            
+
             wait until rising_edge(clk_ps) and wready = '1';
             wait for ps_clock_period/2;
-            
+
             --bready <= '0';
-            
-            report "i is " & integer'image(i);
+
+            --report "i is " & integer'image(i);
         end loop;
-        
+
         --wait for ps_clock_period/2;
-        
+
         wait until rising_edge(clk_ps) and bvalid = '1';
         wait for ps_clock_period/2;
-        
+
         -- burst transfer finished, so reset all handshake & control signals.
         awaddr <= (others => '0');
         awlen <= (others => '0');
@@ -534,10 +575,9 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
         wvalid <= '0';
         wlast <= '0';
         bready <= '0';
-        
-        report "AXI4 Full Write Done!";
-    end procedure AXI4FullWrite;
 
+        --report "End AXI4FullWrite";
+    end procedure AXI4FullWrite;
 
 begin
     -- General assignments that won't change during simulation.
@@ -713,15 +753,110 @@ begin
             s02_axi_reg_rresp         => s02_axi_reg_rresp,
             s02_axi_reg_rvalid        => s02_axi_reg_rvalid,
             s02_axi_reg_rready        => s02_axi_reg_rready );
-            
-            
-    -- Stimulus for AXI4-Full-TX-Interface.
-    stimulus_TX: process
-        variable data : array_t(0 to 3)(31 downto 0);
+
+
+
+    stimulus_common : process
+        procedure AXI4LiteRead_REG(constant awaddr_val : in std_logic_vector) is
+        begin
+            --report "Start AXI4LiteRead_REG";
+
+            AXI4LiteRead(s02_axi_reg_araddr, awaddr_val,
+                         s02_axi_reg_arvalid,
+                         s02_axi_reg_arready,
+                         s02_axi_reg_rready,
+                         s02_axi_reg_rvalid);
+
+            --report "End AXI4LiteRead_REG";
+        end procedure AXI4LiteRead_REG;
+
+        procedure AXI4LiteWrite_REG(constant awaddr_val : in std_logic_vector(C_S02_AXI_REG_ADDR_WIDTH-1 downto 0); constant wdata_val : in std_logic_vector(C_S02_AXI_REG_DATA_WIDTH-1 downto 0)) is
+        begin
+            --report "Start AXI4LiteWrite_REG";
+
+            AXI4LiteWrite(s02_axi_reg_awaddr, awaddr_val,
+                          s02_axi_reg_awvalid,
+                          s02_axi_reg_awready,
+                          s02_axi_reg_wdata, wdata_val,
+                          s02_axi_reg_wstrb, "1111",
+                          s02_axi_reg_wvalid,
+                          s02_axi_reg_wready,
+                          s02_axi_reg_bready,
+                          s02_axi_reg_bvalid);
+
+            --report "End AXI4LiteWrite_REG";
+        end procedure AXI4LiteWrite_REG;
+
+        procedure AXI4LiteWrite_TX(constant awaddr_val : in std_logic_vector(C_S00_AXI_TX_ADDR_WIDTH-1 downto 0); constant wdata_val : in std_logic_vector(C_S00_AXI_TX_DATA_WIDTH-1 downto 0)) is
+        begin
+            --report "Start AXI4LiteWrite_TX";
+
+            AXI4LiteWrite(s00_axi_tx_awaddr, awaddr_val,
+                          s00_axi_tx_awvalid,
+                          s00_axi_tx_awready,
+                          s00_axi_tx_wdata, wdata_val,
+                          s00_axi_tx_wstrb, "1111",
+                          s00_axi_tx_wvalid,
+                          s00_axi_tx_wready,
+                          s00_axi_tx_bready,
+                          s00_axi_tx_bvalid);
+
+            --report "End AXI4LiteWrite_TX";
+        end procedure AXI4LiteWrite_TX;
+
+        procedure AXI4FullWrite_TX(constant awaddr_val : in std_logic_vector(C_S00_AXI_TX_ADDR_WIDTH-1 downto 0); constant awlen_val : in std_logic_vector(7 downto 0); constant awburst_val : in std_logic_vector(1 downto 0); constant wdata_val : in array_t) is
+        begin
+            --report "Start AXI4FullWrite_TX";
+
+            AXI4FullWrite(s00_axi_tx_awaddr, awaddr_val,
+                          s00_axi_tx_awlen, awlen_val,
+                          s00_axi_tx_awburst, awburst_val,
+                          s00_axi_tx_awvalid,
+                          s00_axi_tx_awready,
+                          s00_axi_tx_wdata, wdata_val,
+                          s00_axi_tx_wstrb, "1111",
+                          s00_axi_tx_wlast,
+                          s00_axi_tx_wvalid,
+                          s00_axi_tx_wready,
+                          s00_axi_tx_bready,
+                          s00_axi_tx_bvalid);
+
+            --report "End AXI4FullWrite_TX";
+        end procedure AXI4FullWrite_TX;
+
+        procedure AXI4LiteRead_RX(constant araddr_val : in std_logic_vector(C_S01_AXI_RX_ADDR_WIDTH-1 downto 0)) is
+        begin
+            --report "Start AXI4LiteRead_RX";
+
+            AXI4LiteRead(s01_axi_rx_araddr, araddr_val,
+                         s01_axi_rx_arvalid,
+                         s01_axi_rx_arready,
+                         s01_axi_rx_rready,
+                         s01_axi_rx_rvalid);
+
+            --report "End AXI4LiteRead_RX";
+        end procedure AXI4LiteRead_RX;
+
+        procedure AXI4FullRead_RX(constant araddr_val : in std_logic_vector(C_S01_AXI_RX_ADDR_WIDTH-1 downto 0); constant arlen_val : in std_logic_vector(7 downto 0); constant arburst_val : in std_logic_vector(1 downto 0)) is
+        begin
+            --report "Start AXI4FullRead_RX";
+
+            AXI4FullRead(s01_axi_rx_araddr, araddr_val,
+                         s01_axi_rx_arlen, arlen_val,
+                         s01_axi_rx_arburst, arburst_val,
+                         s01_axi_rx_arvalid,
+                         s01_axi_rx_arready,
+                         s01_axi_rx_rlast,
+                         s01_axi_rx_rvalid,
+                         s01_axi_rx_rready);
+
+            --report "End AXI4FullRead_RX";
+        end procedure AXI4FullRead_RX;
+        
+        variable data : array_t(0 to 0)(31 downto 0);
     begin
         wait on rst_ps;
-        --wait for 2 * ps_clock_period;
-    
+
         -- Set initial signal values (only signals that are used !).
         s00_axi_tx_awid <= (others => '0');
         s00_axi_tx_awaddr <= (others => '0');
@@ -754,44 +889,8 @@ begin
         s00_axi_tx_arvalid <= '0';
         s00_axi_tx_rid <= (others => '0');
         s00_axi_tx_rready <= '0';
-        -- Finished !
-        
-        
-        wait for 5 us;
-                
-        -- Perform single transfer to write into TX fifo (if spwstream is activated and in running mode it should send this data asap)
-        -- define some pseudo data:
-        data(0) := x"fffff0f0"; -- Data (destination)
-        data(1) := x"AAAAA0ff"; -- Data (cargo)
-        data(2) := x"0000000f"; -- Data (cargo)
-        data(3) := x"f0f0ff00"; -- EOP
-        
-        --report "length of data is " & integer'image(data'length);
-        
-        AXI4FullWrite(s00_axi_tx_awaddr, "000",
-                      s00_axi_tx_awlen, std_logic_vector(to_unsigned(data'length, s00_axi_tx_awlen'length)), -- awlen is zero-based index !
-                      s00_axi_tx_awburst, "00", -- FIXED BURST
-                      s00_axi_tx_awvalid,
-                      s00_axi_tx_awready,
-                      s00_axi_tx_wdata, data,
-                      s00_axi_tx_wstrb, "0011",
-                      s00_axi_tx_wlast,
-                      s00_axi_tx_wvalid,
-                      s00_axi_tx_wready,
-                      s00_axi_tx_bready,
-                      s00_axi_tx_bvalid);
-                      
-        wait for 10 us;
-                      
-        wait;
-    end process;
+        -- Finished !    
 
-    -- Stimulus for AXI4-Full-RX-Interface.
-    stimulus_RX: process
-    begin
-        wait on rst_ps;
-        wait for 2 * ps_clock_period;
-    
         -- Set initial signal values (only signals that are used !).
         s01_axi_rx_awid <= (others => '0');
         s01_axi_rx_awaddr <= (others => '0');
@@ -824,30 +923,7 @@ begin
         s01_axi_rx_arvalid <= '0';
         s01_axi_rx_rid <= (others => '0');
         s01_axi_rx_rready <= '0';
-        -- Finished !
-        
-        wait for 25 us;
-        
-        -- Perform read transfer
-        AXI4FullRead(s01_axi_rx_araddr, "000",
-                     s01_axi_rx_arlen, std_logic_vector(to_unsigned(3, s01_axi_rx_arlen'length)),
-                     s01_axi_rx_arburst, "00", -- FIXED BURST
-                     s01_axi_rx_arvalid,
-                     s01_axi_rx_arready, -- read address channel
-                     s01_axi_rx_rlast,
-                     s01_axi_rx_rvalid,
-                     s01_axi_rx_rready); -- read data channel
-                     
-        wait for 10 us;
-        
-        wait;
-    end process;
-
-    -- Stimulus for AXI4-Lite-Register-Interface.
-    stimulus_REG: process
-    begin
-        wait on rst_ps;
-        wait for 2 * ps_clock_period;
+        -- Finished !    
 
         -- Set initial signal values (only signals that are used !).
         s02_axi_reg_awaddr <= (others => '0');
@@ -862,8 +938,59 @@ begin
         s02_axi_reg_arvalid <= '0';
         s02_axi_reg_bready <= '0';
         -- Finished !
+        
+        wait for 10 us; -- safety distance to make sure everything is initalized!
 
-        -- Perform write transfer to initial spwstream and to produce signals on spw_di/spw_do and spw_si/spw_so
+        -- Deactivate device
+        AXI4LiteWrite_REG("00000", x"00000001");
+        wait for 500 ns;
+
+        -- Read how many elements are in TX fifo: (should be zero)
+        AXI4FullRead(s00_axi_tx_araddr, "100",
+                     s00_axi_tx_arlen, std_logic_vector(to_unsigned(1, s01_axi_rx_arlen'length)),
+                     s00_axi_tx_arburst, "00", -- FIXED BURST
+                     s00_axi_tx_arvalid,
+                     s00_axi_tx_arready, -- read address channel
+                     s00_axi_tx_rlast,
+                     s00_axi_tx_rvalid,
+                     s00_axi_tx_rready); -- read data channel
+        report "Number of elements in TX FIFO: " & to_string(s01_axi_rx_rdata);
+
+        -- Write some Data into tx fifo:
+        for i in 0 to 10 loop
+        data(0) := std_logic_vector(to_unsigned(i, 32));                
+        AXI4FullWrite(s00_axi_tx_awaddr, "000",
+                      s00_axi_tx_awlen, std_logic_vector(to_unsigned(data'length, s00_axi_tx_awlen'length)), -- awlen is zero-based index !
+                      s00_axi_tx_awburst, "00", -- FIXED BURST
+                      s00_axi_tx_awvalid,
+                      s00_axi_tx_awready,
+                      s00_axi_tx_wdata, data,
+                      s00_axi_tx_wstrb, "0011",
+                      s00_axi_tx_wlast,
+                      s00_axi_tx_wvalid,
+                      s00_axi_tx_wready,
+                      s00_axi_tx_bready,
+                      s00_axi_tx_bvalid);
+            report to_string(i);
+            wait for ps_clock_period/2;
+        end loop;
+        
+        -- Check number of elements in tx fifo: (should be eleven)
+        AXI4FullRead(s00_axi_tx_araddr, "100",
+                     s00_axi_tx_arlen, std_logic_vector(to_unsigned(1, s01_axi_rx_arlen'length)),
+                     s00_axi_tx_arburst, "00", -- FIXED BURST
+                     s00_axi_tx_arvalid,
+                     s00_axi_tx_arready, -- read address channel
+                     s00_axi_tx_rlast,
+                     s00_axi_tx_rvalid,
+                     s00_axi_tx_rready); -- read data channel
+        report "Number of elements in TX FIFO: " & to_string(s01_axi_rx_rdata);
+        
+        -- Activate device:
+        report "Init device!";
+        AXI4LiteWrite_REG("00100", x"0000_0001");
+        wait for ps_clock_period;
+        --AXI4LiteWrite_REG("00000", x"0000_0006");
         AXI4LiteWrite(s02_axi_reg_awaddr, "00000",
                       s02_axi_reg_awvalid,
                       s02_axi_reg_awready, -- write address channel
@@ -873,98 +1000,81 @@ begin
                       s02_axi_reg_wready, -- write data channel
                       s02_axi_reg_bready,
                       s02_axi_reg_bvalid); -- write response channel
-
-        -- Read Configuration register to make sure that spwstream is activated        
-        AXI4LiteRead(s02_axi_reg_araddr, "00000",
+        wait for ps_clock_period;
+        -- Read value for control
+         AXI4LiteRead(s02_axi_reg_araddr, "00000",
                      s02_axi_reg_arvalid,
                      s02_axi_reg_arready, -- read address channel
                      s02_axi_reg_rready,
                      s02_axi_reg_rvalid); -- read data channel
-                      
-        wait for 40 us;
-
---        -- Write transfer to disable spwstream.
---        AXI4LiteWrite(s02_axi_reg_awaddr, "00000",
---                      s02_axi_reg_awvalid,
---                      s02_axi_reg_awready, -- write address channel
---                      s02_axi_reg_wdata, x"0000_0001",
---                      s02_axi_reg_wstrb, "1111",
---                      s02_axi_reg_wvalid,
---                      s02_axi_reg_wready, -- write data channel
---                      s02_axi_reg_bready,
---                      s02_axi_reg_bvalid); -- write response channel
-        
---        wait for 10 us; 
-
---        -- Read Configuration register again to check its value
---        AXI4LiteRead(s02_axi_reg_araddr, "00000",
---                     s02_axi_reg_arvalid,
---                     s02_axi_reg_arready, -- read address channel
---                     s02_axi_reg_rready,
---                     s02_axi_reg_rvalid); -- read data channel
-        
---        wait for 5 us;
-        
---        -- Activate spwstream again
---        AXI4LiteWrite(s02_axi_reg_awaddr, "00000",
---                      s02_axi_reg_awvalid,
---                      s02_axi_reg_awready, -- write address channel
---                      s02_axi_reg_wdata, x"0000_0006",
---                      s02_axi_reg_wstrb, "1111",
---                      s02_axi_reg_wvalid,
---                      s02_axi_reg_wready, -- write data channel
---                      s02_axi_reg_bready,
---                      s02_axi_reg_bvalid); -- write response channel
-
---        wait for 15 us;
-
---        -- Read Status register of spwstream
---        AXI4LiteRead(s02_axi_reg_araddr, "10000",
---                     s02_axi_reg_arvalid,
---                     s02_axi_reg_arready, -- read address channel
---                     s02_axi_reg_rready,
---                     s02_axi_reg_rvalid); -- read data channel
-
---        wait for 40 us;
-        
-        -- Send TimeCode! Therefore...
-        -- 
-        AXI4LiteWrite(s02_axi_reg_awaddr, "01000",
-                      s02_axi_reg_awvalid,
-                      s02_axi_reg_awready, -- write address channel
-                      s02_axi_reg_wdata, x"0000_0201", -- 1000000001
-                      s02_axi_reg_wstrb, "1111",
-                      s02_axi_reg_wvalid,
-                      s02_axi_reg_wready, -- write data channel
-                      s02_axi_reg_bready,
-                      s02_axi_reg_bvalid); -- write response channel
-        
-        wait for 1 us;
-        
-        -- Check:
-         AXI4LiteRead(s02_axi_reg_araddr, "01000",
-                     s02_axi_reg_arvalid,
-                     s02_axi_reg_arready, -- read address channel
-                     s02_axi_reg_rready,
-                     s02_axi_reg_rvalid); -- read data channel
+        -- Check rx fifo:
+        -- Check number of elements now: (should be zero)
+        AXI4FullRead(s01_axi_rx_araddr, "100",
+                     s01_axi_rx_arlen, std_logic_vector(to_unsigned(1, s01_axi_rx_arlen'length)),
+                     s01_axi_rx_arburst, "00", -- FIXED BURST
+                     s01_axi_rx_arvalid,
+                     s01_axi_rx_arready, -- read address channel
+                     s01_axi_rx_rlast,
+                     s01_axi_rx_rvalid,
+                     s01_axi_rx_rready); -- read data channel        
+        report "Number of elements in RX FIFO: " & to_string(s01_axi_rx_rdata);                      
                      
+                   
+        wait for 30 us; -- Wait to give spwstream opportunity to initialize SpaceWire connection
+
+        -- Check number of elements now: (should be eleven)        
+        AXI4FullRead(s01_axi_rx_araddr, "100",
+                     s01_axi_rx_arlen, std_logic_vector(to_unsigned(1, s01_axi_rx_arlen'length)),
+                     s01_axi_rx_arburst, "00", -- FIXED BURST
+                     s01_axi_rx_arvalid,
+                     s01_axi_rx_arready, -- read address channel
+                     s01_axi_rx_rlast,
+                     s01_axi_rx_rvalid,
+                     s01_axi_rx_rready); -- read data channel        
+        report "Number of elements in RX FIFO: " & to_string(s01_axi_rx_rdata);
+        wait for 1 us;
+        -- Check again
+        -- Check number of elements now: (should still be eleven)
+        AXI4FullRead(s01_axi_rx_araddr, "100",
+                     s01_axi_rx_arlen, std_logic_vector(to_unsigned(1, s01_axi_rx_arlen'length)),
+                     s01_axi_rx_arburst, "00", -- FIXED BURST
+                     s01_axi_rx_arvalid,
+                     s01_axi_rx_arready, -- read address channel
+                     s01_axi_rx_rlast,
+                     s01_axi_rx_rvalid,
+                     s01_axi_rx_rready); -- read data channel        
+        report "Number of elements in RX FIFO: " & to_string(s01_axi_rx_rdata);        
+        wait for 1 us;
+
+        -- Read 4 elements:
+        for i in 0 to 3 loop
+        AXI4FullRead(s01_axi_rx_araddr, "000",
+                     s01_axi_rx_arlen, std_logic_vector(to_unsigned(0, s01_axi_rx_arlen'length)),
+                     s01_axi_rx_arburst, "00", -- FIXED BURST
+                     s01_axi_rx_arvalid,
+                     s01_axi_rx_arready, -- read address channel
+                     s01_axi_rx_rlast,
+                     s01_axi_rx_rvalid,
+                     s01_axi_rx_rready); -- read data channel 
+            wait for ps_clock_period/2;
+        end loop;
+
+        -- Check number again: (should be seven)
+        AXI4FullRead(s01_axi_rx_araddr, "100",
+                     s01_axi_rx_arlen, std_logic_vector(to_unsigned(1, s01_axi_rx_arlen'length)),
+                     s01_axi_rx_arburst, "00", -- FIXED BURST
+                     s01_axi_rx_arvalid,
+                     s01_axi_rx_arready, -- read address channel
+                     s01_axi_rx_rlast,
+                     s01_axi_rx_rvalid,
+                     s01_axi_rx_rready); -- read data channel        
+        report "Number of elements in RX FIFO: " & to_string(s01_axi_rx_rdata);
+
         wait for 1 us;
         
-        tc_in <= '1', '0' after ps_clock_period; -- should ensure that it is triggered even if we are not synchron with clock edges
-        
-           
-                  
+        report "~~~ Testbench completed! ~~~";
         wait;
     end process;
-
-    -- Stimulus for SpaceWire-specific signals.
---    stimulus_spwstream: process
---    begin
---        -- Set initial signal values.
---        tc_in <= '0';
---        wait; -- wait forever
---    end process;
-
 
     -- Initial reset (maybe not neccessary in implementation !)
     init_rst: process
