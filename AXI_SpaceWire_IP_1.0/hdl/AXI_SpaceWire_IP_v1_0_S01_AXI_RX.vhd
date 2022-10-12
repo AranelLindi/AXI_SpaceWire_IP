@@ -245,8 +245,9 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S01_AXI_RX is
     signal s_fifo_do_buffer : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 
     -- Fifo constants declaration.
-    constant c_fifo_size : integer := (2 ** s_fifo_wrcount'length); -- 2048
-
+    constant c_fifo_size : integer := (2 ** maximum(s_fifo_wrcount'length, s_fifo_rdcount'length)) - 1; -- 2047 (2**11-1)
+    --constant c_
+    
     -- Available elements register signals.
     signal s_fifo_elements_reg : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
     signal s_rdcounter : unsigned(maximum(s_fifo_rdcount'length-1, s_fifo_wrcount'length-1) downto 0);--integer range 0 to c_fifo_size - 1 := 0;
@@ -720,46 +721,23 @@ begin
             wrcount := unsigned(s_fifo_wrcount);
             rdcount := s_rdcounter;
 
-            elements := wrcount - rdcount;
+            if (wrcount >= rdcount) then
+                elements := wrcount - rdcount;
+            else -- rdcount > wrcount
+                elements := c_fifo_size + wrcount - rdcount;
+            end if;
+
+            --elements := wrcount - rdcount;
 
             s_fifo_elements_reg(elements'length-1 downto 0) <= std_logic_vector(elements);
+            s_fifo_elements_reg(s_fifo_elements_reg'length-1 downto elements'length) <= (others => '0'); -- may not be necessary
         end if;
     end process calc_1;
 
-
-    -- Wrapper for spwstream that takes care of data flow from spwstream to fifo.
-    --    spwwrapper : process(clk_logic)
-    --    begin
-    --        if rising_edge(clk_logic) then
-    --            if rst_logic = '1' then
-    --                -- Synchronous reset.
-    --                s_fifo_wren <= '0';
-
-    --                rxread <= '0';
-    --            else
-    --                if s_fifo_full = '1' then
-    --                    -- fifo is full
-    --                    rxread <= '0';
-    --                    s_fifo_wren <= '0';
-    --                else
-    --                    -- fifo is not full
-    --                    if rxvalid = '1' and s_fifo_wren = '0' then
-    --                        s_fifo_di(8 downto 0) <= rxflag & rxdata;
-    --                        rxread <= '1';
-    --                        s_fifo_wren <= '1';
-    --                    else
-    --                        rxread <= '0';
-    --                        s_fifo_wren <= '0';
-    --                    end if;
-    --                end if;
-    --            end if;
-    --        end if;
-    --    end process spwwrapper;
-
-    -- Implemented to test if this kind of FSM is able to handle the problem that first n-char is not correctly written into fifo and last n-char is read twice. Problem: FSM slows process from 100 MHz down to 50 MHz (best case)
-    spwwrapper_experimental : process(clk_logic)
+    -- Writes received data words from spwstream into rx fifo. FSM is also used to convert specific bytes into wanted format.
+    spwwrapper : process(clk_logic)
         variable v_write : std_logic_vector(8 downto 0);
-        variable openPacket : boolean := False; -- Important not to change value during reset otherwise an open packet will be misclassified !
+        variable openPacket : boolean := False; -- Important not to change value during reset otherwise an open packet will be misclassified eventually!
     begin
         if rising_edge(clk_logic) then
             if rst_logic = '1' then
@@ -772,29 +750,21 @@ begin
             else
                 case spwwrapperstate is
                     when S_Idle =>
-                        --rxread <= '0';
                         s_fifo_wren <= '0';
 
                         if rxvalid = '1' then
-                            report to_string(rxflag & rxdata);
-
-                            if rxflag = '1' then
+                            if rxflag = '1' then -- whenever rxflag is '1' a packet is closed
                                 -- EOP/EEP/Process Id
                                 case rxdata is
                                     when "00000000" => -- EOP
                                         v_write := "111111111";
-                                    --openPacket := False; -- ... packet finished (planed)
-                                    --report "EOP";
 
                                     when "00000001" => -- EEP
                                         v_write := "111111110";
-                                    --openPacket := False; -- ... packet finished (unplaned)
-                                    --report "EEP";
 
-                                    when others => -- Should not occur
-                                        report "This shouldn't happen !";
-                                        v_write := (others => '0');
-                                        --report "Else";
+                                    when others => -- Should not be entered (only necessary for simulation)
+                                        v_write := v_write;--(others => '0'); [Changed - test again!]
+
                                 end case;
 
                                 openPacket := False;
@@ -808,20 +778,19 @@ begin
                                     -- (inside an open packet)
                                     v_write := '0' & rxdata;
                                 end if;
-
-                                --report "NChar";
                             end if;
 
                             s_fifo_di(8 downto 0) <= v_write;
+                            
+                            rxread <= '1'; -- Put next data word to spwstream output port
 
                             spwwrapperstate <= S_Operation;
-                            rxread <= '1'; -- Testweise hier schon auf 1 gesetzt anstatt im nächsten Zustand (Simulation lief dann wie vorgesehen, allerdings warum?) Würde es erst im zweiten Stunden auf HIGH gesetzt, würde jedes empfangene Datenwort zweimal via report ausgegeben werden (Warum ?)
                         end if;
 
                     when S_Operation =>
                         if s_fifo_full = '0' then
                             rxread <= '0';
-                            s_fifo_wren <= '1';
+                            s_fifo_wren <= '1'; -- Fifo accepts data word in s_fifo_di
 
                             spwwrapperstate <= S_Idle;
                         end if;
@@ -855,8 +824,8 @@ begin
     FIFO_DUALCLOCK_MACRO_inst_TX : FIFO_DUALCLOCK_MACRO
         generic map (
             DEVICE => "7SERIES",            -- Target Device: "VIRTEX5", "VIRTEX6", "7SERIES" 
-            ALMOST_FULL_OFFSET => x"3E8", -- 1000  -- Sets almost full threshold
-            ALMOST_EMPTY_OFFSET => x"6", -- Sets the almost empty threshold
+            ALMOST_FULL_OFFSET => bit_vector(c_fifo_size - 256),--x"3E8", -- 1000  -- Sets almost full threshold
+            ALMOST_EMPTY_OFFSET => bit_vector(256), -- Sets the almost empty threshold to 256 (one AXI4 Full Burst (256) transfer is possible
             DATA_WIDTH => 9,   -- Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
             FIFO_SIZE => "18Kb",            -- Target BRAM, "18Kb" or "36Kb" 
             FIRST_WORD_FALL_THROUGH => TRUE) -- Sets the FIFO FWFT to TRUE or FALSE
