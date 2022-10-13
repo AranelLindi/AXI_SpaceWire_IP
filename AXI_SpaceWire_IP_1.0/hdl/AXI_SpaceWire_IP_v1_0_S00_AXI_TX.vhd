@@ -680,18 +680,30 @@ begin
     calc_0 : process(clk_logic)
         --variable v : integer range 0 to c_fifo_size - 1 := 0;
         variable v : unsigned(maximum(s_fifo_wrcount'length-1, s_fifo_rdcount'length-1) downto 0);
+        
+        variable val_last : std_logic_vector(s_fifo_rdcount'length -1 downto 0);--unsigned(s_fifo_rdcount'length-1 downto 0);
     begin
         if rising_edge(clk_logic) then
             if s_axi_areseth = '1' then
                 -- Synchronous reset.
-                v := unsigned(s_fifo_wrcount);
+                val_last := s_fifo_wrcount; --s_fifo_rdcount; [HIER IST VIELLEICHT NOCH EIN FEHLER MÖGLICH! EVENTUELL MUSS EIN ANDERER INITIALISIERUNGSWERT GENOMMEN WERDEN. SEHR GENAU TESTEN!]
+                s_rdcounter <= unsigned(s_fifo_wrcount);                
             else
-                if s_fifo_rden = '1' and s_fifo_full = '0' then
-                    v := v + 1;
+                if s_fifo_rden = '1' then
+                
+                    if val_last /= s_fifo_rdcount then -- If its necessary to perform arethmetic operations such als > then use unsigned() instead of std_logic_vectors !
+                        v := v + 1;
+                        
+                        val_last := s_fifo_rdcount; -- save current value of s_fifo_rdcount to be able to use it in next iteration as last value
+                    else
+                        v := v;
+                    end if;
+                else
+                    v := v;
                 end if;
+                
+                s_rdcounter <= v;
             end if;
-
-            s_rdcounter <= v;
         end if;
     end process calc_0;
 
@@ -808,8 +820,8 @@ begin
     FIFO_DUALCLOCK_MACRO_inst_TX : FIFO_DUALCLOCK_MACRO
         generic map (
             DEVICE => "7SERIES",            -- Target Device: "VIRTEX5", "VIRTEX6", "7SERIES" 
-            ALMOST_FULL_OFFSET => bit_vector(c_fifo_size - 256), -- Sets almost full threshold
-            ALMOST_EMPTY_OFFSET => bit_vector(256), -- Sets the almost empty threshold to 256 (one AXI4 Full Burst (256) transfer is possible
+            ALMOST_FULL_OFFSET => x"6FF", -- 1791 -- Sets almost full threshold
+            ALMOST_EMPTY_OFFSET => x"100", -- 256 -- Sets the almost empty threshold to 256 (one AXI4 Full Burst (256) transfer is possible
             DATA_WIDTH => 9,   -- Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
             FIFO_SIZE => "18Kb",            -- Target BRAM, "18Kb" or "36Kb" 
             FIRST_WORD_FALL_THROUGH => TRUE) -- Sets the FIFO FWFT to TRUE or FALSE

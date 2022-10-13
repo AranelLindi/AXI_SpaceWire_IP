@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-| Date         : Tue Oct 11 15:49:44 2022
+| Date         : Thu Oct 13 12:55:59 2022
 | Host         : stl56jc-MS-7C95 running 64-bit Ubuntu 22.04.1 LTS
 | Command      : report_utilization -file AXI_SpaceWire_IP_v1_0_utilization_synth.rpt -pb AXI_SpaceWire_IP_v1_0_utilization_synth.pb
 | Design       : AXI_SpaceWire_IP_v1_0
@@ -31,13 +31,13 @@ Table of Contents
 +----------------------------+------+-------+------------+-----------+-------+
 |          Site Type         | Used | Fixed | Prohibited | Available | Util% |
 +----------------------------+------+-------+------------+-----------+-------+
-| Slice LUTs*                |  538 |     0 |          0 |     20800 |  2.59 |
-|   LUT as Logic             |  534 |     0 |          0 |     20800 |  2.57 |
+| Slice LUTs*                |  547 |     0 |          0 |     20800 |  2.63 |
+|   LUT as Logic             |  543 |     0 |          0 |     20800 |  2.61 |
 |   LUT as Memory            |    4 |     0 |          0 |      9600 |  0.04 |
 |     LUT as Distributed RAM |    4 |     0 |            |           |       |
 |     LUT as Shift Register  |    0 |     0 |            |           |       |
-| Slice Registers            |  764 |     6 |          0 |     41600 |  1.84 |
-|   Register as Flip Flop    |  764 |     6 |          0 |     41600 |  1.84 |
+| Slice Registers            |  774 |     6 |          0 |     41600 |  1.86 |
+|   Register as Flip Flop    |  774 |     6 |          0 |     41600 |  1.86 |
 |   Register as Latch        |    0 |     0 |          0 |     41600 |  0.00 |
 | F7 Muxes                   |    0 |     0 |          0 |     16300 |  0.00 |
 | F8 Muxes                   |    0 |     0 |          0 |      8150 |  0.00 |
@@ -60,7 +60,7 @@ Table of Contents
 | 0     |          Yes |           - |          Set |
 | 29    |          Yes |           - |        Reset |
 | 29    |          Yes |         Set |            - |
-| 706   |          Yes |       Reset |            - |
+| 716   |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -154,18 +154,18 @@ Table of Contents
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| FDRE     |  706 |        Flop & Latch |
-| LUT2     |  199 |                 LUT |
+| FDRE     |  716 |        Flop & Latch |
+| LUT2     |  203 |                 LUT |
+| LUT4     |  147 |                 LUT |
 | IBUF     |  145 |                  IO |
 | OBUF     |  132 |                  IO |
-| LUT4     |  124 |                 LUT |
-| LUT6     |  120 |                 LUT |
-| LUT3     |  111 |                 LUT |
-| LUT5     |  110 |                 LUT |
-| CARRY4   |   47 |          CarryLogic |
+| LUT6     |  114 |                 LUT |
+| LUT5     |  114 |                 LUT |
+| LUT3     |  101 |                 LUT |
+| CARRY4   |   51 |          CarryLogic |
 | FDSE     |   29 |        Flop & Latch |
 | FDCE     |   29 |        Flop & Latch |
-| LUT1     |   13 |                 LUT |
+| LUT1     |   21 |                 LUT |
 | BUFG     |    6 |               Clock |
 | RAMD32   |    4 |  Distributed Memory |
 | RAMB18E1 |    2 |        Block Memory |
