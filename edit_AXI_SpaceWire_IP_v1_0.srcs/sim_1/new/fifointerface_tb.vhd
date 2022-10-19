@@ -80,8 +80,8 @@ architecture fifointerface_tx_tb_arch of fifointerface_tx_tb is
             di : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
             rden : out std_logic;
             wren : out std_logic;
-            rdcount : out std_logic_vector(10 downto 0);
-            wrcount : out std_logic_vector(10 downto 0);
+            rdcount : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+            wrcount : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
             empty : out std_logic;
             full : out std_logic;
             clk_logic : in std_logic;
@@ -195,6 +195,55 @@ architecture fifointerface_tx_tb_arch of fifointerface_tx_tb is
 
     type array_t is array(natural range <>) of std_logic_vector;
 
+    procedure AXI4FullRead(signal araddr : out std_logic_vector; constant araddr_val : in std_logic_vector; signal arlen : out std_logic_vector(7 downto 0); constant arlen_val : in std_logic_vector(7 downto 0); signal arburst : out std_logic_vector(1 downto 0); constant arburst_val : in std_logic_vector(1 downto 0); signal arvalid : out std_logic; signal arready : in std_logic; -- Read Address Channel
+                           signal rlast : in std_logic; signal rvalid : in std_logic; signal rready : out std_logic -- Read Data Channel
+                          ) is
+        variable transfer_length : integer := to_integer(unsigned(arlen_val)) - 1;
+    begin
+        --report "Start AXI4FullRead";
+
+        wait until rising_edge(S_AXI_ACLK);
+
+        -- Before starting transfer, drive control information that won't change during process.
+        -- Read Address Channel
+        araddr <= araddr_val;
+        arlen <= arlen_val;
+        arburst <= arburst_val;
+
+        arvalid <= '1'; -- Set master handshake signal for read address channel
+
+        wait until rising_edge(S_AXI_ACLK) and arready = '1';
+        arvalid <= '0';
+
+        --wait for ps_clock_period;       
+        rready <= '1';
+
+        -- Loop until rlast signal is HIGH
+        while rlast = '0' loop
+            --rready <= '1';
+
+            wait until rising_edge(S_AXI_ACLK) and rvalid = '1';
+            --wait for ps_clock_period/2;
+
+            --rready <= '0';
+
+            --wait for ps_clock_period/2;
+        end loop;
+
+        wait until rising_edge(S_AXI_ACLK);
+        wait for ps_clock_period/2;
+        --rready <= '0';
+
+        -- Burst transfer finished so reset all relevant signals.
+        araddr <= (others => '0');
+        arlen <= (others => '0');
+        arburst <= (others => '0');
+
+        --arvalid <= '0';
+        rready <= '0';
+
+        --report "End AXI4FullRead";
+    end procedure AXI4FullRead;
 
     procedure AXI4FullWrite(signal awid : out std_logic_vector; constant awid_val : in std_logic_vector; signal awaddr : out std_logic_vector; constant awaddr_val : in std_logic_vector; signal awlen : out std_logic_vector(7 downto 0); constant awlen_val : in std_logic_vector(7 downto 0); signal awburst : out std_logic_vector(1 downto 0); constant awburst_val : in std_logic_vector(1 downto 0); signal awvalid : out std_logic; signal awready : in std_logic; -- write address channel
                             signal wdata : out std_logic_vector; constant wdata_val : in array_t; signal wstrb : out std_logic_vector; constant wstrb_val : in std_logic_vector; signal wlast : out std_logic; signal wvalid : out std_logic; signal wready : in std_logic; -- write data channel
@@ -263,8 +312,8 @@ architecture fifointerface_tx_tb_arch of fifointerface_tx_tb is
     signal s_di : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
     signal s_rden : std_logic;
     signal s_wren : std_logic;
-    signal s_rdcount : std_logic_vector(10 downto 0);
-    signal s_wrcount : std_logic_vector(10 downto 0);
+    signal s_rdcount : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+    signal s_wrcount : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
     signal s_empty : std_logic;
     signal s_full : std_logic;
 begin
@@ -343,7 +392,7 @@ begin
             S_AXI_RREADY             => S_AXI_RREADY );
 
     stimulus: process
-        variable data : array_t(0 to 3)(31 downto 0);
+        variable data : array_t(0 to 2050)(31 downto 0);
     begin
 
         -- Put initialisation code here
@@ -354,54 +403,51 @@ begin
         txrdy <= '0';
 
         -- Perform single transfer to write into TX fifo (if spwstream is activated and in running mode it should send this data asap)
-        data(0) := x"ffffff0f"; -- define some pseudo data
-        data(1) := x"AAAAAA0A";
-        data(2) := x"0000000f";
-        data(3) := x"0f0f0f0f";
+        --        data(0) := x"ffffff0f"; -- define some pseudo data
+        --        data(1) := x"AAAAAA0A";
+        --        data(2) := x"0000000f";
+        --        data(3) := x"0f0f0f0f";
+        for i in 0 to 2050 loop
+            data(i) := std_logic_vector(to_unsigned(i, 32));
+        end loop;
 
         --report "length of data is " & integer'image(data'length);
 
-        AXI4FullWrite(S_AXI_AWID, "0",
-                      S_AXI_AWADDR, "000",
-                      S_AXI_AWLEN, std_logic_vector(to_unsigned(data'length, S_AXI_AWLEN'length)), -- awlen is zero-based index !
-                      S_AXI_AWBURST, "00", -- FIXED
-                      S_AXI_AWVALID,
-                      S_AXI_AWREADY,
-                      S_AXI_WDATA, data,
-                      S_AXI_WSTRB, "0011",
-                      S_AXI_WLAST,
-                      S_AXI_WVALID,
-                      S_AXI_WREADY,
-                      S_AXI_BREADY,
-                      S_AXI_BVALID);
+        for j in 0 to 9 loop
+            AXI4FullWrite(S_AXI_AWID, "0",
+                          S_AXI_AWADDR, "000",
+                          S_AXI_AWLEN, std_logic_vector(to_unsigned(255, S_AXI_AWLEN'length)), -- awlen is zero-based index !
+                          S_AXI_AWBURST, "00", -- FIXED
+                          S_AXI_AWVALID,
+                          S_AXI_AWREADY,
+                          S_AXI_WDATA, data,
+                          S_AXI_WSTRB, "0011",
+                          S_AXI_WLAST,
+                          S_AXI_WVALID,
+                          S_AXI_WREADY,
+                          S_AXI_BREADY,
+                          S_AXI_BVALID);
+        end loop;
 
-        wait for 500 ns;
+        wait for 5 us;
 
-        AXI4FullWrite(S_AXI_AWID, "0",
-                      S_AXI_AWADDR, "000",
-                      S_AXI_AWLEN, std_logic_vector(to_unsigned(data'length, S_AXI_AWLEN'length)), -- awlen is zero-based index !
-                      S_AXI_AWBURST, "00", -- FIXED
-                      S_AXI_AWVALID,
-                      S_AXI_AWREADY,
-                      S_AXI_WDATA, data,
-                      S_AXI_WSTRB, "0011",
-                      S_AXI_WLAST,
-                      S_AXI_WVALID,
-                      S_AXI_WREADY,
-                      S_AXI_BREADY,
-                      S_AXI_BVALID);
+        --        AXI4FullRead(S_AXI_ARADDR, "000",
+        --                     S_AXI_ARLEN, std_logic_vector(to_unsigned(5, S_AXI_AWLEN'length)),
+        --                     S_AXI_ARBURST, "00", -- FIXED
+        --                     S_AXI_ARVALID,
+        --                     S_AXI_ARREADY,
+        --                     S_AXI_RLAST,
+        --                     S_AXI_RVALID,
+        --                     S_AXI_RREADY);
 
-        wait for 500 ns;
-                     
         txrdy <= '1';
-
-        wait for 500 ns;
-        
+        wait for 2 us; -- read 100 words from tx fifo
         txrdy <= '0';
-        
+
+        -- Write again some data to wrap rdcounter
         AXI4FullWrite(S_AXI_AWID, "0",
                       S_AXI_AWADDR, "000",
-                      S_AXI_AWLEN, std_logic_vector(to_unsigned(data'length, S_AXI_AWLEN'length)), -- awlen is zero-based index !
+                      S_AXI_AWLEN, std_logic_vector(to_unsigned(255, S_AXI_AWLEN'length)), -- awlen is zero-based index !
                       S_AXI_AWBURST, "00", -- FIXED
                       S_AXI_AWVALID,
                       S_AXI_AWREADY,
@@ -411,10 +457,55 @@ begin
                       S_AXI_WVALID,
                       S_AXI_WREADY,
                       S_AXI_BREADY,
-                      S_AXI_BVALID);        
+                      S_AXI_BVALID);
+                      
+        wait for 5 us;
         
-        wait for 2 us;
-        
+        -- read as many as possible to create following situation: rdcounter > wrcounter
+        txrdy <= '1';        
+        wait for 40 us;        
+        txrdy <= '0';
+
+        --        wait for 500 ns;
+
+        --        AXI4FullWrite(S_AXI_AWID, "0",
+        --                      S_AXI_AWADDR, "000",
+        --                      S_AXI_AWLEN, std_logic_vector(to_unsigned(data'length, S_AXI_AWLEN'length)), -- awlen is zero-based index !
+        --                      S_AXI_AWBURST, "00", -- FIXED
+        --                      S_AXI_AWVALID,
+        --                      S_AXI_AWREADY,
+        --                      S_AXI_WDATA, data,
+        --                      S_AXI_WSTRB, "0011",
+        --                      S_AXI_WLAST,
+        --                      S_AXI_WVALID,
+        --                      S_AXI_WREADY,
+        --                      S_AXI_BREADY,
+        --                      S_AXI_BVALID);
+
+        --        wait for 500 ns;
+
+        --        txrdy <= '1';
+
+        --        wait for 500 ns;
+
+        --        txrdy <= '0';
+
+        --        AXI4FullWrite(S_AXI_AWID, "0",
+        --                      S_AXI_AWADDR, "000",
+        --                      S_AXI_AWLEN, std_logic_vector(to_unsigned(data'length, S_AXI_AWLEN'length)), -- awlen is zero-based index !
+        --                      S_AXI_AWBURST, "00", -- FIXED
+        --                      S_AXI_AWVALID,
+        --                      S_AXI_AWREADY,
+        --                      S_AXI_WDATA, data,
+        --                      S_AXI_WSTRB, "0011",
+        --                      S_AXI_WLAST,
+        --                      S_AXI_WVALID,
+        --                      S_AXI_WREADY,
+        --                      S_AXI_BREADY,
+        --                      S_AXI_BVALID);        
+
+        --        wait for 2 us;
+
         wait;
     end process;
 

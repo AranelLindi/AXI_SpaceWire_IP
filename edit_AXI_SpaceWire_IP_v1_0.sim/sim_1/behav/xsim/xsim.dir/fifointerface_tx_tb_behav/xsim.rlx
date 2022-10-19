@@ -1,0 +1,12 @@
+
+{ 
+    crc :  6189296553803199530  , 
+    ccp_crc :  0  , 
+    cmdline : " --incr --debug typical --relax --mt 8 -L xil_defaultlib -L work -L secureip --snapshot fifointerface_tx_tb_behav work.fifointerface_tx_tb" , 
+    buildDate : "Apr 18 2022" , 
+    buildTime : "15:53:03" , 
+    linkCmd : "/usr/bin/gcc -Wa,-W  -O -fPIC  -m64  -Wl,--no-as-needed  -Wl,--unresolved-symbols=ignore-all  -o \"xsim.dir/fifointerface_tx_tb_behav/xsimk\"   \"xsim.dir/fifointerface_tx_tb_behav/obj/xsim_0.lnx64.o\" \"xsim.dir/fifointerface_tx_tb_behav/obj/xsim_1.lnx64.o\" -L\"/tools/Xilinx/Vivado/2022.1/lib/lnx64.o\" -lrdi_simulator_kernel   -lrdi_simbridge_kernel" , 
+    aggregate_nets : 
+    [ 
+    ] 
+} 
