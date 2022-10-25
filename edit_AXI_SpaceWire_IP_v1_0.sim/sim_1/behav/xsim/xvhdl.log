@@ -1,2 +1,2 @@
-INFO: [VRFC 10-163] Analyzing VHDL file "/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/fifointerface_tb.vhd" into library work
-INFO: [VRFC 10-3107] analyzing entity 'fifointerface_tx_tb'
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'AXI_SpaceWire_IP_v1_0_S00_AXI_TX'

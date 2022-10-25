@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="fifointerface_tx_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="fifointerface_tx_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="68,738.500 ns"></ZoomStartTime>
+      <ZoomEndTime time="70,787.501 ns"></ZoomEndTime>
+      <Cursor1Time time="69,370.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="276"></NameColumnWidth>
+      <ValueColumnWidth column_width="120"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="31" />
+   <wvobject type="logic" fp_name="/fifointerface_tx_tb/clk_logic">
+      <obj_property name="ElementShortName">clk_logic</obj_property>
+      <obj_property name="ObjectShortName">clk_logic</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_tx_tb/rst_logic">
+      <obj_property name="ElementShortName">rst_logic</obj_property>
+      <obj_property name="ObjectShortName">rst_logic</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_tx_tb/txwrite">
+      <obj_property name="ElementShortName">txwrite</obj_property>
+      <obj_property name="ObjectShortName">txwrite</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_tx_tb/txflag">
+      <obj_property name="ElementShortName">txflag</obj_property>
+      <obj_property name="ObjectShortName">txflag</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/fifointerface_tx_tb/txdata">
+      <obj_property name="ElementShortName">txdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">txdata[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_tx_tb/txrdy">
+      <obj_property name="ElementShortName">txrdy</obj_property>
+      <obj_property name="ObjectShortName">txrdy</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_tx_tb/S_AXI_ACLK">
+      <obj_property name="ElementShortName">S_AXI_ACLK</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_ACLK</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_tx_tb/S_AXI_ARESETN">
+      <obj_property name="ElementShortName">S_AXI_ARESETN</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_ARESETN</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/fifointerface_tx_tb/S_AXI_AWUSER">
+      <obj_property name="ElementShortName">S_AXI_AWUSER[-1:0]</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_AWUSER[-1:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_tx_tb/S_AXI_AWVALID">
+      <obj_property name="ElementShortName">S_AXI_AWVALID</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_AWVALID</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_tx_tb/S_AXI_AWREADY">
+      <obj_property name="ElementShortName">S_AXI_AWREADY</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_AWREADY</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/fifointerface_tx_tb/S_AXI_WDATA">
+      <obj_property name="ElementShortName">S_AXI_WDATA[31:0]</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_WDATA[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/fifointerface_tx_tb/S_AXI_WSTRB">
+      <obj_property name="ElementShortName">S_AXI_WSTRB[3:0]</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_WSTRB[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_tx_tb/S_AXI_WLAST">
+      <obj_property name="ElementShortName">S_AXI_WLAST</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_WLAST</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/fifointerface_tx_tb/S_AXI_WUSER">
+      <obj_property name="ElementShortName">S_AXI_WUSER[-1:0]</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_WUSER[-1:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_tx_tb/S_AXI_WVALID">
+      <obj_property name="ElementShortName">S_AXI_WVALID</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_WVALID</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_tx_tb/S_AXI_WREADY">
+      <obj_property name="ElementShortName">S_AXI_WREADY</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_WREADY</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/fifointerface_tx_tb/S_AXI_BID">
+      <obj_property name="ElementShortName">S_AXI_BID[0:0]</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_BID[0:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/fifointerface_tx_tb/S_AXI_BRESP">
+      <obj_property name="ElementShortName">S_AXI_BRESP[1:0]</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_BRESP[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/fifointerface_tx_tb/S_AXI_BUSER">
+      <obj_property name="ElementShortName">S_AXI_BUSER[-1:0]</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_BUSER[-1:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_tx_tb/S_AXI_BVALID">
+      <obj_property name="ElementShortName">S_AXI_BVALID</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_BVALID</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_tx_tb/S_AXI_BREADY">
+      <obj_property name="ElementShortName">S_AXI_BREADY</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_BREADY</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_tx_tb/S_AXI_RREADY">
+      <obj_property name="ElementShortName">S_AXI_RREADY</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_RREADY</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/fifointerface_tx_tb/s_do">
+      <obj_property name="ElementShortName">s_do[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_do[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/fifointerface_tx_tb/s_di">
+      <obj_property name="ElementShortName">s_di[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_di[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_tx_tb/s_rden">
+      <obj_property name="ElementShortName">s_rden</obj_property>
+      <obj_property name="ObjectShortName">s_rden</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_tx_tb/s_wren">
+      <obj_property name="ElementShortName">s_wren</obj_property>
+      <obj_property name="ObjectShortName">s_wren</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/fifointerface_tx_tb/s_rdcount">
+      <obj_property name="ElementShortName">s_rdcount[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_rdcount[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/fifointerface_tx_tb/s_wrcount">
+      <obj_property name="ElementShortName">s_wrcount[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_wrcount[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_tx_tb/s_empty">
+      <obj_property name="ElementShortName">s_empty</obj_property>
+      <obj_property name="ObjectShortName">s_empty</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_tx_tb/s_full">
+      <obj_property name="ElementShortName">s_full</obj_property>
+      <obj_property name="ObjectShortName">s_full</obj_property>
+   </wvobject>
+</wave_config>
