@@ -660,8 +660,8 @@ begin
     wrcount <= std_logic_vector(to_unsigned(s_wrcounter, wrcount'length));--s_fifo_wrcount;
     di <= s_fifo_space_reg;--s_fifo_di; -- s_fifo_space_reg (Debug!)
     do(8 downto 0) <= s_fifo_do;
-    empty <= s_empty;--s_fifo_empty;
-    full <= s_full;--s_fifo_full;
+    empty <= s_fifo_empty;
+    full <= s_fifo_full;
 
     -- Create active_high reset signal from AXI reset (which is active_low).
     s_axi_areseth <= not S_AXI_ARESETN;
@@ -669,6 +669,7 @@ begin
     --s_rst_wr <= s_axi_areseth or s_fifo_empty or s_fifo_full;
 
 
+    -- Combinatorial process to calculate how much free space tx fifo currently has.
     process(s_rdcounter, s_wrcounter)
         variable calc : integer range 0 to c_fifo_size;--unsigned(C_S_AXI_DATA_WIDTH-1 downto 0) := (others => '0');    
     begin
@@ -679,37 +680,35 @@ begin
             calc := s_rdcounter - s_wrcounter - 1;
             s_size <= to_unsigned(calc, s_size'length);
         end if;
-
-
     end process;
 
-    process(clk_logic)
-        --variable calc : integer range 0 to c_fifo_size;--unsigned(C_S_AXI_DATA_WIDTH-1 downto 0) := (others => '0');
-        --variable size : unsigned(C_S_AXI_DATA_WIDTH-1 downto 0);
-        --variable lg : std_logic_vector(1 downto 0);
-    begin
-        if rising_edge(clk_logic) then
-            --            if s_wrcounter >= s_rdcounter then
-            --                calc := (c_fifo_size + s_rdcounter - s_wrcounter - 1);
-            --                size := to_unsigned(calc, size'length);
-            --            else -- s_wrcounter < s_rdcounter
-            --                calc := s_rdcounter - s_wrcounter - 1;
-            --                size := to_unsigned(calc, size'length);
-            --            end if;
-            if s_wrcounter = s_rdcounter then
-                if s_wrcounter+1 = c_fifo_size then
-                    -- fifo is full
-                    s_full <= '1';
-                else
-                    -- fifo is empty
-                    s_empty <= '1';
-                end if;
-            else
-                -- fifo is not empty and not full
-                s_full <= '0';
-                s_empty <= '0';
-            end if;
 
+    --    -- Asserts and deasserts own fifo full and empty signals.
+--        fifo_sig : process(clk_logic)
+--        begin
+--            if rising_edge(clk_logic) then
+--                if s_size = c_fifo_size-1 then
+
+--                        -- fifo is empty.
+--                        s_empty <= '1';
+--                elsif s_size = 0 then
+--                        -- fifo is full.
+--                        s_full <= '1';
+--                else
+--                    -- fifo is not empty and not full.
+--                    s_full <= '0';
+--                    s_empty <= '0';
+--                end if;
+
+--                --s_fifo_space_reg <= std_logic_vector(s_size);
+--            end if;
+--        end process;
+
+
+    -- Apply current free space value into register to avoid timing and synchronization problems.
+    space_reg_apply : process(S_AXI_ACLK)
+    begin
+        if rising_edge(S_AXI_ACLK) then
             s_fifo_space_reg <= std_logic_vector(s_size);
         end if;
     end process;
@@ -727,6 +726,16 @@ begin
                 if S_AXI_WVALID = '1' and axi_wready = '1' then -- sehr gefährlich... ist vermutlich oft länger als einen takt HIGH (also beides) (hat bisher aber funktioniert, mal gut testen!!)
                     if axi_awaddr(ADDR_LSB+OPT_MEM_ADDR_BITS downto ADDR_LSB) = "0" then
                         s_fifo_wren <= '1';
+
+                        if s_size > 0 then --if s_full = '0' then
+                            --s_wrcounter <= s_wrcounter + 1;
+
+                            if s_wrcounter = c_fifo_size-1 then
+                                s_wrcounter <= 0;
+                            else
+                                s_wrcounter <= s_wrcounter + 1;
+                            end if;
+                        end if;
                     else
                         s_fifo_wren <= '0';
                     end if;
@@ -738,25 +747,27 @@ begin
     end process wr_0;
 
 
-    wrcounter : process(S_AXI_ACLK)
-    begin
-        if rising_edge(S_AXI_ACLK) then
-            if s_axi_areseth = '1' then
-                -- Synchronous reset.
-                s_wrcounter <= 0;--to_integer(unsigned(s_fifo_wrcount));
-            else
-                if s_fifo_wren = '1' then -- der teil sollte so passen... vorerst...
-                    if s_full = '0' then
-                        s_wrcounter <= s_wrcounter + 1;
-                        
-                        if s_wrcounter = c_fifo_size+1 then
-                            s_wrcounter <= 0;
-                        end if;
-                    end if;
-                end if;
-            end if;
-        end if;
-    end process;
+--    wrcounter : process(S_AXI_ACLK)
+--    begin
+--        if rising_edge(S_AXI_ACLK) then
+--            if s_axi_areseth = '1' then
+--                -- Synchronous reset.
+--                s_wrcounter <= 0;--to_integer(unsigned(s_fifo_wrcount));
+--            else
+--                if s_fifo_wren = '1' then -- der teil sollte so passen... vorerst...
+--                    if s_size > 0 then --if s_full = '0' then
+--                        --s_wrcounter <= s_wrcounter + 1;
+
+--                        if s_wrcounter = c_fifo_size-1 then
+--                            s_wrcounter <= 0;
+--                        else
+--                            s_wrcounter <= s_wrcounter + 1;
+--                        end if;
+--                    end if;
+--                end if;
+--            end if;
+--        end if;
+--    end process;
 
 
     -- Writes data words from tx fifo to spwstream.
@@ -777,45 +788,39 @@ begin
                         s_fifo_rden <= '0';
                         txwrite <= '0';
 
-                        if txrdy = '1' then
+                        if txrdy = '1' and s_fifo_empty = '0' then
                             txdata <= s_fifo_do(7 downto 0);
                             txflag <= s_fifo_do(8);
                             --txwrite <= '0'; -- [Changed - test again!] (seems to be not necessary because signal is on beginning of the state already assigned)
 
                             spwwrapperstate <= S_Operation;
+                            
+                        --elsif s_fifo_empty = '1' then -- workaround; not good!
+                        --    s_rdcounter <= s_wrcounter;
                         end if;
 
                     when S_Operation =>
-                        if s_empty = '0' then
-                            txwrite <= '1'; -- Write word into spwstream input port
-                            s_fifo_rden <= '1'; -- Deletes word from tx fifo
+                        --if s_size <= c_fifo_size and s_fifo_empty = '0' then--s_empty = '0' then
+                        txwrite <= '1'; -- Write word into spwstream input port
+                        s_fifo_rden <= '1'; -- Deletes word from tx fifo
 
-                            s_rdcounter <= s_rdcounter + 1;
-                            
-                            if s_rdcounter = c_fifo_size + 1 then
+                        --s_rdcounter <= s_rdcounter + 1;
+
+                        if s_size < c_fifo_size then
+                            if s_rdcounter = c_fifo_size-1 then
                                 s_rdcounter <= 0;
+                            else
+                                s_rdcounter <= s_rdcounter + 1;
                             end if;
-
-                            spwwrapperstate <= S_Idle;
                         end if;
+
+                        spwwrapperstate <= S_Idle;
+                        --end if;
 
                 end case;
             end if;
         end if;
     end process;
-
-    --    process(s_fifo_rden)
-    --    begin
-    --        if s_fifo_rden = '1' then
-    --            if s_fifo_empty = '0' then
-    --                s_rdcounter <= s_rdcounter + 1;
-    --            else
-    --                s_rdcounter <= s_rdcounter;
-    --            end if;
-    --        else
-    --            s_rdcounter <= s_rdcounter;
-    --        end if;
-    --    end process;
 
 
     -- FIFO_DUALCLOCK_MACRO: Dual-Clock First-In, First-Out (FIFO) RAM Buffer

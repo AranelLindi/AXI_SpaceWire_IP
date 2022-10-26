@@ -391,12 +391,15 @@ begin
             S_AXI_RVALID             => S_AXI_RVALID,
             S_AXI_RREADY             => S_AXI_RREADY );
 
+
+
     stimulus: process
         variable data : array_t(0 to 2050)(31 downto 0);
     begin
 
         -- Put initialisation code here
         S_AXI_ARESETN <= '0', '1' after 6 * ps_clock_period;
+        rst_logic <= '1', '0' after 6 * ps_clock_period;
 
         wait for 5 * ps_clock_period;
 
@@ -458,19 +461,19 @@ begin
                       S_AXI_WREADY,
                       S_AXI_BREADY,
                       S_AXI_BVALID);
-                      
+
         wait for 5 us;
-        
+
         -- read as many as possible to create following situation: rdcounter > wrcounter
-        txrdy <= '1';        
-        wait for 40 us;        
+        txrdy <= '1';
+        wait for 40 us;
         txrdy <= '0';
-        
-        
+
+
         wait for 5 us;
-        
+
         -- Try to write 2001 elements (fifo should have had so much spaces by calculation)
-        
+
         for j in 0 to 8 loop
             AXI4FullWrite(S_AXI_AWID, "0",
                           S_AXI_AWADDR, "000",
@@ -486,6 +489,28 @@ begin
                           S_AXI_BREADY,
                           S_AXI_BVALID);
         end loop;
+
+
+        wait for 5 us;
+
+        -- Write then 2049 elements into fifo so that s_rdcounter > s_wrcounter is valid
+        for j in 0 to 8 loop
+            AXI4FullWrite(S_AXI_AWID, "0",
+                          S_AXI_AWADDR, "000",
+                          S_AXI_AWLEN, std_logic_vector(to_unsigned(255, S_AXI_AWLEN'length)), -- awlen is zero-based index !
+                          S_AXI_AWBURST, "00", -- FIXED
+                          S_AXI_AWVALID,
+                          S_AXI_AWREADY,
+                          S_AXI_WDATA, data,
+                          S_AXI_WSTRB, "0011",
+                          S_AXI_WLAST,
+                          S_AXI_WVALID,
+                          S_AXI_WREADY,
+                          S_AXI_BREADY,
+                          S_AXI_BVALID);
+        end loop;
+        
+        txrdy <= '1';
 
         --        wait for 500 ns;
 
@@ -526,7 +551,7 @@ begin
         --                      S_AXI_BVALID);        
 
         --        wait for 2 us;
-        
+
 
         wait;
     end process;
