@@ -10,15 +10,18 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="241.023334 us"></ZoomStartTime>
-      <ZoomEndTime time="261.673335 us"></ZoomEndTime>
-      <Cursor1Time time="244.465000 us"></Cursor1Time>
+      <ZoomStartTime time="58,702.500 ns"></ZoomStartTime>
+      <ZoomEndTime time="59,737.001 ns"></ZoomEndTime>
+      <Cursor1Time time="59,190.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="276"></NameColumnWidth>
-      <ValueColumnWidth column_width="104"></ValueColumnWidth>
+      <ValueColumnWidth column_width="100"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="19" />
+   <wave_markers>
+      <marker label="" time="59190000" />
+   </wave_markers>
    <wvobject type="logic" fp_name="/fifointerface_tx_tb/clk_logic">
       <obj_property name="ElementShortName">clk_logic</obj_property>
       <obj_property name="ObjectShortName">clk_logic</obj_property>

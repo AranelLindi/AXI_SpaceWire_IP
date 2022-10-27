@@ -670,15 +670,22 @@ begin
 
 
     -- Combinatorial process to calculate how much free space tx fifo currently has.
-    process(s_rdcounter, s_wrcounter)
-        variable calc : integer range 0 to c_fifo_size;--unsigned(C_S_AXI_DATA_WIDTH-1 downto 0) := (others => '0');    
+    process(s_rdcounter, s_wrcounter, s_fifo_empty, s_fifo_full)
+        --variable calc : integer range 0 to c_fifo_size;--unsigned(C_S_AXI_DATA_WIDTH-1 downto 0) := (others => '0');    
     begin
         if s_wrcounter >= s_rdcounter then
-            calc := (c_fifo_size + s_rdcounter - s_wrcounter - 1);
-            s_size <= to_unsigned(calc, s_size'length);
+            --calc := (c_fifo_size + s_rdcounter - s_wrcounter - 1);
+            s_size <= to_unsigned((c_fifo_size + s_rdcounter - s_wrcounter - 1), s_size'length);
         else -- s_wrcounter < s_rdcounter
-            calc := s_rdcounter - s_wrcounter - 1;
-            s_size <= to_unsigned(calc, s_size'length);
+            --calc := s_rdcounter - s_wrcounter - 1;
+            s_size <= to_unsigned(s_rdcounter - s_wrcounter - 1, s_size'length);
+        end if;
+        
+        
+        if s_fifo_empty = '1' then
+            s_size <= to_unsigned(c_fifo_size - 1, s_size'length);
+        elsif s_fifo_full = '1' then
+            s_size <= to_unsigned(0, s_size'length);
         end if;
     end process;
 
