@@ -512,45 +512,28 @@ begin
         
         txrdy <= '1';
 
-        --        wait for 500 ns;
-
-        --        AXI4FullWrite(S_AXI_AWID, "0",
-        --                      S_AXI_AWADDR, "000",
-        --                      S_AXI_AWLEN, std_logic_vector(to_unsigned(data'length, S_AXI_AWLEN'length)), -- awlen is zero-based index !
-        --                      S_AXI_AWBURST, "00", -- FIXED
-        --                      S_AXI_AWVALID,
-        --                      S_AXI_AWREADY,
-        --                      S_AXI_WDATA, data,
-        --                      S_AXI_WSTRB, "0011",
-        --                      S_AXI_WLAST,
-        --                      S_AXI_WVALID,
-        --                      S_AXI_WREADY,
-        --                      S_AXI_BREADY,
-        --                      S_AXI_BVALID);
-
-        --        wait for 500 ns;
-
-        --        txrdy <= '1';
-
-        --        wait for 500 ns;
-
-        --        txrdy <= '0';
-
-        --        AXI4FullWrite(S_AXI_AWID, "0",
-        --                      S_AXI_AWADDR, "000",
-        --                      S_AXI_AWLEN, std_logic_vector(to_unsigned(data'length, S_AXI_AWLEN'length)), -- awlen is zero-based index !
-        --                      S_AXI_AWBURST, "00", -- FIXED
-        --                      S_AXI_AWVALID,
-        --                      S_AXI_AWREADY,
-        --                      S_AXI_WDATA, data,
-        --                      S_AXI_WSTRB, "0011",
-        --                      S_AXI_WLAST,
-        --                      S_AXI_WVALID,
-        --                      S_AXI_WREADY,
-        --                      S_AXI_BREADY,
-        --                      S_AXI_BVALID);        
-
-        --        wait for 2 us;
+        wait for 50 us;
+        
+        txrdy <= '0';
+        
+        wait for 5 us;
+        
+        
+        for j in 0 to 8 loop
+            AXI4FullWrite(S_AXI_AWID, "0",
+                          S_AXI_AWADDR, "000",
+                          S_AXI_AWLEN, std_logic_vector(to_unsigned(255, S_AXI_AWLEN'length)), -- awlen is zero-based index !
+                          S_AXI_AWBURST, "00", -- FIXED
+                          S_AXI_AWVALID,
+                          S_AXI_AWREADY,
+                          S_AXI_WDATA, data,
+                          S_AXI_WSTRB, "0011",
+                          S_AXI_WLAST,
+                          S_AXI_WVALID,
+                          S_AXI_WREADY,
+                          S_AXI_BREADY,
+                          S_AXI_BVALID);
+        end loop;        
 
 
         wait;

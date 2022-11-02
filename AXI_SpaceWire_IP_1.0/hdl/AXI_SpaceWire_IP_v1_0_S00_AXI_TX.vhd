@@ -677,39 +677,41 @@ begin
             --calc := (c_fifo_size + s_rdcounter - s_wrcounter - 1);
             s_size <= to_unsigned((c_fifo_size + s_rdcounter - s_wrcounter - 1), s_size'length);
         else -- s_wrcounter < s_rdcounter
-            --calc := s_rdcounter - s_wrcounter - 1;
+        --calc := s_rdcounter - s_wrcounter - 1;
             s_size <= to_unsigned(s_rdcounter - s_wrcounter - 1, s_size'length);
         end if;
-        
-        
-        if s_fifo_empty = '1' then
-            s_size <= to_unsigned(c_fifo_size - 1, s_size'length);
-        elsif s_fifo_full = '1' then
-            s_size <= to_unsigned(0, s_size'length);
-        end if;
+
+
+        -- Geht so nicht!
+        --        if s_fifo_empty = '1' then
+        --            s_size <= to_unsigned(c_fifo_size - 1, s_size'length);
+        --        elsif s_fifo_full = '1' then
+        --            s_size <= to_unsigned(0, s_size'length);
+        --        end if;
     end process;
 
 
+
     --    -- Asserts and deasserts own fifo full and empty signals.
---        fifo_sig : process(clk_logic)
---        begin
---            if rising_edge(clk_logic) then
---                if s_size = c_fifo_size-1 then
+    --        fifo_sig : process(clk_logic)
+    --        begin
+    --            if rising_edge(clk_logic) then
+    --                if s_size = c_fifo_size-1 then
 
---                        -- fifo is empty.
---                        s_empty <= '1';
---                elsif s_size = 0 then
---                        -- fifo is full.
---                        s_full <= '1';
---                else
---                    -- fifo is not empty and not full.
---                    s_full <= '0';
---                    s_empty <= '0';
---                end if;
+    --                        -- fifo is empty.
+    --                        s_empty <= '1';
+    --                elsif s_size = 0 then
+    --                        -- fifo is full.
+    --                        s_full <= '1';
+    --                else
+    --                    -- fifo is not empty and not full.
+    --                    s_full <= '0';
+    --                    s_empty <= '0';
+    --                end if;
 
---                --s_fifo_space_reg <= std_logic_vector(s_size);
---            end if;
---        end process;
+    --                --s_fifo_space_reg <= std_logic_vector(s_size);
+    --            end if;
+    --        end process;
 
 
     -- Apply current free space value into register to avoid timing and synchronization problems.
@@ -753,28 +755,47 @@ begin
         end if;
     end process wr_0;
 
+    --    process(S_AXI_ACLK)
+    --    begin
+    --        if rising_edge(S_AXI_ACLK) then
+    --            if S_AXI_ARESETN = '0' then
+    --                s_wrcounter <= 0;
+    --            else
+    --                if s_size > 0 then --if s_full = '0' then
+    --                    --s_wrcounter <= s_wrcounter + 1;
 
---    wrcounter : process(S_AXI_ACLK)
---    begin
---        if rising_edge(S_AXI_ACLK) then
---            if s_axi_areseth = '1' then
---                -- Synchronous reset.
---                s_wrcounter <= 0;--to_integer(unsigned(s_fifo_wrcount));
---            else
---                if s_fifo_wren = '1' then -- der teil sollte so passen... vorerst...
---                    if s_size > 0 then --if s_full = '0' then
---                        --s_wrcounter <= s_wrcounter + 1;
+    --                    if s_wrcounter = c_fifo_size-1 then
+    --                        s_wrcounter <= 0;
+    --                    else
+    --                        s_wrcounter <= s_wrcounter + 1;
+    --                    end if;
+    --                end if;
+    --            end if;
+    --        end if;
+    --    end process;
 
---                        if s_wrcounter = c_fifo_size-1 then
---                            s_wrcounter <= 0;
---                        else
---                            s_wrcounter <= s_wrcounter + 1;
---                        end if;
---                    end if;
---                end if;
---            end if;
---        end if;
---    end process;
+
+    --    wrcounter : process(S_AXI_ACLK)
+    --    begin
+    --        if rising_edge(S_AXI_ACLK) then
+    --            if s_axi_areseth = '1' then
+    --                -- Synchronous reset.
+    --                s_wrcounter <= 0;--to_integer(unsigned(s_fifo_wrcount));
+    --            else
+    --                if s_fifo_wren = '1' then -- der teil sollte so passen... vorerst...
+    --                    if s_size > 0 then --if s_full = '0' then
+    --                        --s_wrcounter <= s_wrcounter + 1;
+
+    --                        if s_wrcounter = c_fifo_size-1 then
+    --                            s_wrcounter <= 0;
+    --                        else
+    --                            s_wrcounter <= s_wrcounter + 1;
+    --                        end if;
+    --                    end if;
+    --                end if;
+    --            end if;
+    --        end if;
+    --    end process;
 
 
     -- Writes data words from tx fifo to spwstream.
@@ -795,15 +816,15 @@ begin
                         s_fifo_rden <= '0';
                         txwrite <= '0';
 
-                        if txrdy = '1' and s_fifo_empty = '0' then
+                        if txrdy = '1' and s_size < c_fifo_size then --s_fifo_empty = '0' then
                             txdata <= s_fifo_do(7 downto 0);
                             txflag <= s_fifo_do(8);
                             --txwrite <= '0'; -- [Changed - test again!] (seems to be not necessary because signal is on beginning of the state already assigned)
 
                             spwwrapperstate <= S_Operation;
-                            
-                        --elsif s_fifo_empty = '1' then -- workaround; not good!
-                        --    s_rdcounter <= s_wrcounter;
+
+                            --elsif s_fifo_empty = '1' then -- workaround; not good!
+                            --    s_rdcounter <= s_wrcounter;
                         end if;
 
                     when S_Operation =>
@@ -813,7 +834,7 @@ begin
 
                         --s_rdcounter <= s_rdcounter + 1;
 
-                        if s_size < c_fifo_size then
+                        if s_size /= c_fifo_size-1 then
                             if s_rdcounter = c_fifo_size-1 then
                                 s_rdcounter <= 0;
                             else
