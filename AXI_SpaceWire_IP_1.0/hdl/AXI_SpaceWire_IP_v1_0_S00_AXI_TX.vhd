@@ -816,7 +816,7 @@ begin
                         s_fifo_rden <= '0';
                         txwrite <= '0';
 
-                        if txrdy = '1' and s_size < c_fifo_size then --s_fifo_empty = '0' then
+                        if txrdy = '1' and s_fifo_empty = '0' then--s_size < c_fifo_size-1 then --s_fifo_empty = '0' then
                             txdata <= s_fifo_do(7 downto 0);
                             txflag <= s_fifo_do(8);
                             --txwrite <= '0'; -- [Changed - test again!] (seems to be not necessary because signal is on beginning of the state already assigned)
