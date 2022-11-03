@@ -463,6 +463,12 @@ begin
                       S_AXI_BVALID);
 
         wait for 5 us;
+        
+        
+        S_AXI_ARESETN <= '0', '1' after 2 us;
+        
+        
+        
 
         -- read as many as possible to create following situation: rdcounter > wrcounter
         txrdy <= '1';
