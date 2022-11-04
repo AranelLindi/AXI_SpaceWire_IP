@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="fifointerface_rx_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="fifointerface_rx_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
+      <ZoomEndTime time="170.000001 us"></ZoomEndTime>
+      <Cursor1Time time="102.130000 us"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="276"></NameColumnWidth>
+      <ValueColumnWidth column_width="88"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="18" />
+   <wvobject type="array" fp_name="/fifointerface_rx_tb/s_fifo_rdcount">
+      <obj_property name="ElementShortName">s_fifo_rdcount[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_fifo_rdcount[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/fifointerface_rx_tb/s_fifo_wrcount">
+      <obj_property name="ElementShortName">s_fifo_wrcount[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_fifo_wrcount[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_rx_tb/s_fifo_wren">
+      <obj_property name="ElementShortName">s_fifo_wren</obj_property>
+      <obj_property name="ObjectShortName">s_fifo_wren</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_rx_tb/s_fifo_rden">
+      <obj_property name="ElementShortName">s_fifo_rden</obj_property>
+      <obj_property name="ObjectShortName">s_fifo_rden</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/fifointerface_rx_tb/s_fifo_di">
+      <obj_property name="ElementShortName">s_fifo_di[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_fifo_di[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/fifointerface_rx_tb/s_fifo_do">
+      <obj_property name="ElementShortName">s_fifo_do[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_fifo_do[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_rx_tb/s_fifo_empty">
+      <obj_property name="ElementShortName">s_fifo_empty</obj_property>
+      <obj_property name="ObjectShortName">s_fifo_empty</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_rx_tb/s_fifo_full">
+      <obj_property name="ElementShortName">s_fifo_full</obj_property>
+      <obj_property name="ObjectShortName">s_fifo_full</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_rx_tb/clk_logic">
+      <obj_property name="ElementShortName">clk_logic</obj_property>
+      <obj_property name="ObjectShortName">clk_logic</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_rx_tb/rst_logic">
+      <obj_property name="ElementShortName">rst_logic</obj_property>
+      <obj_property name="ObjectShortName">rst_logic</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_rx_tb/rxvalid">
+      <obj_property name="ElementShortName">rxvalid</obj_property>
+      <obj_property name="ObjectShortName">rxvalid</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_rx_tb/rxflag">
+      <obj_property name="ElementShortName">rxflag</obj_property>
+      <obj_property name="ObjectShortName">rxflag</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/fifointerface_rx_tb/rxdata">
+      <obj_property name="ElementShortName">rxdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rxdata[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_rx_tb/rxread">
+      <obj_property name="ElementShortName">rxread</obj_property>
+      <obj_property name="ObjectShortName">rxread</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_rx_tb/S_AXI_ACLK">
+      <obj_property name="ElementShortName">S_AXI_ACLK</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_ACLK</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_rx_tb/S_AXI_ARESETN">
+      <obj_property name="ElementShortName">S_AXI_ARESETN</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_ARESETN</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/fifointerface_rx_tb/S_AXI_RDATA">
+      <obj_property name="ElementShortName">S_AXI_RDATA[31:0]</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_RDATA[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/fifointerface_rx_tb/S_AXI_RLAST">
+      <obj_property name="ElementShortName">S_AXI_RLAST</obj_property>
+      <obj_property name="ObjectShortName">S_AXI_RLAST</obj_property>
+   </wvobject>
+</wave_config>

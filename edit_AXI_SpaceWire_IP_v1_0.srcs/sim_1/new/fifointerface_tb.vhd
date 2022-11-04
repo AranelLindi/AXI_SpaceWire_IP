@@ -40,8 +40,6 @@ architecture fifointerface_tx_tb_arch of fifointerface_tx_tb is
     constant pl_clock_period : time := 10 ns;
     constant ps_clock_period : time := 20 ns;
 
-    constant FIFO_ALMOST_FULL_OFFSET : Integer range 0 to ( 18 * 1000 / 8 ) := 0;
-    constant FIFO_ALMOST_EMPTY_OFFSET : Integer range 0 to ( 18 * 1000 / 8 ) := 0;
     constant C_S_AXI_ID_WIDTH	: integer	:= 1;
     constant C_S_AXI_DATA_WIDTH	: integer	:= 32;
     constant C_S_AXI_ADDR_WIDTH	: integer	:= 3;
@@ -64,8 +62,6 @@ architecture fifointerface_tx_tb_arch of fifointerface_tx_tb is
 
     component AXI_SpaceWire_IP_v1_0_S00_AXI_TX
         generic (
-            FIFO_ALMOST_FULL_OFFSET : Integer range 0 to ( 18 * 1000 / 8 ) := 0;
-            FIFO_ALMOST_EMPTY_OFFSET : Integer range 0 to ( 18 * 1000 / 8 ) := 0;
             C_S_AXI_ID_WIDTH	: integer	:= 1;
             C_S_AXI_DATA_WIDTH	: integer	:= 32;
             C_S_AXI_ADDR_WIDTH	: integer	:= 3;
@@ -319,8 +315,7 @@ architecture fifointerface_tx_tb_arch of fifointerface_tx_tb is
 begin
 
     -- Design under test.
-    dut: AXI_SpaceWire_IP_v1_0_S00_AXI_TX generic map ( FIFO_ALMOST_FULL_OFFSET  => FIFO_ALMOST_FULL_OFFSET,
-                    FIFO_ALMOST_EMPTY_OFFSET => FIFO_ALMOST_EMPTY_OFFSET,
+    dut: AXI_SpaceWire_IP_v1_0_S00_AXI_TX generic map (
                     C_S_AXI_ID_WIDTH         => C_S_AXI_ID_WIDTH,
                     C_S_AXI_DATA_WIDTH       => C_S_AXI_DATA_WIDTH,
                     C_S_AXI_ADDR_WIDTH       => C_S_AXI_ADDR_WIDTH,
@@ -465,7 +460,7 @@ begin
         wait for 5 us;
         
         
-        S_AXI_ARESETN <= '0', '1' after 2 us;
+        --S_AXI_ARESETN <= '0', '1' after 2 us;
         
         
         

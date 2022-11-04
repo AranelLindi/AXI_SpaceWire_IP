@@ -1,0 +1,5 @@
+Vivado Simulator v2022.1
+Copyright 1986-1999, 2001-2022 Xilinx, Inc. All Rights Reserved.
+Running: /tools/Xilinx/Vivado/2022.1/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 --maxdelay -L xil_defaultlib -L work -L simprims_ver -L secureip --snapshot fifointerface_rx_tb_time_synth -transport_int_delays -pulse_r 0 -pulse_int_r 0 -pulse_e 0 -pulse_int_e 0 work.fifointerface_rx_tb work.glbl -log elaborate.log 
+Using 8 slave threads.
+ERROR: [XSIM 43-3225] Cannot find design unit work.glbl in library work located at xsim.dir/work.

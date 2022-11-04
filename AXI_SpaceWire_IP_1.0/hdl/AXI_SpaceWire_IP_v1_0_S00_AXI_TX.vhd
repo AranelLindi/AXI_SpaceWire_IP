@@ -25,12 +25,7 @@ use ieee.math_real.all;
 entity AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
     generic (
         -- Users to add parameters here
-
-        -- Sets transmit fifo almost full threshold.
-        FIFO_ALMOST_FULL_OFFSET : Integer range 0 to ( 18 * 1000 / 8 ) := 0;
-
-        -- Sets transmit fifo almost empty threshold.
-        FIFO_ALMOST_EMPTY_OFFSET : Integer range 0 to ( 18 * 1000 / 8 ) := 0;
+        
 
         -- User parameters ends
         -- Do not modify the parameters beyond this line
@@ -244,17 +239,13 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
     signal s_fifo_wren : std_logic := '0';
 
     -- Fifo constants declaration.
-    constant c_fifo_size : integer := 2049; -- 2047 (2**11-1)
+    constant c_fifo_size : integer := 2049; -- p. 57 UG473 (table 2-7)
 
     -- Available fifo space register signals.
     signal s_fifo_space_reg : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-    signal s_rdcounter : integer range 0 to c_fifo_size;--unsigned(s_fifo_rdcount'length-1 downto 0) := (others => '0'); --integer range 0 to c_fifo_size - 1 := 0;
-    signal s_wrcounter : integer range 0 to c_fifo_size+1;--unsigned(s_fifo_wrcount'length-1 downto 0) := (others => '0');
+    signal s_rdcounter : integer range 0 to c_fifo_size;
+    signal s_wrcounter : integer range 0 to c_fifo_size;
     signal s_size : unsigned(C_S_AXI_DATA_WIDTH-1 downto 0) := (others => '0');
-    --signal s_rst_rd : std_logic;
-    --signal s_rst_wr : std_logic;
-    signal s_full : std_logic := '0';
-    signal s_empty : std_logic := '0';
 
     -- Spwwrapper declarations.
     type spwwrapperstates is (S_Idle, S_Operation);
@@ -663,7 +654,7 @@ begin
     empty <= s_fifo_empty;
     full <= s_fifo_full;
 
-    -- Create active_high reset signal from AXI reset (which is active_low).
+    -- Create active_high reset signal from AXI reset (which is active_low). (Necessary for fifo reset which requires active_high reset!)
     s_axi_areseth <= not S_AXI_ARESETN;
 
 
@@ -671,7 +662,7 @@ begin
     process(s_rdcounter, s_wrcounter)
     begin
         if s_wrcounter >= s_rdcounter then
-            s_size <= to_unsigned((c_fifo_size + s_rdcounter - s_wrcounter - 1), s_size'length);
+            s_size <= to_unsigned(c_fifo_size + s_rdcounter - s_wrcounter - 1, s_size'length);
         else -- s_wrcounter < s_rdcounter
             s_size <= to_unsigned(s_rdcounter - s_wrcounter - 1, s_size'length);
         end if;
@@ -756,7 +747,7 @@ begin
                         txwrite <= '1'; -- Write word into spwstream input port
                         s_fifo_rden <= '0';
 
-                        if s_size /= c_fifo_size-1 then
+                        if s_size /= c_fifo_size-1 then -- prevents that value of rdcounter is bigger than wrcounter altough fifo is empty
                             if s_rdcounter = c_fifo_size-1 then
                                 s_rdcounter <= 0;
                             else
