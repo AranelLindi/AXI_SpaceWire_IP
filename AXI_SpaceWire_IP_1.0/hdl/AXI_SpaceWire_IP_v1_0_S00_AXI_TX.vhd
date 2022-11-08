@@ -730,22 +730,24 @@ begin
             else
                 case spwwrapperstate is
                     when S_Idle =>
-                        --s_fifo_rden <= '0';
-                        txwrite <= '0';
+                        s_fifo_rden <= '0';
+                        --txwrite <= '0';
 
                         if txrdy = '1' and s_fifo_empty = '0' then
                             txdata <= s_fifo_do(7 downto 0);
                             txflag <= s_fifo_do(8);
+                            
+                            txwrite <= '1';
 
                             -- Read one data word outta fifo
-                            s_fifo_rden <= '1'; -- Due to FWFT it is necessary to assign this signal one cycle earlier otherwise under certain circumstances a data word will be lost during output operation!
+                            --s_fifo_rden <= '1'; -- Due to FWFT it is necessary to assign this signal one cycle earlier otherwise under certain circumstances a data word will be lost during output operation!
 
                             spwwrapperstate <= S_Operation;
                         end if;
 
                     when S_Operation =>
-                        txwrite <= '1'; -- Write word into spwstream input port
-                        s_fifo_rden <= '0';
+                        txwrite <= '0'; -- Write word into spwstream input port
+                        s_fifo_rden <= '1';
 
                         if s_size /= c_fifo_size-1 then -- prevents that value of rdcounter is bigger than wrcounter altough fifo is empty
                             if s_rdcounter = c_fifo_size-1 then

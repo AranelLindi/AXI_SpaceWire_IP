@@ -786,50 +786,47 @@ begin
             else
                 case spwwrapperstate is
                     when S_Idle =>
-                        --s_fifo_wren <= '0';
-                        --rxread <= '0';
-
+                        s_fifo_wren <= '0';
+                        
                         if rxvalid = '1' and s_fifo_full = '0' then
-                            if rxflag = '1' then -- whenever rxflag is '1' a packet is closed
-                                -- EOP/EEP/Process Id
-                                case rxdata is
-                                    when "00000000" => -- EOP
-                                        v_write := "111111111";
-
-                                    when "00000001" => -- EEP
-                                        v_write := "111111110";
-
-                                    when others => -- Should not be entered (only necessary for simulation)
-                                        v_write := v_write;--(others => '0'); [Changed - test again!]
-
-                                end case;
-
-                                openPacket := False;
-                            else
-                                -- Data word (N-Char)
-                                if openPacket = False then
-                                    -- Data word is first N-Char of a packet
-                                    v_write := '1' & rxdata;
-                                    openPacket := True; -- First data word of a packet ! Now we have an open packet...
-                                else
-                                    -- (inside an open packet)
-                                    v_write := '0' & rxdata;
-                                end if;
-                            end if;
-
-                            s_fifo_di(8 downto 0) <= v_write;
-
-                            rxread <= '1'; -- Put next data word to spwstream output port
-
-                            s_fifo_wren <= '1';
+                            rxread <= '1';
 
                             spwwrapperstate <= S_Operation;
                         end if;
 
                     when S_Operation =>
-                        --if s_fifo_full = '0' then
                         rxread <= '0';
-                        s_fifo_wren <= '0'; -- Fifo accepts data word in s_fifo_di
+
+                        if rxflag = '1' then -- whenever rxflag is '1' a packet is closed
+                            -- EOP/EEP/Process Id
+                            case rxdata is
+                                when "00000000" => -- EOP
+                                    v_write := "111111111";
+
+                                when "00000001" => -- EEP
+                                    v_write := "111111110";
+
+                                when others => -- Should not be entered (only necessary for simulation)
+                                    v_write := v_write;--(others => '0'); [Changed - test again!]
+
+                            end case;
+
+                            openPacket := False;
+                        else
+                            -- Data word (N-Char)
+                            if openPacket = False then
+                                -- Data word is first N-Char of a packet
+                                v_write := '1' & rxdata;
+                                openPacket := True; -- First data word of a packet ! Now we have an open packet...
+                            else
+                                -- (inside an open packet)
+                                v_write := '0' & rxdata;
+                            end if;
+                        end if;
+
+                        s_fifo_di(8 downto 0) <= v_write;
+                        s_fifo_wren <= '1';
+
 
                         if s_size /= c_fifo_size-1 then
                             if s_wrcounter = c_fifo_size-1 then
