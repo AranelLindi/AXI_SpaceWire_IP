@@ -1,13 +1,15 @@
-
-*** Running vivado
-    with args -log AXI_SpaceWire_IP_v1_0.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source AXI_SpaceWire_IP_v1_0.tcl
-
-
-****** Vivado v2022.1 (64-bit)
-  **** SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
-  **** IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
-    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
-
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Thu Nov 10 14:27:59 2022
+# Process ID: 29998
+# Current directory: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1
+# Command line: vivado -log AXI_SpaceWire_IP_v1_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source AXI_SpaceWire_IP_v1_0.tcl
+# Log file: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/AXI_SpaceWire_IP_v1_0.vds
+# Journal file: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.runs/synth_1/vivado.jou
+# Running On: stl56jc-MS-7C95, OS: Linux, CPU Frequency: 400.000 MHz, CPU Physical cores: 12, Host memory: 14546 MB
+#-----------------------------------------------------------
 source AXI_SpaceWire_IP_v1_0.tcl -notrace
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0'.

@@ -1,6 +1,0 @@
-# compile vhdl design source files
-vhdl work  \
-"../../../../../edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/fifointerface_rx_tb.vhd" \
-
-# Do not sort compile order
-nosort

@@ -517,7 +517,7 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0 is
     -- Signal to reset pulse
     signal s_rst_pulse : std_logic := '0';
     -- Shiftregister to stretch pulse
-    signal s_pulse_reg : std_logic_vector(1 downto 0) := (others => '0'); -- ACHTUNG! IST DAS PULSE SIGNAL NOCH ZU KURZ ODER ZU LANG UM VON DER CPU ERKANNT ZU WERDEN, DANN HIER MIT DER LÄNGE DES SCHIEBEREIGSTERS EXPERIMENTIEREN!
+    signal s_pulse_reg : std_logic_vector(20 downto 0) := (others => '0'); -- ACHTUNG! IST DAS PULSE SIGNAL NOCH ZU KURZ ODER ZU LANG UM VON DER CPU ERKANNT ZU WERDEN, DANN HIER MIT DER LÄNGE DES SCHIEBEREIGSTERS EXPERIMENTIEREN!
     -- Actual pulse transport signal
     signal s_pulse : std_logic := '0';
 begin

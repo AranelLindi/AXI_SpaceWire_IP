@@ -1,4 +1,7 @@
-INFO: [VRFC 10-2263] Analyzing Verilog file "/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.sim/sim_1/synth/timing/xsim/fifointerface_rx_tb_time_synth.v" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.sim/sim_1/synth/timing/xsim/AXI_SpaceWire_IP_v1_0_tb_time_synth.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module AXI_SpaceWire_IP_v1_0_S01_AXI_RX
 INFO: [VRFC 10-311] analyzing module unimacro_FIFO_DUALCLOCK_MACRO
 INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwpkg.vhd" into library xil_defaultlib
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'AXI_SpaceWire_IP_v1_0_tb'

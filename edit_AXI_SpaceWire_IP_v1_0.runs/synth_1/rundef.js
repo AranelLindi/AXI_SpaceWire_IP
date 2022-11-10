@@ -27,7 +27,7 @@ eval( EAInclude(ISEJScriptLib) );
 
 
 ISEStep( "vivado",
-         "-log AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source AXI_SpaceWire_IP_v1_0_S01_AXI_RX.tcl" );
+         "-log AXI_SpaceWire_IP_v1_0.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source AXI_SpaceWire_IP_v1_0.tcl" );
 
 
 
