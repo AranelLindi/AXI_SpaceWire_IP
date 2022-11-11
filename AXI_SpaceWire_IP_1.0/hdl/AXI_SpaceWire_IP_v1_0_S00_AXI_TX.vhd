@@ -230,9 +230,9 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0_S00_AXI_TX is
     signal s_fifo_do : std_logic_vector(8 downto 0); -- Internal signal
     signal s_fifo_empty : std_logic := '1'; -- Top Level IO
     signal s_fifo_full : std_logic := '0'; -- Top Level IO
-    signal s_fifo_rdcount : std_logic_vector(10 downto 0); -- err? -- Top Level IO ?
+    signal s_fifo_rdcount : std_logic_vector(10 downto 0); -- unused
     signal s_fifo_rderr : std_logic; -- Top Level IO ? 
-    signal s_fifo_wrcount : std_logic_vector(10 downto 0); -- err?
+    signal s_fifo_wrcount : std_logic_vector(10 downto 0); -- unused
     signal s_fifo_wrerr : std_logic;
     signal s_fifo_di : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
     signal s_fifo_rden : std_logic := '0';
@@ -572,16 +572,6 @@ begin
         begin
             --assigning 8 bit data
             data_in  <= S_AXI_WDATA(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
-            --data_out <= byte_ram(to_integer(unsigned(mem_address)));
-            --data_out <= s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 )) when mem_address = "0" else data_out;
-
-            --            process(mem_address)
-            --            begin
-            --                case mem_address is
-            --                    when "0" => data_out <= s_fifo_di(( mem_byte_index * 8 + 7 ) downto ( mem_byte_index * 8 ));
-            --                    when others => data_out <= data_out;--(others => '0'); -- evtl. "null" besser?
-            --                end case;
-            --            end process;
 
 
             -- Memory write process.
@@ -681,8 +671,7 @@ begin
     end process;
 
 
-    -- Writes data words coming from AXI bus into fifo. The wren signal is asserted or deasserted 
-    -- depending on the write channel handshake signals.
+    -- Writes data words coming from AXI Bus into fifo. The wren signal is asserted or deasserted depending on the write channel handshake signals.
     wr_0 : process(S_AXI_ACLK)
     begin
         if rising_edge(S_AXI_ACLK) then
@@ -692,12 +681,12 @@ begin
                 s_wrcounter <= 0;
             else
                 if S_AXI_WVALID = '1' and axi_wready = '1' then -- sehr gefährlich... ist vermutlich oft länger als einen takt HIGH (also beides) (hat bisher aber funktioniert, mal gut testen!!)
-                    if axi_awaddr(ADDR_LSB+OPT_MEM_ADDR_BITS downto ADDR_LSB) = "0" then
-                        s_fifo_wren <= '1';
+                    if axi_awaddr(ADDR_LSB+OPT_MEM_ADDR_BITS downto ADDR_LSB) = "0" then -- Important! Elsewise wren is also asserted while element register is addressed!
+                        s_fifo_wren <= '1'; -- Assert write enabling signal
 
-                        if s_size > 0 then -- s_size contains free space of tx fifo so change s_wrcounter only if fifo is not empty.
-                            if s_wrcounter = c_fifo_size-1 then
-                                s_wrcounter <= 0;
+                        if s_size > 0 then -- s_size contains free space of tx fifo so address s_wrcounter only if fifo is not empty.
+                            if s_wrcounter = (c_fifo_size - 1) then
+                                s_wrcounter <= 0; -- wrap
                             else
                                 s_wrcounter <= s_wrcounter + 1;
                             end if;
@@ -731,7 +720,6 @@ begin
                 case spwwrapperstate is
                     when S_Idle =>
                         s_fifo_rden <= '0';
-                        --txwrite <= '0';
 
                         if txrdy = '1' and s_fifo_empty = '0' then
                             txdata <= s_fifo_do(7 downto 0);
@@ -739,19 +727,16 @@ begin
                             
                             txwrite <= '1';
 
-                            -- Read one data word outta fifo
-                            --s_fifo_rden <= '1'; -- Due to FWFT it is necessary to assign this signal one cycle earlier otherwise under certain circumstances a data word will be lost during output operation!
-
                             spwwrapperstate <= S_Operation;
                         end if;
 
                     when S_Operation =>
-                        txwrite <= '0'; -- Write word into spwstream input port
-                        s_fifo_rden <= '1';
+                        txwrite <= '0';
+                        s_fifo_rden <= '1'; -- Write word into spwstream input port
 
                         if s_size /= c_fifo_size-1 then -- prevents that value of rdcounter is bigger than wrcounter altough fifo is empty
-                            if s_rdcounter = c_fifo_size-1 then
-                                s_rdcounter <= 0;
+                            if s_rdcounter = (c_fifo_size - 1) then
+                                s_rdcounter <= 0; -- wrap
                             else
                                 s_rdcounter <= s_rdcounter + 1;
                             end if;

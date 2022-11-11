@@ -84,7 +84,13 @@ entity AXI_SpaceWire_IP_v1_0 is
         -- TODO: Build handling-process for this port in this module
 
         -- High if valid SpaceWire TimeCode was received (might used as interrupt)
-        tc_out : out std_logic;
+        tc_out_intr : out std_logic;
+        
+        -- Error Interrupt: High if an error occured within spwstream.
+        error_intr : out std_logic;
+        
+        -- State Interrupt: High whenever connection state of spwstream has changed.
+        state_intr : out std_logic;
 
         -- Data In signal from SpaceWire bus.
         spw_di : in std_logic;
@@ -513,13 +519,36 @@ architecture arch_imp of AXI_SpaceWire_IP_v1_0 is
     signal s_erresc : std_logic;
 
 
-    -- Pulse stretching signals for tc_out.
+    -- Interrupt handling
+    constant intr_stretch_length : positive := 9; -- It is necessary to stretch any interrupt signal to make it acceptable for Generical Interrupt Controller (must be at least 9!). (See UG585 p. 231)
+
+    -- Pulse stretching signals for tc_out_intr.
     -- Signal to reset pulse
-    signal s_rst_pulse : std_logic := '0';
+    signal s_rst_pulse_tc_out : std_logic := '0';
     -- Shiftregister to stretch pulse
-    signal s_pulse_reg : std_logic_vector(20 downto 0) := (others => '0'); -- ACHTUNG! IST DAS PULSE SIGNAL NOCH ZU KURZ ODER ZU LANG UM VON DER CPU ERKANNT ZU WERDEN, DANN HIER MIT DER LÄNGE DES SCHIEBEREIGSTERS EXPERIMENTIEREN!
+    signal s_pulse_reg_tc_out : std_logic_vector(intr_stretch_length-1 downto 0) := (others => '0'); -- ACHTUNG! IST DAS PULSE SIGNAL NOCH ZU KURZ ODER ZU LANG UM VON DER CPU ERKANNT ZU WERDEN, DANN HIER MIT DER LÄNGE DES SCHIEBEREIGSTERS EXPERIMENTIEREN!
     -- Actual pulse transport signal
-    signal s_pulse : std_logic := '0';
+    signal s_pulse_tc_out : std_logic := '0';
+    
+    -- Pulse stretching signals for error_intr.
+    -- Signal to reset pulse
+    signal s_rst_pulse_error : std_logic := '0';
+    -- Shiftregister to stretch pulse
+    signal s_pulse_reg_error : std_logic_vector(intr_stretch_length-1 downto 0) := (others => '0');
+    -- Actual pulse transport signal
+    signal s_pulse_error : std_logic := '0';
+    -- Data signal
+    signal s_error : std_logic;
+    
+    -- Pulse stretching signals for state_intr.
+    -- Signal to reset pulse
+    signal s_rst_pulse_state : std_logic := '0';
+    -- Shiftregister to stretch pulse
+    signal s_pulse_reg_state : std_logic_vector(intr_stretch_length-1 downto 0) := (others => '0');
+    -- Actual pulse transport signal
+    signal s_pulse_state : std_logic := '0';
+    -- Data signal
+    signal s_state : std_logic;
 begin
 
     -- Instantiation of Axi Bus Interface S00_AXI_TX
@@ -535,14 +564,14 @@ begin
             C_S_AXI_BUSER_WIDTH	=> C_S00_AXI_TX_BUSER_WIDTH
         )
         port map (
-            do => open,
-            di => open,
-            rden => open,
-            wren => open,
-            rdcount => open,
-            wrcount => open,
-            empty => open,
-            full => open,
+            do => open, -- debug port
+            di => open, -- debug port
+            rden => open, -- debug port
+            wren => open, -- debug port
+            rdcount => open, -- debug port
+            wrcount => open, -- debug port
+            empty => open, -- debug port
+            full => open, -- debug port
             clk_logic => clk_logic,
             rst_logic => rst_logic,
             txwrite => s_txwrite,
@@ -610,14 +639,14 @@ begin
             C_S_AXI_BUSER_WIDTH	=> C_S01_AXI_RX_BUSER_WIDTH
         )
         port map (
-            do => open,
-            di => open,
-            rden => open,
-            wren => open,
-            rdcount => open,
-            wrcount => open,
-            empty => open,
-            full => open,
+            do => open, -- debug port
+            di => open, -- debug port
+            rden => open, -- debug port
+            wren => open, -- debug port
+            rdcount => open, -- debug port
+            wrcount => open, -- debug port
+            empty => open, -- debug port
+            full => open, -- debug port
             clk_logic => clk_logic,
             rst_logic => rst_logic,
             rxvalid => s_rxvalid,
@@ -724,49 +753,131 @@ begin
 
 
     -- Add user logic here
-
-    -- noch eine lösung überlegen wie das signal für time codes (eintreffen und ausgehend) mit den zwei verschiedenen clocks harmonieren kann
-    --	process(s_tc_out, s00_axi_tx_aclk) -- noch gründlich testen!!!
-    --	begin
-    --	   if s00_axi_tx_aclk = '0' then
-    --	       --tc_out <= '0';
-    --	   elsif rising_edge(s_tc_out) then
-    --	       tc_out <= '1';
-    --	   end if;
-    --	end process;
-
-    -- Pulse stretching signals
-    tc_out <= s_pulse;
-    s_rst_pulse <= s_pulse_reg(s_pulse_reg'length-1);
-
-    -- Asserts and deasserts pulse signal to stretch it for AXI bus depending on tc_out (outgoing TimeCodes).
-    tc_out_0 : process(s_tc_out, s_rst_pulse)
+    
+    
+    -- Interrupts:
+    
+    -- error_intr:
+    -- Pulse stretching signals.
+    error_intr0 : error_intr <= s_pulse_error;
+    error_intr1 : s_rst_pulse_error <= s_pulse_reg_error(s_pulse_reg_error'length-1);
+    error_intr2 : s_error <= s_errcred or s_errpar or s_erresc or s_errdisc; -- Interrupt should be active if any error occured within spwstream!
+    
+    -- Asserts and deasserts pulse signal to stretch it for AXI Bus depending on s_error.
+    error_intr3 : process(s_error, s_rst_pulse_error)
     begin
-        if s_rst_pulse = '1' then
-            s_pulse <= '0';
-        elsif rising_edge(s_tc_out) then
-            s_pulse <= '1';
+        if s_rst_pulse_error = '1' then
+            -- Asynchronous reset.
+            s_pulse_error <= '0';
+        elsif rising_edge(s_error) then
+            s_pulse_error <= '1';
         end if;
-    end process tc_out_0;
-
+    end process error_intr3;
+    
     -- Fills and resets shift register to stretch pulse signal for tc_out.
-    tc_out_1 : process(s00_axi_tx_aclk)
+    error_intr4 : process(s00_axi_tx_aclk) -- (Doesn't matter which AXI clock is being used).
     begin
         if rising_edge(s00_axi_tx_aclk) then
-            if s_pulse = '0' then
-                s_pulse_reg <= (others => '0');
+            if s_pulse_error = '0' then
+                -- Synchronous reset.
+                s_pulse_reg_error <= (others => '0');
             else
-                s_pulse_reg(0) <= '1';
-
-                for i in 0 to s_pulse_reg'length-2 loop
-                    s_pulse_reg(i+1) <= s_pulse_reg(i);
+                s_pulse_reg_error(0) <= '1';
+                
+                for i in 0 to s_pulse_reg_error'length-2 loop
+                    s_pulse_reg_error(i+1) <= s_pulse_reg_error(i);
                 end loop;
             end if;
         end if;
-    end process tc_out_1;
+    end process error_intr4;
+    
+    
+    
+    -- state_intr:
+    -- Pulse stretching signals.
+    state_intr0 : state_intr <= s_pulse_state;
+    state_intr1 : s_rst_pulse_state <= s_pulse_reg_state(s_pulse_reg_state'length-1);
+    state_intr2 : process(s_started, s_connecting, s_running)
+        variable prev_state : std_logic_vector(2 downto 0);
+        variable curr_state : std_logic_vector(2 downto 0);
+    begin
+        curr_state := s_running & s_connecting & s_started;
+        
+        if curr_state /= prev_state then
+            s_state <= '1';
+        else
+            s_state <= '0';
+        end if;
+        
+        prev_state := curr_state;
+    end process;
+
+    -- Asserts and deasserts pulse signal to stretch it for AXI Bus depending on s_state.
+    state_intr3 : process(s_state, s_rst_pulse_state)
+    begin
+        if s_rst_pulse_state = '1' then
+            -- Asynchronous reset.
+            s_pulse_state <= '0';
+        elsif rising_edge(s_state) then
+            s_pulse_state <= '1';
+        end if;
+    end process state_intr3;
+    
+    -- Fills and resets shift register to stretch pulse signal for state_intr.
+    state_intr4 : process(s00_axi_tx_aclk)
+    begin
+        if rising_edge(s00_axi_tx_aclk) then
+            if s_pulse_state = '0' then
+                -- Synchronous reset.
+                s_pulse_reg_state <= (others => '0');
+            else
+                s_pulse_reg_state(0) <= '1';
+                
+                for i in 0 to s_pulse_reg_state'length-2 loop
+                    s_pulse_reg_state(i+1) <= s_pulse_reg_state(i);
+                end loop;
+            end if;
+        end if;
+    end process state_intr4;
 
 
-    -- Ensures that exactly one TimeCode is sent.
+
+    -- tc_out_intr:
+    -- Pulse stretching signals
+    tc_out_intr0 : tc_out_intr <= s_pulse_tc_out;
+    tc_out_intr1 : s_rst_pulse_tc_out <= s_pulse_reg_tc_out(s_pulse_reg_tc_out'length-1);
+
+    -- Asserts and deasserts pulse signal to stretch it for AXI bus depending on received Time Codes.
+    tc_out_intr2 : process(s_tc_out, s_rst_pulse_tc_out)
+    begin
+        if s_rst_pulse_tc_out = '1' then
+            -- Asynchronous reset.
+            s_pulse_tc_out <= '0';
+        elsif rising_edge(s_tc_out) then
+            s_pulse_tc_out <= '1';
+        end if;
+    end process tc_out_intr2;
+
+    -- Fills and resets shift register to stretch pulse signal for tc_out.
+    tc_out_intr3 : process(s00_axi_tx_aclk)
+    begin
+        if rising_edge(s00_axi_tx_aclk) then
+            if s_pulse_tc_out = '0' then
+                -- Synchronous reset.
+                s_pulse_reg_tc_out <= (others => '0');
+            else
+                s_pulse_reg_tc_out(0) <= '1';
+
+                for i in 0 to s_pulse_reg_tc_out'length-2 loop
+                    s_pulse_reg_tc_out(i+1) <= s_pulse_reg_tc_out(i);
+                end loop;
+            end if;
+        end if;
+    end process tc_out_intr3;
+
+
+
+    -- Ensures that exactly one TimeCode is sent no matter how long pulse is being hold on HIGH.
     tc_in_0 : process(clk_logic)
     begin
         if rising_edge(clk_logic) then
@@ -784,6 +895,7 @@ begin
 
 
 
+    -- SpaceWire IP
     spwstream_inst : spwstream
         generic map (
             sysfreq => 100.0e6,
@@ -803,7 +915,7 @@ begin
             linkstart => s_linkstart, -- Register
             linkdis => s_linkdis, -- Register
             txdivcnt => s_txdivcnt, -- Register
-            tick_in => s_tc_in, -- GPIO ?
+            tick_in => s_tc_in, -- GPIO
             ctrl_in => s_ctrl_in, -- Register
             time_in => s_time_in, -- Register
             txwrite => s_txwrite, -- internal
@@ -819,13 +931,13 @@ begin
             rxflag => s_rxflag, -- internal
             rxdata => s_rxdata, -- internal
             rxread => s_rxread, -- internal
-            started => s_started, -- Register
-            connecting => s_connecting, -- Register
-            running => s_running, -- Register
-            errdisc => s_errdisc, -- Register
-            errpar => s_errpar, -- Register
-            erresc => s_erresc, -- Register
-            errcred => s_errcred, -- Register
+            started => s_started, -- Register & Interrupt
+            connecting => s_connecting, -- Register & Interrupt
+            running => s_running, -- Register & Interrupt
+            errdisc => s_errdisc, -- Register & Interrupt
+            errpar => s_errpar, -- Register & Interrupt
+            erresc => s_erresc, -- Register & Interrupt
+            errcred => s_errcred, -- Register & Interrupt
             spw_di => spw_di, -- Top Level IO
             spw_si => spw_si, -- Top Level IO
             spw_do => spw_do, -- Top Level IO

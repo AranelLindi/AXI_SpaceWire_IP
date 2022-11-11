@@ -570,24 +570,7 @@ begin
         begin
             --assigning 8 bit data
             data_in  <= S_AXI_WDATA((mem_byte_index*8+7) downto mem_byte_index*8);
-            --data_out <= byte_ram(to_integer(unsigned(mem_address)));
 
-            -- Memory write process.
-            --            BYTE_RAM_PROC : process( S_AXI_ACLK ) is
-            --            begin
-            --                if ( rising_edge (S_AXI_ACLK) ) then
-            --                    if ( mem_wren = '1' and S_AXI_WSTRB(mem_byte_index) = '1' ) then
-            --                        --byte_ram(to_integer(unsigned(mem_address))) <= data_in;
-            --                        case mem_address is
-            --                            when "0" =>
-
-
-            --                            when others =>
-            --                                null; -- enough ? Or more here ?
-            --                        end case;
-            --                    end if;
-            --                end if;
-            --            end process BYTE_RAM_PROC;
 
             -- Memory read process.
             process( S_AXI_ACLK ) is
@@ -637,69 +620,43 @@ begin
     full <= s_fifo_full;
 
 
-    process(s_rdcounter, s_wrcounter)
+    -- Combinatorial process: Calculates available elements depending on read/write counters.
+    size_calc : process(s_rdcounter, s_wrcounter)
     begin
         if s_wrcounter >= s_rdcounter then
             s_size <= to_unsigned(s_wrcounter - s_rdcounter, s_size'length);
         else -- s_wrcounter < s_rdcounter
             s_size <= to_unsigned(c_fifo_size + s_wrcounter - s_rdcounter, s_size'length);
         end if;
-    end process;
+    end process size_calc;
 
+    -- Applies caluclated value into register. (By using combinatorial process for calculation one clock cycle is saved instead of fully synchron processes)
     elements_reg_apply : process(S_AXI_ACLK)
     begin
         if rising_edge(S_AXI_ACLK) then
             s_fifo_elements_reg <= std_logic_vector(s_size);
         end if;
-    end process;
+    end process elements_reg_apply;
 
-    --    process(S_AXI_ACLK)
-    --    begin
-    --        if rising_edge(S_AXI_ACLK) then
-    --            if rst_logic = '1' then -- Must be same reset signal that fifo has!
-    --                -- Synchronous reset.
-    --                s_fifo_rden <= '0';
-    --                s_rdcounter <= 0;
-    --            else
-    --                if S_AXI_RREADY = '1' and axi_rvalid = '1' then
-    --                    if axi_araddr(ADDR_LSB+OPT_MEM_ADDR_BITS downto ADDR_LSB) = "0" then
-    --                        s_fifo_rden <= '1';
 
-    --                        if s_size > 0 then -- s_size contains available elements to read
-    --                            if s_rdcounter = c_fifo_size-1 then
-    --                                s_rdcounter <= 0;
-    --                            else
-    --                                s_rdcounter <= s_rdcounter + 1;
-    --                            end if;
-    --                        end if;
-    --                    else
-    --                        s_fifo_rden <= '0';
-    --                    end if;
-    --                else
-    --                    s_fifo_rden <= '0';
-    --                end if;
-    --            end if;
-    --        end if;
-    --    end process;
-
-    process(S_AXI_ACLK)
+    -- Counts each reading from fifo.
+    rdcount0 : process(S_AXI_ACLK)
     begin
         if rising_edge(S_AXI_ACLK) then
             if s_fifo_rden = '1' then
                 if s_size > 0 then -- s_size contains available elements to read
-                    if s_rdcounter = c_fifo_size-1 then
-                        s_rdcounter <= 0;
+                    if s_rdcounter = (c_fifo_size - 1) then
+                        s_rdcounter <= 0; -- wrap
                     else
                         s_rdcounter <= s_rdcounter + 1;
                     end if;
                 end if;
             end if;
         end if;
-    end process;
+    end process rdcount0;
 
-    -- OLD START
-    --    -- Combinatorial process that asserts or deasserts the rden signal
-    --    -- depending on axi read channel handhsake signals and fifo empty signal.
+
+    -- Combinatorial process that asserts or deasserts the rden signal depending on axi read channel handhsake signals and fifo empty signal.
     rd_1 : process(S_AXI_RREADY, axi_rvalid)
     begin
         if S_AXI_RREADY = '1' and axi_rvalid = '1' then
@@ -713,58 +670,6 @@ begin
         end if;
     end process rd_1;
 
-
-    --    -- Custom rdcount counter that takes the FWFT option into account and only counts clock cycles when rden=1
-    --    -- s_fifo_rdcount is incremented twice (without rden is set to HIGH) if the fifo was previously empty and
-    --    -- is being refilled, which means that result would deviate from true value by two.
-    --    calc_0 : process(S_AXI_ACLK)
-    --        variable v : unsigned(maximum(s_fifo_wrcount'length-1, s_fifo_rdcount'length-1) downto 0);
-    --    begin
-    --        if rising_edge(S_AXI_ACLK) then
-    --            if rst_logic = '1' then
-    --                -- ORIGINALLY here was asynchronous reset. Now changed to synchronous reset because: rst_logic must hold at least five write cycles to be valid (5*clk_logic_period >= clk_ps_period)
-    --                -- [Asynchronous reset. (It is important here to make this async because period of S_AXI_ACLK may much longer that clk_logic !)]
-    --                v := unsigned(s_fifo_wrcount);
-
-    --                s_rdcounter <= v;
-    --            else
-    --                if s_fifo_rden = '1' and s_fifo_empty = '0' then
-    --                    v := v + 1;
-    --                else
-    --                    v := v;
-    --                end if;
-
-    --                s_rdcounter <= v;
-    --            end if;
-    --        end if;
-    --    end process calc_0;
-
-
-    --    -- Calculates number of elements in the fifo, taking into account the custom counter for rdcount.
-    --    -- The calculated value is then written into a register.
-    --    calc_1 : process(S_AXI_ACLK)
-    --        variable wrcount : unsigned(maximum(s_fifo_rdcount'length-1, s_fifo_wrcount'length-1) downto 0);--integer range 0 to c_fifo_size - 1;
-    --        variable rdcount : unsigned(maximum(s_fifo_rdcount'length-1, s_fifo_wrcount'length-1) downto 0);--integer range 0 to c_fifo_size - 1;
-
-    --        variable elements : unsigned(maximum(s_fifo_rdcount'length-1, s_fifo_wrcount'length-1) downto 0);--integer range 0 to c_fifo_size - 1;
-    --    begin
-    --        if rising_edge(S_AXI_ACLK) then
-    --            wrcount := unsigned(s_fifo_wrcount);
-    --            rdcount := s_rdcounter;
-
-    --            if (wrcount >= rdcount) then
-    --                elements := wrcount - rdcount;
-    --            else -- rdcount > wrcount
-    --                elements := c_fifo_size + wrcount - rdcount;
-    --            end if;
-
-    --            --elements := wrcount - rdcount;
-
-    --            s_fifo_elements_reg(elements'length-1 downto 0) <= std_logic_vector(elements);
-    --            s_fifo_elements_reg(s_fifo_elements_reg'length-1 downto elements'length) <= (others => '0'); -- may not be necessary
-    --        end if;
-    --    end process calc_1;
-    -- OLD ENDS
 
     -- Writes received data words from spwstream into rx fifo. FSM is also used to convert specific bytes into wanted format.
     spwwrapper : process(clk_logic)
@@ -789,7 +694,7 @@ begin
                         s_fifo_wren <= '0';
                         
                         if rxvalid = '1' and s_fifo_full = '0' then
-                            rxread <= '1';
+                            rxread <= '1'; -- Must asserted before valid data is put on rxdata/rxflag!
 
                             spwwrapperstate <= S_Operation;
                         end if;
@@ -827,18 +732,16 @@ begin
                         s_fifo_di(8 downto 0) <= v_write;
                         s_fifo_wren <= '1';
 
-
-                        if s_size /= c_fifo_size-1 then
-                            if s_wrcounter = c_fifo_size-1 then
-                                s_wrcounter <= 0;
+                        if s_size /= c_fifo_size-1 then -- prevents that value of rdcounter is bigger than wrcounter altough fifo is empty
+                            if s_wrcounter = (c_fifo_size - 1) then
+                                s_wrcounter <= 0; -- wrap
                             else
                                 s_wrcounter <= s_wrcounter + 1;
                             end if;
                         end if;
 
-
                         spwwrapperstate <= S_Idle;
-                        --end if;
+
                 end case;
             end if;
         end if;

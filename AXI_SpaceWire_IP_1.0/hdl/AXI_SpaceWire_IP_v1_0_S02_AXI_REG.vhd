@@ -414,15 +414,15 @@ begin
         -- Address decoding for reading registers
         loc_addr := axi_araddr(ADDR_LSB + OPT_MEM_ADDR_BITS downto ADDR_LSB);
         case loc_addr is
-            when b"000" =>
+            when b"000" => -- Link-Configuration Register
                 reg_data_out <= slv_reg0;
-            when b"001" =>
+            when b"001" => -- Transmit-Rate Register
                 reg_data_out <= slv_reg1;
-            when b"010" =>
+            when b"010" => -- Time-Codes (out) Register
                 reg_data_out <= slv_reg2;
-            when b"011" =>
+            when b"011" => -- Time-Codes (in) Register
                 reg_data_out <= slv_reg3;
-            when b"100" =>
+            when b"100" => -- Link-Status Register
                 reg_data_out <= slv_reg4;
             when others =>
                 reg_data_out  <= (others => '0');
