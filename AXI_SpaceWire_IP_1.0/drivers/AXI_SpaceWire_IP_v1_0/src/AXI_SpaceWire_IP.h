@@ -4,31 +4,17 @@
 
 
 /****************** Include Files ********************/
-#include "xil_types.h"
-#include "xstatus.h"
+#include "xil_types.h" // Xilinx function return type
+//#include "xstatus.h" // Is this needed?
+#include "xparameters.h" // Contains platform specific macros
 
 /*************************** Macro Definitions ****************************/
-// S00_AXI_TX-Interface (AXI4-Full)
-#define AXI_SPACEWIRE_IP_S00_AXI_TX_SLV_BASEADDR 0 // TODO!
-#define AXI_SPACEWIRE_IP_S00_AXI_TX_SLV_FIFO_OFFSET 0
-#define AXI_SPACEWIRE_IP_S00_AXI_TX_SLV_SIZE_OFFSET 4
-// S01_AXI_RX-Interface (AXI4-Full)
-#define AXI_SPACEWIRE_IP_S01_AXI_RX_SLV_BASEADDR 0 // TODO!
-#define AXI_SPACEWIRE_IP_S01_AXI_RX_SLV_FIFO_OFFSET 0
-#define AXI_SPACEWIRE_IP_S01_AXI_RX_SLV_ELEM_OFFSET 4
-// S02_AXI_REG-Interface (AXI4-Lite)
-#define AXI_SPACEWIRE_IP_S02_AXI_REG_SLV_BASEADDR 0 // TODO!
-#define AXI_SPACEWIRE_IP_S02_AXI_REG_SLV_REG0_OFFSET 0 // Link-Configuration
-#define AXI_SPACEWIRE_IP_S02_AXI_REG_SLV_REG1_OFFSET 4 // Transmit-Rate
-#define AXI_SPACEWIRE_IP_S02_AXI_REG_SLV_REG2_OFFSET 8 // Time-Codes (out)
-#define AXI_SPACEWIRE_IP_S02_AXI_REG_SLV_REG3_OFFSET 12 // Time-Codes (in)
-#define AXI_SPACEWIRE_IP_S02_AXI_REG_SLV_REG4_OFFSET 16 // Link-Status
-
+#define TransferCheck
 
 /**************************** Type Definitions *****************************/
 /**
  *
- * Write/Read 32 bit value to/from AXI_SPACEWIRE_IP user logic memory (BRAM).
+ * Write/Read 16 bit value to/from AXI_SPACEWIRE_IP user logic memory (BRAM).
  *
  * @param   Address is the memory address of the AXI_SPACEWIRE_IP device.
  * @param   Data is the value written to user logic memory.
@@ -37,15 +23,14 @@
  *
  * @note
  * C-style signature:
- * 	void AXI_SPACEWIRE_IP_mWriteMemory(u32 Address, u32 Data)
- * 	u32 AXI_SPACEWIRE_IP_mReadMemory(u32 Address)
+ * 	void AXI_SPACEWIRE_IP_mWriteMemory16(u32 Address, u16 Data)
+ * 	u32 AXI_SPACEWIRE_IP_mReadMemory16(u32 Address)
  *
  */
-#define AXI_SPACEWIRE_IP_mWriteMemory(Address, Data) \
-    Xil_Out32(Address, (u32)(Data))
-#define AXI_SPACEWIRE_IP_mReadMemory(Address) \
-    Xil_In32(Address)
-
+#define AXI_SPACEWIRE_IP_mWriteMemory16(Address, Data) \
+    Xil_Out16(Address, (u32)(Data))
+#define AXI_SPACEWIRE_IP_mReadMemory16(Address) \
+    Xil_In16(Address)
 /************************** Function Prototypes ****************************/
 /**
  *
@@ -85,7 +70,7 @@ XStatus AXI_SPACEWIRE_IP_Mem_SelfTest(void * baseaddr_p);
  * 	void AXI_SPACEWIRE_IP_mWriteReg(u32 BaseAddress, unsigned RegOffset, u32 Data)
  *
  */
-#define AXI_SPACEWIRE_IP_mWriteReg(BaseAddress, RegOffset, Data) \
+#define AXI_SPACEWIRE_IP_mWriteReg32(BaseAddress, RegOffset, Data) \
   	Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))
 
 /**
@@ -105,7 +90,7 @@ XStatus AXI_SPACEWIRE_IP_Mem_SelfTest(void * baseaddr_p);
  * 	u32 AXI_SPACEWIRE_IP_mReadReg(u32 BaseAddress, unsigned RegOffset)
  *
  */
-#define AXI_SPACEWIRE_IP_mReadReg(BaseAddress, RegOffset) \
+#define AXI_SPACEWIRE_IP_mReadReg32(BaseAddress, RegOffset) \
     Xil_In32((BaseAddress) + (RegOffset))
 
 /************************** Function Prototypes ****************************/
@@ -132,9 +117,43 @@ XStatus AXI_SPACEWIRE_IP_REG_SelfTest(void * baseaddr_p);
 
 XStatus AXI_SPACEWIRE_IP_REG_initDevice(void);
 
+XStatus AXI_SPACEWIRE_IP_REG_enableAutoStart(void);
+
+XStatus AXI_SPACEWIRE_IP_REG_disableAutoStart(void);
+
+XStatus AXI_SPACEWIRE_IP_REG_enableLinkStart(void);
+
+XStatus AXI_SPACEWIRE_IP_REG_disableLinkStart(void);
+
 XStatus AXI_SPACEWIRE_IP_REG_deactDevice(void);
 
-XStatus AXI_SPACEWIRE_IP_REG_setTransRate(u8 rate);
+XStatus AXI_SPACEWIRE_IP_REG_disableDevice(void);
+
+XStatus AXI_SPACEWIRE_IP_REG_enableDevice(void);
+
+XStatus AXI_SPACEWIRE_IP_REG_setTransmitRate(u8 rate);
+
+XStatus AXI_SPACEWIRE_IP_REG_rstTransmitRate(void);
+
+XStatus AXI_SPACEWIRE_IP_REG_setTC(u8 flag, u8 value);
+
+XStatus AXI_SPACEWIRE_IP_REG_setCounterValue(u8 value);
+
+XStatus AXI_SPACEWIRE_IP_REG_setControlFlag(u8 flag);
+
+u16 AXI_SPACEWIRE_IP_REG_getTC(void);
+
+u8 AXI_SPACEWIRE_IP_REG_getCounterValue(void);
+
+u8 AXI_SPACEWIRE_IP_REG_getControlFlag(void);
+
+u32 AXI_SPACEWIRE_IP_REG_getStatus(void);
+
+u8 AXI_SPACEWIRE_IP_REG_getErrorStatus(void);
+
+u8 AXI_SPACEWIRE_IP_REG_getLinkStatus(void);
+
+u8 AXI_SPACEWIRE_IP_REG_getFifoStatus(void);
 
 XStatus AXI_SPACEWIRE_IP_TX_writeSingle(u8 flag, u8 byte);
 
@@ -147,12 +166,5 @@ u16 AXI_SPACEWIRE_IP_RX_readSingle(void);
 XStatus AXI_SPACEWIRE_IP_RX_readMulti(u16* arr, u8 count);
 
 u32 AXI_SPACEWIRE_IP_RX_getElements(void);
-
-XStatus AXI_SPACEWIRE_IP_REG_setTC(u8 flag, u8 value);
-
-u8 AXI_SPACEWIRE_IP_REG_getTC(void);
-
-u32 AXI_SPACEWIRE_IP_REG_getStatus(void);
-
 
 #endif // AXI_SPACEWIRE_IP_H
