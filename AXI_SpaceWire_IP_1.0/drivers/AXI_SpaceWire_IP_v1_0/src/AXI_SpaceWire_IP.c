@@ -21,7 +21,7 @@ XStatus AXI_SPACEWIRE_IP_REG_initDevice(void)
 
 XStatus AXI_SPACEWIRE_IP_REG_enableAutoStart(void)
 {
-    const u32 val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) |= 1 << 2);
+    const u32 val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) | 1 << 2);
 
     AXI_SPACEWIRE_IP_mWriteReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0, val);
 
@@ -37,7 +37,7 @@ XStatus AXI_SPACEWIRE_IP_REG_enableAutoStart(void)
 
 XStatus AXI_SPACEWIRE_IP_REG_disableAutoStart(void)
 {
-    const u32 val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) &= ~(1 << 2));
+    const u32 val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) & ~(1 << 2));
 
     AXI_SPACEWIRE_IP_mWriteReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0, val);
 
@@ -53,7 +53,7 @@ XStatus AXI_SPACEWIRE_IP_REG_disableAutoStart(void)
 
 XStatus AXI_SPACEWIRE_IP_REG_enableLinkStart(void)
 {
-    const u32 val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) |= 1 << 1);
+    const u32 val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) | 1 << 1);
 
     AXI_SPACEWIRE_IP_mWriteReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0, val);
 
@@ -69,7 +69,7 @@ XStatus AXI_SPACEWIRE_IP_REG_enableLinkStart(void)
 
 XStatus AXI_SPACEWIRE_IP_REG_disableLinkStart(void)
 {
-    const u32 val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) &= ~(1 << 1));
+    const u32 val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) & ~(1 << 1));
 
     AXI_SPACEWIRE_IP_mWriteReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0, val);
 
@@ -99,7 +99,7 @@ XStatus AXI_SPACEWIRE_IP_REG_deactDevice(void)
 
 XStatus AXI_SPACEWIRE_IP_REG_disableDevice(void)
 {
-    const u32 val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) &= ~(1 << 0));
+    const u32 val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) & ~(1 << 0));
 
     AXI_SPACEWIRE_IP_mWriteReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0, val);
 
@@ -115,7 +115,7 @@ XStatus AXI_SPACEWIRE_IP_REG_disableDevice(void)
 
 XStatus AXI_SPACEWIRE_IP_REG_enableDevice(void)
 {
-    const u32 val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) |= 1 << 0);
+    const u32 val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) | 1 << 0);
 
     AXI_SPACEWIRE_IP_mWriteReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0, val);
 
@@ -159,8 +159,8 @@ XStatus AXI_SPACEWIRE_IP_REG_rstTransmitRate(void)
 
 XStatus AXI_SPACEWIRE_IP_REG_setTC(u8 flag, u8 value)
 {
-    const u8 tmp_flag &= (flag & 3);
-    const u8 tmp_countval &= (value & 63);
+    const u8 tmp_flag = (flag & 3);
+    const u8 tmp_countval = (value & 63);
 
     const u16 tmp_tc = tmp_countval + (tmp_flag << 8);
 
@@ -178,7 +178,7 @@ XStatus AXI_SPACEWIRE_IP_REG_setTC(u8 flag, u8 value)
 
 XStatus AXI_SPACEWIRE_IP_REG_setCounterValue(u8 value)
 {
-    const u8 tmp_countval &= (value & 63);
+    const u8 tmp_countval = (value & 63);
 
     const u32 tmp_val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 8) & 0b1100000000) + tmp_countval;
 
@@ -196,9 +196,9 @@ XStatus AXI_SPACEWIRE_IP_REG_setCounterValue(u8 value)
 
 XStatus AXI_SPACEWIRE_IP_REG_setControlFlag(u8 flag)
 {
-    const u8 tmp_flag &= (value & 3);
+    const u8 tmp_flag = (flag & 3);
 
-    const u32 tmp_val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 8) & 63) + (tmp_countval << 8);
+    const u32 tmp_val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 8) & 63) + (tmp_flag << 8);
 
     AXI_SPACEWIRE_IP_mWriteReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 8, tmp_val);
 
@@ -250,14 +250,14 @@ u8 AXI_SPACEWIRE_IP_REG_getFifoStatus(void)
 XStatus AXI_SPACEWIRE_IP_TX_writeSingle(u8 flag, u8 byte)
 {
     const u8 tmp_flag = (flag & 1);
-    const u16 tmp_word = (temp_flag << 8) + byte;
+    const u16 tmp_word = (tmp_flag << 8) + byte;
 
     AXI_SPACEWIRE_IP_mWriteMemory16(XPAR_AXI_SPACEWIRE_IP_0_S00_AXI_TX_BASEADDR, tmp_word);
 
 #ifndef TransferCheck
     return XST_SUCCESS;
 #else
-    if (AXI_SPACEWIRE_IP_mReadMemory16(XPAR_AXI_SPACEWIRE_IP_0_S00_AXI_TX_BASEADDR) == tmp_val)
+    if (AXI_SPACEWIRE_IP_mReadMemory16(XPAR_AXI_SPACEWIRE_IP_0_S00_AXI_TX_BASEADDR) == tmp_word)
         return XST_SUCCESS;
     else
         return XST_FAILURE;
@@ -282,3 +282,4 @@ u32 AXI_SPACEWIRE_IP_RX_getElements(void)
 {
     return AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S01_AXI_RX_BASEADDR, 4);
 }
+

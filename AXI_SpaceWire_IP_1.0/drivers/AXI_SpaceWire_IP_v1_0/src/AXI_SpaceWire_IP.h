@@ -5,11 +5,12 @@
 
 /****************** Include Files ********************/
 #include "xil_types.h" // Xilinx function return type
-//#include "xstatus.h" // Is this needed?
+#include "xstatus.h" // XStatus
 #include "xparameters.h" // Contains platform specific macros
+#include "xil_io.h"
 
 /*************************** Macro Definitions ****************************/
-#define TransferCheck
+//#define TransferCheck
 
 /**************************** Type Definitions *****************************/
 /**
@@ -168,3 +169,4 @@ XStatus AXI_SPACEWIRE_IP_RX_readMulti(u16* arr, u8 count);
 u32 AXI_SPACEWIRE_IP_RX_getElements(void);
 
 #endif // AXI_SPACEWIRE_IP_H
+
