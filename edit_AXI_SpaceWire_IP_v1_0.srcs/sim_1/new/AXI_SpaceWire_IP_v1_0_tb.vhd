@@ -121,7 +121,9 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
             txclk : in std_logic;
             rst_logic : in std_logic;
             tc_in : in std_logic;
-            tc_out : out std_logic;
+            tc_out_intr : out std_logic;
+            error_intr : out std_logic;
+            state_intr : out std_logic;
             spw_di : in std_logic;
             spw_si : in std_logic;
             spw_do : out std_logic;
@@ -250,7 +252,9 @@ architecture AXI_SpaceWire_IP_v1_0_tb_arch of AXI_SpaceWire_IP_v1_0_tb is
     signal txclk: std_logic;
     signal rst_logic: std_logic;
     signal tc_in: std_logic := '0';
-    signal tc_out: std_logic;
+    signal tc_out_intr: std_logic;
+    signal error_intr : std_logic;
+    signal state_intr : std_logic;
     signal spw_di: std_logic;
     signal spw_si: std_logic;
     signal spw_do: std_logic;
@@ -635,7 +639,9 @@ begin
             txclk                     => txclk,
             rst_logic                 => rst_logic,
             tc_in                     => tc_in,
-            tc_out                    => tc_out,
+            tc_out_intr               => tc_out_intr,
+            error_intr                => error_intr,
+            state_intr                => state_intr,
             spw_di                    => spw_di,
             spw_si                    => spw_si,
             spw_do                    => spw_do,
@@ -961,6 +967,7 @@ begin
         AXI4LiteRead_Reg("01100");
         
         
+        spw_do <= '0';
         
         
         -- Following code is approved and should work correctly!

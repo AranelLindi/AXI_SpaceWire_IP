@@ -761,7 +761,16 @@ begin
     -- Pulse stretching signals.
     error_intr0 : error_intr <= s_pulse_error;
     error_intr1 : s_rst_pulse_error <= s_pulse_reg_error(s_pulse_reg_error'length-1);
-    error_intr2 : s_error <= s_errcred or s_errpar or s_erresc or s_errdisc; -- Interrupt should be active if any error occured within spwstream!
+    error_intr2 : process(s_errcred, s_errpar, s_erresc, s_errdisc) -- Interrupt should be active if any error occured within spwstream!
+    begin
+        if rising_edge(clk_logic) then
+            if s_errcred = '1' or s_errpar = '1' or s_erresc = '1' or s_errdisc = '1' then
+                s_error <= '1';
+            else 
+                s_error <= '0';
+            end if;
+        end if;
+    end process;
     
     -- Asserts and deasserts pulse signal to stretch it for AXI Bus depending on s_error.
     error_intr3 : process(s_error, s_rst_pulse_error)
@@ -789,7 +798,7 @@ begin
                 end loop;
             end if;
         end if;
-    end process error_intr4;
+    end process error_intr4;    
     
     
     
@@ -797,20 +806,22 @@ begin
     -- Pulse stretching signals.
     state_intr0 : state_intr <= s_pulse_state;
     state_intr1 : s_rst_pulse_state <= s_pulse_reg_state(s_pulse_reg_state'length-1);
-    state_intr2 : process(s_started, s_connecting, s_running)
-        variable prev_state : std_logic_vector(2 downto 0);
-        variable curr_state : std_logic_vector(2 downto 0);
+    state_intr2 : process(clk_logic)
+        variable prev : std_logic_vector(2 downto 0) := "000";
+        variable curr : std_logic_vector(2 downto 0) := "000";
     begin
-        curr_state := s_running & s_connecting & s_started;
-        
-        if curr_state /= prev_state then
-            s_state <= '1';
-        else
-            s_state <= '0';
+        if rising_edge(clk_logic) then
+            curr := s_running & s_connecting & s_started;
+            
+            if prev /= curr then
+                s_state <= '1';
+            else
+                s_state <= '0';            
+            end if;
+            
+            prev := curr;
         end if;
-        
-        prev_state := curr_state;
-    end process;
+    end process;    
 
     -- Asserts and deasserts pulse signal to stretch it for AXI Bus depending on s_state.
     state_intr3 : process(s_state, s_rst_pulse_state)
