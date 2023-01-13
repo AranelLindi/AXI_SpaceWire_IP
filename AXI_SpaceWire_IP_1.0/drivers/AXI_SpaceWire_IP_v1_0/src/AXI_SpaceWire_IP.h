@@ -4,95 +4,7 @@
 
 
 /****************** Include Files ********************/
-#include "xil_types.h" // Xilinx function return type
-#include "xstatus.h" // XStatus
-#include "xparameters.h" // Contains platform specific macros
-#include "xil_io.h"
-
-/*************************** Macro Definitions ****************************/
-//#define TransferCheck
-
-/**************************** Type Definitions *****************************/
-/**
- *
- * Write/Read 16 bit value to/from AXI_SPACEWIRE_IP user logic memory (BRAM).
- *
- * @param   Address is the memory address of the AXI_SPACEWIRE_IP device.
- * @param   Data is the value written to user logic memory.
- *
- * @return  The data from the user logic memory.
- *
- * @note
- * C-style signature:
- * 	void AXI_SPACEWIRE_IP_mWriteMemory16(u32 Address, u16 Data)
- * 	u32 AXI_SPACEWIRE_IP_mReadMemory16(u32 Address)
- *
- */
-#define AXI_SPACEWIRE_IP_mWriteMemory16(Address, Data) \
-    Xil_Out16(Address, (u32)(Data))
-#define AXI_SPACEWIRE_IP_mReadMemory16(Address) \
-    Xil_In16(Address)
-/************************** Function Prototypes ****************************/
-/**
- *
- * Run a self-test on the driver/device. Note this may be a destructive test if
- * resets of the device are performed.
- *
- * If the hardware system is not built correctly, this function may never
- * return to the caller.
- *
- * @param   baseaddr_p is the base address of the AXI_SPACEWIRE_IP instance to be worked on.
- *
- * @return
- *
- *    - XST_SUCCESS   if all self-test code passed
- *    - XST_FAILURE   if any self-test code failed
- *
- * @note    Caching must be turned off for this function to work.
- * @note    Self test may fail if data memory and device are not on the same bus.
- *
- */
-XStatus AXI_SPACEWIRE_IP_Mem_SelfTest(void * baseaddr_p);
-
-/**
- *
- * Write a value to a AXI_SPACEWIRE_IP register. A 32 bit write is performed.
- * If the component is implemented in a smaller width, only the least
- * significant data is written.
- *
- * @param   BaseAddress is the base address of the AXI_SPACEWIRE_IP device.
- * @param   RegOffset is the register offset from the base to write to.
- * @param   Data is the data written to the register.
- *
- * @return  None.
- *
- * @note
- * C-style signature:
- * 	void AXI_SPACEWIRE_IP_mWriteReg(u32 BaseAddress, unsigned RegOffset, u32 Data)
- *
- */
-#define AXI_SPACEWIRE_IP_mWriteReg32(BaseAddress, RegOffset, Data) \
-  	Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))
-
-/**
- *
- * Read a value from a AXI_SPACEWIRE_IP register. A 32 bit read is performed.
- * If the component is implemented in a smaller width, only the least
- * significant data is read from the register. The most significant data
- * will be read as 0.
- *
- * @param   BaseAddress is the base address of the AXI_SPACEWIRE_IP device.
- * @param   RegOffset is the register offset from the base to write to.
- *
- * @return  Data is the data from the register.
- *
- * @note
- * C-style signature:
- * 	u32 AXI_SPACEWIRE_IP_mReadReg(u32 BaseAddress, unsigned RegOffset)
- *
- */
-#define AXI_SPACEWIRE_IP_mReadReg32(BaseAddress, RegOffset) \
-    Xil_In32((BaseAddress) + (RegOffset))
+#include "stdint.h" // int-Types
 
 /************************** Function Prototypes ****************************/
 /**
@@ -107,66 +19,261 @@ XStatus AXI_SPACEWIRE_IP_Mem_SelfTest(void * baseaddr_p);
  *
  * @return
  *
- *    - XST_SUCCESS   if all self-test code passed
- *    - XST_FAILURE   if any self-test code failed
+ *    - 0   if all self-test code passed
+ *    - 1   if any self-test code failed
  *
  * @note    Caching must be turned off for this function to work.
  * @note    Self test may fail if data memory and device are not on the same bus.
  *
  */
-XStatus AXI_SPACEWIRE_IP_REG_SelfTest(void * baseaddr_p);
+int32_t AXI_SPACEWIRE_IP_REG_SelfTest(uint32_t* baseaddr_p);
 
-XStatus AXI_SPACEWIRE_IP_REG_initDevice(void);
+/**
+ *
+ * Initializes the device. If the interface is physically connected to a corresponding
+ * SpaceWire node, the connection is established and normal operation is possible after
+ * establishment.
+ *
+ * @param   baseaddr_reg_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ *
+ */
+void AXI_SPACEWIRE_IP_REG_initDevice(uint32_t* baseaddr_reg_p);
 
-XStatus AXI_SPACEWIRE_IP_REG_enableAutoStart(void);
+/**
+ *
+ * Activates autostart. If the device is in an unconnected state and receives valid SpaceWire
+ * signals, it will automatically connect.
+ *
+ * @param   baseaddr_reg_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ *
+ */
+void AXI_SPACEWIRE_IP_REG_enableAutoStart(uint32_t* baseaddr_reg_p);
 
-XStatus AXI_SPACEWIRE_IP_REG_disableAutoStart(void);
+/**
+ *
+ * Deactivates autostart. An unconnected device no longer responds to an external connection attempt.
+ *
+ * @param   baseaddr_reg_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ *
+ */
+void AXI_SPACEWIRE_IP_REG_disableAutoStart(uint32_t* baseaddr_reg_p);
 
-XStatus AXI_SPACEWIRE_IP_REG_enableLinkStart(void);
+/**
+ *
+ * Enables linkstart. An unconnected device will periodically attempt to connect.
+ *
+ * @param   baseaddr_reg_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ *
+ */
+void AXI_SPACEWIRE_IP_REG_enableLinkStart(uint32_t* baseaddr_reg_p);
 
-XStatus AXI_SPACEWIRE_IP_REG_disableLinkStart(void);
+/**
+ *
+ * Disables linkstart. An unconnected device will not periodically attempt to connect.
+ *
+ * @param   baseaddr_reg_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ *
+ */
+void AXI_SPACEWIRE_IP_REG_disableLinkStart(uint32_t* baseaddr_reg_p);
 
-XStatus AXI_SPACEWIRE_IP_REG_deactDevice(void);
+/**
+ *
+ * Deactivates device. The existing connection is closed and communication via TX and RX is no
+ * longer possible. Overwrites configuration.
+ *
+ * @param   baseaddr_reg_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ *
+ */
+void AXI_SPACEWIRE_IP_REG_deactDevice(uint32_t* baseaddr_reg_p);
 
-XStatus AXI_SPACEWIRE_IP_REG_disableDevice(void);
+/**
+ *
+ * Disables device. Sets the disable bit in register, but does not change the other register values.
+ *
+ * @param   baseaddr_reg_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ *
+ */
+void AXI_SPACEWIRE_IP_REG_disableDevice(uint32_t* baseaddr_reg_p);
 
-XStatus AXI_SPACEWIRE_IP_REG_enableDevice(void);
+/**
+ *
+ * Enables device. Resets the disable bit and leaves remaining values in the register unchanged.
+ *
+ * @param   baseaddr_reg_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ *
+ */
+void AXI_SPACEWIRE_IP_REG_enableDevice(uint32_t* baseaddr_reg_p);
 
-XStatus AXI_SPACEWIRE_IP_REG_setTransmitRate(u8 rate);
+/**
+ *
+ * Set transmission rate. Transmission frequency is divided by this value.
+ *
+ * @param   baseaddr_reg_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ * @param   val is the transmit rate.
+ *
+ */
+void AXI_SPACEWIRE_IP_REG_setTransmitRate(uint32_t* baseaddr_reg_p, uint8_t val);
 
-XStatus AXI_SPACEWIRE_IP_REG_rstTransmitRate(void);
+/**
+ *
+ * Resets transmission rate to default value. (0x01)
+ *
+ * @param   baseaddr_reg_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ *
+ */
+void AXI_SPACEWIRE_IP_REG_rstTransmitRate(uint32_t* baseaddr_reg_p);
 
-XStatus AXI_SPACEWIRE_IP_REG_setTC(u8 flag, u8 value);
+/**
+ *
+ * Sets Time-Code values (flag and counter value).
+ *
+ * @param   baseaddr_reg_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ * @param   flag is the Time-Code control flag to set (0-3).
+ * @param   val is the Time-Code counter value to set (0-63).
+ *
+ */
+void AXI_SPACEWIRE_IP_REG_setTC(uint32_t* baseaddr_reg_p, uint8_t flag, uint8_t val);
 
-XStatus AXI_SPACEWIRE_IP_REG_setCounterValue(u8 value);
+/**
+ *
+ * Sets Time-Code counter value. Does not change current flag value.
+ *
+ * @param   baseaddr_reg_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ * @param   val is the Time-Code counter value to set (0-63).
+ *
+ */
+void AXI_SPACEWIRE_IP_REG_setCounterValue(uint32_t* baseaddr_reg_p, uint8_t val);
 
-XStatus AXI_SPACEWIRE_IP_REG_setControlFlag(u8 flag);
+/**
+ *
+ * Sets Time-Code flag. Does not change current counter value.
+ *
+ * @param   baseaddr_reg_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ * @param   flag is the Time-Code control flat to set (0-3).
+ *
+ */
+void AXI_SPACEWIRE_IP_REG_setControlFlag(uint32_t* baseaddr_reg_p, uint8_t val);
 
-u16 AXI_SPACEWIRE_IP_REG_getTC(void);
+/**
+ *
+ * Returns the last received (if none has been received yet 0x00) Time-Code. The first byte
+ * contains the flag value, the second byte the counter value.
+ *
+ * @param   baseaddr_reg_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ *
+ * @return  last received Time-Code
+ *
+ */
+int16_t AXI_SPACEWIRE_IP_REG_getTC(uint32_t* baseaddr_reg_p);
 
-u8 AXI_SPACEWIRE_IP_REG_getCounterValue(void);
+/**
+ *
+ * Returns last received Time-Code counter value (if none has been received yet 0x00).
+ *
+ * @param   baseaddr_reg_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ *
+ * @return last received Time-Code conter value
+ *
+ */
+int8_t AXI_SPACEWIRE_IP_REG_getCounterValue(uint32_t* baseaddr_reg_p);
 
-u8 AXI_SPACEWIRE_IP_REG_getControlFlag(void);
+/**
+ *
+ * Returns last received Time-Code control flag (if none has been received yet 0b00).
+ *
+ * @param   baseaddr_reg_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ *
+ * @return last received Time-Code control flag
+ *
+ */
+int8_t AXI_SPACEWIRE_IP_REG_getControlFlag(uint32_t* baseaddr_reg_p);
 
-u32 AXI_SPACEWIRE_IP_REG_getStatus(void);
+/**
+ *
+ * Returns the status of the SpaceWire port of the interface (see manual p. 5-6).
+ *
+ * @param   baseaddr_reg_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ *
+ * @return SpaceWire port status
+ *
+ */
+uint32_t AXI_SPACEWIRE_IP_REG_getStatus(uint32_t* baseaddr_reg_p);
 
-u8 AXI_SPACEWIRE_IP_REG_getErrorStatus(void);
+/**
+ *
+ * Returns the error status of the SpaceWire port of the interface (see manual p. 5-6).
+ *
+ * @param   baseaddr_reg_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ *
+ * @return SpaceWire port error status
+ *
+ */
+int8_t AXI_SPACEWIRE_IP_REG_getErrorStatus(uint32_t* baseaddr_reg_p);
 
-u8 AXI_SPACEWIRE_IP_REG_getLinkStatus(void);
+/**
+ *
+ * Returns the link status of the Spacewire port of the interface (see manual p. 5-6).
+ *
+ * @param   baseaddr_reg_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ *
+ * @return SpaceWire port link status
+ *
+ */
+int8_t AXI_SPACEWIRE_IP_REG_getLinkStatus(uint32_t* baseaddr_reg_p);
 
-u8 AXI_SPACEWIRE_IP_REG_getFifoStatus(void);
+/**
+ *
+ * Returns the fifo status of the SpaceWire port of the interface (see manual p. 5-6).
+ *
+ * @param   baseaddr_reg_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ *
+ * @return SpaceWire port fifo status
+ *
+ */
+int8_t AXI_SPACEWIRE_IP_REG_getFifoStatus(uint32_t* baseaddr_reg_p);
 
-XStatus AXI_SPACEWIRE_IP_TX_writeSingle(u8 flag, u8 byte);
+/**
+ *
+ * Writes a single word into transmitting fifo of the interface (see manual p. 2).
+ *
+ * @param   baseaddr_tx_p is the base address of the AXI_SPACEWIRE_IP_TX instance to be worked on.
+ * @param   flag marks the data as special byte or normal n-char.
+ * @param   byte is the data to transmit.
+ *
+ */
+void AXI_SPACEWIRE_IP_TX_writeSingle(uint32_t* baseaddr_tx_p, int8_t flag, uint8_t data);
 
-XStatus AXI_SPACEWIRE_IP_TX_writeMulti(u16* arr, u8 count);
+/**
+ *
+ * Returns a value indicating how many records still fit into the fifo.
+ *
+ * @param   baseaddr_tx_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ *
+ * @return Tx fifo free space
+ *
+ */
+uint16_t AXI_SPACEWIRE_IP_TX_getSize(uint32_t* baseaddr_tx_p);
 
-u32 AXI_SPACEWIRE_IP_TX_getSize(void);
+/**
+ *
+ * Reads and returns a single word from the receive fifo of the interface (see manual p. 3).
+ *
+ * @param   baseaddr_rx_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ *
+ * @return word (see manual p. 3)
+ *
+ */
+int16_t AXI_SPACEWIRE_IP_RX_readSingle(uint32_t* baseaddr_rx_p);
 
-u16 AXI_SPACEWIRE_IP_RX_readSingle(void);
-
-XStatus AXI_SPACEWIRE_IP_RX_readMulti(u16* arr, u8 count);
-
-u32 AXI_SPACEWIRE_IP_RX_getElements(void);
+/**
+ *
+ * Returns number of records in Rx fifo.
+ *
+ * @param   baseaddr_rx_p is the base address of the AXI_SPACEWIRE_IP_REG instance to be worked on.
+ *
+ * @return Rx fifo elements
+ *
+ */
+uint16_t AXI_SPACEWIRE_IP_RX_getElements(uint32_t* baseaddr_rx_p);
 
 #endif // AXI_SPACEWIRE_IP_H
-
