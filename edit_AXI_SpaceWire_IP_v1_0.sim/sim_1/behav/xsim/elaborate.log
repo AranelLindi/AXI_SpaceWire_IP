@@ -12,9 +12,9 @@ Compiling package std.textio
 Compiling package ieee.std_logic_1164
 Compiling package ieee.numeric_std
 Compiling package xil_defaultlib.spwpkg
+Compiling package ieee.math_real
 Compiling package unimacro.vcomponents
 Compiling package unisim.vcomponents
-Compiling package ieee.math_real
 Compiling package ieee.vital_timing
 Compiling package ieee.vital_primitives
 Compiling package unisim.vpkg

@@ -47,18 +47,30 @@ ENTITY AXI_SpaceWire_IP_v1_0_S02_AXI_REG IS
 
         -- Counter value of the TimeCode to be sent. Must be valid while tick_in is high.
         time_in : OUT STD_LOGIC_VECTOR(5 DOWNTO 0);
+        
+        -- High if transmission queue is full.
+        txfull : IN STD_LOGIC;
 
         -- High if transmission queue is at least half full.
         txhalff : IN STD_LOGIC;
+        
+        -- High if transmission queue is empty.
+        txempty : IN STD_LOGIC;
 
         -- Control bits of the last received TimeCode.
         ctrl_out : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
 
         -- Counter value of the last received TimeCode.
         time_out : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+        
+        -- High if the receive FIFO is full.
+        rxfull : IN STD_LOGIC;
 
         -- High if the receive FIFO is at least half full.
         rxhalff : IN STD_LOGIC;
+        
+        -- High if the receive FIFO is empty.
+        rxempty : IN STD_LOGIC;
 
         -- High if the link state machine is currently in the Started state.
         started : IN STD_LOGIC;
@@ -476,7 +488,12 @@ BEGIN
     BEGIN
         IF rising_edge(clk_logic) THEN
             line3 <= (0 => time_out(0), 1 => time_out(1), 2 => time_out(2), 3 => time_out(3), 4 => time_out(4), 5 => time_out(5), 8 => ctrl_out(0), 9 => ctrl_out(1), OTHERS => '0');
-            line4 <= (0 => started, 1 => connecting, 2 => running, 8 => errdisc, 9 => errpar, 10 => erresc, 11 => errcred, 16 => rxhalff, 17 => txhalff, OTHERS => '0');
+            line4 <= (0 => started, 1 => connecting, 2 => running,
+                      8 => errdisc, 9 => errpar, 10 => erresc, 11 => errcred,
+                      16 => rxempty, 17 => rxhalff, 18 => rxfull,
+                      20 => txempty, 21 => txhalff, 22 => txfull,
+                      OTHERS => '0'
+                      );
         END IF;
     END PROCESS;
 

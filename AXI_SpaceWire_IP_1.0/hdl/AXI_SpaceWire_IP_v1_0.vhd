@@ -254,12 +254,16 @@ ARCHITECTURE arch_imp OF AXI_SpaceWire_IP_v1_0 IS
             txflag : IN STD_LOGIC;
             txdata : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
             txrdy : OUT STD_LOGIC;
+            txfull: OUT STD_LOGIC;
             txhalff : OUT STD_LOGIC;
+            txempty : OUT STD_LOGIC;
             tick_out : OUT STD_LOGIC;
             ctrl_out : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
             time_out : OUT STD_LOGIC_VECTOR(5 DOWNTO 0);
             rxvalid : OUT STD_LOGIC;
+            rxfull : OUT STD_LOGIC;
             rxhalff : OUT STD_LOGIC;
+            rxempty : OUT STD_LOGIC;
             rxflag : OUT STD_LOGIC;
             rxdata : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
             rxread : IN STD_LOGIC;
@@ -446,10 +450,14 @@ ARCHITECTURE arch_imp OF AXI_SpaceWire_IP_v1_0 IS
             txdivcnt : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
             ctrl_in : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
             time_in : OUT STD_LOGIC_VECTOR(5 DOWNTO 0);
+            txfull : IN STD_LOGIC;
             txhalff : IN STD_LOGIC;
+            txempty : IN STD_LOGIC;
             ctrl_out : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
             time_out : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+            rxfull : IN STD_LOGIC;
             rxhalff : IN STD_LOGIC;
+            rxempty : IN STD_LOGIC;
             started : IN STD_LOGIC;
             connecting : IN STD_LOGIC;
             running : IN STD_LOGIC;
@@ -503,8 +511,12 @@ ARCHITECTURE arch_imp OF AXI_SpaceWire_IP_v1_0 IS
     SIGNAL s_ctrl_in : STD_LOGIC_VECTOR(1 DOWNTO 0);
     SIGNAL s_time_in : STD_LOGIC_VECTOR(5 DOWNTO 0);
     SIGNAL s_tc_in : STD_LOGIC;
+    SIGNAL s_txfull : STD_LOGIC;
     SIGNAL s_txhalff : STD_LOGIC;
+    SIGNAL s_txempty : STD_LOGIC;
+    SIGNAL s_rxfull : STD_LOGIC;
     SIGNAL s_rxhalff : STD_LOGIC;
+    SIGNAL s_rxempty : STD_LOGIC;
     SIGNAL s_ctrl_out : STD_LOGIC_VECTOR(1 DOWNTO 0);
     SIGNAL s_time_out : STD_LOGIC_VECTOR(5 DOWNTO 0);
     SIGNAL s_tc_out : STD_LOGIC;
@@ -712,10 +724,14 @@ BEGIN
         txdivcnt => s_txdivcnt,
         ctrl_in => s_ctrl_in,
         time_in => s_time_in,
+        txfull => s_txfull,
         txhalff => s_txhalff,
+        txempty => s_txempty,
         ctrl_out => s_ctrl_out,
         time_out => s_time_out,
+        rxfull => s_rxfull,
         rxhalff => s_rxhalff,
+        rxempty => s_rxempty,
         started => s_started,
         connecting => s_connecting,
         running => s_running,

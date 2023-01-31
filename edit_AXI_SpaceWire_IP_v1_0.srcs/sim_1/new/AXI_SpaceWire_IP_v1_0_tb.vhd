@@ -953,21 +953,21 @@ begin
         AXI4LiteWrite_Reg("00000", x"00000006");
         
         -- Write TimeCode Values into TC_out register:
-        AXI4LiteWrite_Reg("01000", x"00000001");
+        --AXI4LiteWrite_Reg("01000", x"00000001");
         
         wait for 30 us;
         
         -- Set tc_in Signal for one clock cycle
-        wait until falling_edge(clk_logic);
-        tc_in <= '1', '0' after pl_clock_period;
+        --wait until falling_edge(clk_logic);
+        --tc_in <= '1', '0' after pl_clock_period;
         
-        wait for 1 us;
+        --wait for 1 us;
         
         -- Read TC_in register
-        AXI4LiteRead_Reg("01100");
+        --AXI4LiteRead_Reg("01100");
         
         
-        spw_do <= '0';
+        --spw_do <= '0';
         
         
         -- Following code is approved and should work correctly!
@@ -987,34 +987,34 @@ begin
 --                     s00_axi_tx_rready); -- read data channel
 --        report "Number of elements in TX FIFO: " & to_string(s01_axi_rx_rdata);
 
---        -- Write some Data into tx fifo:
---        for i in 0 to 2048 loop
---            data(0) := std_logic_vector(to_unsigned(i, 32));
---            AXI4FullWrite(s00_axi_tx_awaddr, "000",
---                          s00_axi_tx_awlen, std_logic_vector(to_unsigned(data'length, s00_axi_tx_awlen'length)), -- awlen is zero-based index !
---                          s00_axi_tx_awburst, "00", -- FIXED BURST
---                          s00_axi_tx_awvalid,
---                          s00_axi_tx_awready,
---                          s00_axi_tx_wdata, data,
---                          s00_axi_tx_wstrb, "0011",
---                          s00_axi_tx_wlast,
---                          s00_axi_tx_wvalid,
---                          s00_axi_tx_wready,
---                          s00_axi_tx_bready,
---                          s00_axi_tx_bvalid);
---            report to_string(i);
---            wait for ps_clock_period/2;
---            -- Check number of elements in tx fifo: (should be eleven)
---            AXI4FullRead(s00_axi_tx_araddr, "100",
---                         s00_axi_tx_arlen, std_logic_vector(to_unsigned(1, s01_axi_rx_arlen'length)),
---                         s00_axi_tx_arburst, "00", -- FIXED BURST
---                         s00_axi_tx_arvalid,
---                         s00_axi_tx_arready, -- read address channel
---                         s00_axi_tx_rlast,
---                         s00_axi_tx_rvalid,
---                         s00_axi_tx_rready); -- read data channel
---            wait for ps_clock_period/2;
---        end loop;
+        -- Write some Data into tx fifo:
+        for i in 0 to 10 loop
+            data(0) := std_logic_vector(to_unsigned(i, 32));
+            AXI4FullWrite(s00_axi_tx_awaddr, "000",
+                          s00_axi_tx_awlen, std_logic_vector(to_unsigned(data'length, s00_axi_tx_awlen'length)), -- awlen is zero-based index !
+                          s00_axi_tx_awburst, "00", -- FIXED BURST
+                          s00_axi_tx_awvalid,
+                          s00_axi_tx_awready,
+                          s00_axi_tx_wdata, data,
+                          s00_axi_tx_wstrb, "0011",
+                          s00_axi_tx_wlast,
+                          s00_axi_tx_wvalid,
+                          s00_axi_tx_wready,
+                          s00_axi_tx_bready,
+                          s00_axi_tx_bvalid);
+            report to_string(i);
+            wait for ps_clock_period/2;
+            -- Check number of elements in tx fifo: (should be eleven)
+            AXI4FullRead(s01_axi_rx_araddr, "000",
+                         s01_axi_rx_arlen, std_logic_vector(to_unsigned(1, s01_axi_rx_arlen'length)),
+                         s01_axi_rx_arburst, "00", -- FIXED BURST
+                         s01_axi_rx_arvalid,
+                         s01_axi_rx_arready, -- read address channel
+                         s01_axi_rx_rlast,
+                         s01_axi_rx_rvalid,
+                         s01_axi_rx_rready); -- read data channel
+            wait for ps_clock_period/2;
+        end loop;
 
 --        -- Check number of elements in tx fifo: (should be eleven)
 --        AXI4FullRead(s00_axi_tx_araddr, "100",

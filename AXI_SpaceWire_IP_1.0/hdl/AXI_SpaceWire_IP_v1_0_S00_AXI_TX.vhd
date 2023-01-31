@@ -751,9 +751,12 @@ BEGIN
             ELSE
                 CASE spwwrapperstate IS
                     WHEN S_Idle =>
-                        s_fifo_rden <= '0';
+                        --txwrite <= '0';
+                        --s_fifo_rden <= '0';
 
                         IF txrdy = '1' AND s_fifo_empty = '0' THEN
+                            s_fifo_rden <= '1';                       
+                        
                             txdata <= s_fifo_do(7 DOWNTO 0);
                             txflag <= s_fifo_do(8);
 
@@ -764,7 +767,7 @@ BEGIN
 
                     WHEN S_Operation =>
                         txwrite <= '0';
-                        s_fifo_rden <= '1'; -- Write word into spwstream input port
+                        s_fifo_rden <= '0'; -- Write word into spwstream input port
 
                         IF s_size /= c_fifo_size - 1 THEN -- prevents that value of rdcounter is bigger than wrcounter altough fifo is empty
                             IF s_rdcounter = (c_fifo_size - 1) THEN
