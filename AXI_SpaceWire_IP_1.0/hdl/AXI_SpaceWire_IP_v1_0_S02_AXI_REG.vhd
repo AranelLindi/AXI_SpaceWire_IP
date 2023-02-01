@@ -317,7 +317,7 @@ BEGIN
                             FOR byte_index IN 0 TO (C_S_AXI_DATA_WIDTH/8 - 1) LOOP
                                 IF (S_AXI_WSTRB(byte_index) = '1') THEN
                                     -- Respective byte enables are asserted as per write strobes                   
-                                    -- slave registor 0
+                                    -- slave register 0
                                     slv_reg0(byte_index * 8 + 7 DOWNTO byte_index * 8) <= S_AXI_WDATA(byte_index * 8 + 7 DOWNTO byte_index * 8);
                                 END IF;
                             END LOOP;
@@ -325,7 +325,7 @@ BEGIN
                             FOR byte_index IN 0 TO (C_S_AXI_DATA_WIDTH/8 - 1) LOOP
                                 IF (S_AXI_WSTRB(byte_index) = '1') THEN
                                     -- Respective byte enables are asserted as per write strobes                   
-                                    -- slave registor 1
+                                    -- slave register 1
                                     slv_reg1(byte_index * 8 + 7 DOWNTO byte_index * 8) <= S_AXI_WDATA(byte_index * 8 + 7 DOWNTO byte_index * 8);
                                 END IF;
                             END LOOP;
@@ -333,7 +333,7 @@ BEGIN
                             FOR byte_index IN 0 TO (C_S_AXI_DATA_WIDTH/8 - 1) LOOP
                                 IF (S_AXI_WSTRB(byte_index) = '1') THEN
                                     -- Respective byte enables are asserted as per write strobes                   
-                                    -- slave registor 2
+                                    -- slave register 2
                                     slv_reg2(byte_index * 8 + 7 DOWNTO byte_index * 8) <= S_AXI_WDATA(byte_index * 8 + 7 DOWNTO byte_index * 8);
                                 END IF;
                             END LOOP;
@@ -415,8 +415,9 @@ BEGIN
     -- Implement memory mapped register select and read logic generation
     -- Slave register read enable is asserted when valid address is available and the slave is ready to accept the read address.
     slv_reg_rden <= axi_arready AND S_AXI_ARVALID AND (NOT axi_rvalid);
+    
     -- Pre-combinatorial data output process. 
-    PROCESS (slv_reg0, slv_reg1, slv_reg2, slv_reg3, slv_reg4, axi_araddr, S_AXI_ARESETN, slv_reg_rden)
+    PROCESS (slv_reg0, slv_reg1, slv_reg2, slv_reg3, slv_reg4, axi_araddr)
         VARIABLE loc_addr : STD_LOGIC_VECTOR(OPT_MEM_ADDR_BITS DOWNTO 0);
     BEGIN
         -- Address decoding for reading registers

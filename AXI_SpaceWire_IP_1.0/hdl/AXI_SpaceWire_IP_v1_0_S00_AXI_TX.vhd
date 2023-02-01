@@ -755,12 +755,11 @@ BEGIN
                         --s_fifo_rden <= '0';
 
                         IF txrdy = '1' AND s_fifo_empty = '0' THEN
-                            s_fifo_rden <= '1';                       
-                        
                             txdata <= s_fifo_do(7 DOWNTO 0);
                             txflag <= s_fifo_do(8);
 
                             txwrite <= '1';
+                            s_fifo_rden <= '1';
 
                             spwwrapperstate <= S_Operation;
                         END IF;
