@@ -85,6 +85,7 @@ architecture fifointerface_rx_tb_arch of fifointerface_rx_tb is
             rxflag : in std_logic;
             rxdata : in std_logic_vector(7 downto 0);
             rxread : out std_logic;
+            packet_out : out std_logic;
             S_AXI_ACLK	: in std_logic;
             S_AXI_ARESETN	: in std_logic;
             S_AXI_AWID	: in std_logic_vector(C_S_AXI_ID_WIDTH-1 downto 0);
@@ -149,6 +150,7 @@ architecture fifointerface_rx_tb_arch of fifointerface_rx_tb is
     signal rxflag: std_logic;
     signal rxdata: std_logic_vector(7 downto 0);
     signal rxread: std_logic;
+    signal packet_out: std_logic;
     signal S_AXI_ACLK: std_logic;
     signal S_AXI_ARESETN: std_logic := '1';
     signal S_AXI_AWID: std_logic_vector(C_S_AXI_ID_WIDTH-1 downto 0);
@@ -269,6 +271,7 @@ begin
             rxflag                   => rxflag,
             rxdata                   => rxdata,
             rxread                   => rxread,
+            packet_out               => packet_out,
             S_AXI_ACLK               => S_AXI_ACLK,
             S_AXI_ARESETN            => S_AXI_ARESETN,
             S_AXI_AWID               => S_AXI_AWID,

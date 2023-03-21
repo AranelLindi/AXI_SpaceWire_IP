@@ -90,6 +90,9 @@ ENTITY AXI_SpaceWire_IP_v1_0 IS
 
         -- State Interrupt: High whenever connection state of spwstream has changed.
         state_intr : OUT STD_LOGIC;
+        
+        -- Packet-finished Interrupt: High whenver a complete packet is inside Rx FIFO.
+        packet_intr : OUT STD_LOGIC;
 
         -- Data In signal from SpaceWire bus.
         spw_di : IN STD_LOGIC;
@@ -386,6 +389,7 @@ ARCHITECTURE arch_imp OF AXI_SpaceWire_IP_v1_0 IS
             rxflag : IN STD_LOGIC;
             rxdata : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
             rxread : OUT STD_LOGIC;
+            packet_out : OUT STD_LOGIC;
 
             S_AXI_ACLK : IN STD_LOGIC;
             S_AXI_ARESETN : IN STD_LOGIC;
@@ -558,6 +562,16 @@ ARCHITECTURE arch_imp OF AXI_SpaceWire_IP_v1_0 IS
     SIGNAL s_pulse_state : STD_LOGIC := '0';
     -- Data signal
     SIGNAL s_state : STD_LOGIC;
+    
+    -- Pulse stretching signals for packet_intr.
+    -- Signal to reset pulse
+    SIGNAL s_rst_pulse_packet : STD_LOGIC := '0';
+    -- Shiftregister to stretch pulse
+    SIGNAL s_pulse_reg_packet : STD_LOGIC_VECTOR(intr_stretch_length - 1 DOWNTO 0) := (OTHERS => '0');
+    -- Actual pulse transport signal
+    SIGNAL s_pulse_packet : STD_LOGIC := '0';
+    -- Data signal
+    SIGNAL s_packet : STD_LOGIC;        
 BEGIN
     -- Instantiation of Axi Bus Interface S00_AXI_TX
     AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst : AXI_SpaceWire_IP_v1_0_S00_AXI_TX
@@ -661,6 +675,7 @@ BEGIN
         rxflag => s_rxflag,
         rxdata => s_rxdata,
         rxread => s_rxread,
+        packet_out => s_packet,
         S_AXI_ACLK => s01_axi_rx_aclk,
         S_AXI_ARESETN => s01_axi_rx_aresetn,
         S_AXI_AWID => s01_axi_rx_awid,
@@ -913,6 +928,40 @@ BEGIN
             END IF;
         END IF;
     END PROCESS tc_in_0;
+    
+    -- packet_intr:
+    -- ============
+    -- Pulse stretching signals
+    packet_intr0 : packet_intr <= s_pulse_packet;
+    packet_intr1 : s_rst_pulse_packet <= s_pulse_reg_packet(s_pulse_reg_packet'length - 1);
+
+    -- Asserts and deasserts pulse signal to stretch it for AXI bus depending on received Time Codes.
+    packet_intr2 : PROCESS (s_packet, s_rst_pulse_packet)
+    BEGIN
+        IF s_rst_pulse_packet = '1' THEN
+            -- Asynchronous reset.
+            s_pulse_packet <= '0';
+        ELSIF rising_edge(s_packet) THEN
+            s_pulse_packet <= '1';
+        END IF;
+    END PROCESS packet_intr2;
+
+    -- Fills and resets shift register to stretch pulse signal for tc_out.
+    packet_intr3 : PROCESS (s00_axi_tx_aclk)
+    BEGIN
+        IF rising_edge(s00_axi_tx_aclk) THEN
+            IF s_pulse_tc_out = '0' THEN
+                -- Synchronous reset.
+                s_pulse_reg_packet <= (OTHERS => '0');
+            ELSE
+                s_pulse_reg_packet(0) <= '1';
+
+                FOR i IN 0 TO s_pulse_reg_packet'length - 2 LOOP
+                    s_pulse_reg_packet(i + 1) <= s_pulse_reg_packet(i);
+                END LOOP;
+            END IF;
+        END IF;
+    END PROCESS packet_intr3;
 
     -- ==================
     --    SpaceWire IP

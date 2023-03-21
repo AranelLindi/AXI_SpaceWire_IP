@@ -76,6 +76,9 @@ ENTITY AXI_SpaceWire_IP_v1_0_S01_AXI_RX IS
         -- and "rxdata" are updated.
         -- This signal has no effect if "rxvalid" is low
         rxread : OUT STD_LOGIC;
+        
+        -- Interrupt! High whenever a EOP/EEP character was received!
+        packet_out : OUT STD_LOGIC;
 
         -- User ports ends
         -- Do not modify the ports beyond this line
@@ -749,6 +752,8 @@ BEGIN
                                     v_write := v_write;--(others => '0'); [Changed - test again!]
 
                             END CASE;
+                            
+                            packet_out <= '1'; -- Fire interrupt! (Packet was completed)
 
                             openPacket := False;
                         ELSE
@@ -761,6 +766,9 @@ BEGIN
                                 -- (inside an open packet)
                                 v_write := '0' & rxdata;
                             END IF;
+                            
+                            packet_out <= '0'; -- Reset interrupt!
+                            
                         END IF;
 
                         s_fifo_di(8 DOWNTO 0) <= v_write;
