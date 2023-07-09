@@ -5,281 +5,164 @@
 
 /************************** Function Definitions ***************************/
 
-XStatus AXI_SPACEWIRE_IP_REG_initDevice(void)
+void AXI_SPACEWIRE_IP_REG_initDevice(uint32_t* baseaddr_reg_p)
 {
-    AXI_SPACEWIRE_IP_mWriteReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0, 6);
-
-#ifndef TransferCheck
-    return XST_SUCCESS;
-#else
-    if (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) == 6)
-        return XST_SUCCESS;
-    else
-        return XST_FAILURE;
-#endif
+    volatile uint32_t *const ptr = baseaddr_reg_p;
+    (*ptr) = 0x00000006; // enables linkstart and autostart
 }
 
-XStatus AXI_SPACEWIRE_IP_REG_enableAutoStart(void)
+void AXI_SPACEWIRE_IP_REG_enableAutoStart(uint32_t* baseaddr_reg_p)
 {
-    const u32 val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) | 1 << 2);
-
-    AXI_SPACEWIRE_IP_mWriteReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0, val);
-
-#ifndef TransferCheck
-    return XST_SUCCESS;
-#else
-    if (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) == val)
-        return XST_SUCCESS;
-    else
-        return XST_FAILURE;
-#endif
+    volatile uint32_t *const ptr = baseaddr_reg_p;
+    (*ptr) |= (1 << 2); // set autostart bit (LSB := 0)
 }
 
-XStatus AXI_SPACEWIRE_IP_REG_disableAutoStart(void)
+void AXI_SPACEWIRE_IP_REG_disableAutoStart(uint32_t* baseaddr_reg_p)
 {
-    const u32 val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) & ~(1 << 2));
-
-    AXI_SPACEWIRE_IP_mWriteReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0, val);
-
-#ifndef TransferCheck
-    return XST_SUCCESS;
-#else
-    if (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) == val)
-        return XST_SUCCESS;
-    else
-        return XST_FAILURE;
-#endif
+    volatile uint32_t *const ptr = baseaddr_reg_p;
+    (*ptr) &= ~(1 << 2); // clear autostart bit (LSB := 0)
 }
 
-XStatus AXI_SPACEWIRE_IP_REG_enableLinkStart(void)
+void AXI_SPACEWIRE_IP_REG_enableLinkStart(uint32_t* baseaddr_reg_p)
 {
-    const u32 val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) | 1 << 1);
-
-    AXI_SPACEWIRE_IP_mWriteReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0, val);
-
-#ifndef TransferCheck
-    return XST_SUCCESS;
-#else
-    if (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) == 6)
-        return XST_SUCCESS;
-    else
-        return XST_FAILURE;
-#endif
+    volatile uint32_t *const ptr = baseaddr_reg_p;
+    (*ptr) |= (1 << 1); // set linkstart bit
 }
 
-XStatus AXI_SPACEWIRE_IP_REG_disableLinkStart(void)
+void AXI_SPACEWIRE_IP_REG_disableLinkStart(uint32_t* baseaddr_reg_p)
 {
-    const u32 val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) & ~(1 << 1));
-
-    AXI_SPACEWIRE_IP_mWriteReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0, val);
-
-#ifndef TransferCheck
-    return XST_SUCCESS;
-#else
-    if (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) == val)
-        return XST_SUCCESS;
-    else
-        return XST_FAILURE;
-#endif
+    volatile uint32_t *const ptr = baseaddr_reg_p;
+    (*ptr) &= ~(1 << 1); // clear linkstart bit
 }
 
-XStatus AXI_SPACEWIRE_IP_REG_deactDevice(void)
+void AXI_SPACEWIRE_IP_REG_deactDevice(uint32_t* baseaddr_reg_p)
 {
-    AXI_SPACEWIRE_IP_mWriteReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0, (u32)1);
-
-#ifndef TransferCheck
-    return XST_SUCCESS;
-#else
-    if (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) == (u32)1)
-        return XST_SUCCESS;
-    else
-        return XST_FAILURE;
-#endif
+    volatile uint32_t *const ptr = baseaddr_reg_p;
+    (*ptr) = 0x00000001; // deact device and overwrites whole register
 }
 
-XStatus AXI_SPACEWIRE_IP_REG_disableDevice(void)
+void AXI_SPACEWIRE_IP_REG_disableDevice(uint32_t* baseaddr_reg_p)
 {
-    const u32 val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) & ~(1 << 0));
-
-    AXI_SPACEWIRE_IP_mWriteReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0, val);
-
-#ifndef TransferCheck
-    return XST_SUCCESS;
-#else
-    if (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) == val)
-        return XST_SUCCESS;
-    else
-        return XST_FAILURE;
-#endif
+    volatile uint32_t *const ptr = baseaddr_reg_p;
+    (*ptr) |= (0 << 1); // sets disable bit
 }
 
-XStatus AXI_SPACEWIRE_IP_REG_enableDevice(void)
+void AXI_SPACEWIRE_IP_REG_enableDevice(uint32_t* baseaddr_reg_p)
 {
-    const u32 val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) | 1 << 0);
-
-    AXI_SPACEWIRE_IP_mWriteReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0, val);
-
-#ifndef TransferCheck
-    return XST_SUCCESS;
-#else
-    if (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 0) == 6)
-        return XST_SUCCESS;
-    else
-        return XST_FAILURE;
-#endif
+    volatile uint32_t *const ptr = baseaddr_reg_p;
+    (*ptr) &= ~(0 << 1); // clears disable bit
 }
 
-XStatus AXI_SPACEWIRE_IP_REG_setTransmitRate(u8 rate)
+void AXI_SPACEWIRE_IP_REG_setTransmitRate(uint32_t* baseaddr_reg_p, uint8_t val)
 {
-    AXI_SPACEWIRE_IP_mWriteReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 4, (u32)rate);
-
-#ifndef TransferCheck
-    return XST_SUCCESS;
-#else
-    if (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 4) == (u32)rate)
-        return XST_SUCCESS;
-    else
-        return XST_FAILURE;
-#endif
+    volatile uint32_t *const ptr = baseaddr_reg_p + 0x4;
+    (*ptr) = (uint32_t)val; // writes val into register
 }
 
-XStatus AXI_SPACEWIRE_IP_REG_rstTransmitRate(void)
+void AXI_SPACEWIRE_IP_REG_rstTransmitRate(uint32_t* baseaddr_reg_p)
 {
-    AXI_SPACEWIRE_IP_mWriteReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 4, (u32)1);
-
-#ifndef TransferCheck
-    return XST_SUCCESS;
-#else
-    if (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 4) == (u32)1)
-        return XST_SUCCESS;
-    else
-        return XST_FAILURE;
-#endif
+    volatile uint32_t *const ptr = baseaddr_reg_p + 0x4;
+    (*ptr) = (uint32_t)0x01; // sets register to default value
 }
 
-XStatus AXI_SPACEWIRE_IP_REG_setTC(u8 flag, u8 value)
+void AXI_SPACEWIRE_IP_REG_setTC(uint32_t* baseaddr_reg_p, uint8_t flag, uint8_t val)
 {
-    const u8 tmp_flag = (flag & 3);
-    const u8 tmp_countval = (value & 63);
+    volatile uint32_t *const ptr = baseaddr_reg_p + 0x8;
+   
+    const uint8_t tmp_flag = (flag & 3); // masks control flag (3 == 0b11)
+    const uint8_t tmp_val = (val & 63); // masks counter value (63 == 0b111111)
 
-    const u16 tmp_tc = tmp_countval + (tmp_flag << 8);
+    const uint16_t tmp_tc = tmp_val + (tmp_flag << 8); // conc flag and counter value
 
-    AXI_SPACEWIRE_IP_mWriteReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 8, (u32)tmp_tc);
-
-#ifndef TransferCheck
-    return XST_SUCCESS;
-#else
-    if (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 8) == (u32)tmp_tc)
-        return XST_SUCCESS;
-    else
-        return XST_FAILURE;
-#endif
+    (*ptr) = (uint32_t)tmp_tc; // set registers value
 }
 
-XStatus AXI_SPACEWIRE_IP_REG_setCounterValue(u8 value)
+void AXI_SPACEWIRE_IP_REG_setCounterValue(uint32_t* baseaddr_reg_p, uint8_t val)
 {
-    const u8 tmp_countval = (value & 63);
+    volatile uint32_t *const ptr = baseaddr_reg_p + 0x8;
 
-    const u32 tmp_val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 8) & 0b1100000000) + tmp_countval;
+    const uint8_t tmp_counterval = (val & 63); // masks counter value (63 == 0b111111)
 
-    AXI_SPACEWIRE_IP_mWriteReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 8, tmp_val);
-
-#ifndef TransferCheck
-    return XST_SUCCESS;
-#else
-    if (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 8) == tmp_val)
-        return XST_SUCCESS;
-    else
-        return XST_FAILURE;
-#endif
+    (*ptr) =  ((*ptr) & ~63 + tmp_counterval); // clears first six bits and adds val (63 == 0b111111)
+    // flag value will be unchanged!
 }
 
-XStatus AXI_SPACEWIRE_IP_REG_setControlFlag(u8 flag)
+void AXI_SPACEWIRE_IP_REG_setControlFlag(uint32_t* baseaddr_reg_p, uint8_t val)
 {
-    const u8 tmp_flag = (flag & 3);
+    volatile uint32_t *const ptr = baseaddr_reg_p + 0x8;
 
-    const u32 tmp_val = (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 8) & 63) + (tmp_flag << 8);
+    const uint8_t tmp_flag = (val & 3); // masks control flag (3 == 0b11)
 
-    AXI_SPACEWIRE_IP_mWriteReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 8, tmp_val);
-
-#ifndef TransferCheck
-    return XST_SUCCESS;
-#else
-    if (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 8) == tmp_val)
-        return XST_SUCCESS;
-    else
-        return XST_FAILURE;
-#endif
+    (*ptr) = ((*ptr) & ~ 768) + (tmp_flag << 8); // clears first to bits of 2nd byte and adds control flag (768 = 0b1100000000)
+    // counter value will be unchanged!
 }
 
-u16 AXI_SPACEWIRE_IP_REG_getTC(void)
+int16_t AXI_SPACEWIRE_IP_REG_getTC(uint32_t* baseaddr_reg_p)
 {
-    return AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 12);
+    volatile uint32_t *const ptr = baseaddr_reg_p + 0xC;
+    return (int16_t)(*ptr); // whole register fits into two byte variable
 }
 
-u8 AXI_SPACEWIRE_IP_REG_getCounterValue(void)
+int8_t AXI_SPACEWIRE_IP_REG_getCounterValue(uint32_t* baseaddr_reg_p)
 {
-    return (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 12) & 63);
+    volatile uint32_t *const ptr = baseaddr_reg_p + 0xC;
+    return (int8_t)((*ptr) & 63); // masks register to get counter value only (63 == 0b111111)
 }
 
-u8 AXI_SPACEWIRE_IP_REG_getControlFlag(void)
+int8_t AXI_SPACEWIRE_IP_REG_getControlFlag(uint32_t* baseaddr_reg_p)
 {
-    return ((AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 12) & 0b1100000000) >> 8);
+    volatile uint32_t *const ptr = baseaddr_reg_p + 0xC;
+    return (int8_t)(((*ptr) & 768) >> 8); // masks register to get control flag only and shifts it (768 = 0b1100000000)
 }
 
-u32 AXI_SPACEWIRE_IP_REG_getStatus(void)
+uint32_t AXI_SPACEWIRE_IP_REG_getStatus(uint32_t* baseaddr_reg_p)
 {
-    return AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 16);
+    volatile uint32_t *const ptr = baseaddr_reg_p + 0x10;
+    return (*ptr);
 }
 
-u8 AXI_SPACEWIRE_IP_REG_getErrorStatus(void)
+int8_t AXI_SPACEWIRE_IP_REG_getErrorStatus(uint32_t* baseaddr_reg_p)
 {
-    return ((AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 12) & 0b111100000000) >> 8);
+    volatile uint32_t *const ptr = baseaddr_reg_p + 0x10;
+    return (int8_t)((*ptr & 3840) >> 8); // masks register to get error state only and shifts is (3840 == 0b111100000000)
 }
 
-u8 AXI_SPACEWIRE_IP_REG_getLinkStatus(void)
+int8_t AXI_SPACEWIRE_IP_REG_getLinkStatus(uint32_t* baseaddr_reg_p)
 {
-    return (AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 12) & 0b111);
+    volatile uint32_t *const ptr = baseaddr_reg_p + 0x10;
+    return (int8_t)((*ptr) & 7); // masks register to get link status only (7 == 0b111)
 }
 
-u8 AXI_SPACEWIRE_IP_REG_getFifoStatus(void)
+int8_t AXI_SPACEWIRE_IP_REG_getFifoStatus(uint32_t* baseaddr_reg_p)
 {
-    return ((AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S02_AXI_REG_BASEADDR, 12) & 0b110000000000000000) >> 16);
+    volatile uint32_t *const ptr = baseaddr_reg_p + 0x10;
+    return (int8_t)((*ptr) & 196608) >> 16; // masks register to get fifo status only and shifts it (196608 == 0x30000)
 }
 
-XStatus AXI_SPACEWIRE_IP_TX_writeSingle(u8 flag, u8 byte)
+void AXI_SPACEWIRE_IP_TX_writeSingle(uint32_t* baseaddr_tx_p, int8_t flag, uint8_t data)
 {
-    const u8 tmp_flag = (flag & 1);
-    const u16 tmp_word = (tmp_flag << 8) + byte;
+    volatile uint32_t *const ptr = baseaddr_tx_p;
 
-    AXI_SPACEWIRE_IP_mWriteMemory16(XPAR_AXI_SPACEWIRE_IP_0_S00_AXI_TX_BASEADDR, tmp_word);
+    const int8_t tmp_flag = (flag & 1); // masks flag to get one bit only
+    const uint16_t tmp_word = (tmp_flag << 8) + data; // conc flag and data (9 valid bits)
 
-#ifndef TransferCheck
-    return XST_SUCCESS;
-#else
-    if (AXI_SPACEWIRE_IP_mReadMemory16(XPAR_AXI_SPACEWIRE_IP_0_S00_AXI_TX_BASEADDR) == tmp_word)
-        return XST_SUCCESS;
-    else
-        return XST_FAILURE;
-#endif
+    (*ptr) = tmp_word;
 }
 
-XStatus AXI_SPACEWIRE_IP_TX_writeMulti(u16 *arr, u8 count);
-
-u32 AXI_SPACEWIRE_IP_TX_getSize(void)
+uint16_t AXI_SPACEWIRE_IP_TX_getSize(uint32_t* baseaddr_tx_p)
 {
-    return AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S00_AXI_TX_BASEADDR, 4);
+    volatile uint32_t *const ptr = baseaddr_tx_p + 0x4;
+    return (uint16_t)(*ptr);
 }
 
-u16 AXI_SPACEWIRE_IP_RX_readSingle(void)
+int16_t AXI_SPACEWIRE_IP_RX_readSingle(uint32_t* baseaddr_rx_p)
 {
-    return AXI_SPACEWIRE_IP_mReadMemory16(XPAR_AXI_SPACEWIRE_IP_0_S01_AXI_RX_BASEADDR);
+    volatile uint32_t *const ptr = baseaddr_rx_p;
+    return (int16_t)(*ptr);
 }
 
-XStatus AXI_SPACEWIRE_IP_RX_readMulti(u16 *arr, u8 count);
-
-u32 AXI_SPACEWIRE_IP_RX_getElements(void)
+uint16_t AXI_SPACEWIRE_IP_RX_getElements(uint32_t* baseaddr_rx_p)
 {
-    return AXI_SPACEWIRE_IP_mReadReg32(XPAR_AXI_SPACEWIRE_IP_0_S01_AXI_RX_BASEADDR, 4);
+    volatile uint32_t *const ptr = baseaddr_rx_p + 0x4;
+    return (uint16_t)(*ptr);
 }
-
