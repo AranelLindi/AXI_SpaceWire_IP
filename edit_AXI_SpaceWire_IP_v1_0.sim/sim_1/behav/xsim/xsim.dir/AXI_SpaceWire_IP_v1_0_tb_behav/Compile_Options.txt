@@ -1,1 +1,1 @@
---incr --debug "typical" --relax --mt "8" -L "xil_defaultlib" -L "secureip" --snapshot "AXI_SpaceWire_IP_v1_0_tb_behav" "xil_defaultlib.AXI_SpaceWire_IP_v1_0_tb" -log "elaborate.log" 
+--incr --debug "typical" --relax --mt "8" -L "xil_defaultlib" -L "work" -L "secureip" --snapshot "AXI_SpaceWire_IP_v1_0_tb_behav" "xil_defaultlib.AXI_SpaceWire_IP_v1_0_tb" -log "elaborate.log" 

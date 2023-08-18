@@ -1018,6 +1018,24 @@ begin
                          s01_axi_rx_rready); -- read data channel
             wait for ps_clock_period/2;
         end loop;
+        
+        wait for 10 us;
+        for i in 0 to 10 loop
+            data(0) := std_logic_vector(to_unsigned(256, 32));
+            AXI4FullWrite(s00_axi_tx_awaddr, "000",
+                          s00_axi_tx_awlen, std_logic_vector(to_unsigned(data'length, s00_axi_tx_awlen'length)), -- awlen is zero-based index !
+                          s00_axi_tx_awburst, "00", -- FIXED BURST
+                          s00_axi_tx_awvalid,
+                          s00_axi_tx_awready,
+                          s00_axi_tx_wdata, data,
+                          s00_axi_tx_wstrb, "0011",
+                          s00_axi_tx_wlast,
+                          s00_axi_tx_wvalid,
+                          s00_axi_tx_wready,
+                          s00_axi_tx_bready,
+                          s00_axi_tx_bvalid);
+            wait for 10 us;
+        end loop;
 
 --        -- Check number of elements in tx fifo: (should be eleven)
 --        AXI4FullRead(s00_axi_tx_araddr, "100",

@@ -723,12 +723,15 @@ BEGIN
                 v_write := (OTHERS => '0');
 
                 rxread <= '0';
+                
+                packet_out <= '0';
 
                 spwwrapperstate <= S_Idle;
             ELSE
                 CASE spwwrapperstate IS
                     WHEN S_Idle =>
                         s_fifo_wren <= '0';
+                        packet_out <= '0';
 
                         IF rxvalid = '1' AND s_fifo_full = '0' THEN
                             rxread <= '1'; -- Must asserted before valid data is put on rxdata/rxflag!
@@ -744,16 +747,16 @@ BEGIN
                             CASE rxdata IS
                                 WHEN "00000000" => -- EOP
                                     v_write := "111111111";
+                                    packet_out <= '1'; -- Fire interrupt! (Packet was completed)
 
                                 WHEN "00000001" => -- EEP
                                     v_write := "111111110";
+                                    packet_out <= '1'; -- Fire interrupt! (Packet was completed)
 
                                 WHEN OTHERS => -- Should not be entered (only necessary for simulation)
                                     v_write := v_write;--(others => '0'); [Changed - test again!]
 
                             END CASE;
-                            
-                            packet_out <= '1'; -- Fire interrupt! (Packet was completed)
 
                             openPacket := False;
                         ELSE

@@ -1,6 +1,0 @@
-# compile verilog/system verilog design source files
-verilog xil_defaultlib  \
-"AXI_SpaceWire_IP_v1_0_tb_time_synth.v" \
-
-# Do not sort compile order
-nosort

@@ -1,9 +1,0 @@
-# compile vhdl design source files
-vhdl xil_defaultlib  \
-"../../../../../AXI_SpaceWire_IP_1.0/src/spwpkg.vhd" \
-
-vhdl2008 xil_defaultlib  \
-"../../../../../edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd" \
-
-# Do not sort compile order
-nosort

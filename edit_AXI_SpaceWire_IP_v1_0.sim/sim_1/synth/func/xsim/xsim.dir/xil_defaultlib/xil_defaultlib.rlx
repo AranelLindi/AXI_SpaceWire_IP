@@ -1,7 +1,0 @@
-0.7
-2020.2
-Apr 18 2022
-15:53:03
-/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwpkg.vhd,1660807976,vhdl,/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd,,,spwpkg,,,,,,,,
-/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.sim/sim_1/synth/func/xsim/AXI_SpaceWire_IP_v1_0_tb_func_synth.vhd,1665658573,vhdl,,,,\spwram__parameterized1\;\spwram__parameterized1_0\;axi_spacewire_ip_v1_0;axi_spacewire_ip_v1_0_s00_axi_tx;axi_spacewire_ip_v1_0_s01_axi_rx;axi_spacewire_ip_v1_0_s02_axi_reg;spwlink;spwram;spwrecv;spwrecvfront_fast;spwstream;spwxmit_fast;syncdff;syncdff_1;syncdff_10;syncdff_11;syncdff_12;syncdff_13;syncdff_2;syncdff_3;syncdff_4;syncdff_5;syncdff_6;syncdff_7;syncdff_8;syncdff_9;unimacro_fifo_dualclock_macro;unimacro_fifo_dualclock_macro_14,,,,,,,,
-/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd,1665645710,vhdl2008,,,,axi_spacewire_ip_v1_0_tb,,,,,,,,
