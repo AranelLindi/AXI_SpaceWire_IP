@@ -533,7 +533,7 @@ ARCHITECTURE arch_imp OF AXI_SpaceWire_IP_v1_0 IS
     SIGNAL s_erresc : STD_LOGIC;
 
     -- Interrupt handling
-    CONSTANT intr_stretch_length : POSITIVE := 100; -- previous: 9 -- It is necessary to stretch any interrupt signal to make it acceptable for Generical Interrupt Controller (must be at least 9!). (See UG585 p. 231)
+    CONSTANT intr_stretch_length : POSITIVE := 9; -- previous: 100 -- It is necessary to stretch any interrupt signal to make it acceptable for Generical Interrupt Controller (must be at least 9!). (See UG585 p. 231)
 
     -- Pulse stretching signals for tc_out_intr.
     -- Signal to reset pulse
