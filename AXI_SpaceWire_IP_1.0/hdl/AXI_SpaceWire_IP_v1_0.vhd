@@ -236,7 +236,7 @@ ARCHITECTURE arch_imp OF AXI_SpaceWire_IP_v1_0 IS
             sysfreq : real;
             txclkfreq : real := 0.0;
             rximpl : spw_implementation_type := impl_fast;
-            rxchunk : INTEGER RANGE 1 TO 4 := 1;
+            rxchunk : INTEGER RANGE 1 TO 4 := 2;
             tximpl : spw_implementation_type := impl_fast;
             rxfifosize_bits : INTEGER RANGE 6 TO 14 := 11;
             txfifosize_bits : INTEGER RANGE 2 TO 14 := 11
