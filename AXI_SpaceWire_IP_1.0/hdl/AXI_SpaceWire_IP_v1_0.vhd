@@ -26,7 +26,7 @@ ENTITY AXI_SpaceWire_IP_v1_0 IS
 
         -- Maximum number of bits received per system clock
         -- (must be 1 in case of impl_generic)
-        rxchunk : INTEGER RANGE 1 TO 4 := 1;
+        rxchunk : INTEGER RANGE 1 TO 4 := 2;
 
         -- Size of the receive FIFO as the 2-logarithm of the number of bytes.
         -- Must be at least 6 (64 bytes).
