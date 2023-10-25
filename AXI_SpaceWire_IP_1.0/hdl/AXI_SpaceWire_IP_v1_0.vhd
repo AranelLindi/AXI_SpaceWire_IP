@@ -574,7 +574,9 @@ ARCHITECTURE arch_imp OF AXI_SpaceWire_IP_v1_0 IS
     SIGNAL s_packet : STD_LOGIC;
     
     -- Edge detection signal (shift register) for tc_in.
-    SIGNAL s_tc_in_last : STD_LOGIC;
+    SIGNAL s_tc_in_reg1 : STD_LOGIC;
+    SIGNAL s_tc_in_reg2 : STD_LOGIC;
+    SIGNAL s_tc_in_edge : STD_LOGIC;
 BEGIN
     -- Instantiation of Axi Bus Interface S00_AXI_TX
     AXI_SpaceWire_IP_v1_0_S00_AXI_TX_inst : AXI_SpaceWire_IP_v1_0_S00_AXI_TX
@@ -917,18 +919,25 @@ BEGIN
     END PROCESS tc_out_intr3;
 
     -- Ensures that exactly one TimeCode is sent no matter how long pulse is being hold on HIGH (achieved by edge detection).
+    tc_in_edge_detection : PROCESS(clk_logic)
+    begin
+        if rising_edge(clk_logic) then
+            s_tc_in_reg1 <= tc_in;
+            s_tc_in_reg2 <= s_tc_in_reg1;
+        end if;
+    end process;
+    
+    s_tc_in_edge <= s_tc_in_reg1 and (not s_tc_in_reg2);
+    
     tc_in_0 : PROCESS (clk_logic)
     BEGIN
         IF rising_edge(clk_logic) THEN
             -- Detect rising edge of tc_in
-            IF tc_in = '1' and s_tc_in_last = '0' THEN
+            IF s_tc_in_edge = '1' THEN
                 s_tc_in <= '1'; -- only one cycle active !
-
             ELSE
                 s_tc_in <= '0';
             END IF;
-            
-            s_tc_in_last <= tc_in;
         END IF;
     END PROCESS tc_in_0;
 

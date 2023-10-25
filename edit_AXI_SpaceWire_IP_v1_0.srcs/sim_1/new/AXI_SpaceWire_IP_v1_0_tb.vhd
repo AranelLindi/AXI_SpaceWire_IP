@@ -960,6 +960,8 @@ begin
         
         wait for 30 us;
         
+        tc_in <= '1';
+        
         -- Set tc_in Signal for one clock cycle
         --wait until falling_edge(clk_logic);
         --tc_in <= '1', '0' after pl_clock_period;

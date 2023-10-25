@@ -33,6 +33,6 @@ Compiling architecture spwlink_arch of entity work.spwlink [\spwlink(reset_time=
 Compiling architecture spwrecv_arch of entity work.spwrecv [\spwrecv(disconnect_time=85,rxch...]
 Compiling architecture spwram_arch of entity work.spwram [\spwram(abits=11,dbits=9)\]
 Compiling architecture spwstream_arch of entity work.spwstream [\spwstream(sysfreq=100000000.0,t...]
-Compiling architecture arch_imp of entity work.AXI_SpaceWire_IP_v1_0 [axi_spacewire_ip_v1_0_default]
+Compiling architecture arch_imp of entity work.AXI_SpaceWire_IP_v1_0 [\AXI_SpaceWire_IP_v1_0(rxchunk=1...]
 Compiling architecture axi_spacewire_ip_v1_0_tb_arch of entity xil_defaultlib.axi_spacewire_ip_v1_0_tb
 Built simulation snapshot AXI_SpaceWire_IP_v1_0_tb_behav
