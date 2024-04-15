@@ -289,6 +289,11 @@ ARCHITECTURE arch_imp OF AXI_SpaceWire_IP_v1_0_S00_AXI_TX IS
     SIGNAL spwwrapperstate : spwwrapperstates := S_Idle;
 
     SIGNAL cstate : spwwrapperstates := S_Idle;
+    
+    
+    Type axi_fifo_wrapper_states IS (S_Idle, S_Write);
+    Signal axi_fifo_wrapper_state : axi_fifo_wrapper_states := S_Idle;
+
 
     -- AXI4FULL signals
     SIGNAL axi_awaddr : STD_LOGIC_VECTOR(C_S_AXI_ADDR_WIDTH - 1 DOWNTO 0);
@@ -390,13 +395,14 @@ BEGIN
                 axi_awready <= '0';
                 axi_awv_awr_flag <= '0';
             ELSE
-                IF (axi_awready = '0' AND S_AXI_AWVALID = '1' AND axi_awv_awr_flag = '0' AND axi_arv_arr_flag = '0') THEN
+                IF (axi_awready = '0' AND S_AXI_AWVALID = '1' AND axi_awv_awr_flag = '0') THEN
                     -- slave is ready to accept an address and
                     -- associated control signals
                     axi_awv_awr_flag <= '1'; -- used for generation of bresp() and bvalid
                     axi_awready <= '1';
-                ELSIF (S_AXI_WLAST = '1' AND axi_wready = '1') THEN
+                ELSIF (axi_awready = '1') THEN -- I think its important to make sure that awready is only asserted for one clock cycle (handshake)
                     -- preparing to accept next address after current write burst tx completion
+                    axi_awready <= '0';
                     axi_awv_awr_flag <= '0';
                 ELSE
                     axi_awready <= '0';
@@ -416,13 +422,7 @@ BEGIN
                 axi_awlen <= (OTHERS => '0');
                 axi_awlen_cntr <= (OTHERS => '0');
             ELSE
-                IF (axi_awready = '0' AND S_AXI_AWVALID = '1' AND axi_awv_awr_flag = '0') THEN
-                    -- address latching 
-                    axi_awaddr <= S_AXI_AWADDR(C_S_AXI_ADDR_WIDTH - 1 DOWNTO 0); ---- start address of transfer
-                    axi_awlen_cntr <= (OTHERS => '0');
-                    axi_awburst <= S_AXI_AWBURST;
-                    axi_awlen <= S_AXI_AWLEN;
-                ELSIF ((axi_awlen_cntr <= axi_awlen) AND axi_wready = '1' AND S_AXI_WVALID = '1') THEN
+                IF ((axi_awlen_cntr <= axi_awlen)) THEN
                     axi_awlen_cntr <= STD_LOGIC_VECTOR (unsigned(axi_awlen_cntr) + 1);
 
                     CASE (axi_awburst) IS
@@ -431,20 +431,30 @@ BEGIN
                             axi_awaddr <= axi_awaddr; ----for awsize = 4 bytes (010)
                         WHEN "01" => --incremental burst
                             -- The write address for all the beats in the transaction are increments by awsize
-                            axi_awaddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_awaddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + 1);--awaddr aligned to 4 byte boundary
-                            axi_awaddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0'); ----for awsize = 4 bytes (010)
+                            axi_awaddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_awaddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + (2 ** to_integer(unsigned(S_AXI_AWSIZE))));--awaddr aligned to 4 byte boundary -- changed
+                            --axi_awaddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0'); ----for awsize = 4 bytes (010) -- Not sure if this is necessary because we have DMA controllers that also support unaligned transfers!
                         WHEN "10" => --Wrapping burst
                             -- The write address wraps when the address reaches wrap boundary 
-                            IF (aw_wrap_en = '1') THEN
-                                axi_awaddr <= STD_LOGIC_VECTOR (unsigned(axi_awaddr) - (to_unsigned(aw_wrap_size, C_S_AXI_ADDR_WIDTH)));
+                            IF (aw_wrap_en = '1' AND (unsigned(axi_awlen_cntr) + 1 = unsigned(axi_awlen) + 1)) THEN
+                                --axi_awaddr <= STD_LOGIC_VECTOR (unsigned(axi_awaddr) - (to_unsigned(aw_wrap_size, C_S_AXI_ADDR_WIDTH)));
+                                axi_awaddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0'); -- Reset address to initial value (first memory field). Only reset the relevant bits because otherwise full address would be manipulated!
                             ELSE
-                                axi_awaddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_awaddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + 1);--awaddr aligned to 4 byte boundary
+                                -- Incremental logic.
+                                axi_awaddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_awaddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + (2 ** to_integer(unsigned(S_AXI_AWSIZE))));--awaddr aligned to 4 byte boundary
                                 axi_awaddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0'); ----for awsize = 4 bytes (010)
                             END IF;
                         WHEN OTHERS => --reserved (incremental burst for example)
-                            axi_awaddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_awaddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + 1);--for awsize = 4 bytes (010)
-                            axi_awaddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0');
+                            -- if others: remain address unchanged! (like fixed burst)
+                            axi_awaddr <= axi_awaddr;                        
+                            --axi_awaddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_awaddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + 1);--for awsize = 4 bytes (010)
+                            --axi_awaddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0');
                     END CASE;
+                ELSE
+                    -- address latching 
+                    axi_awaddr <= S_AXI_AWADDR(C_S_AXI_ADDR_WIDTH - 1 DOWNTO 0); ---- start address of transfer
+                    axi_awlen_cntr <= (OTHERS => '0');
+                    axi_awburst <= S_AXI_AWBURST;
+                    axi_awlen <= S_AXI_AWLEN;
                 END IF;
             END IF;
         END IF;
@@ -452,22 +462,22 @@ BEGIN
 
     -- Implement axi_wready generation
     -- axi_wready is asserted for one S_AXI_ACLK clock cycle when both S_AXI_AWVALID and S_AXI_WVALID are asserted. axi_wready is de-asserted when reset is low.
-    PROCESS (S_AXI_ACLK)
-    BEGIN
-        IF rising_edge(S_AXI_ACLK) THEN
-            IF S_AXI_ARESETN = '0' THEN
-                axi_wready <= '0';
-            ELSE
-                IF (axi_wready = '0' AND S_AXI_WVALID = '1' AND axi_awv_awr_flag = '1') THEN
-                    axi_wready <= '1';
-                    -- elsif (axi_awv_awr_flag = '0') then
-                ELSIF (S_AXI_WLAST = '1' AND axi_wready = '1') THEN
+--    PROCESS (S_AXI_ACLK)
+--    BEGIN
+--        IF rising_edge(S_AXI_ACLK) THEN
+--            IF S_AXI_ARESETN = '0' THEN
+--                axi_wready <= '0';
+--            ELSE
+--                IF (axi_wready = '0' AND S_AXI_WVALID = '1' AND axi_awv_awr_flag = '1') THEN
+--                    axi_wready <= '1';
+--                    -- elsif (axi_awv_awr_flag = '0') then
+--                ELSIF (S_AXI_WLAST = '1' AND axi_wready = '1') THEN
 
-                    axi_wready <= '0';
-                END IF;
-            END IF;
-        END IF;
-    END PROCESS;
+--                    axi_wready <= '0';
+--                END IF;
+--            END IF;
+--        END IF;
+--    END PROCESS;
 
     -- Implement write response logic generation
     -- The write response and response valid signals are asserted by the slave when axi_wready, S_AXI_WVALID, axi_wready and S_AXI_WVALID are asserted. This marks the acceptance of address and indicates the status of write transaction.
@@ -479,9 +489,11 @@ BEGIN
                 axi_bresp <= "00"; --need to work more on the responses
                 axi_buser <= (OTHERS => '0');
             ELSE
-                IF (axi_awv_awr_flag = '1' AND axi_wready = '1' AND S_AXI_WVALID = '1' AND axi_bvalid = '0' AND S_AXI_WLAST = '1') THEN
+                IF (S_AXI_WLAST = '1') THEN
                     axi_bvalid <= '1';
                     axi_bresp <= "00";
+                    
+                    -- Further operation in preperation of the next burst can be add here...
                 ELSIF (S_AXI_BREADY = '1' AND axi_bvalid = '1') THEN
                     --check if bready is asserted while bvalid is high)
                     axi_bvalid <= '0';
@@ -543,19 +555,23 @@ BEGIN
                             axi_araddr <= axi_araddr; ----for arsize = 4 bytes (010)
                         WHEN "01" => --incremental burst
                             -- The read address for all the beats in the transaction are increments by awsize
-                            axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + 1); --araddr aligned to 4 byte boundary
-                            axi_araddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0'); ----for awsize = 4 bytes (010)
+                            axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + (2 ** to_integer(unsigned(S_AXI_ARSIZE)))); --araddr aligned to 4 byte boundary
+                            --axi_araddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0'); ----for awsize = 4 bytes (010)
                         WHEN "10" => --Wrapping burst
                             -- The read address wraps when the address reaches wrap boundary 
-                            IF (ar_wrap_en = '1') THEN
-                                axi_araddr <= STD_LOGIC_VECTOR (unsigned(axi_araddr) - (to_unsigned(ar_wrap_size, C_S_AXI_ADDR_WIDTH)));
+                            IF (ar_wrap_en = '1' AND (unsigned(axi_arlen_cntr) + 1 = unsigned(axi_arlen) + (2 ** to_integer(unsigned(S_AXI_ARSIZE))))) THEN
+                                --axi_araddr <= STD_LOGIC_VECTOR (unsigned(axi_araddr) - (to_unsigned(ar_wrap_size, C_S_AXI_ADDR_WIDTH)));
+                                axi_araddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0');
                             ELSE
-                                axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + 1); --araddr aligned to 4 byte boundary
+                                -- Incremental logic.
+                                axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + (2 ** to_integer(unsigned(S_AXI_ARSIZE)))); --araddr aligned to 4 byte boundary
                                 axi_araddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0'); ----for awsize = 4 bytes (010)
                             END IF;
                         WHEN OTHERS => --reserved (incremental burst for example)
-                            axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + 1);--for arsize = 4 bytes (010)
-                            axi_araddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0');
+                            -- Let address remain unchanged (like fixed burst)
+                            axi_araddr <= axi_araddr;
+                            --axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + 1);--for arsize = 4 bytes (010)
+                            --axi_araddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0');
                     END CASE;
                 ELSIF ((axi_arlen_cntr = axi_arlen) AND axi_rlast = '0' AND axi_arv_arr_flag = '1') THEN
                     axi_rlast <= '1';
@@ -676,7 +692,7 @@ BEGIN
     wren <= s_fifo_wren;
     rdcount <= STD_LOGIC_VECTOR(to_unsigned(s_rdcounter, rdcount'length));--s_fifo_rdcount;
     wrcount <= STD_LOGIC_VECTOR(to_unsigned(s_wrcounter, wrcount'length));--s_fifo_wrcount;
-    di <= s_fifo_space_reg;--s_fifo_di; -- s_fifo_space_reg (Debug!)
+    di <= s_fifo_di; -- s_fifo_space_reg (Debug!)
     do(8 DOWNTO 0) <= s_fifo_do;
     empty <= s_fifo_empty;
     full <= s_fifo_full;
@@ -705,34 +721,77 @@ BEGIN
     END PROCESS;
 
     -- Writes data words coming from AXI Bus into fifo. The wren signal is asserted or deasserted depending on the write channel handshake signals.
-    wr_0 : PROCESS (S_AXI_ACLK)
-    BEGIN
-        IF rising_edge(S_AXI_ACLK) THEN
-            IF s_axi_areseth = '1' THEN -- Must be same reset signal that fifo has!
-                -- Synchronous reset.
-                s_fifo_wren <= '0';
-                s_wrcounter <= 0;
-            ELSE
-                IF S_AXI_WVALID = '1' AND axi_wready = '1' THEN -- sehr gefährlich... ist vermutlich oft länger als einen takt HIGH (also beides) (hat bisher aber funktioniert, mal gut testen!!)
-                    IF axi_awaddr(ADDR_LSB + OPT_MEM_ADDR_BITS DOWNTO ADDR_LSB) = "0" THEN -- Important! Elsewise wren is also asserted while element register is addressed!
-                        s_fifo_wren <= '1'; -- Assert write enabling signal
+--    wr_0 : PROCESS (S_AXI_ACLK)
+--    BEGIN
+--        IF rising_edge(S_AXI_ACLK) THEN
+--            IF s_axi_areseth = '1' THEN -- Must be same reset signal that fifo has!
+--                -- Synchronous reset.
+--                s_fifo_wren <= '0';
+--                s_wrcounter <= 0;
+--            ELSE
+--                IF S_AXI_WVALID = '1' AND axi_wready = '1' THEN -- sehr gefährlich... ist vermutlich oft länger als einen takt HIGH (also beides) (hat bisher aber funktioniert, mal gut testen!!)
+--                    IF axi_awaddr(ADDR_LSB + OPT_MEM_ADDR_BITS DOWNTO ADDR_LSB) = "0" THEN -- Important! Otherwise wren is also asserted if element register is addressed!
+--                        s_fifo_wren <= '1'; -- Assert write enabling signal
 
-                        IF s_size > 0 THEN -- s_size contains free space of tx fifo so address s_wrcounter only if fifo is not empty.
-                            IF s_wrcounter = (c_fifo_size - 1) THEN
-                                s_wrcounter <= 0; -- wrap
-                            ELSE
-                                s_wrcounter <= s_wrcounter + 1;
-                            END IF;
-                        END IF;
-                    ELSE
+--                        IF s_size > 0 THEN -- s_size contains free space of tx fifo so address s_wrcounter only if fifo is not empty.
+--                            IF s_wrcounter = (c_fifo_size - 1) THEN
+--                                s_wrcounter <= 0; -- wrap
+--                            ELSE
+--                                s_wrcounter <= s_wrcounter + 1;
+--                            END IF;
+--                        END IF;
+--                    ELSE
+--                        s_fifo_wren <= '0';
+--                    END IF;
+--                ELSE
+--                    s_fifo_wren <= '0';
+--                END IF;
+--            END IF;
+--        END IF;
+--    END PROCESS wr_0;
+    
+    
+    process(S_AXI_ACLK)
+    begin
+        if rising_edge(S_AXI_ACLK) THEN
+            if s_axi_areseth = '1' then
+                -- Synchronous reset
+            else
+                case axi_fifo_wrapper_state is
+                    when S_Idle =>
                         s_fifo_wren <= '0';
-                    END IF;
-                ELSE
-                    s_fifo_wren <= '0';
-                END IF;
-            END IF;
-        END IF;
-    END PROCESS wr_0;
+                    
+                        if S_AXI_WVALID = '1' and axi_awaddr(ADDR_LSB + OPT_MEM_ADDR_BITS downto ADDR_LSB) = "0" then
+                                --axi_awready <= '1';
+                                axi_wready <= '1';
+                                
+                                axi_fifo_wrapper_state <= S_Write;
+                        end if;
+                    
+                    when S_Write =>
+                        if S_AXI_WVALID = '1' then
+                            s_fifo_wren <= '1';
+                            
+                            if S_AXI_WLAST = '1' then -- Prüfe auf das Ende des Bursts
+                                axi_wready <= '0'; -- Nicht mehr bereit nach dem Ende des Bursts
+                                axi_fifo_wrapper_state <= S_Idle; -- Zurück zu Idle nach dem Burst
+                            end if;
+                            
+                            if s_size > 0 then
+                                if s_wrcounter = (c_fifo_size -1) then
+                                    s_wrcounter <= 0; -- wrap
+                                else
+                                    s_wrcounter <= s_wrcounter + 1;
+                                end if;
+                            end if;
+                        else
+                            s_fifo_wren <= '0';
+                        end if;
+                end case;
+            end if;
+        end if;    
+    end process;
+
 
     -- Writes data words from tx fifo to spwstream.
     spwwrapper : PROCESS (clk_logic)

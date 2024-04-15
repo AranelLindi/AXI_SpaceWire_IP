@@ -1,3 +1,6 @@
 Time resolution is 1 ps
+<<<<<<< Updated upstream
 Note: ~~~ Testbench completed! ~~~
 Time: 42180 ns  Iteration: 0  Process: /AXI_SpaceWire_IP_v1_0_tb/stimulus_common  File: /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd
+=======
+>>>>>>> Stashed changes

@@ -431,18 +431,21 @@ BEGIN
                         WHEN "01" => --incremental burst
                             -- The write address for all the beats in the transaction are increments by awsize
                             axi_awaddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_awaddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + 1);--awaddr aligned to 4 byte boundary
-                            axi_awaddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0'); ----for awsize = 4 bytes (010)
+                            --axi_awaddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0'); ----for awsize = 4 bytes (010)
                         WHEN "10" => --Wrapping burst
                             -- The write address wraps when the address reaches wrap boundary 
-                            IF (aw_wrap_en = '1') THEN
-                                axi_awaddr <= STD_LOGIC_VECTOR (unsigned(axi_awaddr) - (to_unsigned(aw_wrap_size, C_S_AXI_ADDR_WIDTH)));
+                            IF (aw_wrap_en = '1' AND (unsigned(axi_awlen_cntr) + 1 = unsigned(axi_awlen) + 1)) THEN
+                                --axi_awaddr <= STD_LOGIC_VECTOR (unsigned(axi_awaddr) - (to_unsigned(aw_wrap_size, C_S_AXI_ADDR_WIDTH)));
+                                axi_awaddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0'); -- Reset address to initial value (first memory field). Only reset the relevant bits otherwise whole address (inc. offset) might be changed
                             ELSE
                                 axi_awaddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_awaddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + 1);--awaddr aligned to 4 byte boundary
                                 axi_awaddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0'); ----for awsize = 4 bytes (010)
                             END IF;
                         WHEN OTHERS => --reserved (incremental burst for example)
-                            axi_awaddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_awaddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + 1);--for awsize = 4 bytes (010)
-                            axi_awaddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0');
+                            -- if others: remain address unchanged! (like fixed burst)
+                            axi_awaddr <= axi_awaddr;
+                            --axi_awaddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_awaddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + 1);--for awsize = 4 bytes (010)
+                            --axi_awaddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0');
                     END CASE;
                 END IF;
             END IF;
@@ -541,19 +544,21 @@ BEGIN
                             axi_araddr <= axi_araddr; ----for arsize = 4 bytes (010)
                         WHEN "01" => --incremental burst
                             -- The read address for all the beats in the transaction are increments by awsize
-                            axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + 1); --araddr aligned to 4 byte boundary
-                            axi_araddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0'); ----for awsize = 4 bytes (010)
+                            axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + (2 ** to_integer(unsigned(S_AXI_AWSIZE)))); --araddr aligned to 4 byte boundary
+                            --axi_araddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0'); ----for awsize = 4 bytes (010)
                         WHEN "10" => --Wrapping burst
                             -- The read address wraps when the address reaches wrap boundary 
-                            IF (ar_wrap_en = '1') THEN
+                            IF (ar_wrap_en = '1' AND (unsigned(axi_arlen_cntr) + 1 = unsigned(axi_arlen) + (2 ** to_integer(unsigned(S_AXI_ARSIZE))))) THEN
                                 axi_araddr <= STD_LOGIC_VECTOR (unsigned(axi_araddr) - (to_unsigned(ar_wrap_size, C_S_AXI_ADDR_WIDTH)));
                             ELSE
-                                axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + 1); --araddr aligned to 4 byte boundary
+                                axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + (2 ** to_integer(unsigned(S_AXI_AWSIZE)))); --araddr aligned to 4 byte boundary
                                 axi_araddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0'); ----for awsize = 4 bytes (010)
                             END IF;
                         WHEN OTHERS => --reserved (incremental burst for example)
-                            axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + 1);--for arsize = 4 bytes (010)
-                            axi_araddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0');
+                            -- Let address remain unchanged (like fixed burst)
+                            axi_araddr <= axi_araddr;
+                            --axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB) <= STD_LOGIC_VECTOR (unsigned(axi_araddr(C_S_AXI_ADDR_WIDTH - 1 DOWNTO ADDR_LSB)) + 1);--for arsize = 4 bytes (010)
+                            --axi_araddr(ADDR_LSB - 1 DOWNTO 0) <= (OTHERS => '0');
                     END CASE;
                 ELSIF ((axi_arlen_cntr = axi_arlen) AND axi_rlast = '0' AND axi_arv_arr_flag = '1') THEN
                     axi_rlast <= '1';
@@ -577,7 +582,7 @@ BEGIN
                     axi_rvalid <= '1';
                     axi_rresp <= "00"; -- 'OKAY' response
                 ELSIF (axi_rvalid = '1' AND S_AXI_RREADY = '1') THEN
-                    axi_rvalid <= '0';
+                    axi_rvalid <= '1';
                 END IF;
             END IF;
         END IF;
@@ -691,19 +696,33 @@ BEGIN
         END IF;
     END PROCESS rdcount0;
 
-    -- Combinatorial process that asserts or deasserts the rden signal depending on axi read channel handhsake signals and fifo empty signal.
-    rd_1 : PROCESS (S_AXI_RREADY, axi_rvalid)
+    -- Combinatorial process that asserts or deasserts the rden signal depending on axi read channel handshake signals and fifo empty signal.
+--    rd_1 : PROCESS (S_AXI_RREADY, axi_rvalid)
+--    BEGIN
+--        IF S_AXI_RREADY = '1' AND axi_rvalid = '1' THEN
+--            IF axi_araddr(ADDR_LSB + OPT_MEM_ADDR_BITS DOWNTO ADDR_LSB) = "0" THEN
+--                s_fifo_rden <= '1';
+--            ELSE
+--                s_fifo_rden <= '0';
+--            END IF;
+--        ELSE
+--            s_fifo_rden <= '0';
+--        END IF;
+--    END PROCESS rd_1;
+    PROCESS(S_AXI_ACLK)
     BEGIN
-        IF S_AXI_RREADY = '1' AND axi_rvalid = '1' THEN
-            IF axi_araddr(ADDR_LSB + OPT_MEM_ADDR_BITS DOWNTO ADDR_LSB) = "0" THEN
-                s_fifo_rden <= '1';
-            ELSE
+        IF rising_edge(S_AXI_ACLK) THEN
+            IF S_AXI_ARESETN = '0' THEN
                 s_fifo_rden <= '0';
+            ELSE
+                IF S_AXI_RREADY = '1' AND axi_rvalid = '1' THEN
+                    s_fifo_rden <= '1';
+                ELSE
+                    s_fifo_rden <= '0';
+                END IF;
             END IF;
-        ELSE
-            s_fifo_rden <= '0';
         END IF;
-    END PROCESS rd_1;
+    END PROCESS;
 
     -- Writes received data words from spwstream into rx fifo. FSM is also used to convert specific bytes into wanted format.
     spwwrapper : PROCESS (clk_logic)

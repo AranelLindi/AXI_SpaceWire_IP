@@ -1,0 +1,27 @@
+# compile vhdl design source files
+vhdl2008 work  \
+"../../../../AXI_SpaceWire_IP_1.0/src/spwpkg.vhd" \
+"../../../../AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd" \
+"../../../../AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd" \
+"../../../../AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd" \
+"../../../../AXI_SpaceWire_IP_1.0/src/spwlink.vhd" \
+"../../../../AXI_SpaceWire_IP_1.0/src/spwram.vhd" \
+"../../../../AXI_SpaceWire_IP_1.0/src/spwrecv.vhd" \
+"../../../../AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd" \
+"../../../../AXI_SpaceWire_IP_1.0/src/spwrecvfront_generic.vhd" \
+"../../../../AXI_SpaceWire_IP_1.0/src/spwstream.vhd" \
+"../../../../AXI_SpaceWire_IP_1.0/src/spwxmit.vhd" \
+"../../../../AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd" \
+"../../../../AXI_SpaceWire_IP_1.0/src/syncdff.vhd" \
+
+vhdl2008 xil_defaultlib  \
+"../../../../edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd" \
+
+vhdl work  \
+"../../../../edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/fifointerface_rx_tb.vhd" \
+
+vhdl2008 work  \
+"../../../../edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/fifointerface_tb.vhd" \
+
+# Do not sort compile order
+nosort

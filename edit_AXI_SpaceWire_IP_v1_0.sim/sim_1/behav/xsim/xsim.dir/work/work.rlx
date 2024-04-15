@@ -2,5 +2,24 @@
 2020.2
 Apr 18 2022
 15:53:03
+<<<<<<< Updated upstream
 /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/fifointerface_rx_tb.vhd,1667571025,vhdl,,,,fifointerface_rx_tb,,,,,,,,
 /home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/fifointerface_tb.vhd,1667556697,vhdl2008,,,,fifointerface_tx_tb,,,,,,,,
+=======
+/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0.vhd,1711011635,vhdl2008,,,,axi_spacewire_ip_v1_0,,,,,,,,
+/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S00_AXI_TX.vhd,1712738353,vhdl2008,,,,axi_spacewire_ip_v1_0_s00_axi_tx,,,,,,,,
+/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S01_AXI_RX.vhd,1711031635,vhdl2008,,,,axi_spacewire_ip_v1_0_s01_axi_rx,,,,,,,,
+/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/hdl/AXI_SpaceWire_IP_v1_0_S02_AXI_REG.vhd,1692188263,vhdl2008,,,,axi_spacewire_ip_v1_0_s02_axi_reg,,,,,,,,
+/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwlink.vhd,1660807976,vhdl2008,,,,spwlink,,,,,,,,
+/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwpkg.vhd,1692188263,vhdl2008,/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/AXI_SpaceWire_IP_v1_0_tb.vhd,,,spwpkg,,,,,,,,
+/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwram.vhd,1660807976,vhdl2008,,,,spwram,,,,,,,,
+/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecv.vhd,1660807976,vhdl2008,,,,spwrecv,,,,,,,,
+/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_fast.vhd,1675161453,vhdl2008,,,,spwrecvfront_fast,,,,,,,,
+/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwrecvfront_generic.vhd,1660807976,vhdl2008,,,,spwrecvfront_generic,,,,,,,,
+/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwstream.vhd,1692188263,vhdl2008,,,,spwstream,,,,,,,,
+/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit.vhd,1660807976,vhdl2008,,,,spwxmit,,,,,,,,
+/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/spwxmit_fast.vhd,1675159928,vhdl2008,,,,spwxmit_fast,,,,,,,,
+/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/AXI_SpaceWire_IP_1.0/src/syncdff.vhd,1660807976,vhdl2008,,,,syncdff,,,,,,,,
+/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/fifointerface_rx_tb.vhd,1692188263,vhdl,,,,fifointerface_rx_tb,,,,,,,,
+/home/stl56jc/Dokumente/Code/axi_spw_ip_repo/edit_AXI_SpaceWire_IP_v1_0.srcs/sim_1/new/fifointerface_tb.vhd,1712738784,vhdl2008,,,,fifointerface_tx_tb,,,,,,,,
+>>>>>>> Stashed changes

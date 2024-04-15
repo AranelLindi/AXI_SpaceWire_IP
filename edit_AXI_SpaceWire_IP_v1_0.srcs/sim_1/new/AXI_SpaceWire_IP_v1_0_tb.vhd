@@ -859,7 +859,7 @@ begin
             --report "End AXI4FullRead_RX";
         end procedure AXI4FullRead_RX;
 
-        variable data : array_t(0 to 0)(31 downto 0);
+        variable data : array_t(0 to 63)(31 downto 0);
     begin
         wait on rst_ps;
 
@@ -957,6 +957,11 @@ begin
         
         wait for 30 us;
         
+<<<<<<< Updated upstream
+=======
+        --tc_in <= '1'; -- would trigger sending process of a single Time-Code (as long as it remains '1')
+        
+>>>>>>> Stashed changes
         -- Set tc_in Signal for one clock cycle
         wait until falling_edge(clk_logic);
         tc_in <= '1', '0' after pl_clock_period;
@@ -987,6 +992,7 @@ begin
 --                     s00_axi_tx_rready); -- read data channel
 --        report "Number of elements in TX FIFO: " & to_string(s01_axi_rx_rdata);
 
+<<<<<<< Updated upstream
 --        -- Write some Data into tx fifo:
 --        for i in 0 to 2048 loop
 --            data(0) := std_logic_vector(to_unsigned(i, 32));
@@ -1015,6 +1021,58 @@ begin
 --                         s00_axi_tx_rready); -- read data channel
 --            wait for ps_clock_period/2;
 --        end loop;
+=======
+        for i in 0 to 63 loop
+            data(i) := std_logic_vector(to_unsigned(i, 32));
+        end loop;
+
+        -- Write some Data into tx fifo:
+        for i in 0 to 63 loop
+            --data(i) := std_logic_vector(to_unsigned(i, 32));
+            AXI4FullWrite(s00_axi_tx_awaddr, "000",
+                          s00_axi_tx_awlen, std_logic_vector(to_unsigned(64, s00_axi_tx_awlen'length)), -- awlen is zero-based index !
+                          s00_axi_tx_awburst, "00", -- FIXED BURST
+                          s00_axi_tx_awvalid,
+                          s00_axi_tx_awready,
+                          s00_axi_tx_wdata, data,
+                          s00_axi_tx_wstrb, "0011",
+                          s00_axi_tx_wlast,
+                          s00_axi_tx_wvalid,
+                          s00_axi_tx_wready,
+                          s00_axi_tx_bready,
+                          s00_axi_tx_bvalid);
+            report to_string(i);
+            wait for 4 * ps_clock_period;
+            -- Check number of elements in tx fifo: (should be eleven)
+            AXI4FullRead(s01_axi_rx_araddr, "000",
+                         s01_axi_rx_arlen, std_logic_vector(to_unsigned(64, s01_axi_rx_arlen'length)),
+                         s01_axi_rx_arburst, "00", -- FIXED BURST
+                         s01_axi_rx_arvalid,
+                         s01_axi_rx_arready, -- read address channel
+                         s01_axi_rx_rlast,
+                         s01_axi_rx_rvalid,
+                         s01_axi_rx_rready); -- read data channel
+            wait for ps_clock_period/2;
+        end loop;
+        
+        wait for 10 us;
+        for i in 0 to 10 loop
+            data(0) := std_logic_vector(to_unsigned(256, 32));
+            AXI4FullWrite(s00_axi_tx_awaddr, "000",
+                          s00_axi_tx_awlen, std_logic_vector(to_unsigned(data'length, s00_axi_tx_awlen'length)), -- awlen is zero-based index !
+                          s00_axi_tx_awburst, "00", -- FIXED BURST
+                          s00_axi_tx_awvalid,
+                          s00_axi_tx_awready,
+                          s00_axi_tx_wdata, data,
+                          s00_axi_tx_wstrb, "0011",
+                          s00_axi_tx_wlast,
+                          s00_axi_tx_wvalid,
+                          s00_axi_tx_wready,
+                          s00_axi_tx_bready,
+                          s00_axi_tx_bvalid);
+            wait for 10 us;
+        end loop;
+>>>>>>> Stashed changes
 
 --        -- Check number of elements in tx fifo: (should be eleven)
 --        AXI4FullRead(s00_axi_tx_araddr, "100",

@@ -1,6 +1,10 @@
 Vivado Simulator v2022.1
 Copyright 1986-1999, 2001-2022 Xilinx, Inc. All Rights Reserved.
+<<<<<<< Updated upstream
 Running: /tools/Xilinx/Vivado/2022.1/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L secureip --snapshot AXI_SpaceWire_IP_v1_0_tb_behav xil_defaultlib.AXI_SpaceWire_IP_v1_0_tb -log elaborate.log 
+=======
+Running: /tools/Xilinx/Vivado/2022.1/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L work -L secureip --snapshot fifointerface_tx_tb_behav work.fifointerface_tx_tb -log elaborate.log 
+>>>>>>> Stashed changes
 Using 8 slave threads.
 Starting static elaboration
 Completed static elaboration
@@ -11,7 +15,11 @@ Compiling package std.standard
 Compiling package std.textio
 Compiling package ieee.std_logic_1164
 Compiling package ieee.numeric_std
+<<<<<<< Updated upstream
 Compiling package xil_defaultlib.spwpkg
+=======
+Compiling package ieee.math_real
+>>>>>>> Stashed changes
 Compiling package unimacro.vcomponents
 Compiling package unisim.vcomponents
 Compiling package ieee.math_real
@@ -22,6 +30,7 @@ Compiling package ieee.std_logic_arith
 Compiling architecture ff18_internal_vhdl_v of entity unisim.FF18_INTERNAL_VHDL [\FF18_INTERNAL_VHDL(almost_full_...]
 Compiling architecture fifo18e1_v of entity unisim.FIFO18E1 [\FIFO18E1(almost_full_offset="01...]
 Compiling architecture fifo_v of entity unimacro.FIFO_DUALCLOCK_MACRO [\FIFO_DUALCLOCK_MACRO(almost_ful...]
+<<<<<<< Updated upstream
 Compiling architecture arch_imp of entity xil_defaultlib.AXI_SpaceWire_IP_v1_0_S00_AXI_TX [axi_spacewire_ip_v1_0_s00_axi_tx...]
 Compiling architecture arch_imp of entity xil_defaultlib.AXI_SpaceWire_IP_v1_0_S01_AXI_RX [axi_spacewire_ip_v1_0_s01_axi_rx...]
 Compiling architecture arch_imp of entity xil_defaultlib.AXI_SpaceWire_IP_v1_0_S02_AXI_REG [axi_spacewire_ip_v1_0_s02_axi_re...]
@@ -36,3 +45,8 @@ Compiling architecture spwstream_arch of entity xil_defaultlib.spwstream [\spwst
 Compiling architecture arch_imp of entity xil_defaultlib.AXI_SpaceWire_IP_v1_0 [axi_spacewire_ip_v1_0_default]
 Compiling architecture axi_spacewire_ip_v1_0_tb_arch of entity xil_defaultlib.axi_spacewire_ip_v1_0_tb
 Built simulation snapshot AXI_SpaceWire_IP_v1_0_tb_behav
+=======
+Compiling architecture arch_imp of entity work.AXI_SpaceWire_IP_v1_0_S00_AXI_TX [axi_spacewire_ip_v1_0_s00_axi_tx...]
+Compiling architecture fifointerface_tx_tb_arch of entity work.fifointerface_tx_tb
+Built simulation snapshot fifointerface_tx_tb_behav
+>>>>>>> Stashed changes
