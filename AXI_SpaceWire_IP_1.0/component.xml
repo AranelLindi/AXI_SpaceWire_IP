@@ -4050,8 +4050,8 @@
         <xilinx:taxonomy>/Embedded_Processing/AXI_Peripheral/High_Speed_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>AXI SpaceWire</xilinx:displayName>
-      <xilinx:coreRevision>74</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2023-10-25T14:24:20Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>75</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2024-04-16T09:01:05Z</xilinx:coreCreationDateTime>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2022.1</xilinx:xilinxVersion>
