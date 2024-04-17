@@ -359,6 +359,9 @@ ARCHITECTURE arch_imp OF AXI_SpaceWire_IP_v1_0_S00_AXI_TX IS
     SIGNAL j : INTEGER;
     SIGNAL mem_byte_index : INTEGER;
     TYPE BYTE_RAM_TYPE IS ARRAY (0 TO 63) OF STD_LOGIC_VECTOR(7 DOWNTO 0);
+    
+    -- Testsignal.
+    SIGNAL s_fifo_wren_sreg : STD_LOGIC_VECTOR(0 DOWNTO 0) := (OTHERS => '0');
 BEGIN
     -- I/O Connections assignments
     S_AXI_AWREADY <= axi_awready;
@@ -601,27 +604,27 @@ BEGIN
         SIGNAL mem_rden : STD_LOGIC;
         SIGNAL mem_wren : STD_LOGIC;
     BEGIN
-        mem_wren <= axi_wready AND S_AXI_WVALID;
+        --mem_wren <= axi_wready AND S_AXI_WVALID;
         mem_rden <= axi_arv_arr_flag;
 
         BYTE_BRAM_GEN : FOR mem_byte_index IN 0 TO (C_S_AXI_DATA_WIDTH/8 - 1) GENERATE
+            --SIGNAL data_in : STD_LOGIC_VECTOR(8 - 1 DOWNTO 0);
             SIGNAL byte_ram : BYTE_RAM_TYPE;
-            SIGNAL data_in : STD_LOGIC_VECTOR(8 - 1 DOWNTO 0);
             SIGNAL data_out : STD_LOGIC_VECTOR(8 - 1 DOWNTO 0);
         BEGIN
             --assigning 8 bit data
-            data_in <= S_AXI_WDATA((mem_byte_index * 8 + 7) DOWNTO (mem_byte_index * 8));
+            --data_in <= S_AXI_WDATA((mem_byte_index * 8 + 7) DOWNTO (mem_byte_index * 8));
             -- Memory write process.
             BYTE_RAM_PROC : PROCESS (S_AXI_ACLK) IS
             BEGIN
                 IF (rising_edge (S_AXI_ACLK)) THEN
-                    IF (mem_wren = '1' AND S_AXI_WSTRB(mem_byte_index) = '1') THEN
+                    IF (axi_wready = '1' AND S_AXI_WVALID = '1' AND S_AXI_WSTRB(mem_byte_index) = '1') THEN -- vorher: anstelle von "axi_wready = '1' AND S_AXI_WVALID = '1'" stand "mem_wren"
                         --byte_ram(to_integer(unsigned(mem_address))) <= data_in;
                         -- Memory address differentation.
                         CASE mem_address IS
                             WHEN "0" =>
                                 --byte_ram(to_integer(unsigned(mem_address))) <= data_in;
-                                s_fifo_di((mem_byte_index * 8 + 7) DOWNTO (mem_byte_index * 8)) <= data_in;
+                                s_fifo_di((mem_byte_index * 8 + 7) DOWNTO (mem_byte_index * 8)) <= S_AXI_WDATA((mem_byte_index * 8 + 7) DOWNTO (mem_byte_index * 8));--data_in;
                                 -- Writing to a full fifo causes no harm on hardware so let it to outside world (e.g. software) to manage and respect that.
 
                             WHEN OTHERS =>
@@ -673,10 +676,10 @@ BEGIN
 
     -- Debug signal assignment (could be marked as 'open' in upper code if not needed; signals are not required in regular operation)
     rden <= s_fifo_rden;
-    wren <= s_fifo_wren;
+    wren <= s_fifo_wren_sreg(s_fifo_wren_sreg'high);
     rdcount <= STD_LOGIC_VECTOR(to_unsigned(s_rdcounter, rdcount'length));--s_fifo_rdcount;
     wrcount <= STD_LOGIC_VECTOR(to_unsigned(s_wrcounter, wrcount'length));--s_fifo_wrcount;
-    di <= s_fifo_space_reg;--s_fifo_di; -- s_fifo_space_reg (Debug!)
+    di <= s_fifo_di; -- s_fifo_space_reg (Debug!)
     do(8 DOWNTO 0) <= s_fifo_do;
     empty <= s_fifo_empty;
     full <= s_fifo_full;
@@ -703,6 +706,24 @@ BEGIN
             s_fifo_space_reg <= STD_LOGIC_VECTOR(s_size);
         END IF;
     END PROCESS;
+    
+    
+    process(S_AXI_ACLK)
+    begin
+        if rising_edge(S_AXI_ACLK) then
+            if S_AXI_ARESETN = '0' then
+                -- Synchronous reset.
+                s_fifo_wren_sreg <= (OTHERS => '0');
+            else
+                s_fifo_wren_sreg(0) <= s_fifo_wren;
+                --s_fifo_wren_sreg(1) <= s_fifo_wren_sreg(0);
+                
+                for i in 0 to (s_fifo_wren_sreg'length - 2) loop
+                    s_fifo_wren_sreg(i + 1) <= s_fifo_wren_sreg(i);
+                end loop;
+            end if;
+        end if;
+    end process;
 
     -- Writes data words coming from AXI Bus into fifo. The wren signal is asserted or deasserted depending on the write channel handshake signals.
     wr_0 : PROCESS (S_AXI_ACLK)
@@ -713,7 +734,7 @@ BEGIN
                 s_fifo_wren <= '0';
                 s_wrcounter <= 0;
             ELSE
-                IF S_AXI_WVALID = '1' AND axi_wready = '1' THEN -- sehr gefährlich... ist vermutlich oft länger als einen takt HIGH (also beides) (hat bisher aber funktioniert, mal gut testen!!)
+                IF S_AXI_WVALID = '1' AND axi_wready = '1' THEN -- Both signals are per definition only assigned for one clock cycle!
                     IF axi_awaddr(ADDR_LSB + OPT_MEM_ADDR_BITS DOWNTO ADDR_LSB) = "0" THEN -- Important! Elsewise wren is also asserted while element register is addressed!
                         s_fifo_wren <= '1'; -- Assert write enabling signal
 
@@ -828,7 +849,7 @@ BEGIN
         RDEN => s_fifo_rden, -- 1-bit input read enable
         RST => s_axi_areseth, -- 1-bit input reset ( CAUTION ! AXI RESET IS active_low BUT FIFO RESET IS active_high ! )
         WRCLK => S_AXI_ACLK, -- 1-bit input write clock
-        WREN => s_fifo_wren -- 1-bit input write enable
+        WREN => s_fifo_wren--s_fifo_wren_sreg(s_fifo_wren_sreg'high)--s_fifo_wren -- 1-bit input write enable
     );
     -- End of FIFO_DUALCLOCK_MACRO_inst instantiation
 
