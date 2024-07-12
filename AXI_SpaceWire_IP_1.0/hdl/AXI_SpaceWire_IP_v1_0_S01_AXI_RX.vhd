@@ -817,7 +817,7 @@ BEGIN
     FIFO_DUALCLOCK_MACRO_inst_TX : FIFO_DUALCLOCK_MACRO
     GENERIC MAP(
         DEVICE => "7SERIES", -- Target Device: "VIRTEX5", "VIRTEX6", "7SERIES" 
-        ALMOST_FULL_OFFSET => x"F", -- Sets almost full threshold (see UG473 p. 57 table 2-8) -- CAUTION ! Signal is assigned to high if only 4 more data words would fit into the fifo !
+        ALMOST_FULL_OFFSET => x"F", -- Sets almost full threshold (see UG473 p. 57 table 2-8) -- CAUTION ! Signal is assigned to high if only 15 more data words would fit into the fifo !
         ALMOST_EMPTY_OFFSET => x"100", -- 256 -- Sets the almost empty threshold to 256 (one AXI4 Full Burst (256) transfer is possible -- SIGNAL IS NOT USED !
         DATA_WIDTH => 9, -- Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
         FIFO_SIZE => "36Kb", -- Target BRAM, "18Kb" or "36Kb" 
