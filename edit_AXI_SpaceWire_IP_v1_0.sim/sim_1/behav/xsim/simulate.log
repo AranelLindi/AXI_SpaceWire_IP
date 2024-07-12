@@ -1,1 +1,4 @@
 Time resolution is 1 ps
+Failure: DRC Error : The attribute ALMOST_FULL_OFFSET on FIFO36E1 is set to 4089. It must be set to a value smaller than (FIFO_DEPTH - ((roundup (4 * (WRCLK frequency / RDCLK frequency))) + 6)) when FIFO36E1 has different frequencies for RDCLK and WRCLK.
+Time: 3010 ns  Iteration: 2  Process: /fifointerface_rx_tb/dut/FIFO_DUALCLOCK_MACRO_inst_TX/bl/fifo_36_inst_bl/fifo_36_bl/FIFO36E1_inst/prcs_check_almost_rdclk  File: /tools/Xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/FIFO36E1.vhd
+$finish called at time : 3010 ns

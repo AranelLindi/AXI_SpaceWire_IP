@@ -268,9 +268,9 @@ ARCHITECTURE arch_imp OF AXI_SpaceWire_IP_v1_0_S01_AXI_RX IS
     SIGNAL s_fifo_do : STD_LOGIC_VECTOR(C_S_AXI_DATA_WIDTH - 1 DOWNTO 0) := (OTHERS => '0'); -- Internal signal
     SIGNAL s_fifo_empty : STD_LOGIC; -- Top Level IO
     SIGNAL s_fifo_full : STD_LOGIC; -- Top Level IO
-    SIGNAL s_fifo_rdcount : STD_LOGIC_VECTOR(10 DOWNTO 0); -- err? -- Top Level IO ?
+    SIGNAL s_fifo_rdcount : STD_LOGIC_VECTOR(11 DOWNTO 0); -- err? -- Top Level IO ?
     SIGNAL s_fifo_rderr : STD_LOGIC; -- Top Level IO ? 
-    SIGNAL s_fifo_wrcount : STD_LOGIC_VECTOR(10 DOWNTO 0); -- err?
+    SIGNAL s_fifo_wrcount : STD_LOGIC_VECTOR(11 DOWNTO 0); -- err?
     SIGNAL s_fifo_wrerr : STD_LOGIC;
     SIGNAL s_fifo_di : STD_LOGIC_VECTOR(C_S_AXI_DATA_WIDTH - 1 DOWNTO 0) := (OTHERS => '0');
     SIGNAL s_fifo_rden : STD_LOGIC := '0';
@@ -280,7 +280,7 @@ ARCHITECTURE arch_imp OF AXI_SpaceWire_IP_v1_0_S01_AXI_RX IS
     SIGNAL s_fifo_do_buffer : STD_LOGIC_VECTOR(C_S_AXI_DATA_WIDTH - 1 DOWNTO 0);
 
     -- Fifo constants declaration.
-    CONSTANT c_fifo_size : INTEGER := 2049; -- p. 57 UG473 (table 2-7)
+    CONSTANT c_fifo_size : INTEGER := 4097;--2049; -- p. 57 UG473 (table 2-7)
 
     -- Available elements register signals.
     SIGNAL s_fifo_elements_reg : STD_LOGIC_VECTOR(C_S_AXI_DATA_WIDTH - 1 DOWNTO 0);
@@ -657,7 +657,7 @@ BEGIN
     wrcount <= STD_LOGIC_VECTOR(to_unsigned(s_wrcounter, wrcount'length));--s_fifo_wrcount;
     di <= s_fifo_elements_reg;--s_fifo_di;
     do <= s_fifo_do;
-    empty <= s_fifo_empty;
+    empty <= s_fifo_almostfull;--s_fifo_empty;
     full <= s_fifo_full;
 
     -- Combinatorial process: Calculates available elements depending on read/write counters.
@@ -733,7 +733,7 @@ BEGIN
                         s_fifo_wren <= '0';
                         packet_out <= '0';
 
-                        IF rxvalid = '1' AND s_fifo_full = '0' THEN
+                        IF rxvalid = '1' AND s_fifo_almostfull = '0' THEN--s_fifo_full = '0' THEN
                             rxread <= '1'; -- Must asserted before valid data is put on rxdata/rxflag!
 
                             spwwrapperstate <= S_Operation;
@@ -817,10 +817,10 @@ BEGIN
     FIFO_DUALCLOCK_MACRO_inst_TX : FIFO_DUALCLOCK_MACRO
     GENERIC MAP(
         DEVICE => "7SERIES", -- Target Device: "VIRTEX5", "VIRTEX6", "7SERIES" 
-        ALMOST_FULL_OFFSET => x"6FF", -- 1791  -- Sets almost full threshold
-        ALMOST_EMPTY_OFFSET => x"100", -- 256 -- Sets the almost empty threshold to 256 (one AXI4 Full Burst (256) transfer is possible
+        ALMOST_FULL_OFFSET => x"F", -- Sets almost full threshold (see UG473 p. 57 table 2-8) -- CAUTION ! Signal is assigned to high if only 4 more data words would fit into the fifo !
+        ALMOST_EMPTY_OFFSET => x"100", -- 256 -- Sets the almost empty threshold to 256 (one AXI4 Full Burst (256) transfer is possible -- SIGNAL IS NOT USED !
         DATA_WIDTH => 9, -- Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-        FIFO_SIZE => "18Kb", -- Target BRAM, "18Kb" or "36Kb" 
+        FIFO_SIZE => "36Kb", -- Target BRAM, "18Kb" or "36Kb" 
         FIRST_WORD_FALL_THROUGH => TRUE) -- Sets the FIFO FWFT to TRUE or FALSE
     PORT MAP(
         ALMOSTEMPTY => s_fifo_almostempty, -- 1-bit output almost empty
